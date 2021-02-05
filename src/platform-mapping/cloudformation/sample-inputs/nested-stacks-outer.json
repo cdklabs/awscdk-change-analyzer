@@ -1,0 +1,34 @@
+{
+  "Resources": {
+    "SomeVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "TestStack/VPC"
+          }
+        ]
+      }
+    },
+    "NestedStack": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "<S3 URL for the template>",
+        "Parameters": {
+          "InnerStackParameter": { "Ref": "OuterStackParameter"}
+        }
+      }
+    }
+  },
+  "Parameters": {
+    "OuterStackParameter": {
+      "Type": "String",
+      "Default": "parameter_default_outer_value"
+    }
+  }
+}
