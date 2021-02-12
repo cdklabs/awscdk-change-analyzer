@@ -24,7 +24,7 @@ export const generateGraph = (model: InfraModel, outputFilename: string): void =
     const nodes = new Map()
 
     model.componentNodes.forEach(componentNode => {
-        if(componentNode instanceof ComponentGroup && componentNode.parents.length === 0) {
+        if(componentNode instanceof ComponentGroup && componentNode.parents.size === 0) {
             generateClusterChildren(g, componentNode, nodes)
         }
     })

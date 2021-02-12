@@ -8,8 +8,8 @@ interface ComponentNodeConstructorArgs {
 
 export abstract class ComponentNode extends ModelEntity {
     
-    parents: Relationship[] = []
-    children: Relationship[] = []
+    parents: Set<Relationship> = new Set()
+    children: Set<Relationship> = new Set()
 
     name: string
 
