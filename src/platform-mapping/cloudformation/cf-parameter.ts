@@ -1,8 +1,8 @@
 import { Component } from "../../infra-model/component"
 import { Relationship } from "../../infra-model/relationship"
-import { CFNode } from "./cf-node"
+import { CFEntity } from "./cf-entity"
 
-export class CFParameter extends CFNode {
+export class CFParameter extends CFEntity {
 
     generateComponent(name: string, definition: Record<string, any>): Component {
         const component = new Component(name, 'parameter', {subtype: definition.Type, properties: definition})
@@ -14,7 +14,7 @@ export class CFParameter extends CFNode {
         return component
     }
 
-    createRelationshipsAndComponents(nodes: Record<string, CFNode>): [Relationship[], Component[]]{
+    createRelationshipsAndComponents(nodes: Record<string, CFEntity>): [Relationship[], Component[]]{
         const [outerRelationships, componentNodes] = super.createRelationshipsAndComponents(nodes)
 
         const argParameterRelationships = 

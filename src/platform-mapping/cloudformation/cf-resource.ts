@@ -1,8 +1,8 @@
 import { Component } from '../../infra-model/component'
-import { CFNode } from './cf-node'
+import { CFEntity } from './cf-entity'
 import { CFParserArgs } from './cf-parser-args'
 
-export class CFResource extends CFNode {
+export class CFResource extends CFEntity {
 
     constructor(name: string, definition: Record<string, any>, args: CFParserArgs, rootNode: Component){
         super(name, definition, args, rootNode)

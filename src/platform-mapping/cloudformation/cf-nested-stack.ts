@@ -1,6 +1,6 @@
 import { Component } from '../../infra-model/component'
 import { Relationship } from '../../infra-model/relationship'
-import { CFNode } from './cf-node'
+import { CFEntity } from './cf-entity'
 import { CFParserArgs } from './cf-parser-args'
 import { CFResource } from './cf-resource'
 import { CFParser } from './cf-parser'
@@ -13,10 +13,10 @@ export class CFNestedStack extends CFResource {
 
     constructor(name: string, definition: Record<string, any>, args: CFParserArgs, rootComponent: Component){
         super(name, definition, args, rootComponent)
-        this.dependencyRefs = new Map(Object.entries(CFNode.readRefsInExpression(definition)).filter(([type]) => !type.startsWith("Properties.Parameters")))
+        this.dependencyRefs = new Map(Object.entries(CFEntity.readRefsInExpression(definition)).filter(([type]) => !type.startsWith("Properties.Parameters")))
     }
 
-    createRelationshipsAndComponents(nodes: Record<string, CFNode>): [Relationship[], Component[]] {
+    createRelationshipsAndComponents(nodes: Record<string, CFEntity>): [Relationship[], Component[]] {
         const [outerRelationships] = super.createRelationshipsAndComponents(nodes)
 
         const nestedStackName = this.component.name
@@ -29,7 +29,7 @@ export class CFNestedStack extends CFResource {
             { 
                 rootComponent: this.component,
                 parameterComponents: Object.fromEntries(parameters.map(([innerParameterName, innerParameterVal]) =>
-                    [innerParameterName, Object.values(CFNode.readRefsInExpression(innerParameterVal)).flatMap(refs => refs.map(ref => nodes[ref].component))])
+                    [innerParameterName, Object.values(CFEntity.readRefsInExpression(innerParameterVal)).flatMap(refs => refs.map(ref => nodes[ref].component))])
                 )
             }
         )

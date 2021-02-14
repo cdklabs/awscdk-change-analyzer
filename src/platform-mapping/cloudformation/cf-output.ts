@@ -1,7 +1,7 @@
 import { Component } from "../../infra-model/component"
-import { CFNode } from "./cf-node"
+import { CFEntity } from "./cf-entity"
 
-export class CFOutput extends CFNode {
+export class CFOutput extends CFEntity {
 
     generateComponent(name: string, definition: Record<string, any>): Component {
         return new Component(name, 'output', {subtype: definition.Type, properties: definition})

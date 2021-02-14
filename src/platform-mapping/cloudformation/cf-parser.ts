@@ -1,7 +1,7 @@
 import { InfraModel } from '../../infra-model/infra-model'
 import { Relationship } from '../../infra-model/relationship'
 import { Parser } from '../parser'
-import { CFNode } from './cf-node'
+import { CFEntity } from './cf-entity'
 import { CFParameter } from './cf-parameter'
 import { CFParserArgs } from './cf-parser-args'
 import { CFResource } from './cf-resource'
@@ -10,7 +10,7 @@ import { CFOutput } from './cf-output'
 import { Component } from '../../infra-model/component'
 
 
-const cfNodeFactory = (componentType: string, componentName: string, definition: any, parserArgs: CFParserArgs, rootNode: Component) => {
+const cfEntityFactory = (componentType: string, componentName: string, definition: any, parserArgs: CFParserArgs, rootNode: Component) => {
     switch(componentType){
         case "Resources":
             switch(definition.Type){
@@ -39,12 +39,12 @@ export class CFParser implements Parser {
 
         const rootComponent = args?.rootComponent ?? new Component(this.name, 'root')
 
-        const cfNodes = this.createCFNodes(rootComponent, args)
+        const cfEntities = this.createCFEntities(rootComponent, args)
 
         const relationships: Relationship[] = []
         const components: Component[] = []
-        Object.values(cfNodes).forEach(node => {
-            const [r, c] = node.createRelationshipsAndComponents(cfNodes)
+        Object.values(cfEntities).forEach(node => {
+            const [r, c] = node.createRelationshipsAndComponents(cfEntities)
             relationships.push(...r)
             components.push(...c)
         })
@@ -56,12 +56,12 @@ export class CFParser implements Parser {
         )
     }
 
-    createCFNodes = (rootNode: Component, args?: CFParserArgs):Record<string, CFNode> => {
-        const nodes: Record<string, CFNode> = {}
+    createCFEntities = (rootNode: Component, args?: CFParserArgs):Record<string, CFEntity> => {
+        const nodes: Record<string, CFEntity> = {}
         Object.entries(this.template).forEach(([componentType, definitions]) => {
             Object.entries(definitions).forEach(([componentName, definition]) => {
 
-                const node = cfNodeFactory(componentType, componentName, definition, args ?? {}, rootNode)
+                const node = cfEntityFactory(componentType, componentName, definition, args ?? {}, rootNode)
                 node && (nodes[componentName] = node)
 
             })
