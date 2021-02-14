@@ -27,5 +27,10 @@
       "Type": "String",
       "Default": "parameter_default_inner_value"
     }
+  },
+  "Outputs": {
+    "InnerOutput": {
+      "Value": {"Fn::Sub": ["SomeOutputValue ${withAnArgument} and an ${InnerStackParameter}", {"withAnArgument": "with an argument"}]}
+    }
   }
 }

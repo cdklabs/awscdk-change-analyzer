@@ -19,7 +19,7 @@ const cfNodeFactory = (componentType: string, componentName: string, definition:
             }
         case "Parameters":
             return new CFParameter(componentName, definition, parserArgs, rootNode)
-        case "Output":
+        case "Outputs":
             return new CFOutput(componentName, definition, parserArgs, rootNode)
         default: return undefined
     }

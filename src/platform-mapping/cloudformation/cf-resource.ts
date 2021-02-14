@@ -7,7 +7,7 @@ export class CFResource extends CFNode {
     constructor(name: string, definition: Record<string, any>, args: CFParserArgs, rootNode: Component){
         super(name, definition, args, rootNode)
         if(definition.Properties && typeof definition.Properties.DependsOn === 'string')
-            this.dependencyRefs.set('DependsOn', definition.Properties.DependsOn)
+            this.dependencyRefs.set('DependsOn', [definition.Properties.DependsOn])
     }
 
     generateComponent(name: string, definition:Record<string, any>): Component {

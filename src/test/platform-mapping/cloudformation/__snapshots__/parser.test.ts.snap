@@ -896,6 +896,22 @@ exports[`cfn-nested-template 1`] = `
     },
     {
         \\"properties\\": {
+            \\"Value\\": {
+                \\"Fn::Sub\\": [
+                    \\"SomeOutputValue \${withAnArgument} and an \${InnerStackParameter}\\",
+                    {
+                        \\"withAnArgument\\": \\"with an argument\\"
+                    }
+                ]
+            }
+        },
+        \\"parents\\": {},
+        \\"children\\": {},
+        \\"name\\": \\"InnerOutput\\",
+        \\"type\\": \\"output\\"
+    },
+    {
+        \\"properties\\": {
             \\"Type\\": \\"String\\",
             \\"Default\\": \\"parameter_default_outer_value\\"
         },

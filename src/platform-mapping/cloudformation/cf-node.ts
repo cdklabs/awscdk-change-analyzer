@@ -7,7 +7,7 @@ import { CFParserArgs } from "./cf-parser-args"
 export abstract class CFNode {
 
     component: Component
-    dependencyRefs: Map<string, string>
+    dependencyRefs: Map<string, string[]>
     parserArgs: CFParserArgs
     rootComponent: Component
 
@@ -27,10 +27,10 @@ export abstract class CFNode {
 
         const relationships = [
             ...Array.from(this.dependencyRefs)
-                .map(([type, ref]) => {
-                    if(cfNodes[ref] === undefined) console.log(this.component.name, this.dependencyRefs)
-                    return this.createDependencyRelationship(cfNodes[ref].component, type)
-                }),
+                .flatMap(([type, refs]) =>
+                    refs.map(ref =>
+                        this.createDependencyRelationship(cfNodes[ref].component, type)
+                )),
             rootRelationship
         ]
 
@@ -48,24 +48,28 @@ export abstract class CFNode {
         return relationship
     }
     
-    static readRefsInPropertyMapping: Record<string, (s:any) => string | undefined> = Object.freeze({
+    static readRefsInPropertyMapping: Record<string, (s:any) => string[]> = Object.freeze({
         'Ref': (value: any) =>
             (typeof(value) === 'string' && !value.startsWith('AWS::'))
-            ? value : undefined,
+            ? [value] : [],
         'Fn::GetAtt': (value: any) => 
-            Array.isArray(value) ? value[0] : undefined,
+            Array.isArray(value) ? [value[0]] : [],
+        'Fn::Sub': (value: any) => 
+            Array.isArray(value) && typeof value[0] === 'string' && ((typeof value[1] === 'object' && value[1] !== null) || value[1] === undefined)
+            ? [...value[0].matchAll(/\$\{[A-Za-z0-9]*\}/g)].map(v => v[0].slice(2,-1)).filter(v => !Object.keys(value[1]).includes(v))
+            : []
     })
 
-    static readRefsInExpression = (expression: any, refPath?: string): Record<string, string> => {
+    static readRefsInExpression = (expression: any, refPath?: string): Record<string, string[]> => {
         if(typeof(expression) !== 'object' || expression == null)
             return {}
         else {
             return Object.entries(expression).reduce((acc, [k, v]) => {
                 const newRefPath = refPath ? `${refPath}.${k}` : k
-                let ref
+                let refs
                 return {...acc,
-                    ...CFNode.readRefsInPropertyMapping[k] && (ref = CFNode.readRefsInPropertyMapping[k](v))
-                        ? {[newRefPath]: ref}
+                    ...CFNode.readRefsInPropertyMapping[k] && (refs = CFNode.readRefsInPropertyMapping[k](v))
+                        ? {[newRefPath]: refs}
                         : CFNode.readRefsInExpression(v, newRefPath)
                 }
             }, {})

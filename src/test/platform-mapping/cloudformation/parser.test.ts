@@ -60,7 +60,7 @@ test('cfn-nested-template', () => {
     genGraphOnEnvFlag(model, 'nested-stacks')
 
     expect(stringifyModel(model.components)).toMatchSnapshot()
-    expect(model.components.length).toBe(7)
-    expect(model.relationships.length).toBe(13)
-    expect(model.relationships.filter(r => r instanceof DependencyRelationship).length).toBe(7)
+    expect(model.components.length).toBe(8)
+    expect(model.relationships.length).toBe(16)
+    expect(model.relationships.filter(r => r instanceof DependencyRelationship).length).toBe(9)
 })

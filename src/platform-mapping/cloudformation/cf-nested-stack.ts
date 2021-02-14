@@ -17,7 +17,7 @@ export class CFNestedStack extends CFResource {
     }
 
     createRelationshipsAndComponents(nodes: Record<string, CFNode>): [Relationship[], Component[]] {
-        const [outerRelationships, outerComponents] = super.createRelationshipsAndComponents(nodes)
+        const [outerRelationships] = super.createRelationshipsAndComponents(nodes)
 
         const nestedStackName = this.component.name
         if(!this.parserArgs.nestedStacks || !{}.hasOwnProperty.call(this.parserArgs.nestedStacks, nestedStackName))
@@ -29,7 +29,7 @@ export class CFNestedStack extends CFResource {
             { 
                 rootComponent: this.component,
                 parameterComponents: Object.fromEntries(parameters.map(([innerParameterName, innerParameterVal]) =>
-                    [innerParameterName, Object.values(CFNode.readRefsInExpression(innerParameterVal)).map(ref => nodes[ref].component)])
+                    [innerParameterName, Object.values(CFNode.readRefsInExpression(innerParameterVal)).flatMap(refs => refs.map(ref => nodes[ref].component))])
                 )
             }
         )
