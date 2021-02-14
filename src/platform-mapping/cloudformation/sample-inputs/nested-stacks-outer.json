@@ -12,7 +12,8 @@
             "Key": "Name",
             "Value": "TestStack/VPC"
           }
-        ]
+        ],
+        "DependsOn": "NestedStack"
       }
     },
     "NestedStack": {

@@ -1,5 +1,4 @@
 import { Component } from "../../infra-model/component"
-import { ComponentNode } from "../../infra-model/component-node"
 import { DependencyRelationship } from "../../infra-model/dependency-relationship"
 import { Relationship } from "../../infra-model/relationship"
 import { StructuralRelationship } from "../../infra-model/structural-relationship"
@@ -10,21 +9,21 @@ export abstract class CFNode {
     component: Component
     dependencyRefs: Map<string, string>
     parserArgs: CFParserArgs
-    rootNode: ComponentNode
+    rootComponent: Component
 
-    constructor(name: string, componentNode: Record<string, any>, args: CFParserArgs, rootNode: ComponentNode){
-        this.rootNode = rootNode
-        this.dependencyRefs = new Map(Object.entries(CFNode.readRefsInExpression(componentNode)))
+    constructor(name: string, definition: Record<string, any>, args: CFParserArgs, rootComponent: Component){
+        this.rootComponent = rootComponent
+        this.dependencyRefs = new Map(Object.entries(CFNode.readRefsInExpression(definition)))
         this.parserArgs = args
-        this.component = this.generateComponentNode(name, componentNode)
+        this.component = this.generateComponent(name, definition)
     }
 
-    abstract generateComponentNode(name: string, definition:Record<string, any>):Component
+    abstract generateComponent(name: string, definition:Record<string, any>):Component
 
-    createRelationshipsAndComponentNodes(cfNodes: Record<string, CFNode>): [Relationship[], ComponentNode[]]{
-        const rootRelationship = new StructuralRelationship(this.rootNode, this.component, 'root')
+    createRelationshipsAndComponents(cfNodes: Record<string, CFNode>): [Relationship[], Component[]]{
+        const rootRelationship = new StructuralRelationship(this.rootComponent, this.component, 'root')
         this.component.parents.add(rootRelationship)
-        this.rootNode.children.add(rootRelationship)
+        this.rootComponent.children.add(rootRelationship)
 
         const relationships = [
             ...Array.from(this.dependencyRefs)

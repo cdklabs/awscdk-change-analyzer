@@ -1,14 +1,14 @@
-import { ComponentNode } from "./component-node"
+import { Component } from "./component"
 import { Relationship } from "./relationship"
 
 export class InfraModel {
-    rootNode: ComponentNode
-    componentNodes: ComponentNode[]
+    root: Component
+    components: Component[]
     relationships: Relationship[]
 
-    constructor(rootNode: ComponentNode, componentNodes: ComponentNode[], relationships: Relationship[]){
-        this.rootNode = rootNode
-        this.componentNodes = componentNodes
+    constructor(root: Component, components: Component[], relationships: Relationship[]){
+        this.root = root
+        this.components = components
         this.relationships = relationships
     }
 }

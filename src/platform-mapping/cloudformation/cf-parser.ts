@@ -1,5 +1,3 @@
-import { ComponentGroup } from '../../infra-model/component-group'
-import { ComponentNode } from '../../infra-model/component-node'
 import { InfraModel } from '../../infra-model/infra-model'
 import { Relationship } from '../../infra-model/relationship'
 import { Parser } from '../parser'
@@ -9,9 +7,10 @@ import { CFParserArgs } from './cf-parser-args'
 import { CFResource } from './cf-resource'
 import { CFNestedStack } from './cf-nested-stack'
 import { CFOutput } from './cf-output'
+import { Component } from '../../infra-model/component'
 
 
-const cfNodeFactory = (componentType: string, componentName: string, definition: any, parserArgs: CFParserArgs, rootNode: ComponentNode) => {
+const cfNodeFactory = (componentType: string, componentName: string, definition: any, parserArgs: CFParserArgs, rootNode: Component) => {
     switch(componentType){
         case "Resources":
             switch(definition.Type){
@@ -38,26 +37,26 @@ export class CFParser implements Parser {
 
     parse = (args?: CFParserArgs): InfraModel => {
 
-        const rootNode = new ComponentGroup(this.name)
+        const rootComponent = args?.rootComponent ?? new Component(this.name, 'root')
 
-        const cfNodes = this.createCFNodes(rootNode, args)
+        const cfNodes = this.createCFNodes(rootComponent, args)
 
         const relationships: Relationship[] = []
-        const componentNodes: ComponentNode[] = []
+        const components: Component[] = []
         Object.values(cfNodes).forEach(node => {
-            const [r, c] = node.createRelationshipsAndComponentNodes(cfNodes)
+            const [r, c] = node.createRelationshipsAndComponents(cfNodes)
             relationships.push(...r)
-            componentNodes.push(...c)
+            components.push(...c)
         })
 
         return new InfraModel(
-            rootNode,
-            [rootNode, ...componentNodes],
+            rootComponent,
+            [rootComponent, ...components],
             [...relationships]
         )
     }
 
-    createCFNodes = (rootNode: ComponentNode, args?: CFParserArgs):Record<string, CFNode> => {
+    createCFNodes = (rootNode: Component, args?: CFParserArgs):Record<string, CFNode> => {
         const nodes: Record<string, CFNode> = {}
         Object.entries(this.template).forEach(([componentType, definitions]) => {
             Object.entries(definitions).forEach(([componentName, definition]) => {

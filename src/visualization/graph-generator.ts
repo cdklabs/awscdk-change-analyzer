@@ -1,37 +1,48 @@
 import * as graphviz from 'graphviz'
 import { InfraModel } from '../infra-model/infra-model'
 import { Component } from '../infra-model/component'
-import { ComponentGroup } from '../infra-model/component-group'
-import { ComponentNode } from '../infra-model/component-node'
 import { DependencyRelationship } from '../infra-model/dependency-relationship'
+import { StructuralRelationship } from '../infra-model/structural-relationship'
 
-const generateClusterChildren = (graph: graphviz.Graph, componentNode: ComponentNode, addedNodes: Map<Component, graphviz.Node>):void => {
-    if(componentNode instanceof ComponentGroup){
-        const cluster = graph.addCluster(`cluster${graph.clusterCount()}`)
-        cluster.set('label', componentNode.name)
-        componentNode.children.forEach(child => {generateClusterChildren(cluster, child.target, addedNodes)})
-    } else if (componentNode instanceof Component) {
-        if(!addedNodes.has(componentNode)){
-            const node = graph.addNode(`node${addedNodes.size}`, {"color" : "blue"} )
-            node.set('label', componentNode.name)
-            addedNodes.set(componentNode, node)
+const generateClusterChildren = (
+    graph: graphviz.Graph,
+    component: Component,
+    nodes: Map<Component, graphviz.Node>,
+    clusterIds: Map<Component, string>
+):void => {
+    if(!nodes.has(component)){
+        const structuralChildren = Array.from(component.children).filter(c => c instanceof StructuralRelationship)
+
+        if(structuralChildren.length > 0) {
+            const clusterId = `cluster${clusterIds.size}`
+            graph = graph.addCluster(clusterId)
+            graph.set('label', component.name)
+            clusterIds.set(component, clusterId)
+            const node = graph.addNode(`node${nodes.size}`, {shape: "point", height: "0"} )
+            nodes.set(component, node)
+            component.children.forEach(child => generateClusterChildren(graph, child.target, nodes, clusterIds))
+        } else {
+            const node = graph.addNode(`node${nodes.size}`, {color : "blue", label: component.name} )
+            nodes.set(component, node)
         }
     }
 }
 
 export const generateGraph = (model: InfraModel, outputFilename: string): void => {
     const g = graphviz.digraph("G")
-    const nodes = new Map()
+    g.set('compound', true)
+    const nodes: Map<Component, graphviz.Node> = new Map()
+    const clusterIds: Map<Component, string> = new Map()
 
-    model.componentNodes.forEach(componentNode => {
-        if(componentNode instanceof ComponentGroup && componentNode.parents.size === 0) {
-            generateClusterChildren(g, componentNode, nodes)
+    model.components.forEach(component => {
+        if(component.parents.size === 0) {
+            generateClusterChildren(g, component, nodes, clusterIds)
         }
     })
 
-    model.componentNodes.forEach(componentNode => {
-        if(componentNode instanceof Component && !nodes.has(componentNode))
-            nodes.set(componentNode, g.addNode(`node${nodes.size}`, {"color" : "blue"} ))
+    model.components.forEach(component => {
+        if(!nodes.has(component))
+            nodes.set(component, g.addNode(`node${nodes.size}`, {"color" : "blue"} ))
     })
 
     model.relationships.forEach(relationship => {
@@ -39,10 +50,15 @@ export const generateGraph = (model: InfraModel, outputFilename: string): void =
 
         const source = nodes.get(relationship.source)
         const target = nodes.get(relationship.target)
-        g.addEdge(source, target).set('label', relationship.type)
+        if(source && target && !clusterIds.has(relationship.source)){
+            const edge = g.addEdge(source, target, { label: relationship.type })
+
+            const targetCluster = clusterIds.get(relationship.target)
+            if(typeof targetCluster === 'string')
+                edge.set("lhead", targetCluster)
+        }
     })
 
-    //  console.log( g.to_dot() )
     g.output( "png", `${outputFilename}.png` )
 }
 

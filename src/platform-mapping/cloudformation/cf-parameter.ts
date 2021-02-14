@@ -1,11 +1,10 @@
 import { Component } from "../../infra-model/component"
-import { ComponentNode } from "../../infra-model/component-node"
 import { Relationship } from "../../infra-model/relationship"
 import { CFNode } from "./cf-node"
 
 export class CFParameter extends CFNode {
 
-    generateComponentNode(name: string, definition: Record<string, any>): Component {
+    generateComponent(name: string, definition: Record<string, any>): Component {
         const component = new Component(name, 'parameter', {subtype: definition.Type, properties: definition})
 
         if(this.parserArgs.parameterValues && this.parserArgs.parameterValues[name] !== undefined){
@@ -15,8 +14,8 @@ export class CFParameter extends CFNode {
         return component
     }
 
-    createRelationshipsAndComponentNodes(nodes: Record<string, CFNode>): [Relationship[], ComponentNode[]]{
-        const [outerRelationships, componentNodes] = super.createRelationshipsAndComponentNodes(nodes)
+    createRelationshipsAndComponents(nodes: Record<string, CFNode>): [Relationship[], Component[]]{
+        const [outerRelationships, componentNodes] = super.createRelationshipsAndComponents(nodes)
 
         const argParameterRelationships = 
             (this.parserArgs.parameterComponents && (this.parserArgs.parameterComponents)[this.component.name])

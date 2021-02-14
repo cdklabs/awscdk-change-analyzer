@@ -6,7 +6,8 @@ exports[`cfn-complex-template 1`] = `
         \\"properties\\": {},
         \\"parents\\": {},
         \\"children\\": {},
-        \\"name\\": \\"root\\"
+        \\"name\\": \\"root\\",
+        \\"type\\": \\"root\\"
     },
     {
         \\"properties\\": {
@@ -813,7 +814,8 @@ exports[`cfn-nested-template 1`] = `
         \\"properties\\": {},
         \\"parents\\": {},
         \\"children\\": {},
-        \\"name\\": \\"root\\"
+        \\"name\\": \\"root\\",
+        \\"type\\": \\"root\\"
     },
     {
         \\"properties\\": {
@@ -826,7 +828,8 @@ exports[`cfn-nested-template 1`] = `
                     \\"Key\\": \\"Name\\",
                     \\"Value\\": \\"TestStack/VPC\\"
                 }
-            ]
+            ],
+            \\"DependsOn\\": \\"NestedStack\\"
         },
         \\"parents\\": {},
         \\"children\\": {},
@@ -848,12 +851,6 @@ exports[`cfn-nested-template 1`] = `
         \\"name\\": \\"NestedStack\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::CloudFormation::Stack\\"
-    },
-    {
-        \\"properties\\": {},
-        \\"parents\\": {},
-        \\"children\\": {},
-        \\"name\\": \\"NestedStack\\"
     },
     {
         \\"properties\\": {
@@ -917,7 +914,8 @@ exports[`cfn-simple-template 1`] = `
         \\"properties\\": {},
         \\"parents\\": {},
         \\"children\\": {},
-        \\"name\\": \\"root\\"
+        \\"name\\": \\"root\\",
+        \\"type\\": \\"root\\"
     },
     {
         \\"properties\\": {
