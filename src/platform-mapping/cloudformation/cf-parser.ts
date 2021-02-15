@@ -41,19 +41,7 @@ export class CFParser implements Parser {
 
         const cfEntities = this.createCFEntities(templateRoot, args)
 
-        const relationships: Relationship[] = []
-        const components: Component[] = []
-        Object.values(cfEntities).forEach(node => {
-            const [r, c] = node.createRelationshipsAndComponents(cfEntities)
-            relationships.push(...r)
-            components.push(...c)
-        })
-
-        return new InfraModel(
-            templateRoot,
-            [templateRoot, ...components],
-            [...relationships]
-        )
+        return this.createModel(templateRoot, cfEntities)
     }
 
     createCFEntities = (rootNode: Component, args?: CFParserArgs):Record<string, CFEntity> => {
@@ -67,5 +55,21 @@ export class CFParser implements Parser {
             })
         })
         return nodes
+    }
+
+    createModel = (templateRoot:Component, cfEntities: Record<string, CFEntity>, externalParameters?: Record<string, CFEntity[]>):InfraModel => {
+        const relationships: Relationship[] = []
+        const components: Component[] = []
+        Object.values(cfEntities).forEach(node => {
+            const [r, c] = node.createRelationshipsAndComponents(cfEntities, externalParameters)
+            relationships.push(...r)
+            components.push(...c)
+        })
+
+        return new InfraModel(
+            templateRoot,
+            [templateRoot, ...components],
+            [...relationships]
+        )
     }
 }

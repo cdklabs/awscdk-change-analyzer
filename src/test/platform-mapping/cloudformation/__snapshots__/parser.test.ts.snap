@@ -826,10 +826,14 @@ exports[`cfn-nested-template 1`] = `
             \\"Tags\\": [
                 {
                     \\"Key\\": \\"Name\\",
-                    \\"Value\\": \\"TestStack/VPC\\"
+                    \\"Value\\": {
+                        \\"Fn::GetAtt\\": [
+                            \\"NestedStack\\",
+                            \\"Outputs.InnerOutput\\"
+                        ]
+                    }
                 }
-            ],
-            \\"DependsOn\\": \\"NestedStack\\"
+            ]
         },
         \\"parents\\": {},
         \\"children\\": {},

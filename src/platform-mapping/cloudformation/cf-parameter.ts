@@ -14,15 +14,15 @@ export class CFParameter extends CFEntity {
         return component
     }
 
-    createRelationshipsAndComponents(nodes: Record<string, CFEntity>): [Relationship[], Component[]]{
+    createRelationshipsAndComponents(nodes: Record<string, CFEntity>, externalParameters?: Record<string, CFEntity[]>): [Relationship[], Component[]]{
         const [outerRelationships, componentNodes] = super.createRelationshipsAndComponents(nodes)
 
-        const argParameterRelationships = 
-            (this.parserArgs.parameterComponents && (this.parserArgs.parameterComponents)[this.component.name])
-            ? this.parserArgs.parameterComponents[this.component.name].map(c => this.createDependencyRelationship(c, 'nested-parameter'))
+        const externalParameterRelationships = 
+            (externalParameters && (externalParameters)[this.component.name])
+            ? externalParameters[this.component.name].map(c => this.createDependencyRelationship(c.component, 'nested-parameter'))
             : []
 
-        return [[...outerRelationships, ...argParameterRelationships], componentNodes]
+        return [[...outerRelationships, ...externalParameterRelationships], componentNodes]
     }
 
 }
