@@ -37,9 +37,9 @@ export class CFParser implements Parser {
 
     parse = (args?: CFParserArgs): InfraModel => {
 
-        const rootComponent = args?.rootComponent ?? new Component(this.name, 'root')
+        const templateRoot = args?.templateRoot ?? new Component(this.name, 'root')
 
-        const cfEntities = this.createCFEntities(rootComponent, args)
+        const cfEntities = this.createCFEntities(templateRoot, args)
 
         const relationships: Relationship[] = []
         const components: Component[] = []
@@ -50,8 +50,8 @@ export class CFParser implements Parser {
         })
 
         return new InfraModel(
-            rootComponent,
-            [rootComponent, ...components],
+            templateRoot,
+            [templateRoot, ...components],
             [...relationships]
         )
     }

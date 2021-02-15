@@ -61,6 +61,6 @@ test('cfn-nested-template', () => {
 
     expect(stringifyModel(model.components)).toMatchSnapshot()
     expect(model.components.length).toBe(8)
-    expect(model.relationships.length).toBe(16)
-    expect(model.relationships.filter(r => r instanceof DependencyRelationship).length).toBe(9)
+    expect(model.relationships.length).toBe(17)
+    expect(model.relationships.filter(r => r instanceof DependencyRelationship).length).toBe(10)
 })

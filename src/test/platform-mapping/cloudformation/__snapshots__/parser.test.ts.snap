@@ -874,7 +874,10 @@ exports[`cfn-nested-template 1`] = `
     {
         \\"properties\\": {
             \\"SomeProperty\\": {
-                \\"Ref\\": \\"InnerStackParameter\\"
+                \\"Fn::GetAtt\\": [
+                    \\"InnerStackParameter\\",
+                    \\"Type\\"
+                ]
             }
         },
         \\"parents\\": {},
@@ -900,7 +903,9 @@ exports[`cfn-nested-template 1`] = `
                 \\"Fn::Sub\\": [
                     \\"SomeOutputValue \${withAnArgument} and an \${InnerStackParameter}\\",
                     {
-                        \\"withAnArgument\\": \\"with an argument\\"
+                        \\"withAnArgument\\": {
+                            \\"Ref\\": \\"User00B015A1\\"
+                        }
                     }
                 ]
             }

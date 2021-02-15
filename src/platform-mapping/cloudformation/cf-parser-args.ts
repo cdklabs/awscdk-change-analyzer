@@ -4,5 +4,5 @@ export interface CFParserArgs {
     parameterComponents?: Record<string, Component[]>
     parameterValues?: Record<string, string>
     nestedStacks?: Record<string, Record<any, any>>
-    rootComponent?: Component
+    templateRoot?: Component
 }

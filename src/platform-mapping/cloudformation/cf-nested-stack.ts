@@ -11,9 +11,9 @@ export class CFNestedStack extends CFResource {
         return new Component(name, 'resource', {subtype: definition.Type, properties: definition.Properties})
     }
 
-    constructor(name: string, definition: Record<string, any>, args: CFParserArgs, rootComponent: Component){
-        super(name, definition, args, rootComponent)
-        this.dependencyRefs = new Map(Object.entries(CFEntity.readRefsInExpression(definition)).filter(([type]) => !type.startsWith("Properties.Parameters")))
+    constructor(name: string, definition: Record<string, any>, args: CFParserArgs, templateRoot: Component){
+        super(name, definition, args, templateRoot)
+        this.dependencyRefs = this.dependencyRefs.filter(ref => ref.sourcePath[0] !== 'Properties' || ref.sourcePath[1] !== 'Parameters')
     }
 
     createRelationshipsAndComponents(nodes: Record<string, CFEntity>): [Relationship[], Component[]] {
@@ -27,9 +27,9 @@ export class CFNestedStack extends CFResource {
         const parameters = Object.entries(this.component.properties.Parameters ?? {})
         const model = new CFParser(innerStack, nestedStackName).parse(
             { 
-                rootComponent: this.component,
+                templateRoot: this.component,
                 parameterComponents: Object.fromEntries(parameters.map(([innerParameterName, innerParameterVal]) =>
-                    [innerParameterName, Object.values(CFEntity.readRefsInExpression(innerParameterVal)).flatMap(refs => refs.map(ref => nodes[ref].component))])
+                    [innerParameterName, Object.values(CFEntity.readRefsInExpression(innerParameterVal)).map(ref => nodes[ref.logicalId].component)])
                 )
             }
         )
