@@ -22,7 +22,7 @@ export class CFRef {
     static readRefsInPropertyMapping: Record<string, (path:string[], value:any) => CFRef[]> = Object.freeze({
         'Ref': (path:string[], value: any) => [new CFRef(path, value)],
         'Fn::GetAtt': (path:string[], value: any) => {
-            if(Array.isArray(value))
+            if(Array.isArray(value) && value.length >= 2)
                 return [new CFRef(path, value[0], value[1])]
             throw new CFRefInitError("GetAtt does not follow the right structure")
         },

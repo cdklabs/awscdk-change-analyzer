@@ -12,7 +12,7 @@ export class CFResource extends CFEntity {
     }
 
     generateComponent(name: string, definition:Record<string, any>): Component {
-        return new Component(name, 'resource', {subtype: definition.Type, properties: definition.Properties})
+        return new Component(name, 'resource', {subtype: definition.Type, properties: definition.Properties ?? {}})
     }
 
 }

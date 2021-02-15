@@ -41,7 +41,7 @@ export class CFNestedStack extends CFResource {
         )
 
         const crossRelationships: Relationship[] = (model.components
-                .filter(c => c instanceof Component) as Component[])
+                .filter(c => c instanceof Component && c !== this.component) as Component[])
                 .map((c:Component) => this.createDependencyRelationship(c, 'nested-stack-component'))
 
         const relationships = [...outerRelationships, ...crossRelationships, ...model.relationships]

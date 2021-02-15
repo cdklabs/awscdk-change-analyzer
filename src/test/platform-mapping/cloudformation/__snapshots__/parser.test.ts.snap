@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cfn-complex-template 1`] = `
+exports[`CloudFormation complex template 1`] = `
 "[
     {
         \\"properties\\": {},
@@ -808,7 +808,7 @@ exports[`cfn-complex-template 1`] = `
 ]"
 `;
 
-exports[`cfn-nested-template 1`] = `
+exports[`CloudFormation nested template 1`] = `
 "[
     {
         \\"properties\\": {},
@@ -933,7 +933,7 @@ exports[`cfn-nested-template 1`] = `
 ]"
 `;
 
-exports[`cfn-simple-template 1`] = `
+exports[`CloudFormation simple template 1`] = `
 "[
     {
         \\"properties\\": {},
