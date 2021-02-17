@@ -3,13 +3,15 @@
 exports[`CloudFormation complex template 1`] = `
 "[
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {},
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"root\\",
         \\"type\\": \\"root\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"CidrBlock\\": \\"10.0.0.0/16\\",
             \\"EnableDnsHostnames\\": true,
@@ -22,13 +24,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCB9E5F0B4\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::VPC\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"CidrBlock\\": \\"10.0.0.0/19\\",
             \\"VpcId\\": {
@@ -51,13 +53,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet1SubnetB4246D30\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::Subnet\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"VpcId\\": {
                 \\"Ref\\": \\"VPCB9E5F0B4\\"
@@ -69,13 +71,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet1RouteTableFEE4B781\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::RouteTable\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"RouteTableId\\": {
                 \\"Ref\\": \\"VPCPublicSubnet1RouteTableFEE4B781\\"
@@ -84,13 +86,13 @@ exports[`CloudFormation complex template 1`] = `
                 \\"Ref\\": \\"VPCPublicSubnet1SubnetB4246D30\\"
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet1RouteTableAssociation0B0896DC\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::SubnetRouteTableAssociation\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"RouteTableId\\": {
                 \\"Ref\\": \\"VPCPublicSubnet1RouteTableFEE4B781\\"
@@ -100,13 +102,13 @@ exports[`CloudFormation complex template 1`] = `
                 \\"Ref\\": \\"VPCIGWB7E252D3\\"
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet1DefaultRoute91CEF279\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::Route\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"Domain\\": \\"vpc\\",
             \\"Tags\\": [
@@ -116,13 +118,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet1EIP6AD938E8\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::EIP\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"AllocationId\\": {
                 \\"Fn::GetAtt\\": [
@@ -140,13 +142,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet1NATGatewayE0556630\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::NatGateway\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"CidrBlock\\": \\"10.0.32.0/19\\",
             \\"VpcId\\": {
@@ -169,13 +171,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet2Subnet74179F39\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::Subnet\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"VpcId\\": {
                 \\"Ref\\": \\"VPCB9E5F0B4\\"
@@ -187,13 +189,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet2RouteTable6F1A15F1\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::RouteTable\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"RouteTableId\\": {
                 \\"Ref\\": \\"VPCPublicSubnet2RouteTable6F1A15F1\\"
@@ -202,13 +204,13 @@ exports[`CloudFormation complex template 1`] = `
                 \\"Ref\\": \\"VPCPublicSubnet2Subnet74179F39\\"
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet2RouteTableAssociation5A808732\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::SubnetRouteTableAssociation\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"RouteTableId\\": {
                 \\"Ref\\": \\"VPCPublicSubnet2RouteTable6F1A15F1\\"
@@ -218,13 +220,13 @@ exports[`CloudFormation complex template 1`] = `
                 \\"Ref\\": \\"VPCIGWB7E252D3\\"
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet2DefaultRouteB7481BBA\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::Route\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"Domain\\": \\"vpc\\",
             \\"Tags\\": [
@@ -234,13 +236,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet2EIP4947BC00\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::EIP\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"AllocationId\\": {
                 \\"Fn::GetAtt\\": [
@@ -258,13 +260,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet2NATGateway3C070193\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::NatGateway\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"CidrBlock\\": \\"10.0.64.0/19\\",
             \\"VpcId\\": {
@@ -287,13 +289,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet3Subnet631C5E25\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::Subnet\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"VpcId\\": {
                 \\"Ref\\": \\"VPCB9E5F0B4\\"
@@ -305,13 +307,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet3RouteTable98AE0E14\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::RouteTable\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"RouteTableId\\": {
                 \\"Ref\\": \\"VPCPublicSubnet3RouteTable98AE0E14\\"
@@ -320,13 +322,13 @@ exports[`CloudFormation complex template 1`] = `
                 \\"Ref\\": \\"VPCPublicSubnet3Subnet631C5E25\\"
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet3RouteTableAssociation427FE0C6\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::SubnetRouteTableAssociation\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"RouteTableId\\": {
                 \\"Ref\\": \\"VPCPublicSubnet3RouteTable98AE0E14\\"
@@ -336,13 +338,13 @@ exports[`CloudFormation complex template 1`] = `
                 \\"Ref\\": \\"VPCIGWB7E252D3\\"
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet3DefaultRouteA0D29D46\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::Route\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"Domain\\": \\"vpc\\",
             \\"Tags\\": [
@@ -352,13 +354,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet3EIPAD4BC883\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::EIP\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"AllocationId\\": {
                 \\"Fn::GetAtt\\": [
@@ -376,13 +378,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPublicSubnet3NATGatewayD3048F5C\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::NatGateway\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"CidrBlock\\": \\"10.0.96.0/19\\",
             \\"VpcId\\": {
@@ -405,13 +407,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPrivateSubnet1Subnet8BCA10E0\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::Subnet\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"VpcId\\": {
                 \\"Ref\\": \\"VPCB9E5F0B4\\"
@@ -423,13 +425,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPrivateSubnet1RouteTableBE8A6027\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::RouteTable\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"RouteTableId\\": {
                 \\"Ref\\": \\"VPCPrivateSubnet1RouteTableBE8A6027\\"
@@ -438,13 +440,13 @@ exports[`CloudFormation complex template 1`] = `
                 \\"Ref\\": \\"VPCPrivateSubnet1Subnet8BCA10E0\\"
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPrivateSubnet1RouteTableAssociation347902D1\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::SubnetRouteTableAssociation\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"RouteTableId\\": {
                 \\"Ref\\": \\"VPCPrivateSubnet1RouteTableBE8A6027\\"
@@ -454,13 +456,13 @@ exports[`CloudFormation complex template 1`] = `
                 \\"Ref\\": \\"VPCPublicSubnet1NATGatewayE0556630\\"
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPrivateSubnet1DefaultRouteAE1D6490\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::Route\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"CidrBlock\\": \\"10.0.128.0/19\\",
             \\"VpcId\\": {
@@ -483,13 +485,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPrivateSubnet2SubnetCFCDAA7A\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::Subnet\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"VpcId\\": {
                 \\"Ref\\": \\"VPCB9E5F0B4\\"
@@ -501,13 +503,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPrivateSubnet2RouteTable0A19E10E\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::RouteTable\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"RouteTableId\\": {
                 \\"Ref\\": \\"VPCPrivateSubnet2RouteTable0A19E10E\\"
@@ -516,13 +518,13 @@ exports[`CloudFormation complex template 1`] = `
                 \\"Ref\\": \\"VPCPrivateSubnet2SubnetCFCDAA7A\\"
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPrivateSubnet2RouteTableAssociation0C73D413\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::SubnetRouteTableAssociation\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"RouteTableId\\": {
                 \\"Ref\\": \\"VPCPrivateSubnet2RouteTable0A19E10E\\"
@@ -532,13 +534,13 @@ exports[`CloudFormation complex template 1`] = `
                 \\"Ref\\": \\"VPCPublicSubnet2NATGateway3C070193\\"
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPrivateSubnet2DefaultRouteF4F5CFD2\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::Route\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"CidrBlock\\": \\"10.0.160.0/19\\",
             \\"VpcId\\": {
@@ -561,13 +563,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPrivateSubnet3Subnet3EDCD457\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::Subnet\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"VpcId\\": {
                 \\"Ref\\": \\"VPCB9E5F0B4\\"
@@ -579,13 +581,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPrivateSubnet3RouteTable192186F8\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::RouteTable\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"RouteTableId\\": {
                 \\"Ref\\": \\"VPCPrivateSubnet3RouteTable192186F8\\"
@@ -594,13 +596,13 @@ exports[`CloudFormation complex template 1`] = `
                 \\"Ref\\": \\"VPCPrivateSubnet3Subnet3EDCD457\\"
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPrivateSubnet3RouteTableAssociationC28D144E\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::SubnetRouteTableAssociation\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"RouteTableId\\": {
                 \\"Ref\\": \\"VPCPrivateSubnet3RouteTable192186F8\\"
@@ -610,13 +612,13 @@ exports[`CloudFormation complex template 1`] = `
                 \\"Ref\\": \\"VPCPublicSubnet3NATGatewayD3048F5C\\"
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCPrivateSubnet3DefaultRoute27F311AE\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::Route\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"Tags\\": [
                 {
@@ -625,13 +627,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCIGWB7E252D3\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::InternetGateway\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"VpcId\\": {
                 \\"Ref\\": \\"VPCB9E5F0B4\\"
@@ -640,13 +642,13 @@ exports[`CloudFormation complex template 1`] = `
                 \\"Ref\\": \\"VPCIGWB7E252D3\\"
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"VPCVPCGW99B986DC\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::VPCGatewayAttachment\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"GroupDescription\\": \\"TestStack/Instance/InstanceSecurityGroup\\",
             \\"SecurityGroupEgress\\": [
@@ -675,13 +677,13 @@ exports[`CloudFormation complex template 1`] = `
                 \\"Ref\\": \\"VPCB9E5F0B4\\"
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"InstanceInstanceSecurityGroupF0E2D5BE\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::SecurityGroup\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"AssumeRolePolicyDocument\\": {
                 \\"Statement\\": [
@@ -712,13 +714,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"InstanceInstanceRoleE9785DE5\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::IAM::Role\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"PolicyDocument\\": {
                 \\"Statement\\": [
@@ -737,13 +739,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"InstanceInstanceRoleDefaultPolicy4ACE9290\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::IAM::Policy\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"Roles\\": [
                 {
@@ -751,13 +753,13 @@ exports[`CloudFormation complex template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"InstanceInstanceProfileAB5AEF02\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::IAM::InstanceProfile\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"AvailabilityZone\\": \\"test-region-1a\\",
             \\"IamInstanceProfile\\": {
@@ -788,19 +790,17 @@ exports[`CloudFormation complex template 1`] = `
                 \\"Fn::Base64\\": \\"#!/bin/bash\\\\nyum install -y\\"
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"InstanceC1063A87\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::Instance\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"Type\\": \\"AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>\\",
             \\"Default\\": \\"/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2\\"
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter\\",
         \\"type\\": \\"parameter\\",
         \\"subtype\\": \\"AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>\\"
@@ -811,13 +811,15 @@ exports[`CloudFormation complex template 1`] = `
 exports[`CloudFormation nested template 1`] = `
 "[
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {},
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"root\\",
         \\"type\\": \\"root\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"CidrBlock\\": \\"10.0.0.0/16\\",
             \\"EnableDnsHostnames\\": true,
@@ -835,13 +837,13 @@ exports[`CloudFormation nested template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"SomeVPC\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::VPC\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"TemplateURL\\": \\"<S3 URL for the template>\\",
             \\"Parameters\\": {
@@ -850,13 +852,13 @@ exports[`CloudFormation nested template 1`] = `
                 }
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"NestedStack\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::CloudFormation::Stack\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"CidrBlock\\": \\"10.0.0.0/16\\",
             \\"EnableDnsHostnames\\": true,
@@ -869,13 +871,13 @@ exports[`CloudFormation nested template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"SomeVPC\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::EC2::VPC\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"SomeProperty\\": {
                 \\"Fn::GetAtt\\": [
@@ -884,24 +886,24 @@ exports[`CloudFormation nested template 1`] = `
                 ]
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"User00B015A1\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::IAM::User\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"Type\\": \\"String\\",
             \\"Default\\": \\"parameter_default_inner_value\\"
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"InnerStackParameter\\",
         \\"type\\": \\"parameter\\",
         \\"subtype\\": \\"String\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"Value\\": {
                 \\"Fn::Sub\\": [
@@ -914,18 +916,16 @@ exports[`CloudFormation nested template 1`] = `
                 ]
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"InnerOutput\\",
         \\"type\\": \\"output\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"Type\\": \\"String\\",
             \\"Default\\": \\"parameter_default_outer_value\\"
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"OuterStackParameter\\",
         \\"type\\": \\"parameter\\",
         \\"subtype\\": \\"String\\"
@@ -936,13 +936,15 @@ exports[`CloudFormation nested template 1`] = `
 exports[`CloudFormation simple template 1`] = `
 "[
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {},
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"root\\",
         \\"type\\": \\"root\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"KeySchema\\": [
                 {
@@ -961,13 +963,13 @@ exports[`CloudFormation simple template 1`] = `
                 \\"WriteCapacityUnits\\": 5
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"TableCD117FA1\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::DynamoDB::Table\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"KeySchema\\": [
                 {
@@ -1213,13 +1215,13 @@ exports[`CloudFormation simple template 1`] = `
                 \\"Enabled\\": true
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"TableWithGlobalAndLocalSecondaryIndexBC540710\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::DynamoDB::Table\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"KeySchema\\": [
                 {
@@ -1260,13 +1262,13 @@ exports[`CloudFormation simple template 1`] = `
                 \\"WriteCapacityUnits\\": 5
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"TableWithGlobalSecondaryIndexCC8E841E\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::DynamoDB::Table\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"KeySchema\\": [
                 {
@@ -1315,21 +1317,21 @@ exports[`CloudFormation simple template 1`] = `
                 \\"WriteCapacityUnits\\": 5
             }
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"TableWithLocalSecondaryIndex4DA3D08F\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::DynamoDB::Table\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {},
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"User00B015A1\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::IAM::User\\"
     },
     {
+        \\"incoming\\": {},
+        \\"outgoing\\": {},
         \\"properties\\": {
             \\"PolicyDocument\\": {
                 \\"Statement\\": [
@@ -1400,8 +1402,6 @@ exports[`CloudFormation simple template 1`] = `
                 }
             ]
         },
-        \\"parents\\": {},
-        \\"children\\": {},
         \\"name\\": \\"UserDefaultPolicy1F97781E\\",
         \\"type\\": \\"resource\\",
         \\"subtype\\": \\"AWS::IAM::Policy\\"

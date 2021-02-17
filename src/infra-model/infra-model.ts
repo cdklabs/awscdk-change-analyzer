@@ -1,14 +1,12 @@
-import { Component } from "./component"
-import { Relationship } from "./relationship"
+import { Component } from "./component";
+import { Relationship } from "./relationship";
 
 export class InfraModel {
-    root: Component
-    components: Component[]
-    relationships: Relationship[]
+    public readonly components: Component[];
+    public readonly relationships: Relationship[];
 
-    constructor(root: Component, components: Component[], relationships: Relationship[]){
-        this.root = root
-        this.components = components
-        this.relationships = relationships
+    constructor(components: Component[], relationships: Relationship[]){
+        this.components = components;
+        this.relationships = relationships;
     }
 }

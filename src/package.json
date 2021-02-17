@@ -21,8 +21,7 @@
   "homepage": "https://github.com/S-R-MSc/2021_henriquelima#readme",
   "dependencies": {
     "@types/graphviz": "0.0.32",
-    "graphviz": "0.0.9",
-    "yaml": "^1.10.0"
+    "graphviz": "0.0.9"
   },
   "devDependencies": {
     "@babel/core": "^7.12.13",

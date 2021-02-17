@@ -1,8 +1,8 @@
-import * as graphviz from 'graphviz'
-import { InfraModel } from '../infra-model/infra-model'
-import { Component } from '../infra-model/component'
-import { DependencyRelationship } from '../infra-model/dependency-relationship'
-import { StructuralRelationship } from '../infra-model/structural-relationship'
+import * as graphviz from 'graphviz';
+import { InfraModel } from '../infra-model/infra-model';
+import { Component } from '../infra-model/component';
+import { DependencyRelationship } from '../infra-model/dependency-relationship';
+import { StructuralRelationship } from '../infra-model/structural-relationship';
 
 const generateClusterChildren = (
     graph: graphviz.Graph,
@@ -11,55 +11,55 @@ const generateClusterChildren = (
     clusterIds: Map<Component, string>
 ):void => {
     if(!nodes.has(component)){
-        const structuralChildren = Array.from(component.children).filter(c => c instanceof StructuralRelationship)
+        const structuralChildren = Array.from(component.outgoing).filter(r => r instanceof StructuralRelationship);
 
         if(structuralChildren.length > 0) {
-            const clusterId = `cluster${clusterIds.size}`
-            graph = graph.addCluster(clusterId)
-            graph.set('label', component.name)
-            clusterIds.set(component, clusterId)
-            const node = graph.addNode(`node${nodes.size}`, {shape: "point", height: "0"} )
-            nodes.set(component, node)
-            component.children.forEach(child => generateClusterChildren(graph, child.target, nodes, clusterIds))
+            const clusterId = `cluster${clusterIds.size}`;
+            graph = graph.addCluster(clusterId);
+            graph.set('label', component.name);
+            clusterIds.set(component, clusterId);
+            const node = graph.addNode(`node${nodes.size}`, {shape: "point", height: "0"} );
+            nodes.set(component, node);
+            component.outgoing.forEach(relationship => generateClusterChildren(graph, relationship.target, nodes, clusterIds));
         } else {
-            const node = graph.addNode(`node${nodes.size}`, {color : "blue", label: component.name} )
-            nodes.set(component, node)
+            const node = graph.addNode(`node${nodes.size}`, {color : "blue", label: component.name} );
+            nodes.set(component, node);
         }
     }
-}
+};
 
 export const generateGraph = (model: InfraModel, outputFilename: string): void => {
-    const g = graphviz.digraph("G")
-    g.set('compound', true)
-    const nodes: Map<Component, graphviz.Node> = new Map()
-    const clusterIds: Map<Component, string> = new Map()
+    const g = graphviz.digraph("G");
+    g.set('compound', true);
+    const nodes: Map<Component, graphviz.Node> = new Map();
+    const clusterIds: Map<Component, string> = new Map();
 
     model.components.forEach(component => {
-        if(component.parents.size === 0) {
-            generateClusterChildren(g, component, nodes, clusterIds)
+        if(component.incoming.size === 0) {
+            generateClusterChildren(g, component, nodes, clusterIds);
         }
-    })
+    });
 
     model.components.forEach(component => {
         if(!nodes.has(component))
-            nodes.set(component, g.addNode(`node${nodes.size}`, {"color" : "blue"} ))
-    })
+            nodes.set(component, g.addNode(`node${nodes.size}`, {"color" : "blue"} ));
+    });
 
     model.relationships.forEach(relationship => {
-        if(!(relationship instanceof DependencyRelationship)) return
+        if(!(relationship instanceof DependencyRelationship)) return;
 
-        const source = nodes.get(relationship.source)
-        const target = nodes.get(relationship.target)
+        const source = nodes.get(relationship.source);
+        const target = nodes.get(relationship.target);
         if(source && target && !clusterIds.has(relationship.source)){
-            const edge = g.addEdge(source, target, { label: relationship.type })
+            const edge = g.addEdge(source, target, { label: relationship.type });
 
-            const targetCluster = clusterIds.get(relationship.target)
+            const targetCluster = clusterIds.get(relationship.target);
             if(typeof targetCluster === 'string')
-                edge.set("lhead", targetCluster)
+                edge.set("lhead", targetCluster);
         }
-    })
+    });
 
-    g.output( "png", `${outputFilename}.png` )
-}
+    g.output( "png", `${outputFilename}.png` );
+};
 
 

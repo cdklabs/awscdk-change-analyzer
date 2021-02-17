@@ -1,7 +1,7 @@
-import { Component } from "../../infra-model/component"
+import { Component } from "../../infra-model";
 
 export interface CFParserArgs {
-    parameterValues?: Record<string, string>
-    nestedStacks?: Record<string, Record<any, any>>
-    templateRoot?: Component
+    readonly parameterValues?: Record<string, string>;
+    readonly nestedStacks?: Record<string, Record<any, any>>;
+    readonly templateRoot?: Component;
 }

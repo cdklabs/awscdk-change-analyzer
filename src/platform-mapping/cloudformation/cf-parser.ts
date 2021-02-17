@@ -1,75 +1,83 @@
-import { InfraModel } from '../../infra-model/infra-model'
-import { Relationship } from '../../infra-model/relationship'
-import { Parser } from '../parser'
-import { CFEntity } from './cf-entity'
-import { CFParameter } from './cf-parameter'
-import { CFParserArgs } from './cf-parser-args'
-import { CFResource } from './cf-resource'
-import { CFNestedStack } from './cf-nested-stack'
-import { CFOutput } from './cf-output'
-import { Component } from '../../infra-model/component'
+import { InfraModel, Relationship, Component, StructuralRelationship } from '../../infra-model';
+import { Parser } from '../parser';
+import { CFEntity } from './cf-entity';
+import { CFParameter } from './cf-parameter';
+import { CFParserArgs } from './cf-parser-args';
+import { CFResource } from './cf-resource';
+import { CFNestedStack } from './cf-nested-stack';
+import { CFOutput } from './cf-output';
 
 
-const cfEntityFactory = (componentType: string, componentName: string, definition: any, parserArgs: CFParserArgs, rootNode: Component) => {
+const cfEntityFactory = (componentType: string, componentName: string, definition: any, parserArgs: CFParserArgs) => {
     switch(componentType){
         case "Resources":
             switch(definition.Type){
-                case "AWS::CloudFormation::Stack": return new CFNestedStack(componentName, definition, parserArgs, rootNode)
-                default: return new CFResource(componentName, definition, parserArgs, rootNode)
+                case "AWS::CloudFormation::Stack": return new CFNestedStack(componentName, definition, parserArgs);
+                default: return new CFResource(componentName, definition, parserArgs);
             }
         case "Parameters":
-            return new CFParameter(componentName, definition, parserArgs, rootNode)
+            return new CFParameter(componentName, definition, parserArgs);
         case "Outputs":
-            return new CFOutput(componentName, definition, parserArgs, rootNode)
-        default: return undefined
+            return new CFOutput(componentName, definition, parserArgs);
+        default: return undefined;
     }
-}
+};
 
 export class CFParser implements Parser {
 
-    template: Record<any, any>
-    name: string
+    private template: Record<any, any>;
+    private name: string;
 
     constructor(template: Record<any, any>, name?: string) {
-        this.template = template
-        this.name = name ?? 'root'
+        this.template = template;
+        this.name = name ?? 'root';
     }
 
-    parse = (args?: CFParserArgs): InfraModel => {
+    /**
+     * Parses the cloudformation template
+     * @param args Additional arguments for parsing the template
+     */
+    public parse(args?: CFParserArgs): InfraModel {
+        const templateRoot = args?.templateRoot ?? new Component(this.name, 'root');
 
-        const templateRoot = args?.templateRoot ?? new Component(this.name, 'root')
+        const cfEntities = this.createCFEntities(templateRoot, args);
 
-        const cfEntities = this.createCFEntities(templateRoot, args)
-
-        return this.createModel(templateRoot, cfEntities)
+        return this.createModel(templateRoot, cfEntities);
     }
 
-    createCFEntities = (rootNode: Component, args?: CFParserArgs):Record<string, CFEntity> => {
-        const nodes: Record<string, CFEntity> = {}
-        Object.entries(this.template).forEach(([componentType, definitions]) => {
-            Object.entries(definitions).forEach(([componentName, definition]) => {
+    /**
+     * Parses the cloudformation template onto CFEntities
+     */
+    public createCFEntities(templateRoot: Component, args?: CFParserArgs):Record<string, CFEntity> {
+        const entities: Record<string, CFEntity> = Object.fromEntries(
+            Object.entries(this.template).flatMap(([componentType, definitions]) =>
+                Object.entries(definitions).map(([componentName, definition]) =>
+                    [componentName, cfEntityFactory(componentType, componentName, definition, args ?? {})]
+                ).filter(e => e[1] !== undefined)
+            )
+        );
 
-                const node = cfEntityFactory(componentType, componentName, definition, args ?? {}, rootNode)
-                node && (nodes[componentName] = node)
+        Object.values(entities).forEach(entity => {
+            const rootRelationship = new StructuralRelationship(templateRoot, entity.component, 'root');
+            entity.component.addIncoming(rootRelationship);
+        });
 
-            })
-        })
-        return nodes
+        return entities;
     }
 
-    createModel = (templateRoot:Component, cfEntities: Record<string, CFEntity>, externalParameters?: Record<string, CFEntity[]>):InfraModel => {
-        const relationships: Relationship[] = []
-        const components: Component[] = []
+    /**
+     * Creates the final InfraModel from the parsed CFEntities
+     * @param externalParameters - any referenceable CFEntities coming from outside of this template's scope
+     */
+    public createModel(templateRoot:Component, cfEntities: Record<string, CFEntity>, externalParameters?: Record<string, CFEntity[]>):InfraModel {
+        const infraModel = new InfraModel(
+            [templateRoot],
+            [...templateRoot.outgoing]
+        );
         Object.values(cfEntities).forEach(node => {
-            const [r, c] = node.createRelationshipsAndComponents(cfEntities, externalParameters)
-            relationships.push(...r)
-            components.push(...c)
-        })
+            node.populateModel(infraModel, cfEntities, externalParameters);
+        });
 
-        return new InfraModel(
-            templateRoot,
-            [templateRoot, ...components],
-            [...relationships]
-        )
+        return infraModel;
     }
 }

@@ -1,54 +1,64 @@
-import { Component } from "../../infra-model/component"
-import { DependencyRelationship } from "../../infra-model/dependency-relationship"
-import { Relationship } from "../../infra-model/relationship"
-import { StructuralRelationship } from "../../infra-model/structural-relationship"
-import { CFParserArgs } from "./cf-parser-args"
-import { CFRef } from "./cf-ref"
+import {
+    Component,
+    DependencyRelationship,
+    InfraModel,
+    Relationship,
+} from "../../infra-model";
+import { CFParserArgs } from "./cf-parser-args";
+import { CFRef } from "./cf-ref";
 
+/**
+ * CFEntity builds a Component and its outgoing realtionships
+ * for a given CloudFormation entity from its template definition
+ */
 export abstract class CFEntity {
 
-    component: Component
-    dependencyRefs: CFRef[]
-    parserArgs: CFParserArgs
-    templateRoot: Component
+    public readonly component: Component;
+    protected dependencyRefs: CFRef[];
+    protected readonly parserArgs: CFParserArgs;
 
-    constructor(name: string, definition: Record<string, any>, args: CFParserArgs, templateRoot: Component){
-        this.templateRoot = templateRoot
-        this.dependencyRefs = CFRef.readRefsInExpression(definition)
-        this.parserArgs = args
-        this.component = this.generateComponent(name, definition)
+    constructor(name: string, definition: Record<string, any>, args: CFParserArgs){
+        this.dependencyRefs = CFRef.readRefsInExpression(definition);
+        this.parserArgs = args;
+        this.component = this.generateComponent(name, definition);
     }
 
-    abstract generateComponent(name: string, definition:Record<string, any>):Component
+    /**
+     * Generates the component for this CFEntity, called on constructor
+     * and implemented in each subclass
+     * @param name - Component name
+     * @param definition - CloudFormation template definition of the entity
+     */
+    protected abstract generateComponent(name: string, definition:Record<string, any>):Component
 
-    createRelationshipsAndComponents(cfEntities: Record<string, CFEntity>, externalParameters?: Record<string, CFEntity[]>): [Relationship[], Component[]]{
-        const rootRelationship = new StructuralRelationship(this.templateRoot, this.component, 'root')
-        this.component.parents.add(rootRelationship)
-        this.templateRoot.children.add(rootRelationship)
-
-        const relationships = [
+    /**
+     * Creates and returns the outgoing relationships
+     * along with any additional components and their relationships
+     * 
+     * @param cfEntities - Referenceable CFEntities in the scope
+     * @param externalParameters - Referenceable CFEntities coming from outside of the stack's scope
+     */
+    public populateModel(model: InfraModel, cfEntities: Record<string, CFEntity>, externalParameters?: Record<string, CFEntity[]>): void {
+        model.relationships.push(
             ...Array.from(this.dependencyRefs)
                 .map(ref => {
-                    return this.createDependencyRelationship(cfEntities[ref.logicalId].getComponentInAttributePath(ref.destPath), ref.getDescription())
-                }),
-            rootRelationship
-        ]
-
-        return [relationships, [this.component]]
+                    return this.createDependencyRelationship(cfEntities[ref.logicalId].getComponentInAttributePath(ref.destPath), ref.getDescription());
+                })
+        );
+        model.components.push(this.component);
     }
 
-    createDependencyRelationship = (targetComponent: Component, type: string): DependencyRelationship => {
+    protected createDependencyRelationship(targetComponent: Component, type: string): DependencyRelationship {
         const relationship = new DependencyRelationship(
             this.component, targetComponent, type
-        )
+        );
 
-        this.component.children.add(relationship)
-        targetComponent.parents.add(relationship)
-        
-        return relationship
+        this.component.addOutgoing(relationship);
+
+        return relationship;
     }
 
-    getComponentInAttributePath = (attributePath:string[]): Component => {
-        return this.component
+    getComponentInAttributePath(attributePath:string[]): Component{
+        return this.component;
     }
 }

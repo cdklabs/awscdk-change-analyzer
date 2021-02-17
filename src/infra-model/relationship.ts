@@ -1,17 +1,19 @@
-import { Component } from "./component"
-import { ModelEntity } from "./model-entity"
+import { Component } from "./component";
 
-export abstract class Relationship extends ModelEntity{
+/**
+ * Relationships connect two components and
+ * describe how they relate to each other
+ */
+export abstract class Relationship{
 
-    source: Component
-    target: Component
+    public readonly source: Component;
+    public readonly target: Component;
 
-    type: string
+    public readonly type: string;
 
-    constructor(source: Component, target: Component, type: string, properties?:Record<string, any>){
-        super(properties)
-        this.source = source
-        this.target = target
-        this.type = type
+    constructor(source: Component, target: Component, type: string){
+        this.source = source;
+        this.target = target;
+        this.type = type;
     }
 }

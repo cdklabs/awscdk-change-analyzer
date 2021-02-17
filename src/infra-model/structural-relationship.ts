@@ -1,15 +1,18 @@
-import { Component } from "./component"
-import { Relationship } from "./relationship"
+import { Component } from "./component";
+import { Relationship } from "./relationship";
 
+/**
+ * StructuralRelationship establishes a conceptual hierarchy between
+ * two components, impacting solely the user's perception of the infrastructure
+ * and not its actual deployment.
+ */
 export class StructuralRelationship extends Relationship {
 
-    source: Component
-    target: Component
+    public readonly source: Component;
+    public readonly target: Component;
 
-    changesReplaceSource = false
-
-    constructor(source: Component, target: Component, type: string, properties?: Record<string, any>){
-        super(source, target, type, properties)
+    constructor(source: Component, target: Component, type: string){
+        super(source, target, type);
     }
 
 }
