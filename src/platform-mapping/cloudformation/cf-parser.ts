@@ -1,4 +1,4 @@
-import { InfraModel, Relationship, Component, StructuralRelationship } from '../../infra-model';
+import { InfraModel, Component, StructuralRelationship } from '../../infra-model';
 import { Parser } from '../parser';
 import { CFEntity } from './cf-entity';
 import { CFParameter } from './cf-parameter';

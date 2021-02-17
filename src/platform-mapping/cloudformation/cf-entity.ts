@@ -2,7 +2,6 @@ import {
     Component,
     DependencyRelationship,
     InfraModel,
-    Relationship,
 } from "../../infra-model";
 import { CFParserArgs } from "./cf-parser-args";
 import { CFRef } from "./cf-ref";
