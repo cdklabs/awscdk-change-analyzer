@@ -39,11 +39,12 @@ export class CFResource extends CFEntity {
      * spec and transforms it into a ComponentUpdateType (Recreate, None, etc) for a given property path
      * @param propertyPath The keys for finding the property in the definition
      */
-    protected getUpdateTypeForPropertyPath(propertyPath: string[]): ComponentUpdateType | undefined {
+    protected getUpdateTypeForPropertyPath(propertyPath: string[]): ComponentUpdateType {
         const resourceType = this.resourceType;
         if(propertyPath[0] === 'Properties' && resourceType) {
             const resourceSpec = cfSpec.ResourceTypes[resourceType];
-            if(!resourceSpec || !resourceSpec.Properties) return;
+            if(!resourceSpec || !resourceSpec.Properties)
+                return super.getUpdateTypeForPropertyPath(propertyPath);
             const property = resourceSpec.Properties[propertyPath[1]];
             if(property && propertyPath.length >= 2)
                 return this.getUpdateTypeFromPropertySpec(property, propertyPath.slice(1));
