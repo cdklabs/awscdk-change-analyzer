@@ -54,4 +54,18 @@ export class Component {
 
         relationship.source.addOutgoing(relationship);
     }
+
+    public removeOutgoing(relationship: Relationship): void{
+        if(relationship.source !== this)
+            throw Error("Trying to remove relationship that does not belong to component");
+        this.outgoing.delete(relationship);
+        relationship.target.incoming.delete(relationship);
+    }
+
+    public removeIncoming(relationship: Relationship): void {
+        if(relationship.target !== this)
+            throw Error("Trying to remove relationship that does not belong to component");
+
+        relationship.source.removeOutgoing(relationship);
+    }
 }

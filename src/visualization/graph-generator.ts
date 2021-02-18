@@ -3,6 +3,8 @@ import { InfraModel } from '../infra-model/infra-model';
 import { Component } from '../infra-model/component';
 import { DependencyRelationship } from '../infra-model/dependency-relationship';
 import { StructuralRelationship } from '../infra-model/structural-relationship';
+import * as fs from 'fs';
+import * as path from 'path';
 
 const generateClusterChildren = (
     graph: graphviz.Graph,
@@ -58,6 +60,11 @@ export const generateGraph = (model: InfraModel, outputFilename: string): void =
                 edge.set("lhead", targetCluster);
         }
     });
+    
+    const outputDirectory = path.dirname(outputFilename);
+    if (!fs.existsSync(outputDirectory)){
+        fs.mkdirSync(outputDirectory);
+    }
 
     g.output( "png", `${outputFilename}.png` );
 };
