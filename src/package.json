@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/S-R-MSc/2021_henriquelima#readme",
   "dependencies": {
+    "@aws-cdk/cfnspec": "^1.90.0",
     "@types/graphviz": "0.0.32",
     "graphviz": "0.0.9"
   },

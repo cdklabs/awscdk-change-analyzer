@@ -7,8 +7,6 @@ import { Relationship } from "./relationship";
  */
 export class DependencyRelationship extends Relationship{
 
-    public readonly changesReplaceSource = false;
-
     constructor(source: Component, target: Component, type: string){
         super(source, target, type);
     }

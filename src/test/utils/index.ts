@@ -8,7 +8,7 @@ export const ParserUtilsCreator =
         stringifyComponents: (model: InfraModel) => {
             const cache = new Set();
 
-            return JSON.stringify(model.components, (key, value) => {
+            return JSON.stringify(model, (key, value) => {
                 if (typeof value === 'object' && value !== null) {
                     if (cache.has(value)) return `[dup-ref]${value instanceof Component ? value.name : key}`;
                     cache.add(value);

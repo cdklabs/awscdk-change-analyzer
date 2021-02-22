@@ -1,13 +1,14 @@
-import { Component, InfraModel } from "../../infra-model";
+import { Component, ComponentProperty, InfraModel } from "../../infra-model";
 import { CFEntity } from "./cf-entity";
 
 export class CFParameter extends CFEntity {
 
     protected generateComponent(name: string, definition: Record<string, any>): Component {
-        const component = new Component(name, 'parameter', {subtype: definition.Type, properties: definition});
+        const component = new Component(name, 'parameter', {subtype: definition.Type, properties: this.cfDefinitionToComponentProperty(definition)});
 
-        if(this.parserArgs.parameterValues && this.parserArgs.parameterValues[name] !== undefined){
-            component.properties.parameter_value = this.parserArgs.parameterValues[name];
+        const propertiesRecord = component.properties.getRecord();
+        if(this.parserArgs.parameterValues && this.parserArgs.parameterValues[name] !== undefined && propertiesRecord){
+            propertiesRecord.parameter_value = new ComponentProperty(this.parserArgs.parameterValues[name]);
         }
 
         return component;

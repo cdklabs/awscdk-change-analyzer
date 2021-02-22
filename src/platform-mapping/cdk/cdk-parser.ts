@@ -1,6 +1,5 @@
 import {
     Component,
-    ComponentProperties,
     InfraModel
 } from "../../infra-model";
 import { CFParser } from "../cloudformation";
@@ -52,9 +51,9 @@ export class CDKParser implements Parser {
      * @param cfComponent the Component to extract the construct path from
      */
     private extractConstructPathFromCFComponent(cfComponent: Component): string | void {
-        const metadata = cfComponent.properties["Metadata"];
+        const metadata = (cfComponent.properties.getRecord() ?? {})["Metadata"];
         if(typeof metadata === 'object' && metadata !== null){
-            const resourcePath = (metadata as ComponentProperties)["aws:cdk:path"];
+            const resourcePath = (metadata.getRecord() ?? {})["aws:cdk:path"].value;
             if(typeof resourcePath === 'string'){
                 return this.extractConstructPath(resourcePath);      
             }

@@ -10,14 +10,20 @@ export class CFNestedStack extends CFResource {
 
     readonly innerCFEntities: Record<string, CFEntity>;
     readonly innerCFParser: CFParser;
+    readonly parameterRefs: CFRef[];
 
     protected generateComponent(name: string, definition:Record<string, any>): Component {
-        return new Component(name, 'resource', {subtype: definition.Type, properties: definition.Properties});
+        return new Component(name, 'resource', {subtype: definition.Type, properties: this.cfDefinitionToComponentProperty(definition)});
     }
 
     constructor(name: string, definition: Record<string, any>, args: CFParserArgs){
         super(name, definition, args);
-        this.dependencyRefs = this.dependencyRefs.filter(ref => ref.sourcePath[0] !== 'Properties' || ref.sourcePath[1] !== 'Parameters');
+
+        [this.dependencyRefs, this.parameterRefs] = this.dependencyRefs.reduce((acc, ref) =>
+            (ref.sourcePath[0] === 'Properties' && ref.sourcePath[1] === 'Parameters') 
+                ? [acc[0], [...acc[1], ref]]
+                : [[...acc[0], ref], acc[1]],
+        [[], []] as CFRef[][]);
 
         const nestedStackName = this.component.name;
         if(!this.parserArgs.nestedStacks || !{}.hasOwnProperty.call(this.parserArgs.nestedStacks, nestedStackName))
@@ -29,14 +35,22 @@ export class CFNestedStack extends CFResource {
     }
 
     public populateModel(model: InfraModel, nodes: Record<string, CFEntity>): void {
-        super.populateModel(model, nodes);        
+        super.populateModel(model, nodes);
         
-        const parameters = Object.entries(this.component.properties.Parameters ?? {});
+        const cfEntitiesReferencedByParameters = {} as Record<string, CFEntity[]>;
 
-        const nestedModel = this.innerCFParser.createModel(this.component, this.innerCFEntities,
-            Object.fromEntries(parameters.map(([innerParameterName, innerParameterVal]) =>
-                [innerParameterName, CFRef.readRefsInExpression(innerParameterVal).map(ref => nodes[ref.logicalId])])
-            )
+        this.parameterRefs.forEach(ref => {
+            const parameterName = ref.sourcePath[2]; // 'Properties', 'Parameters', [parameterName]
+            if(!cfEntitiesReferencedByParameters[parameterName]){
+                cfEntitiesReferencedByParameters[parameterName] = [];
+            }
+            cfEntitiesReferencedByParameters[parameterName].push(nodes[ref.logicalId]);
+        });
+
+        const nestedModel = this.innerCFParser.createModel(
+            this.component,
+            this.innerCFEntities,
+            cfEntitiesReferencedByParameters
         );
 
         const crossRelationships: Relationship[] = (nestedModel.components

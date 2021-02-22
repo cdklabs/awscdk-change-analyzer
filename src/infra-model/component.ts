@@ -1,15 +1,9 @@
+import { ComponentProperty } from "./component-property";
 import { Relationship } from "./relationship";
-
-type PropertyPrimitive = string | number;
-
-type RecursiveProperties<T> = Record<string, T | PropertyPrimitive | Array<PropertyPrimitive | T>>;
-// The following eslint rule is due to the inability of having recursive types
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ComponentProperties extends RecursiveProperties<ComponentProperties> {}
 
 interface ComponentOptions {
     readonly subtype?: string;
-    readonly properties: ComponentProperties;
+    readonly properties: ComponentProperty;
 }
 
 /**
@@ -28,14 +22,14 @@ export class Component {
      * properties hold any values that should be tracked
      * by the change analysis but do not have any other relevant behaviors
      */
-    public readonly properties: ComponentProperties;
+    public readonly properties: ComponentProperty;
 
     public readonly type: string;
     public readonly subtype?: string;
     public readonly name: string;
 
     constructor(name: string, type: string, options? : ComponentOptions){
-        this.properties = options?.properties ?? {};
+        this.properties = options?.properties ?? new ComponentProperty({});
         this.name = name;
         this.type = type;
         this.subtype = options?.subtype;
