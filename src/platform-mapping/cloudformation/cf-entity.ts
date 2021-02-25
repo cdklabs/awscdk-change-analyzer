@@ -2,7 +2,6 @@ import {
     Component,
     DependencyRelationship,
     InfraModel,
-    Relationship,
 } from "../../infra-model";
 import { CFParserArgs } from "./cf-parser-args";
 import { CFRef } from "./cf-ref";
@@ -38,6 +37,7 @@ export abstract class CFEntity {
      * @param cfEntities - Referenceable CFEntities in the scope
      * @param externalParameters - Referenceable CFEntities coming from outside of the stack's scope
      */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     public populateModel(model: InfraModel, cfEntities: Record<string, CFEntity>, externalParameters?: Record<string, CFEntity[]>): void {
         model.relationships.push(
             ...Array.from(this.dependencyRefs)
@@ -58,6 +58,7 @@ export abstract class CFEntity {
         return relationship;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getComponentInAttributePath(attributePath:string[]): Component{
         return this.component;
     }

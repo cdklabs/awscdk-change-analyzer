@@ -3,4 +3,4 @@
 *.d.ts
 node_modules
 out
-platform-mapping/**/sample-outputs
+test/platform-mapping/**/sample-outputs

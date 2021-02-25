@@ -1,31 +1,18 @@
 import { CFParser } from "../../../platform-mapping";
-import * as fs from 'fs';
 import {
     DependencyRelationship,
-    Component,
-    InfraModel,
     StructuralRelationship
 } from "../../../infra-model";
-import { generateGraph } from "../../../visualization/graph-generator";
+import { ParserUtilsCreator } from "../../utils";
 
 
-const cloudformationDir = `platform-mapping/cloudformation`;
+const cloudformationDir = `test/platform-mapping/cloudformation`;
 
-const readSampleInput = (filename) => JSON.parse(fs.readFileSync(`${cloudformationDir}/sample-inputs/${filename}`, 'utf8'));
-
-const genGraphOnEnvFlag = (model: InfraModel, filename) => process.env.RENDER_GRAPHS && generateGraph(model, `${cloudformationDir}/sample-outputs/${filename}`);
-
-const stringifyModel = (model:Component[]) => {
-    const cache = new Set();
-
-    return JSON.stringify(model, (key, value) => {
-        if (typeof value === 'object' && value !== null) {
-            if (cache.has(value)) return `[dup-ref]${value instanceof Component ? value.name : key}`;
-            cache.add(value);
-        }
-        return value;
-    }, 4);
-};
+const {
+    readSampleInput,
+    genGraphOnEnvFlag,
+    stringifyComponents
+} = ParserUtilsCreator(cloudformationDir);
 
 test('CloudFormation simple template', () => {
     const cfnTemplate = readSampleInput('integ.dynamodb.expected.json');
@@ -34,7 +21,7 @@ test('CloudFormation simple template', () => {
 
     genGraphOnEnvFlag(model, 'integ.dynamodb.expected');
 
-    expect(stringifyModel(model.components)).toMatchSnapshot();
+    expect(stringifyComponents(model)).toMatchSnapshot();
     expect(model.components.length).toBe(7);
     expect(model.relationships.length).toBe(10);
     expect(model.relationships.filter(r => r instanceof DependencyRelationship).length).toBe(4);
@@ -47,7 +34,7 @@ test('CloudFormation complex template', () => {
 
     genGraphOnEnvFlag(model, 'integ.instance.expected');
 
-    expect(stringifyModel(model.components)).toMatchSnapshot();
+    expect(stringifyComponents(model)).toMatchSnapshot();
     expect(model.components.length).toBe(40);
     expect(model.relationships.length).toBe(90);
     expect(model.relationships.filter(r => r instanceof DependencyRelationship).length).toBe(51);
@@ -62,7 +49,7 @@ test('CloudFormation nested template', () => {
     
     genGraphOnEnvFlag(model, 'nested-stacks');
 
-    expect(stringifyModel(model.components)).toMatchSnapshot();
+    expect(stringifyComponents(model)).toMatchSnapshot();
     expect(model.components.length).toBe(8);
     expect(model.relationships.length).toBe(16);
     expect(model.relationships.filter(r => r instanceof DependencyRelationship).length).toBe(9);
