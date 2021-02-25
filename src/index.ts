@@ -12,4 +12,3 @@ fs.readdirSync(`${cloudformationDir}/sample-inputs`).forEach(sampleInputFilename
     const parser = new CFParser(cfnTemplate);
     generateGraph(parser.parse(), `${cloudformationOutputDir}/${sampleInputFilename}`);
 });
-

@@ -22,6 +22,7 @@
   "dependencies": {
     "@aws-cdk/cfnspec": "^1.90.0",
     "@types/graphviz": "0.0.32",
+    "@types/string-similarity": "^4.0.0",
     "graphviz": "0.0.9"
   },
   "devDependencies": {

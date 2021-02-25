@@ -1,4 +1,4 @@
-import { ComponentProperty } from "./component-property";
+import { ComponentProperty, EmptyComponentProperty } from "./component-property";
 import { Relationship } from "./relationship";
 
 interface ComponentOptions {
@@ -29,7 +29,7 @@ export class Component {
     public readonly name: string;
 
     constructor(name: string, type: string, options? : ComponentOptions){
-        this.properties = options?.properties ?? new ComponentProperty({});
+        this.properties = options?.properties ?? new EmptyComponentProperty();
         this.name = name;
         this.type = type;
         this.subtype = options?.subtype;

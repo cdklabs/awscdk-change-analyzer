@@ -4,7 +4,9 @@ import {
     ComponentUpdateType,
     DependencyRelationship,
     InfraModel,
-    ComponentPropertyValue
+    ComponentPropertyRecord,
+    ComponentPropertyPrimitive,
+    ComponentPropertyArray
 } from "../../infra-model";
 import { isDefined } from "../../utils";
 import { CFParserArgs } from "./cf-parser-args";
@@ -93,16 +95,16 @@ export abstract class CFEntity {
         return factory(definition, []);
 
         function factory (definition: CFProperty, propertyPath: string[]): ComponentProperty {
-            return new ComponentProperty(Object.fromEntries(
+            return new ComponentPropertyRecord(Object.fromEntries(
                 Object.entries(definition).map(([propKey, propValue]) => {
                     const newPropertyPath = [...propertyPath, propKey];
 
                     if (typeof propValue === 'string' || typeof propValue === 'number') {
-                        return [propKey, new ComponentProperty(propValue,
+                        return [propKey, new ComponentPropertyPrimitive(propValue,
                             updateTypeGetter(newPropertyPath))
                         ];
                     } else if (Array.isArray(propValue)) {
-                        return [propKey, new ComponentProperty(
+                        return [propKey, new ComponentPropertyArray(
                                 propValue.map((v, i) => factory(v, [...newPropertyPath, i.toString()])),
                                 updateTypeGetter(newPropertyPath)
                             )
@@ -114,10 +116,6 @@ export abstract class CFEntity {
                 }).filter(isDefined)
             ), updateTypeGetter(propertyPath));
         }
-    }
-
-    protected createComponentProperty(value: ComponentPropertyValue, propertyPath: string[]): ComponentProperty{
-        return new ComponentProperty(value, this.getUpdateTypeForPropertyPath(propertyPath));
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

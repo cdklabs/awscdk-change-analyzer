@@ -1,4 +1,4 @@
-import { Component, ComponentProperty, InfraModel } from "../../infra-model";
+import { Component, ComponentPropertyPrimitive, InfraModel } from "../../infra-model";
 import { CFEntity } from "./cf-entity";
 
 export class CFParameter extends CFEntity {
@@ -8,7 +8,7 @@ export class CFParameter extends CFEntity {
 
         const propertiesRecord = component.properties.getRecord();
         if(this.parserArgs.parameterValues && this.parserArgs.parameterValues[name] !== undefined && propertiesRecord){
-            propertiesRecord.parameter_value = new ComponentProperty(this.parserArgs.parameterValues[name]);
+            propertiesRecord.parameter_value = new ComponentPropertyPrimitive(this.parserArgs.parameterValues[name]);
         }
 
         return component;

@@ -7,7 +7,6 @@ exports[`CloudFormation complex template 1`] = `
             \\"incoming\\": {},
             \\"outgoing\\": {},
             \\"properties\\": {
-                \\"value\\": {},
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"root\\",
@@ -3803,7 +3802,6 @@ exports[`CloudFormation nested template 1`] = `
             \\"incoming\\": {},
             \\"outgoing\\": {},
             \\"properties\\": {
-                \\"value\\": {},
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"root\\",
@@ -4636,7 +4634,6 @@ exports[`CloudFormation simple template 1`] = `
             \\"incoming\\": {},
             \\"outgoing\\": {},
             \\"properties\\": {
-                \\"value\\": {},
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"root\\",

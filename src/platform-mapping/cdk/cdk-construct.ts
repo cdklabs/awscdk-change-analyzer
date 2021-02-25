@@ -1,4 +1,4 @@
-import { Component, ComponentProperty, StructuralRelationship } from "../../infra-model";
+import { Component, ComponentPropertyPrimitive, StructuralRelationship } from "../../infra-model";
 
 export class CDKConstructInitError extends Error {}
 
@@ -15,7 +15,7 @@ export class CDKConstruct {
 
         const name = this.path[this.path.length-1];
 
-        this.component = new Component(name, 'cdk-construct', {properties: new ComponentProperty(path)});
+        this.component = new Component(name, 'cdk-construct', {properties: new ComponentPropertyPrimitive(path)});
     }
 
     public addChild(child: Component): void{

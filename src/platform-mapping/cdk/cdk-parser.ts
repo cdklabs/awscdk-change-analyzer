@@ -1,5 +1,6 @@
 import {
     Component,
+    ComponentPropertyAccessError,
     InfraModel
 } from "../../infra-model";
 import { CFParser } from "../cloudformation";
@@ -51,12 +52,16 @@ export class CDKParser implements Parser {
      * @param cfComponent the Component to extract the construct path from
      */
     private extractConstructPathFromCFComponent(cfComponent: Component): string | void {
-        const metadata = (cfComponent.properties.getRecord() ?? {})["Metadata"];
-        if(typeof metadata === 'object' && metadata !== null){
-            const resourcePath = (metadata.getRecord() ?? {})["aws:cdk:path"].value;
-            if(typeof resourcePath === 'string'){
-                return this.extractConstructPath(resourcePath);      
+        try {
+            const metadata = (cfComponent.properties.getRecord() ?? {})["Metadata"];
+            if(typeof metadata === 'object' && metadata !== null){
+                const resourcePath = (metadata.getRecord() ?? {})["aws:cdk:path"].value;
+                if(typeof resourcePath === 'string'){
+                    return this.extractConstructPath(resourcePath);      
+                }
             }
+        } catch(e) {
+            if(!(e instanceof ComponentPropertyAccessError)) throw e;
         }
     }
 
