@@ -18,7 +18,7 @@ export class ComponentProperty {
     ) {}
 
     getRecord(): Record<string, ComponentProperty> {
-        if(typeof this.value !== 'object' && this.value !== null && !Array.isArray(this.value)){
+        if(typeof this.value !== 'object' || this.value === null || Array.isArray(this.value)){
             throw new Error("Trying to read component property as Record, but it is not one");
         }
         return this.value as Record<string, ComponentProperty>;

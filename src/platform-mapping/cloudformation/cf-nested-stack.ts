@@ -5,6 +5,8 @@ import { CFResource } from './cf-resource';
 import { CFParser } from './cf-parser';
 import { CFOutput } from './cf-output';
 import { CFRef } from './cf-ref';
+import { partitionArray } from '../../utils';
+
 
 export class CFNestedStack extends CFResource {
 
@@ -19,11 +21,10 @@ export class CFNestedStack extends CFResource {
     constructor(name: string, definition: Record<string, any>, args: CFParserArgs){
         super(name, definition, args);
 
-        [this.dependencyRefs, this.parameterRefs] = this.dependencyRefs.reduce((acc, ref) =>
-            (ref.sourcePath[0] === 'Properties' && ref.sourcePath[1] === 'Parameters') 
-                ? [acc[0], [...acc[1], ref]]
-                : [[...acc[0], ref], acc[1]],
-        [[], []] as CFRef[][]);
+        [this.dependencyRefs, this.parameterRefs] = partitionArray(
+            this.dependencyRefs,
+            (ref) => (ref.sourcePath[0] !== 'Properties' || ref.sourcePath[1] !== 'Parameters')
+        );
 
         const nestedStackName = this.component.name;
         if(!this.parserArgs.nestedStacks || !{}.hasOwnProperty.call(this.parserArgs.nestedStacks, nestedStackName))

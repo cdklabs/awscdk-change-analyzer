@@ -6,6 +6,7 @@ import {
     InfraModel,
     ComponentPropertyValue
 } from "../../infra-model";
+import { isDefined } from "../../utils";
 import { CFParserArgs } from "./cf-parser-args";
 import { CFRef } from "./cf-ref";
 
@@ -83,33 +84,36 @@ export abstract class CFEntity {
     /**
      * A ComponentProperty factory that takes a CloudFormation definition (js object)
      * and recursively creates the respective ComponentProperty for every primitive,
-     * record or array into the
+     * record or array
      * @param definition the CloudFormation definition (js object as it comes from the template)
      * @param propertyPath the property key path that leads to this definition
      */
-    protected cfDefinitionToComponentProperty(definition: CFProperty, propertyPath: string[] = []): ComponentProperty{
-        return new ComponentProperty(Object.fromEntries(
-            Object.entries(definition).map(([propKey, propValue]) => {
-                const newPropertyPath = [...propertyPath, propKey];
+    protected cfDefinitionToComponentProperty(definition: CFProperty): ComponentProperty{
+        const updateTypeGetter = this.getUpdateTypeForPropertyPath.bind(this);
+        return factory(definition, []);
 
-                if (typeof propValue === 'string' || typeof propValue === 'number') {
-                    return [propKey, new ComponentProperty(propValue,
-                        this.getUpdateTypeForPropertyPath(newPropertyPath))
-                    ];
-                } else if (Array.isArray(propValue)) {
-                    return [propKey, new ComponentProperty(
-                        propValue.map((v, i) =>
-                            this.cfDefinitionToComponentProperty(v, [...newPropertyPath, i.toString()])),
-                        this.getUpdateTypeForPropertyPath(newPropertyPath)
-                        )
-                    ];
-                } else if(typeof propValue === 'object' && propValue !== null) {
-                    return [propKey,
-                        this.cfDefinitionToComponentProperty(propValue, newPropertyPath)];
-                }
-                return [];
-            }).filter(e => e.length === 2)
-        ), this.getUpdateTypeForPropertyPath(propertyPath));
+        function factory (definition: CFProperty, propertyPath: string[]): ComponentProperty {
+            return new ComponentProperty(Object.fromEntries(
+                Object.entries(definition).map(([propKey, propValue]) => {
+                    const newPropertyPath = [...propertyPath, propKey];
+
+                    if (typeof propValue === 'string' || typeof propValue === 'number') {
+                        return [propKey, new ComponentProperty(propValue,
+                            updateTypeGetter(newPropertyPath))
+                        ];
+                    } else if (Array.isArray(propValue)) {
+                        return [propKey, new ComponentProperty(
+                                propValue.map((v, i) => factory(v, [...newPropertyPath, i.toString()])),
+                                updateTypeGetter(newPropertyPath)
+                            )
+                        ];
+                    } else if(typeof propValue === 'object' && propValue !== null) {
+                        return [propKey, factory(propValue, newPropertyPath)];
+                    }
+                    return undefined;
+                }).filter(isDefined)
+            ), updateTypeGetter(propertyPath));
+        }
     }
 
     protected createComponentProperty(value: ComponentPropertyValue, propertyPath: string[]): ComponentProperty{
@@ -117,8 +121,8 @@ export abstract class CFEntity {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    protected getUpdateTypeForPropertyPath(propertyPath: string[]): ComponentUpdateType | undefined {
-        return undefined;
+    protected getUpdateTypeForPropertyPath(propertyPath: string[]): ComponentUpdateType {
+        return ComponentUpdateType.NONE;
     }
 
 }
