@@ -29,9 +29,8 @@ export class PropertyDiff {
                 return PropertyDiff.fromPrimitivesSimilarity(p1.value === p2.value ? 1 : 0, path);
         } else if(p1 instanceof EmptyComponentProperty && p2 instanceof EmptyComponentProperty) {
             return new PropertyDiff(1, 0);
-        } else {
-            return PropertyDiff.fromDifferentProperties(p1, p2, path);
         }
+        return PropertyDiff.fromDifferentProperties(p1, p2, path);
     }
 
     private static fromRecords(a: Record<string, ComponentProperty>, b: Record<string, ComponentProperty>, path: Array<string | number>): PropertyDiff {

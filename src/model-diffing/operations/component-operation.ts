@@ -1,65 +1,64 @@
 import { Component, Relationship } from "../../infra-model";
-import { PropertyDiff } from "../property-diff";
-
-interface OperationComponents {
-    readonly prevComponent?: Component,
-    readonly newComponent?: Component
-}
+import { Transition } from "../transition";
+import { PropertyOperation } from "./property-operation";
 
 export abstract class ComponentOperation {
-
-    public readonly prevComponent?: Component;
-    public readonly newComponent?: Component;
-
-    constructor({prevComponent, newComponent}: OperationComponents){
-        this.prevComponent = prevComponent;
-        this.newComponent = newComponent;
-    }
+    constructor(public readonly componentTransition: Transition<Component>){}
 }
 
 export class InsertComponentOperation extends ComponentOperation {
     constructor(
         public readonly newComponent: Component,
-    ){super({newComponent});}
+    ){super({v2: newComponent});}
 }
 
 export class RemoveComponentOperation extends ComponentOperation {
     constructor(
         public readonly prevComponent: Component
-    ){super({prevComponent});}
+    ){super({v1: prevComponent});}
 }
 
-export class UpdateComponentOperation extends ComponentOperation {
+export class UpdatePropertiesComponentOperation extends ComponentOperation {
     constructor(
-        components: OperationComponents,
-        public readonly propertyDiff?: PropertyDiff,
-    ){super(components);}
+        componentTransition: Transition<Component>,
+        public readonly operation: PropertyOperation,
+    ){super(componentTransition);}
 }
 
 export class RenameComponentOperation extends ComponentOperation {
     constructor(
-        components: OperationComponents
-    ){super(components);}
+        componentTransition: Transition<Component>
+    ){super(componentTransition);}
 }
 
-export class InsertOutgoingComponentOperation extends ComponentOperation {
+export class OutgoingComponentOperation extends ComponentOperation {
+
+    public readonly relationshipTransition: Transition<Relationship>;
+
     constructor(
-        components: OperationComponents,
-        public readonly relationship: Relationship
-    ){super(components);}
+        componentTransition: Transition<Component>,
+        public readonly outgoingRelationships: Transition<Relationship>,
+    ){super(componentTransition);}
 }
 
-export class RemoveOutgoingComponentOperation extends ComponentOperation {
+export class InsertOutgoingComponentOperation extends OutgoingComponentOperation {
     constructor(
-        components: OperationComponents,
-        public readonly realtionship: Relationship
-    ){super(components);}
+        componentTransition: Transition<Component>,
+        relationship: Relationship
+    ){super(componentTransition, {v2: relationship});}
 }
 
-export class UpdateOutgoingComponentOperation extends ComponentOperation {
+export class RemoveOutgoingComponentOperation extends OutgoingComponentOperation {
     constructor(
-        components: OperationComponents,
+        componentTransition: Transition<Component>,
+        relationship: Relationship
+    ){super(componentTransition, {v1: relationship});}
+}
+
+export class UpdateOutgoingComponentOperation extends OutgoingComponentOperation {
+    constructor(
+        componentTransition: Transition<Component>,
         public readonly newRelationship: Relationship,
         public readonly oldRelationship: Relationship
-    ){super(components);}
+    ){super(componentTransition, {v1: oldRelationship, v2: newRelationship});}
 }

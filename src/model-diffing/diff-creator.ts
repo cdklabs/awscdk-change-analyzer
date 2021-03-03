@@ -4,7 +4,7 @@ import {
     InsertComponentOperation,
     RemoveComponentOperation,
     RenameComponentOperation,
-    UpdateComponentOperation,
+    UpdatePropertiesComponentOperation,
     ComponentOperation,
     RemoveOutgoingComponentOperation,
     InsertOutgoingComponentOperation,
@@ -13,6 +13,7 @@ import {
 import { groupArrayBy } from "../utils/arrayUtils";
 import { EntityMatches } from "./entity-matchers/entities-matcher";
 import { RelationshipsMatcher } from "./entity-matchers/relationships-matcher";
+import { isDefined } from "../utils";
 
 export class DiffCreator {
     
@@ -68,11 +69,15 @@ export class DiffCreator {
         const removals = [...unmatchedOldComponents].map(c => new RemoveComponentOperation(c));
         const insertions = [...unmatchedNewComponents].map(c => new InsertComponentOperation(c));
         const renames = [...renamedMatches.entries()]
-            .map(([newComponent, match]) => new RenameComponentOperation({newComponent, prevComponent: match.entity}));
+            .map(([newComponent, match]) => new RenameComponentOperation({v1: match.entity, v2: newComponent}));
         
         const updates = [...sameNameMatches.entries(),...renamedMatches.entries()]
-            .filter((entry) => entry[1].similarity < 1)
-            .map(([newComponent, match]) => new UpdateComponentOperation({prevComponent: match.entity, newComponent}, propertyDiffs.get(newComponent)));
+            .map(([newComponent, match]) => {
+                const propertyOperation = propertyDiffs.get(newComponent)?.operation;
+                if(propertyOperation)
+                    return new UpdatePropertiesComponentOperation({v1: match.entity, v2: newComponent}, propertyOperation);
+                return undefined;
+            }).filter(isDefined);
 
         this.componentMatches = new Map([...this.componentMatches, ...sameNameMatches, ...renamedMatches]);
         this.componentOperations.push(...removals, ...insertions, ...renames, ...updates);
@@ -97,24 +102,24 @@ export class DiffCreator {
             return [...m.entries()];
         }));
 
-        const operationComponentsGetter = (r: Relationship) =>
-            ({prevComponent: r.source, newComponent: this.componentMatches.get(r.source)?.entity}); 
+        const transitionBuilder = (r: Relationship) =>
+            ({v1: r.source, v2: this.componentMatches.get(r.source)?.entity}); 
 
         const removals = [
             ...unmatchedOld,
             ...this.unmatchedOldComponents.flatMap(c => [...c.outgoing])
         ].map(r => new RemoveOutgoingComponentOperation(
-            operationComponentsGetter(r) ,r));
+            transitionBuilder(r) ,r));
 
         const insertions = [
             ...unmatchedNew,
             ...this.unmatchedNewComponents.flatMap(c => [...c.outgoing])
         ].map(r => new InsertOutgoingComponentOperation(
-            operationComponentsGetter(r), r));
+            transitionBuilder(r), r));
         const updates = [...matches]
             .filter((entry) => entry[1].similarity < 1)
             .map(([newRelationship, match]) => new UpdateOutgoingComponentOperation(
-                operationComponentsGetter(newRelationship),
+                transitionBuilder(newRelationship),
                 newRelationship,
                 match.entity
             ));
