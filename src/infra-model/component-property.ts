@@ -8,6 +8,8 @@ export enum ComponentUpdateType {
     POSSIBLE_REPLACEMENT = 'PossibleReplacement',
 }
 
+export type PropertyPath = (string | number)[];
+
 type PropertyPrimitive = string | number;
 export type ComponentPropertyValue = PropertyPrimitive | Array<ComponentProperty> | Record<string, ComponentProperty>;
 
@@ -31,6 +33,21 @@ export abstract class ComponentProperty {
             throw new ComponentPropertyAccessError("Trying to read component property as an Array, but it is not one");
         }
         return this.value as Array<ComponentProperty>;
+    }
+
+    getPropertyInPath(path: PropertyPath): ComponentProperty {
+        if(path.length === 0){
+            return this;
+        } else if(typeof path[0] === 'number') {
+            if(this.getArray().length <= path[0])
+                throw new ComponentPropertyAccessError(`Component property array does not have any property in index ${path[0]}`);
+            return this.getArray()[path[0]].getPropertyInPath(path.slice(1));
+        } else if(typeof path[0] === 'string') {
+            if(!this.getRecord()[path[0]])
+                throw new ComponentPropertyAccessError(`Component property does not have any component for key ${path[0]}`);
+            return this.getRecord()[path[0]].getPropertyInPath(path.slice(1));
+        }
+        throw Error(`Path includes non valid value: ${path[0]}`);
     }
 }
 

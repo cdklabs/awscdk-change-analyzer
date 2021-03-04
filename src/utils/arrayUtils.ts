@@ -6,12 +6,23 @@ export function partitionArray<A>(arr: A[], isLeft: (x: A) => boolean): [A[], A[
     [[], []] as [A[], A[]]);
 }
 
-export function groupArrayBy<T>(arr: T[], propertyGetter: (t:T) => string): Record<string, T[]> {
+export function groupArrayBy<T, U>(arr: T[], propertyGetter: (t:T) => U): Map<U, T[]> {
     return arr.reduce((acc, e) => {
         const property = propertyGetter(e);
-        return ({
+        return new Map([
             ...acc,
-            [propertyGetter(e)]: [...(acc[property] ?? []), e]
-        });
-    }, {} as Record<string, T[]>);
+            [propertyGetter(e), [...(acc.get(property) ?? []), e]]
+        ]);
+    }, new Map() as Map<U, T[]>);
+}
+
+export function arrayIntersection<T>(a: T[], b: T[]): T[] {
+    const aSet = new Set(a);
+    return [...b.filter(k => aSet.has(k))];
+}
+
+export function arraysEqual<T>(a: T[], b:T[]): boolean {
+    if(a.length !== b.length)
+        return false;
+    return !a.some((e, i) => e !== b[i]);
 }

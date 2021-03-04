@@ -1,4 +1,4 @@
-import { Component, InfraModel, Relationship } from '../../infra-model';
+import { Component, InfraModel, PropertyPath, Relationship } from '../../infra-model';
 import { CFEntity } from './cf-entity';
 import { CFParserArgs } from './cf-parser-args';
 import { CFResource } from './cf-resource';
@@ -62,7 +62,7 @@ export class CFNestedStack extends CFResource {
         model.components.push(...nestedModel.components.filter(c => c !== this.component));
     }
 
-    getComponentInAttributePath(attributePath:string[]):Component {
+    getComponentInAttributePath(attributePath:PropertyPath):Component {
         const innerEntity = attributePath.length >= 2
             && attributePath[0] === 'Outputs'
             && this.innerCFEntities[attributePath[1]];
