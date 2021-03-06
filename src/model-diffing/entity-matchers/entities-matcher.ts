@@ -1,5 +1,5 @@
 import { isDefined } from "../../utils";
-import { Transition } from "../transition";
+import { CompleteTransition, Transition } from "../transition";
 
 export type EntityMatches<T, K = undefined> = Map<T, {entity: T, similarity: number, metadata?: K}>;
 
@@ -79,13 +79,14 @@ export abstract class EntitiesMatcher<T, K = undefined> {
                     if(additionalVerification && !additionalVerification(entityA, entityB))
                         return undefined;
                         
-                    const similarityCalcResult = this.calcEntitySimilarity(entityA, entityB);
+                    const transition: CompleteTransition<T> = {v1: entityA, v2: entityB};
+                    const similarityCalcResult = this.calcEntitySimilarity(transition);
                     if(!similarityCalcResult)
                         return;
 
                     const [similarity, metadata] = similarityCalcResult;
                     if(similarity > (<any>this.constructor).similarityThreshold)
-                        return [similarity, {transition: {v1: entityA, v2: entityB}, metadata}];
+                        return [similarity, {transition, metadata}];
 
                     return;
                 })
@@ -99,5 +100,5 @@ export abstract class EntitiesMatcher<T, K = undefined> {
      * @param a the first entity
      * @param b the second entity
      */
-    protected abstract calcEntitySimilarity(a: T, b: T): [number, K] | undefined;
+    protected abstract calcEntitySimilarity(t: CompleteTransition<T>): [number, K] | undefined;
 }

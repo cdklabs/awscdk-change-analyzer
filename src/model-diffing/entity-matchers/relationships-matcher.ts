@@ -1,6 +1,7 @@
 import { Relationship } from "../../infra-model";
 import { EntitiesMatcher } from "./entities-matcher";
 import { stringSimilarity } from "../../utils";
+import { CompleteTransition } from "../transition";
 
 /**
  * Matches relationships based on their class and type similarity
@@ -8,11 +9,11 @@ import { stringSimilarity } from "../../utils";
  */
 export class RelationshipsMatcher extends EntitiesMatcher<Relationship, boolean> {
 
-    protected calcEntitySimilarity(a: Relationship, b: Relationship): [number, boolean] | undefined {
-        if(!(b instanceof a.constructor))
+    protected calcEntitySimilarity({v1, v2}: CompleteTransition<Relationship>): [number, boolean] | undefined {
+        if(!(v2 instanceof v1.constructor))
             return;
 
-        const similarity = stringSimilarity(a.type, b.type);
+        const similarity = stringSimilarity(v1.type, v2.type);
 
         return [similarity, similarity < 1];
     }

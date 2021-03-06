@@ -1,13 +1,12 @@
 import { Component, Relationship } from "../../infra-model";
 import { Transition } from "../transition";
-import { PropertyOperation } from "./property-operation";
 
 export enum OperationCertainty {
     ABSOLUTE = 'Absolute',
     PARTIAL = 'Partial'
 }
 
-type ComponentOperationOptions = {
+export type ComponentOperationOptions = {
     readonly cause?: ComponentOperation | undefined;
     readonly certainty?: OperationCertainty
 } 
@@ -44,14 +43,6 @@ export class RemoveComponentOperation extends ComponentOperation {
 }
 
 export class ReplaceComponentOperation extends ComponentOperation {}
-
-export class UpdatePropertiesComponentOperation extends ComponentOperation {
-    constructor(
-        componentTransition: Transition<Component>,
-        public operation: PropertyOperation,
-        options?: ComponentOperationOptions
-    ){super(componentTransition, options);}
-}
 
 export class RenameComponentOperation extends ComponentOperation {
     constructor(

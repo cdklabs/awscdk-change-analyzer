@@ -75,7 +75,12 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"VpcId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCB9E5F0B4\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCB9E5F0B4\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"AvailabilityZone\\": {
@@ -148,7 +153,12 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"VpcId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCB9E5F0B4\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCB9E5F0B4\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"Tags\\": {
@@ -191,11 +201,21 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"RouteTableId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPublicSubnet1RouteTableFEE4B781\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPublicSubnet1RouteTableFEE4B781\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"SubnetId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPublicSubnet1SubnetB4246D30\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPublicSubnet1SubnetB4246D30\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             }
                         },
@@ -220,7 +240,12 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"RouteTableId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPublicSubnet1RouteTableFEE4B781\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPublicSubnet1RouteTableFEE4B781\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"DestinationCidrBlock\\": {
@@ -228,7 +253,12 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"GatewayId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCIGWB7E252D3\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCIGWB7E252D3\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             }
                         },
@@ -370,11 +400,188 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"AllocationId\\": {
-                                \\"value\\": \\"{\\\\\\"Fn::GetAtt\\\\\\":[\\\\\\"VPCPublicSubnet1EIP6AD938E8\\\\\\",\\\\\\"AllocationId\\\\\\"]}\\",
+                                \\"value\\": {
+                                    \\"Fn::GetAtt\\": {
+                                        \\"value\\": [
+                                            {
+                                                \\"value\\": {
+                                                    \\"0\\": {
+                                                        \\"value\\": \\"V\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"1\\": {
+                                                        \\"value\\": \\"P\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"2\\": {
+                                                        \\"value\\": \\"C\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"3\\": {
+                                                        \\"value\\": \\"P\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"4\\": {
+                                                        \\"value\\": \\"u\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"5\\": {
+                                                        \\"value\\": \\"b\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"6\\": {
+                                                        \\"value\\": \\"l\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"7\\": {
+                                                        \\"value\\": \\"i\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"8\\": {
+                                                        \\"value\\": \\"c\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"9\\": {
+                                                        \\"value\\": \\"S\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"10\\": {
+                                                        \\"value\\": \\"u\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"11\\": {
+                                                        \\"value\\": \\"b\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"12\\": {
+                                                        \\"value\\": \\"n\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"13\\": {
+                                                        \\"value\\": \\"e\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"14\\": {
+                                                        \\"value\\": \\"t\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"15\\": {
+                                                        \\"value\\": \\"1\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"16\\": {
+                                                        \\"value\\": \\"E\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"17\\": {
+                                                        \\"value\\": \\"I\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"18\\": {
+                                                        \\"value\\": \\"P\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"19\\": {
+                                                        \\"value\\": \\"6\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"20\\": {
+                                                        \\"value\\": \\"A\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"21\\": {
+                                                        \\"value\\": \\"D\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"22\\": {
+                                                        \\"value\\": \\"9\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"23\\": {
+                                                        \\"value\\": \\"3\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"24\\": {
+                                                        \\"value\\": \\"8\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"25\\": {
+                                                        \\"value\\": \\"E\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"26\\": {
+                                                        \\"value\\": \\"8\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    }
+                                                },
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            {
+                                                \\"value\\": {
+                                                    \\"0\\": {
+                                                        \\"value\\": \\"A\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"1\\": {
+                                                        \\"value\\": \\"l\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"2\\": {
+                                                        \\"value\\": \\"l\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"3\\": {
+                                                        \\"value\\": \\"o\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"4\\": {
+                                                        \\"value\\": \\"c\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"5\\": {
+                                                        \\"value\\": \\"a\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"6\\": {
+                                                        \\"value\\": \\"t\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"7\\": {
+                                                        \\"value\\": \\"i\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"8\\": {
+                                                        \\"value\\": \\"o\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"9\\": {
+                                                        \\"value\\": \\"n\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"10\\": {
+                                                        \\"value\\": \\"I\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"11\\": {
+                                                        \\"value\\": \\"d\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    }
+                                                },
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            }
+                                        ],
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"SubnetId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPublicSubnet1SubnetB4246D30\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPublicSubnet1SubnetB4246D30\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"Tags\\": {
@@ -421,7 +628,12 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"VpcId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCB9E5F0B4\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCB9E5F0B4\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"AvailabilityZone\\": {
@@ -494,7 +706,12 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"VpcId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCB9E5F0B4\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCB9E5F0B4\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"Tags\\": {
@@ -537,11 +754,21 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"RouteTableId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPublicSubnet2RouteTable6F1A15F1\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPublicSubnet2RouteTable6F1A15F1\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"SubnetId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPublicSubnet2Subnet74179F39\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPublicSubnet2Subnet74179F39\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             }
                         },
@@ -566,7 +793,12 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"RouteTableId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPublicSubnet2RouteTable6F1A15F1\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPublicSubnet2RouteTable6F1A15F1\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"DestinationCidrBlock\\": {
@@ -574,7 +806,12 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"GatewayId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCIGWB7E252D3\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCIGWB7E252D3\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             }
                         },
@@ -716,11 +953,188 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"AllocationId\\": {
-                                \\"value\\": \\"{\\\\\\"Fn::GetAtt\\\\\\":[\\\\\\"VPCPublicSubnet2EIP4947BC00\\\\\\",\\\\\\"AllocationId\\\\\\"]}\\",
+                                \\"value\\": {
+                                    \\"Fn::GetAtt\\": {
+                                        \\"value\\": [
+                                            {
+                                                \\"value\\": {
+                                                    \\"0\\": {
+                                                        \\"value\\": \\"V\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"1\\": {
+                                                        \\"value\\": \\"P\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"2\\": {
+                                                        \\"value\\": \\"C\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"3\\": {
+                                                        \\"value\\": \\"P\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"4\\": {
+                                                        \\"value\\": \\"u\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"5\\": {
+                                                        \\"value\\": \\"b\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"6\\": {
+                                                        \\"value\\": \\"l\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"7\\": {
+                                                        \\"value\\": \\"i\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"8\\": {
+                                                        \\"value\\": \\"c\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"9\\": {
+                                                        \\"value\\": \\"S\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"10\\": {
+                                                        \\"value\\": \\"u\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"11\\": {
+                                                        \\"value\\": \\"b\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"12\\": {
+                                                        \\"value\\": \\"n\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"13\\": {
+                                                        \\"value\\": \\"e\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"14\\": {
+                                                        \\"value\\": \\"t\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"15\\": {
+                                                        \\"value\\": \\"2\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"16\\": {
+                                                        \\"value\\": \\"E\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"17\\": {
+                                                        \\"value\\": \\"I\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"18\\": {
+                                                        \\"value\\": \\"P\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"19\\": {
+                                                        \\"value\\": \\"4\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"20\\": {
+                                                        \\"value\\": \\"9\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"21\\": {
+                                                        \\"value\\": \\"4\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"22\\": {
+                                                        \\"value\\": \\"7\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"23\\": {
+                                                        \\"value\\": \\"B\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"24\\": {
+                                                        \\"value\\": \\"C\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"25\\": {
+                                                        \\"value\\": \\"0\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"26\\": {
+                                                        \\"value\\": \\"0\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    }
+                                                },
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            {
+                                                \\"value\\": {
+                                                    \\"0\\": {
+                                                        \\"value\\": \\"A\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"1\\": {
+                                                        \\"value\\": \\"l\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"2\\": {
+                                                        \\"value\\": \\"l\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"3\\": {
+                                                        \\"value\\": \\"o\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"4\\": {
+                                                        \\"value\\": \\"c\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"5\\": {
+                                                        \\"value\\": \\"a\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"6\\": {
+                                                        \\"value\\": \\"t\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"7\\": {
+                                                        \\"value\\": \\"i\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"8\\": {
+                                                        \\"value\\": \\"o\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"9\\": {
+                                                        \\"value\\": \\"n\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"10\\": {
+                                                        \\"value\\": \\"I\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"11\\": {
+                                                        \\"value\\": \\"d\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    }
+                                                },
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            }
+                                        ],
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"SubnetId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPublicSubnet2Subnet74179F39\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPublicSubnet2Subnet74179F39\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"Tags\\": {
@@ -767,7 +1181,12 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"VpcId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCB9E5F0B4\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCB9E5F0B4\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"AvailabilityZone\\": {
@@ -840,7 +1259,12 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"VpcId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCB9E5F0B4\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCB9E5F0B4\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"Tags\\": {
@@ -883,11 +1307,21 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"RouteTableId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPublicSubnet3RouteTable98AE0E14\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPublicSubnet3RouteTable98AE0E14\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"SubnetId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPublicSubnet3Subnet631C5E25\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPublicSubnet3Subnet631C5E25\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             }
                         },
@@ -912,7 +1346,12 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"RouteTableId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPublicSubnet3RouteTable98AE0E14\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPublicSubnet3RouteTable98AE0E14\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"DestinationCidrBlock\\": {
@@ -920,7 +1359,12 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"GatewayId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCIGWB7E252D3\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCIGWB7E252D3\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             }
                         },
@@ -1062,11 +1506,188 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"AllocationId\\": {
-                                \\"value\\": \\"{\\\\\\"Fn::GetAtt\\\\\\":[\\\\\\"VPCPublicSubnet3EIPAD4BC883\\\\\\",\\\\\\"AllocationId\\\\\\"]}\\",
+                                \\"value\\": {
+                                    \\"Fn::GetAtt\\": {
+                                        \\"value\\": [
+                                            {
+                                                \\"value\\": {
+                                                    \\"0\\": {
+                                                        \\"value\\": \\"V\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"1\\": {
+                                                        \\"value\\": \\"P\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"2\\": {
+                                                        \\"value\\": \\"C\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"3\\": {
+                                                        \\"value\\": \\"P\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"4\\": {
+                                                        \\"value\\": \\"u\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"5\\": {
+                                                        \\"value\\": \\"b\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"6\\": {
+                                                        \\"value\\": \\"l\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"7\\": {
+                                                        \\"value\\": \\"i\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"8\\": {
+                                                        \\"value\\": \\"c\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"9\\": {
+                                                        \\"value\\": \\"S\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"10\\": {
+                                                        \\"value\\": \\"u\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"11\\": {
+                                                        \\"value\\": \\"b\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"12\\": {
+                                                        \\"value\\": \\"n\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"13\\": {
+                                                        \\"value\\": \\"e\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"14\\": {
+                                                        \\"value\\": \\"t\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"15\\": {
+                                                        \\"value\\": \\"3\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"16\\": {
+                                                        \\"value\\": \\"E\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"17\\": {
+                                                        \\"value\\": \\"I\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"18\\": {
+                                                        \\"value\\": \\"P\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"19\\": {
+                                                        \\"value\\": \\"A\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"20\\": {
+                                                        \\"value\\": \\"D\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"21\\": {
+                                                        \\"value\\": \\"4\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"22\\": {
+                                                        \\"value\\": \\"B\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"23\\": {
+                                                        \\"value\\": \\"C\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"24\\": {
+                                                        \\"value\\": \\"8\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"25\\": {
+                                                        \\"value\\": \\"8\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"26\\": {
+                                                        \\"value\\": \\"3\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    }
+                                                },
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            {
+                                                \\"value\\": {
+                                                    \\"0\\": {
+                                                        \\"value\\": \\"A\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"1\\": {
+                                                        \\"value\\": \\"l\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"2\\": {
+                                                        \\"value\\": \\"l\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"3\\": {
+                                                        \\"value\\": \\"o\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"4\\": {
+                                                        \\"value\\": \\"c\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"5\\": {
+                                                        \\"value\\": \\"a\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"6\\": {
+                                                        \\"value\\": \\"t\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"7\\": {
+                                                        \\"value\\": \\"i\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"8\\": {
+                                                        \\"value\\": \\"o\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"9\\": {
+                                                        \\"value\\": \\"n\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"10\\": {
+                                                        \\"value\\": \\"I\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"11\\": {
+                                                        \\"value\\": \\"d\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    }
+                                                },
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            }
+                                        ],
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"SubnetId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPublicSubnet3Subnet631C5E25\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPublicSubnet3Subnet631C5E25\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"Tags\\": {
@@ -1113,7 +1734,12 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"VpcId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCB9E5F0B4\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCB9E5F0B4\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"AvailabilityZone\\": {
@@ -1186,7 +1812,12 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"VpcId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCB9E5F0B4\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCB9E5F0B4\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"Tags\\": {
@@ -1229,11 +1860,21 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"RouteTableId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPrivateSubnet1RouteTableBE8A6027\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPrivateSubnet1RouteTableBE8A6027\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"SubnetId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPrivateSubnet1Subnet8BCA10E0\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPrivateSubnet1Subnet8BCA10E0\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             }
                         },
@@ -1258,7 +1899,12 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"RouteTableId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPrivateSubnet1RouteTableBE8A6027\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPrivateSubnet1RouteTableBE8A6027\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"DestinationCidrBlock\\": {
@@ -1266,7 +1912,12 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"NatGatewayId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPublicSubnet1NATGatewayE0556630\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPublicSubnet1NATGatewayE0556630\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             }
                         },
@@ -1295,7 +1946,12 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"VpcId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCB9E5F0B4\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCB9E5F0B4\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"AvailabilityZone\\": {
@@ -1368,7 +2024,12 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"VpcId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCB9E5F0B4\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCB9E5F0B4\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"Tags\\": {
@@ -1411,11 +2072,21 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"RouteTableId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPrivateSubnet2RouteTable0A19E10E\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPrivateSubnet2RouteTable0A19E10E\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"SubnetId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPrivateSubnet2SubnetCFCDAA7A\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPrivateSubnet2SubnetCFCDAA7A\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             }
                         },
@@ -1440,7 +2111,12 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"RouteTableId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPrivateSubnet2RouteTable0A19E10E\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPrivateSubnet2RouteTable0A19E10E\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"DestinationCidrBlock\\": {
@@ -1448,7 +2124,12 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"NatGatewayId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPublicSubnet2NATGateway3C070193\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPublicSubnet2NATGateway3C070193\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             }
                         },
@@ -1477,7 +2158,12 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"VpcId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCB9E5F0B4\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCB9E5F0B4\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"AvailabilityZone\\": {
@@ -1550,7 +2236,12 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"VpcId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCB9E5F0B4\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCB9E5F0B4\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"Tags\\": {
@@ -1593,11 +2284,21 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"RouteTableId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPrivateSubnet3RouteTable192186F8\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPrivateSubnet3RouteTable192186F8\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"SubnetId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPrivateSubnet3Subnet3EDCD457\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPrivateSubnet3Subnet3EDCD457\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             }
                         },
@@ -1622,7 +2323,12 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"RouteTableId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPrivateSubnet3RouteTable192186F8\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPrivateSubnet3RouteTable192186F8\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"DestinationCidrBlock\\": {
@@ -1630,7 +2336,12 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"NatGatewayId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPublicSubnet3NATGatewayD3048F5C\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPublicSubnet3NATGatewayD3048F5C\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             }
                         },
@@ -1694,11 +2405,21 @@ exports[`CloudFormation complex template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"VpcId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCB9E5F0B4\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCB9E5F0B4\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"InternetGatewayId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCIGWB7E252D3\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCIGWB7E252D3\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             }
                         },
@@ -1797,7 +2518,12 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"VpcId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCB9E5F0B4\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCB9E5F0B4\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             }
                         },
@@ -1838,7 +2564,35 @@ exports[`CloudFormation complex template 1`] = `
                                                     \\"Principal\\": {
                                                         \\"value\\": {
                                                             \\"Service\\": {
-                                                                \\"value\\": \\"{\\\\\\"Fn::Join\\\\\\":[\\\\\\"\\\\\\",[\\\\\\"ec2.\\\\\\",{\\\\\\"Ref\\\\\\":\\\\\\"AWS::URLSuffix\\\\\\"}]]}\\",
+                                                                \\"value\\": {
+                                                                    \\"Fn::Join\\": {
+                                                                        \\"value\\": [
+                                                                            {
+                                                                                \\"value\\": {},
+                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                            },
+                                                                            {
+                                                                                \\"value\\": {
+                                                                                    \\"0\\": {
+                                                                                        \\"value\\": \\"ec2.\\",
+                                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                                    },
+                                                                                    \\"1\\": {
+                                                                                        \\"value\\": {
+                                                                                            \\"Ref\\": {
+                                                                                                \\"value\\": \\"AWS::URLSuffix\\",
+                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                            }
+                                                                                        },
+                                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                                    }
+                                                                                },
+                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                            }
+                                                                        ],
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    }
+                                                                },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             }
                                                         },
@@ -2006,11 +2760,21 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"IamInstanceProfile\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"InstanceInstanceProfileAB5AEF02\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"InstanceInstanceProfileAB5AEF02\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"ImageId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"InstanceType\\": {
@@ -2219,7 +2983,12 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"PossibleReplacement\\"
                             },
                             \\"SubnetId\\": {
-                                \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"VPCPrivateSubnet1Subnet8BCA10E0\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Ref\\": {
+                                        \\"value\\": \\"VPCPrivateSubnet1Subnet8BCA10E0\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"Tags\\": {
@@ -2241,7 +3010,12 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"UserData\\": {
-                                \\"value\\": \\"{\\\\\\"Fn::Base64\\\\\\":\\\\\\"#!/bin/bash\\\\\\\\nyum install -y\\\\\\"}\\",
+                                \\"value\\": {
+                                    \\"Fn::Base64\\": {
+                                        \\"value\\": \\"#!/bin/bash\\\\nyum install -y\\",
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"PossibleReplacement\\"
                             }
                         },
@@ -3378,7 +4152,143 @@ exports[`CloudFormation nested template 1`] = `
                                                 \\"componentUpdateType\\": \\"None\\"
                                             },
                                             \\"Value\\": {
-                                                \\"value\\": \\"{\\\\\\"Fn::GetAtt\\\\\\":[\\\\\\"NestedStack\\\\\\",\\\\\\"Outputs.InnerOutput\\\\\\"]}\\",
+                                                \\"value\\": {
+                                                    \\"Fn::GetAtt\\": {
+                                                        \\"value\\": [
+                                                            {
+                                                                \\"value\\": {
+                                                                    \\"0\\": {
+                                                                        \\"value\\": \\"N\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"1\\": {
+                                                                        \\"value\\": \\"e\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"2\\": {
+                                                                        \\"value\\": \\"s\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"3\\": {
+                                                                        \\"value\\": \\"t\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"4\\": {
+                                                                        \\"value\\": \\"e\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"5\\": {
+                                                                        \\"value\\": \\"d\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"6\\": {
+                                                                        \\"value\\": \\"S\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"7\\": {
+                                                                        \\"value\\": \\"t\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"8\\": {
+                                                                        \\"value\\": \\"a\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"9\\": {
+                                                                        \\"value\\": \\"c\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"10\\": {
+                                                                        \\"value\\": \\"k\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    }
+                                                                },
+                                                                \\"componentUpdateType\\": \\"None\\"
+                                                            },
+                                                            {
+                                                                \\"value\\": {
+                                                                    \\"0\\": {
+                                                                        \\"value\\": \\"O\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"1\\": {
+                                                                        \\"value\\": \\"u\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"2\\": {
+                                                                        \\"value\\": \\"t\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"3\\": {
+                                                                        \\"value\\": \\"p\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"4\\": {
+                                                                        \\"value\\": \\"u\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"5\\": {
+                                                                        \\"value\\": \\"t\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"6\\": {
+                                                                        \\"value\\": \\"s\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"7\\": {
+                                                                        \\"value\\": \\".\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"8\\": {
+                                                                        \\"value\\": \\"I\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"9\\": {
+                                                                        \\"value\\": \\"n\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"10\\": {
+                                                                        \\"value\\": \\"n\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"11\\": {
+                                                                        \\"value\\": \\"e\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"12\\": {
+                                                                        \\"value\\": \\"r\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"13\\": {
+                                                                        \\"value\\": \\"O\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"14\\": {
+                                                                        \\"value\\": \\"u\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"15\\": {
+                                                                        \\"value\\": \\"t\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"16\\": {
+                                                                        \\"value\\": \\"p\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"17\\": {
+                                                                        \\"value\\": \\"u\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    },
+                                                                    \\"18\\": {
+                                                                        \\"value\\": \\"t\\",
+                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                    }
+                                                                },
+                                                                \\"componentUpdateType\\": \\"None\\"
+                                                            }
+                                                        ],
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    }
+                                                },
                                                 \\"componentUpdateType\\": \\"None\\"
                                             }
                                         },
@@ -3415,7 +4325,12 @@ exports[`CloudFormation nested template 1`] = `
                             \\"Parameters\\": {
                                 \\"value\\": {
                                     \\"InnerStackParameter\\": {
-                                        \\"value\\": \\"{\\\\\\"Ref\\\\\\":\\\\\\"OuterStackParameter\\\\\\"}\\",
+                                        \\"value\\": {
+                                            \\"Ref\\": {
+                                                \\"value\\": \\"OuterStackParameter\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            }
+                                        },
                                         \\"componentUpdateType\\": \\"None\\"
                                     }
                                 },
@@ -3490,7 +4405,115 @@ exports[`CloudFormation nested template 1`] = `
                     \\"Properties\\": {
                         \\"value\\": {
                             \\"SomeProperty\\": {
-                                \\"value\\": \\"{\\\\\\"Fn::GetAtt\\\\\\":[\\\\\\"InnerStackParameter\\\\\\",\\\\\\"Type\\\\\\"]}\\",
+                                \\"value\\": {
+                                    \\"Fn::GetAtt\\": {
+                                        \\"value\\": [
+                                            {
+                                                \\"value\\": {
+                                                    \\"0\\": {
+                                                        \\"value\\": \\"I\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"1\\": {
+                                                        \\"value\\": \\"n\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"2\\": {
+                                                        \\"value\\": \\"n\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"3\\": {
+                                                        \\"value\\": \\"e\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"4\\": {
+                                                        \\"value\\": \\"r\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"5\\": {
+                                                        \\"value\\": \\"S\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"6\\": {
+                                                        \\"value\\": \\"t\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"7\\": {
+                                                        \\"value\\": \\"a\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"8\\": {
+                                                        \\"value\\": \\"c\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"9\\": {
+                                                        \\"value\\": \\"k\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"10\\": {
+                                                        \\"value\\": \\"P\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"11\\": {
+                                                        \\"value\\": \\"a\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"12\\": {
+                                                        \\"value\\": \\"r\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"13\\": {
+                                                        \\"value\\": \\"a\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"14\\": {
+                                                        \\"value\\": \\"m\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"15\\": {
+                                                        \\"value\\": \\"e\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"16\\": {
+                                                        \\"value\\": \\"t\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"17\\": {
+                                                        \\"value\\": \\"e\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"18\\": {
+                                                        \\"value\\": \\"r\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    }
+                                                },
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            {
+                                                \\"value\\": {
+                                                    \\"0\\": {
+                                                        \\"value\\": \\"T\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"1\\": {
+                                                        \\"value\\": \\"y\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"2\\": {
+                                                        \\"value\\": \\"p\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    },
+                                                    \\"3\\": {
+                                                        \\"value\\": \\"e\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    }
+                                                },
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            }
+                                        ],
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                },
                                 \\"componentUpdateType\\": \\"None\\"
                             }
                         },
@@ -3529,7 +4552,284 @@ exports[`CloudFormation nested template 1`] = `
             \\"properties\\": {
                 \\"value\\": {
                     \\"Value\\": {
-                        \\"value\\": \\"{\\\\\\"Fn::Sub\\\\\\":[\\\\\\"SomeOutputValue \${withAnArgument} and an \${InnerStackParameter}\\\\\\",{\\\\\\"withAnArgument\\\\\\":{\\\\\\"Ref\\\\\\":\\\\\\"User00B015A1\\\\\\"}}]}\\",
+                        \\"value\\": {
+                            \\"Fn::Sub\\": {
+                                \\"value\\": [
+                                    {
+                                        \\"value\\": {
+                                            \\"0\\": {
+                                                \\"value\\": \\"S\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"1\\": {
+                                                \\"value\\": \\"o\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"2\\": {
+                                                \\"value\\": \\"m\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"3\\": {
+                                                \\"value\\": \\"e\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"4\\": {
+                                                \\"value\\": \\"O\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"5\\": {
+                                                \\"value\\": \\"u\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"6\\": {
+                                                \\"value\\": \\"t\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"7\\": {
+                                                \\"value\\": \\"p\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"8\\": {
+                                                \\"value\\": \\"u\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"9\\": {
+                                                \\"value\\": \\"t\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"10\\": {
+                                                \\"value\\": \\"V\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"11\\": {
+                                                \\"value\\": \\"a\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"12\\": {
+                                                \\"value\\": \\"l\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"13\\": {
+                                                \\"value\\": \\"u\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"14\\": {
+                                                \\"value\\": \\"e\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"15\\": {
+                                                \\"value\\": \\" \\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"16\\": {
+                                                \\"value\\": \\"$\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"17\\": {
+                                                \\"value\\": \\"{\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"18\\": {
+                                                \\"value\\": \\"w\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"19\\": {
+                                                \\"value\\": \\"i\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"20\\": {
+                                                \\"value\\": \\"t\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"21\\": {
+                                                \\"value\\": \\"h\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"22\\": {
+                                                \\"value\\": \\"A\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"23\\": {
+                                                \\"value\\": \\"n\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"24\\": {
+                                                \\"value\\": \\"A\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"25\\": {
+                                                \\"value\\": \\"r\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"26\\": {
+                                                \\"value\\": \\"g\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"27\\": {
+                                                \\"value\\": \\"u\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"28\\": {
+                                                \\"value\\": \\"m\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"29\\": {
+                                                \\"value\\": \\"e\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"30\\": {
+                                                \\"value\\": \\"n\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"31\\": {
+                                                \\"value\\": \\"t\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"32\\": {
+                                                \\"value\\": \\"}\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"33\\": {
+                                                \\"value\\": \\" \\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"34\\": {
+                                                \\"value\\": \\"a\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"35\\": {
+                                                \\"value\\": \\"n\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"36\\": {
+                                                \\"value\\": \\"d\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"37\\": {
+                                                \\"value\\": \\" \\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"38\\": {
+                                                \\"value\\": \\"a\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"39\\": {
+                                                \\"value\\": \\"n\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"40\\": {
+                                                \\"value\\": \\" \\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"41\\": {
+                                                \\"value\\": \\"$\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"42\\": {
+                                                \\"value\\": \\"{\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"43\\": {
+                                                \\"value\\": \\"I\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"44\\": {
+                                                \\"value\\": \\"n\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"45\\": {
+                                                \\"value\\": \\"n\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"46\\": {
+                                                \\"value\\": \\"e\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"47\\": {
+                                                \\"value\\": \\"r\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"48\\": {
+                                                \\"value\\": \\"S\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"49\\": {
+                                                \\"value\\": \\"t\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"50\\": {
+                                                \\"value\\": \\"a\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"51\\": {
+                                                \\"value\\": \\"c\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"52\\": {
+                                                \\"value\\": \\"k\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"53\\": {
+                                                \\"value\\": \\"P\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"54\\": {
+                                                \\"value\\": \\"a\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"55\\": {
+                                                \\"value\\": \\"r\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"56\\": {
+                                                \\"value\\": \\"a\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"57\\": {
+                                                \\"value\\": \\"m\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"58\\": {
+                                                \\"value\\": \\"e\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"59\\": {
+                                                \\"value\\": \\"t\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"60\\": {
+                                                \\"value\\": \\"e\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"61\\": {
+                                                \\"value\\": \\"r\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            },
+                                            \\"62\\": {
+                                                \\"value\\": \\"}\\",
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            }
+                                        },
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    },
+                                    {
+                                        \\"value\\": {
+                                            \\"withAnArgument\\": {
+                                                \\"value\\": {
+                                                    \\"Ref\\": {
+                                                        \\"value\\": \\"User00B015A1\\",
+                                                        \\"componentUpdateType\\": \\"None\\"
+                                                    }
+                                                },
+                                                \\"componentUpdateType\\": \\"None\\"
+                                            }
+                                        },
+                                        \\"componentUpdateType\\": \\"None\\"
+                                    }
+                                ],
+                                \\"componentUpdateType\\": \\"None\\"
+                            }
+                        },
                         \\"componentUpdateType\\": \\"None\\"
                     }
                 },
@@ -6501,7 +7801,215 @@ exports[`CloudFormation simple template 1`] = `
                                                                             {
                                                                                 \\"value\\": {
                                                                                     \\"0\\": {
-                                                                                        \\"value\\": \\"{\\\\\\"Fn::GetAtt\\\\\\":[\\\\\\"TableWithGlobalAndLocalSecondaryIndexBC540710\\\\\\",\\\\\\"Arn\\\\\\"]}\\",
+                                                                                        \\"value\\": {
+                                                                                            \\"Fn::GetAtt\\": {
+                                                                                                \\"value\\": [
+                                                                                                    {
+                                                                                                        \\"value\\": {
+                                                                                                            \\"0\\": {
+                                                                                                                \\"value\\": \\"T\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"1\\": {
+                                                                                                                \\"value\\": \\"a\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"2\\": {
+                                                                                                                \\"value\\": \\"b\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"3\\": {
+                                                                                                                \\"value\\": \\"l\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"4\\": {
+                                                                                                                \\"value\\": \\"e\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"5\\": {
+                                                                                                                \\"value\\": \\"W\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"6\\": {
+                                                                                                                \\"value\\": \\"i\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"7\\": {
+                                                                                                                \\"value\\": \\"t\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"8\\": {
+                                                                                                                \\"value\\": \\"h\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"9\\": {
+                                                                                                                \\"value\\": \\"G\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"10\\": {
+                                                                                                                \\"value\\": \\"l\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"11\\": {
+                                                                                                                \\"value\\": \\"o\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"12\\": {
+                                                                                                                \\"value\\": \\"b\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"13\\": {
+                                                                                                                \\"value\\": \\"a\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"14\\": {
+                                                                                                                \\"value\\": \\"l\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"15\\": {
+                                                                                                                \\"value\\": \\"A\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"16\\": {
+                                                                                                                \\"value\\": \\"n\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"17\\": {
+                                                                                                                \\"value\\": \\"d\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"18\\": {
+                                                                                                                \\"value\\": \\"L\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"19\\": {
+                                                                                                                \\"value\\": \\"o\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"20\\": {
+                                                                                                                \\"value\\": \\"c\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"21\\": {
+                                                                                                                \\"value\\": \\"a\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"22\\": {
+                                                                                                                \\"value\\": \\"l\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"23\\": {
+                                                                                                                \\"value\\": \\"S\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"24\\": {
+                                                                                                                \\"value\\": \\"e\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"25\\": {
+                                                                                                                \\"value\\": \\"c\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"26\\": {
+                                                                                                                \\"value\\": \\"o\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"27\\": {
+                                                                                                                \\"value\\": \\"n\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"28\\": {
+                                                                                                                \\"value\\": \\"d\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"29\\": {
+                                                                                                                \\"value\\": \\"a\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"30\\": {
+                                                                                                                \\"value\\": \\"r\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"31\\": {
+                                                                                                                \\"value\\": \\"y\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"32\\": {
+                                                                                                                \\"value\\": \\"I\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"33\\": {
+                                                                                                                \\"value\\": \\"n\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"34\\": {
+                                                                                                                \\"value\\": \\"d\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"35\\": {
+                                                                                                                \\"value\\": \\"e\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"36\\": {
+                                                                                                                \\"value\\": \\"x\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"37\\": {
+                                                                                                                \\"value\\": \\"B\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"38\\": {
+                                                                                                                \\"value\\": \\"C\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"39\\": {
+                                                                                                                \\"value\\": \\"5\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"40\\": {
+                                                                                                                \\"value\\": \\"4\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"41\\": {
+                                                                                                                \\"value\\": \\"0\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"42\\": {
+                                                                                                                \\"value\\": \\"7\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"43\\": {
+                                                                                                                \\"value\\": \\"1\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"44\\": {
+                                                                                                                \\"value\\": \\"0\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            }
+                                                                                                        },
+                                                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        \\"value\\": {
+                                                                                                            \\"0\\": {
+                                                                                                                \\"value\\": \\"A\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"1\\": {
+                                                                                                                \\"value\\": \\"r\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            },
+                                                                                                            \\"2\\": {
+                                                                                                                \\"value\\": \\"n\\",
+                                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                                            }
+                                                                                                        },
+                                                                                                        \\"componentUpdateType\\": \\"None\\"
+                                                                                                    }
+                                                                                                ],
+                                                                                                \\"componentUpdateType\\": \\"None\\"
+                                                                                            }
+                                                                                        },
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     },
                                                                                     \\"1\\": {

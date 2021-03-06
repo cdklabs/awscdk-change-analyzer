@@ -3,12 +3,12 @@ import {
     DiffCreator,
     InsertComponentOperation,
     InsertOutgoingComponentOperation,
-    MovePropertyOperation,
+    InsertPropertyComponentOperation,
+    MovePropertyComponentOperation,
     RemoveComponentOperation,
     RemoveOutgoingComponentOperation,
     RenameComponentOperation,
-    UpdatePropertiesComponentOperation,
-    UpdatePropertyOperation
+    UpdatePropertyComponentOperation,
 } from "../../model-diffing";
 
 test('Update Component Property', () => {
@@ -44,12 +44,11 @@ test('Update Component Property', () => {
     const diff = new DiffCreator({v1: oldModel, v2: newModel}).create();
 
     expect(diff.componentOperations.length).toBe(1);
-    expect(diff.componentOperations[0] instanceof UpdatePropertiesComponentOperation).toBe(true);
-    const propertyOperation = (diff.componentOperations[0] as UpdatePropertiesComponentOperation).operation;
-    expect(propertyOperation instanceof UpdatePropertyOperation).toBe(true);
+    expect(diff.componentOperations[0] instanceof UpdatePropertyComponentOperation).toBe(true);
+    const propertyOperation = diff.componentOperations[0] as UpdatePropertyComponentOperation;
     expect(propertyOperation.pathTransition.v1).toEqual(['Properties', 'property1']);
     expect(propertyOperation.pathTransition.v2).toEqual(['Properties', 'property1']);
-    expect((propertyOperation as UpdatePropertyOperation).innerOperations).toBeUndefined();
+    expect((propertyOperation as UpdatePropertyComponentOperation).innerOperations).toBeUndefined();
 });
 
 test('Update Multiple Nested Component Properties', () => {
@@ -94,17 +93,17 @@ test('Update Multiple Nested Component Properties', () => {
 
     const diff = new DiffCreator({v1: oldModel, v2: newModel}).create();
     expect(diff.componentOperations.length).toBe(1);
-    expect(diff.componentOperations[0] instanceof UpdatePropertiesComponentOperation).toBe(true);
+    expect(diff.componentOperations[0] instanceof UpdatePropertyComponentOperation).toBe(true);
 
-    const propertyOperation = (diff.componentOperations[0] as UpdatePropertiesComponentOperation).operation;
-    expect(propertyOperation instanceof UpdatePropertyOperation).toBe(true);
+    const propertyOperation = diff.componentOperations[0] as UpdatePropertyComponentOperation;
+    expect(propertyOperation instanceof UpdatePropertyComponentOperation).toBe(true);
     expect(propertyOperation.pathTransition.v2).toEqual(['Properties', 'property1']);
     expect(propertyOperation.pathTransition.v1).toEqual(['Properties', 'property1']);
 
-    const innerOperations = (propertyOperation as UpdatePropertyOperation).innerOperations;
+    const innerOperations = (propertyOperation as UpdatePropertyComponentOperation).innerOperations;
 
     expect(innerOperations.length).toBe(4);
-    expect(innerOperations.filter(o => o instanceof MovePropertyOperation).length).toBe(1);
+    expect(innerOperations.filter(o => o instanceof MovePropertyComponentOperation).length).toBe(1);
 });
 
 test('Remove Component', () => {
@@ -232,5 +231,5 @@ test('Insert Relationship', () => {
 
     expect(diff.componentOperations.length).toBe(2);
     expect(diff.componentOperations.filter(o => o instanceof InsertOutgoingComponentOperation).length).toBe(1);
-    expect(diff.componentOperations.filter(o => o instanceof UpdatePropertiesComponentOperation).length).toBe(1);
+    expect(diff.componentOperations.filter(o => o instanceof InsertPropertyComponentOperation).length).toBe(1);
 });

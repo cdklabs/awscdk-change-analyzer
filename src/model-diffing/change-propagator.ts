@@ -8,10 +8,9 @@ import {
 import { InfraModelDiff } from "./infra-model-diff";
 import { 
     ComponentOperation,
-    UpdatePropertiesComponentOperation,
-    UpdatePropertyOperation,
     OperationCertainty,
-    ReplaceComponentOperation
+    ReplaceComponentOperation,
+    UpdatePropertyComponentOperation
 } from "./operations";
 import { Transition } from "./transition";
 
@@ -25,7 +24,7 @@ export class ChangePropagator {
 
     propagate(): InfraModelDiff{
         this.modelDiff.componentOperations.forEach(o => {
-                if(o instanceof UpdatePropertiesComponentOperation){   
+                if(o instanceof UpdatePropertyComponentOperation){   
                     this.propagatePropertyUpdate(o.componentTransition, o);
                 }
         });
@@ -37,9 +36,9 @@ export class ChangePropagator {
 
     private propagatePropertyUpdate(
         componentTransition: Transition<Component>,
-        compOp: UpdatePropertiesComponentOperation
+        compOp: UpdatePropertyComponentOperation
     ) {
-        const componentUpdate = compOp.operation.getUpdateType();
+        const componentUpdate = compOp.getUpdateType();
         if(componentUpdate !== ComponentUpdateType.REPLACEMENT
             && componentUpdate !== ComponentUpdateType.POSSIBLE_REPLACEMENT)
             return;
@@ -76,15 +75,13 @@ export class ChangePropagator {
     ){
         const [v1PropertyPath, v1Property] = this.getV1PropertyForComponentTransition(componentTransition, v2PropertyPath);
 
-        return new UpdatePropertiesComponentOperation(
+        return new UpdatePropertyComponentOperation(
+            {v1: v1PropertyPath, v2: v2PropertyPath},
+            {
+                v1: v1Property,
+                v2: componentTransition.v2?.properties.getPropertyInPath(v2PropertyPath)
+            },
             componentTransition,
-            new UpdatePropertyOperation(
-                {v1: v1PropertyPath, v2: v2PropertyPath},
-                {
-                    v1: v1Property,
-                    v2: componentTransition.v2?.properties.getPropertyInPath(v2PropertyPath)
-                }
-            ),
             {certainty: cause.certainty, cause}
         );
     }
@@ -95,10 +92,10 @@ export class ChangePropagator {
     ): [PropertyPath | undefined, ComponentProperty | undefined] {
 
         const existingUpdateOperation = this.modelDiff.getTransitionOperations(componentTransition)
-            .find(o => o instanceof UpdatePropertiesComponentOperation && o.isDirectChange()) as UpdatePropertiesComponentOperation | undefined;
+            .find(o => o instanceof UpdatePropertyComponentOperation && o.isDirectChange()) as UpdatePropertyComponentOperation | undefined;
         
         const v1PropertyPath = existingUpdateOperation
-            ? existingUpdateOperation.operation.getV1Path(v2PropertyPath)
+            ? existingUpdateOperation.getV1Path(v2PropertyPath)
             : undefined;
         
         const v1Property = v1PropertyPath

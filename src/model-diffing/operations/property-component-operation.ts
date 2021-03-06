@@ -1,12 +1,17 @@
-import { ComponentProperty, ComponentUpdateType, PropertyPath } from "../../infra-model";
+import { Component, ComponentProperty, ComponentUpdateType, PropertyPath } from "../../infra-model";
 import { arraysEqual } from "../../utils";
 import { Transition } from "../transition";
+import { ComponentOperation, ComponentOperationOptions } from "./component-operation";
 
-export abstract class PropertyOperation {
+export abstract class PropertyComponentOperation extends ComponentOperation {
     constructor(
         public readonly pathTransition: Transition<Array<string | number>>,
-        public readonly propertyTransition: Transition<ComponentProperty>
-    ){}
+        public readonly propertyTransition: Transition<ComponentProperty>,
+        componentTransition: Transition<Component>,
+        options?: ComponentOperationOptions
+    ){
+        super(componentTransition, options);
+    }
 
     getUpdateType(): ComponentUpdateType{
         if(!this.propertyTransition.v2 && !this.propertyTransition.v1){
@@ -26,24 +31,26 @@ export abstract class PropertyOperation {
     }
 }
 
-export class InsertPropertyOperation extends PropertyOperation {}
+export class InsertPropertyComponentOperation extends PropertyComponentOperation {}
 
-export class RemovePropertyOperation extends PropertyOperation {}
+export class RemovePropertyComponentOperation extends PropertyComponentOperation {}
 
-export class UpdatePropertyOperation extends PropertyOperation {
+export class UpdatePropertyComponentOperation extends PropertyComponentOperation {
     constructor(
         pathTransition: Transition<Array<string | number>>,
         propertyTransition: Transition<ComponentProperty>,
-        public readonly innerOperations?: PropertyOperation[],
-    ){super(pathTransition, propertyTransition);}
+        componentTransition: Transition<Component>,
+        options?: ComponentOperationOptions,
+        public readonly innerOperations?: PropertyComponentOperation[],
+    ){super(pathTransition, propertyTransition, componentTransition, options);}
 
-    getAllInnerOperations(): PropertyOperation[]{
+    getAllInnerOperations(): PropertyComponentOperation[]{
         if(!this.innerOperations || this.innerOperations.length === 0) {
             return [this];
         }
         return this.innerOperations.flatMap(o =>
             [this, ...(
-                o instanceof UpdatePropertyOperation
+                o instanceof UpdatePropertyComponentOperation
                     ? o.getAllInnerOperations()
                     : [o]
                 )
@@ -65,4 +72,4 @@ export class UpdatePropertyOperation extends PropertyOperation {
     }
 }
 
-export class MovePropertyOperation extends UpdatePropertyOperation {}
+export class MovePropertyComponentOperation extends UpdatePropertyComponentOperation {}

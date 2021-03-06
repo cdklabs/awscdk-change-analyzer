@@ -1,8 +1,7 @@
 import {
     ChangePropagator,
     ReplaceComponentOperation,
-    UpdatePropertiesComponentOperation,
-    UpdatePropertyOperation,
+    UpdatePropertyComponentOperation,
 } from "../../model-diffing";
 import { Component, ComponentPropertyPrimitive, ComponentPropertyRecord, ComponentUpdateType, DependencyRelationship } from "../../infra-model";
 import { InfraModelDiff } from "../../model-diffing/infra-model-diff";
@@ -54,20 +53,22 @@ const createTestCase1 = (): InfraModelDiff => {
     const component1Transition = {v1: component1v1, v2: component1v2};
     const component2Transition = {v1: component2v1, v2: component2v2};
 
-    const directChangeComponent1 = new UpdatePropertiesComponentOperation(
-        component1Transition,
-        new UpdatePropertyOperation({v1: ["someKey"], v2: ["someKey"]}, {
+    const directChangeComponent1 = new UpdatePropertyComponentOperation(
+        {v1: ["someKey"], v2: ["someKey"]},
+        {
             v1: component1v1.properties.getRecord()["someKey"], 
             v2: component1v2.properties.getRecord()["someKey"], 
-        })
+        },
+        component1Transition,
     );
 
-    const directChangeComponent2 = new UpdatePropertiesComponentOperation(
-        component2Transition,
-        new UpdatePropertyOperation({v1: ["nested", "propComp2"], v2: ["nestedNameChanged", "propComp2NameChanged"]}, {
+    const directChangeComponent2 = new UpdatePropertyComponentOperation(
+        {v1: ["nested", "propComp2"], v2: ["nestedNameChanged", "propComp2NameChanged"]},
+        {
             v1: component2v1.properties.getRecord()["nested"].getRecord()["propComp2"], 
             v2: component2v2.properties.getRecord()["nestedNameChanged"].getRecord()["propComp2NameChanged"], 
-        })
+        },
+        component2Transition
     );
     
     return new InfraModelDiff([directChangeComponent1, directChangeComponent2], [component1Transition, component2Transition]);
@@ -79,10 +80,10 @@ test('Basic Replacement from Property Change', () => {
     const propagatedDiff = new ChangePropagator(diff).propagate();
     const operations = propagatedDiff.componentOperations;
 
-    const originalUpdateComponent1 = operations.find(o => o instanceof UpdatePropertiesComponentOperation
+    const originalUpdateComponent1 = operations.find(o => o instanceof UpdatePropertyComponentOperation
         && o.componentTransition.v1.name === "component1"
         && !o.cause);
-    const originalUpdateComponent2 = operations.find(o => o instanceof UpdatePropertiesComponentOperation
+    const originalUpdateComponent2 = operations.find(o => o instanceof UpdatePropertyComponentOperation
         && o.componentTransition.v1.name === "component2"
         && !o.cause);
     
@@ -101,7 +102,7 @@ test('Basic Replacement from Property Change', () => {
     expect(replacementComp1CausedByOriginalUpdate).toBeDefined();
     expect(replacementComp2CausedByOriginalUpdate).toBeDefined();
 
-    const updateComp2CausedByReplacementComp1 = operations.find(o => o instanceof UpdatePropertiesComponentOperation
+    const updateComp2CausedByReplacementComp1 = operations.find(o => o instanceof UpdatePropertyComponentOperation
         && o.componentTransition.v1.name === "component2"
         && o.cause === replacementComp1CausedByOriginalUpdate
     );
@@ -124,10 +125,8 @@ test('ReplaceOperation-caused PropertyUpdate should have the proper property pat
     const operations = propagatedDiff.componentOperations;
 
     const updateCausedByReplacement = operations.find(o =>
-        o instanceof UpdatePropertiesComponentOperation
-        && o.cause instanceof ReplaceComponentOperation) as UpdatePropertiesComponentOperation;
+        o instanceof UpdatePropertyComponentOperation
+        && o.cause instanceof ReplaceComponentOperation) as UpdatePropertyComponentOperation;
     expect(updateCausedByReplacement).toBeDefined();
-    expect(updateCausedByReplacement.operation instanceof UpdatePropertyOperation).toBe(true);
-    const propertyOperation = (updateCausedByReplacement.operation as UpdatePropertyOperation);
-    expect(propertyOperation.pathTransition).toEqual({v1: ["nested", "propComp2"], v2: ["nestedNameChanged", "propComp2NameChanged"]});
+    expect(updateCausedByReplacement.pathTransition).toEqual({v1: ["nested", "propComp2"], v2: ["nestedNameChanged", "propComp2NameChanged"]});
 });

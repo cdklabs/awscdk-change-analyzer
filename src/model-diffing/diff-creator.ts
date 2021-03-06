@@ -5,12 +5,11 @@ import {
     InsertComponentOperation,
     RemoveComponentOperation,
     RenameComponentOperation,
-    UpdatePropertiesComponentOperation,
     ComponentOperation,
     RemoveOutgoingComponentOperation,
     InsertOutgoingComponentOperation,
     UpdateOutgoingComponentOperation,
-    PropertyOperation
+    PropertyComponentOperation,
 } from "./operations";
 import { groupArrayBy } from "../utils/arrayUtils";
 import { RelationshipsMatcher } from "./entity-matchers/relationships-matcher";
@@ -70,13 +69,13 @@ export class DiffCreator {
             sameNameMatches.unmatchedB
         );
 
-        const updates = sameNameMatches.matches.map(
-            ({transition, metadata: propOp}) => propOp && new UpdatePropertiesComponentOperation(transition, propOp)
-            ).filter(isDefined);
+        const updates = [...sameNameMatches.matches, ...renamedMatches.matches].map(
+            ({metadata: propOp}) => propOp
+        ).filter(isDefined);
         const renames = renamedMatches.matches.map(({transition}) => new RenameComponentOperation(transition));
         const removals = renamedMatches.unmatchedA.map(c => new RemoveComponentOperation(c));
         const insertions = renamedMatches.unmatchedB.map(c => new InsertComponentOperation(c));
-
+        
         return [...removals, ...insertions, ...renames, ...updates];
     }
 
@@ -84,7 +83,7 @@ export class DiffCreator {
         a: Component[],
         b: Component[],
         additionalVerification?: ((a: Component, b: Component) => boolean)
-    ): EntitiesMatcherResults<Component, PropertyOperation | undefined> {
+    ): EntitiesMatcherResults<Component, PropertyComponentOperation | undefined> {
         const matcherResults = new ComponentsMatcher(a, b).match(additionalVerification);
         matcherResults.matches.forEach(({transition}) => this.componentTransitions.push(transition));
         return matcherResults;

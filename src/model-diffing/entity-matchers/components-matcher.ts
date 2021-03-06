@@ -1,18 +1,19 @@
 import { Component } from "../../infra-model";
 import { EntitiesMatcher } from "./entities-matcher";
-import { PropertyDiff } from "../property-diff";
-import { PropertyOperation } from "../operations";
+import { PropertyDiffCreator } from "../property-diff";
+import { PropertyComponentOperation } from "../operations";
+import { CompleteTransition } from "../transition";
 
 /**
  * Matches components based on the type, subtype and property similarity 
  */
-export class ComponentsMatcher extends EntitiesMatcher<Component, PropertyOperation | undefined> {
+export class ComponentsMatcher extends EntitiesMatcher<Component, PropertyComponentOperation | undefined> {
 
-    protected calcEntitySimilarity(a: Component, b: Component): [number, PropertyOperation | undefined] | undefined {
-        if(a.type !== b.type || a.subtype !== b.subtype)
+    protected calcEntitySimilarity(t: CompleteTransition<Component>): [number, PropertyComponentOperation | undefined] | undefined {
+        if(t.v1.type !== t.v2.type || t.v1.subtype !== t.v2.subtype)
             return;
         
-        const propertyDiff = PropertyDiff.fromProperties(a.properties, b.properties);
+        const propertyDiff = new PropertyDiffCreator(t).create(t.v1.properties, t.v2.properties);
 
         return [propertyDiff.similarity, propertyDiff.operation];
     }

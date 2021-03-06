@@ -1,5 +1,6 @@
-import { ComponentProperty, PropertyPath } from "../../infra-model";
-import { PropertyDiff } from "../property-diff";
+import { Component, ComponentProperty, PropertyPath } from "../../infra-model";
+import { PropertyDiff, PropertyDiffCreator } from "../property-diff";
+import { CompleteTransition, Transition } from "../transition";
 import { EntitiesMatcher } from "./entities-matcher";
 
 /**
@@ -10,18 +11,19 @@ export class ComponentPropertiesMatcher<K extends (string | number)> extends Ent
     constructor(
         entitiesA: [K, ComponentProperty][],
         entitiesB: [K, ComponentProperty][],
+        private readonly componentTransition: Transition<Component>,
         private readonly basePathA?: PropertyPath,
         private readonly basePathB?: PropertyPath
     ){
         super(entitiesA, entitiesB);
     }
 
-    protected calcEntitySimilarity(a: [K, ComponentProperty], b: [K, ComponentProperty]): [number, PropertyDiff] {
-        const propDiff = PropertyDiff.fromProperties(
-            a[1],
-            b[1],
-            [...(this.basePathA ?? []), a[0]],
-            [...(this.basePathB ?? []), b[0]]);
+    protected calcEntitySimilarity({v1: [keyV1, propV1], v2: [keyV2, propV2]}: CompleteTransition<[K, ComponentProperty]>): [number, PropertyDiff] {
+        const propDiff = new PropertyDiffCreator(this.componentTransition).create(
+            propV1,
+            propV2,
+            [...(this.basePathA ?? []), keyV1],
+            [...(this.basePathB ?? []), keyV2]);
         return [propDiff.similarity, propDiff];
     }
 }
