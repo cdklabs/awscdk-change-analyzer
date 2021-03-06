@@ -1,3 +1,5 @@
+import { PropertyPath } from "../../infra-model";
+
 export class CFRefInitError extends Error {}
 
 export class CFRef {
@@ -7,14 +9,12 @@ export class CFRef {
     destPath: PropertyPath;
 
     constructor(sourcePath: PropertyPath, logicalId: string, destPath?: string) {
-        this.sourcePath = CFRef.excludeExpressionFromPath(sourcePath);
+        this.sourcePath = sourcePath;
         if((typeof(logicalId) !== 'string' || logicalId.startsWith('AWS::'))){
             throw new CFRefInitError("Invalid Ref");
         }
-        this.destPath = CFRef.excludeExpressionFromPath(
-            (destPath?.split('.') ?? logicalId.split('.').slice(1))
-                .map(k => /^(\d*)$/.test(k) ? parseInt(k) : k)
-        );
+        this.destPath = (destPath?.split('.') ?? logicalId.split('.').slice(1))
+                .map(k => /^(\d*)$/.test(k) ? parseInt(k) : k);
         this.logicalId = logicalId.split('.')[0];
     }
 
@@ -68,15 +68,4 @@ export class CFRef {
             }, [] as CFRef[]);
         }
     }
-
-    private static excludeExpressionFromPath(path: PropertyPath){
-        for(let i = 0; i < path.length; i++){
-            const key = path[i];
-            if(typeof key === 'string' && (key.startsWith("Fn::") || key === "Ref")){
-                return (i === 0) ? [] : path.slice(0, i);
-            }
-        }
-        return path;
-    }
-    
 }

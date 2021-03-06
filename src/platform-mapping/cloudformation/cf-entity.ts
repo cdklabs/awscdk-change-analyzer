@@ -89,7 +89,6 @@ export abstract class CFEntity {
     protected cfDefinitionToComponentProperty(definition: CFDefinition): ComponentProperty{
         
         const updateTypeGetter = this.getUpdateTypeForPropertyPath.bind(this);
-        const isExpression = this.isExpression.bind(this);
         return factory(definition, []);
         
         function factory (definition: CFDefinition, propertyPath: string[]): ComponentProperty {
@@ -107,10 +106,6 @@ export abstract class CFEntity {
                                 updateTypeGetter(newPropertyPath)
                             )
                         ];
-                    } else if(isExpression(propValue)){
-                        return [propKey, new ComponentPropertyPrimitive(JSON.stringify(propValue),
-                            updateTypeGetter(newPropertyPath))
-                        ];
                     } else if(typeof propValue === 'object' && propValue !== null) {
                         return [propKey, factory(propValue, newPropertyPath)];
                     }
@@ -118,13 +113,6 @@ export abstract class CFEntity {
                 }).filter(isDefined)
             ), updateTypeGetter(propertyPath));
         }
-    }
-
-    private isExpression(definition: CFDefinition){
-        const keys = Object.keys(definition);
-        return keys.length === 1
-            && (keys[0] === 'Ref'
-                || keys[0].startsWith('Fn::'));
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
