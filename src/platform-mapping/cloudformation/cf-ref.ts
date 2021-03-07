@@ -1,17 +1,20 @@
+import { PropertyPath } from "../../infra-model";
+
 export class CFRefInitError extends Error {}
 
 export class CFRef {
 
-    sourcePath: string[];
+    sourcePath: PropertyPath;
     logicalId: string;
-    destPath: string[];
+    destPath: PropertyPath;
 
-    constructor(sourcePath: string[], logicalId: string, destPath?: string) {
+    constructor(sourcePath: PropertyPath, logicalId: string, destPath?: string) {
         this.sourcePath = sourcePath;
         if((typeof(logicalId) !== 'string' || logicalId.startsWith('AWS::'))){
             throw new CFRefInitError("Invalid Ref");
         }
-        this.destPath = destPath?.split('.') ?? logicalId.split('.').slice(1);
+        this.destPath = (destPath?.split('.') ?? logicalId.split('.').slice(1))
+                .map(k => /^(\d*)$/.test(k) ? parseInt(k) : k);
         this.logicalId = logicalId.split('.')[0];
     }
 
@@ -19,14 +22,14 @@ export class CFRef {
         `${this.sourcePath.join('.')} -> ${[this.logicalId, ...this.destPath].join('.')}`
 
 
-    public static readRefsInPropertyMapping: Record<string, (path:string[], value:any) => CFRef[]> = Object.freeze({
-        'Ref': (path:string[], value: any) => [new CFRef(path, value)],
-        'Fn::GetAtt': (path:string[], value: any) => {
+    public static readRefsInPropertyMapping: Record<string, (path:PropertyPath, value:any) => CFRef[]> = Object.freeze({
+        'Ref': (path:PropertyPath, value: any) => [new CFRef(path, value)],
+        'Fn::GetAtt': (path:PropertyPath, value: any) => {
             if(Array.isArray(value) && value.length >= 2)
                 return [new CFRef(path, value[0], value[1])];
             throw new CFRefInitError("GetAtt does not follow the right structure");
         },
-        'Fn::Sub': (path: string[], value: any) => {
+        'Fn::Sub': (path: PropertyPath, value: any) => {
             if(Array.isArray(value)
                 && typeof value[0] === 'string'
                 && (
@@ -42,16 +45,17 @@ export class CFRef {
         }
     })
 
-    public static readRefsInExpression = (expression: any, refPath?: string[]): CFRef[] => {
+    public static readRefsInExpression = (expression: any, refPath?: PropertyPath): CFRef[] => {
         if(typeof(expression) !== 'object' || expression == null)
             return [];
         else {
             return Object.entries(expression).reduce((acc, [k, v]) => {
-                const newRefPath = refPath ? [...refPath,k] : [k];
+                const key = Array.isArray(expression) ? parseInt(k) : k;
+                const newRefPath = refPath ? [...refPath, key] : [key];
                 let refs: CFRef[] = [];
-                if(CFRef.readRefsInPropertyMapping[k]){
+                if(CFRef.readRefsInPropertyMapping[key]){
                     try{
-                        refs = CFRef.readRefsInPropertyMapping[k](newRefPath, v);
+                        refs = CFRef.readRefsInPropertyMapping[key](newRefPath, v);
                     } catch (e) {
                         if(!(e instanceof CFRefInitError)) throw e;
                     }
@@ -64,5 +68,4 @@ export class CFRef {
             }, [] as CFRef[]);
         }
     }
-    
 }

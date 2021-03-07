@@ -3539,257 +3539,574 @@ exports[`CloudFormation complex template 1`] = `
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet1SubnetB4246D30\\",
             \\"target\\": \\"[dup-ref]VPCB9E5F0B4\\",
-            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\"
+            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"VpcId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet1RouteTableFEE4B781\\",
             \\"target\\": \\"[dup-ref]VPCB9E5F0B4\\",
-            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\"
+            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"VpcId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet1RouteTableAssociation0B0896DC\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet1RouteTableFEE4B781\\",
-            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet1RouteTableFEE4B781\\"
+            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet1RouteTableFEE4B781\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RouteTableId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet1RouteTableAssociation0B0896DC\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet1SubnetB4246D30\\",
-            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet1SubnetB4246D30\\"
+            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet1SubnetB4246D30\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SubnetId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet1DefaultRoute91CEF279\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet1RouteTableFEE4B781\\",
-            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet1RouteTableFEE4B781\\"
+            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet1RouteTableFEE4B781\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RouteTableId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet1DefaultRoute91CEF279\\",
             \\"target\\": \\"[dup-ref]VPCIGWB7E252D3\\",
-            \\"type\\": \\"Properties.GatewayId.Ref -> VPCIGWB7E252D3\\"
+            \\"type\\": \\"Properties.GatewayId.Ref -> VPCIGWB7E252D3\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"GatewayId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet1NATGatewayE0556630\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet1EIP6AD938E8\\",
-            \\"type\\": \\"Properties.AllocationId.Fn::GetAtt -> VPCPublicSubnet1EIP6AD938E8.AllocationId\\"
+            \\"type\\": \\"Properties.AllocationId.Fn::GetAtt -> VPCPublicSubnet1EIP6AD938E8.AllocationId\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"AllocationId\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"AllocationId\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet1NATGatewayE0556630\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet1SubnetB4246D30\\",
-            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet1SubnetB4246D30\\"
+            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet1SubnetB4246D30\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SubnetId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet2Subnet74179F39\\",
             \\"target\\": \\"[dup-ref]VPCB9E5F0B4\\",
-            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\"
+            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"VpcId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet2RouteTable6F1A15F1\\",
             \\"target\\": \\"[dup-ref]VPCB9E5F0B4\\",
-            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\"
+            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"VpcId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet2RouteTableAssociation5A808732\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet2RouteTable6F1A15F1\\",
-            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet2RouteTable6F1A15F1\\"
+            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet2RouteTable6F1A15F1\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RouteTableId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet2RouteTableAssociation5A808732\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet2Subnet74179F39\\",
-            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet2Subnet74179F39\\"
+            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet2Subnet74179F39\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SubnetId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet2DefaultRouteB7481BBA\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet2RouteTable6F1A15F1\\",
-            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet2RouteTable6F1A15F1\\"
+            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet2RouteTable6F1A15F1\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RouteTableId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet2DefaultRouteB7481BBA\\",
             \\"target\\": \\"[dup-ref]VPCIGWB7E252D3\\",
-            \\"type\\": \\"Properties.GatewayId.Ref -> VPCIGWB7E252D3\\"
+            \\"type\\": \\"Properties.GatewayId.Ref -> VPCIGWB7E252D3\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"GatewayId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet2NATGateway3C070193\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet2EIP4947BC00\\",
-            \\"type\\": \\"Properties.AllocationId.Fn::GetAtt -> VPCPublicSubnet2EIP4947BC00.AllocationId\\"
+            \\"type\\": \\"Properties.AllocationId.Fn::GetAtt -> VPCPublicSubnet2EIP4947BC00.AllocationId\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"AllocationId\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"AllocationId\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet2NATGateway3C070193\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet2Subnet74179F39\\",
-            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet2Subnet74179F39\\"
+            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet2Subnet74179F39\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SubnetId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet3Subnet631C5E25\\",
             \\"target\\": \\"[dup-ref]VPCB9E5F0B4\\",
-            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\"
+            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"VpcId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet3RouteTable98AE0E14\\",
             \\"target\\": \\"[dup-ref]VPCB9E5F0B4\\",
-            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\"
+            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"VpcId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet3RouteTableAssociation427FE0C6\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet3RouteTable98AE0E14\\",
-            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet3RouteTable98AE0E14\\"
+            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet3RouteTable98AE0E14\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RouteTableId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet3RouteTableAssociation427FE0C6\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet3Subnet631C5E25\\",
-            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet3Subnet631C5E25\\"
+            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet3Subnet631C5E25\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SubnetId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet3DefaultRouteA0D29D46\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet3RouteTable98AE0E14\\",
-            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet3RouteTable98AE0E14\\"
+            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet3RouteTable98AE0E14\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RouteTableId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet3DefaultRouteA0D29D46\\",
             \\"target\\": \\"[dup-ref]VPCIGWB7E252D3\\",
-            \\"type\\": \\"Properties.GatewayId.Ref -> VPCIGWB7E252D3\\"
+            \\"type\\": \\"Properties.GatewayId.Ref -> VPCIGWB7E252D3\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"GatewayId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet3NATGatewayD3048F5C\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet3EIPAD4BC883\\",
-            \\"type\\": \\"Properties.AllocationId.Fn::GetAtt -> VPCPublicSubnet3EIPAD4BC883.AllocationId\\"
+            \\"type\\": \\"Properties.AllocationId.Fn::GetAtt -> VPCPublicSubnet3EIPAD4BC883.AllocationId\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"AllocationId\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"AllocationId\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]VPCPublicSubnet3NATGatewayD3048F5C\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet3Subnet631C5E25\\",
-            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet3Subnet631C5E25\\"
+            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet3Subnet631C5E25\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SubnetId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet1Subnet8BCA10E0\\",
             \\"target\\": \\"[dup-ref]VPCB9E5F0B4\\",
-            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\"
+            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"VpcId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet1RouteTableBE8A6027\\",
             \\"target\\": \\"[dup-ref]VPCB9E5F0B4\\",
-            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\"
+            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"VpcId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet1RouteTableAssociation347902D1\\",
             \\"target\\": \\"[dup-ref]VPCPrivateSubnet1RouteTableBE8A6027\\",
-            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet1RouteTableBE8A6027\\"
+            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet1RouteTableBE8A6027\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RouteTableId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet1RouteTableAssociation347902D1\\",
             \\"target\\": \\"[dup-ref]VPCPrivateSubnet1Subnet8BCA10E0\\",
-            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPrivateSubnet1Subnet8BCA10E0\\"
+            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPrivateSubnet1Subnet8BCA10E0\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SubnetId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet1DefaultRouteAE1D6490\\",
             \\"target\\": \\"[dup-ref]VPCPrivateSubnet1RouteTableBE8A6027\\",
-            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet1RouteTableBE8A6027\\"
+            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet1RouteTableBE8A6027\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RouteTableId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet1DefaultRouteAE1D6490\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet1NATGatewayE0556630\\",
-            \\"type\\": \\"Properties.NatGatewayId.Ref -> VPCPublicSubnet1NATGatewayE0556630\\"
+            \\"type\\": \\"Properties.NatGatewayId.Ref -> VPCPublicSubnet1NATGatewayE0556630\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"NatGatewayId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet2SubnetCFCDAA7A\\",
             \\"target\\": \\"[dup-ref]VPCB9E5F0B4\\",
-            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\"
+            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"VpcId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet2RouteTable0A19E10E\\",
             \\"target\\": \\"[dup-ref]VPCB9E5F0B4\\",
-            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\"
+            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"VpcId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet2RouteTableAssociation0C73D413\\",
             \\"target\\": \\"[dup-ref]VPCPrivateSubnet2RouteTable0A19E10E\\",
-            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet2RouteTable0A19E10E\\"
+            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet2RouteTable0A19E10E\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RouteTableId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet2RouteTableAssociation0C73D413\\",
             \\"target\\": \\"[dup-ref]VPCPrivateSubnet2SubnetCFCDAA7A\\",
-            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPrivateSubnet2SubnetCFCDAA7A\\"
+            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPrivateSubnet2SubnetCFCDAA7A\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SubnetId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet2DefaultRouteF4F5CFD2\\",
             \\"target\\": \\"[dup-ref]VPCPrivateSubnet2RouteTable0A19E10E\\",
-            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet2RouteTable0A19E10E\\"
+            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet2RouteTable0A19E10E\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RouteTableId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet2DefaultRouteF4F5CFD2\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet2NATGateway3C070193\\",
-            \\"type\\": \\"Properties.NatGatewayId.Ref -> VPCPublicSubnet2NATGateway3C070193\\"
+            \\"type\\": \\"Properties.NatGatewayId.Ref -> VPCPublicSubnet2NATGateway3C070193\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"NatGatewayId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet3Subnet3EDCD457\\",
             \\"target\\": \\"[dup-ref]VPCB9E5F0B4\\",
-            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\"
+            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"VpcId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet3RouteTable192186F8\\",
             \\"target\\": \\"[dup-ref]VPCB9E5F0B4\\",
-            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\"
+            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"VpcId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet3RouteTableAssociationC28D144E\\",
             \\"target\\": \\"[dup-ref]VPCPrivateSubnet3RouteTable192186F8\\",
-            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet3RouteTable192186F8\\"
+            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet3RouteTable192186F8\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RouteTableId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet3RouteTableAssociationC28D144E\\",
             \\"target\\": \\"[dup-ref]VPCPrivateSubnet3Subnet3EDCD457\\",
-            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPrivateSubnet3Subnet3EDCD457\\"
+            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPrivateSubnet3Subnet3EDCD457\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SubnetId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet3DefaultRoute27F311AE\\",
             \\"target\\": \\"[dup-ref]VPCPrivateSubnet3RouteTable192186F8\\",
-            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet3RouteTable192186F8\\"
+            \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet3RouteTable192186F8\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RouteTableId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCPrivateSubnet3DefaultRoute27F311AE\\",
             \\"target\\": \\"[dup-ref]VPCPublicSubnet3NATGatewayD3048F5C\\",
-            \\"type\\": \\"Properties.NatGatewayId.Ref -> VPCPublicSubnet3NATGatewayD3048F5C\\"
+            \\"type\\": \\"Properties.NatGatewayId.Ref -> VPCPublicSubnet3NATGatewayD3048F5C\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"NatGatewayId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCVPCGW99B986DC\\",
             \\"target\\": \\"[dup-ref]VPCB9E5F0B4\\",
-            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\"
+            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"VpcId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]VPCVPCGW99B986DC\\",
             \\"target\\": \\"[dup-ref]VPCIGWB7E252D3\\",
-            \\"type\\": \\"Properties.InternetGatewayId.Ref -> VPCIGWB7E252D3\\"
+            \\"type\\": \\"Properties.InternetGatewayId.Ref -> VPCIGWB7E252D3\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"InternetGatewayId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]InstanceInstanceSecurityGroupF0E2D5BE\\",
             \\"target\\": \\"[dup-ref]VPCB9E5F0B4\\",
-            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\"
+            \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"VpcId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]InstanceInstanceRoleDefaultPolicy4ACE9290\\",
             \\"target\\": \\"[dup-ref]InstanceInstanceRoleE9785DE5\\",
-            \\"type\\": \\"Properties.Roles.0.Ref -> InstanceInstanceRoleE9785DE5\\"
+            \\"type\\": \\"Properties.Roles.0.Ref -> InstanceInstanceRoleE9785DE5\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Roles\\",
+                0,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]InstanceInstanceProfileAB5AEF02\\",
             \\"target\\": \\"[dup-ref]InstanceInstanceRoleE9785DE5\\",
-            \\"type\\": \\"Properties.Roles.0.Ref -> InstanceInstanceRoleE9785DE5\\"
+            \\"type\\": \\"Properties.Roles.0.Ref -> InstanceInstanceRoleE9785DE5\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Roles\\",
+                0,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]InstanceC1063A87\\",
             \\"target\\": \\"[dup-ref]InstanceInstanceProfileAB5AEF02\\",
-            \\"type\\": \\"Properties.IamInstanceProfile.Ref -> InstanceInstanceProfileAB5AEF02\\"
+            \\"type\\": \\"Properties.IamInstanceProfile.Ref -> InstanceInstanceProfileAB5AEF02\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"IamInstanceProfile\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]InstanceC1063A87\\",
             \\"target\\": \\"[dup-ref]SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter\\",
-            \\"type\\": \\"Properties.ImageId.Ref -> SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter\\"
+            \\"type\\": \\"Properties.ImageId.Ref -> SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"ImageId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]InstanceC1063A87\\",
             \\"target\\": \\"[dup-ref]InstanceInstanceSecurityGroupF0E2D5BE\\",
-            \\"type\\": \\"Properties.SecurityGroupIds.0.Fn::GetAtt -> InstanceInstanceSecurityGroupF0E2D5BE.GroupId\\"
+            \\"type\\": \\"Properties.SecurityGroupIds.0.Fn::GetAtt -> InstanceInstanceSecurityGroupF0E2D5BE.GroupId\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SecurityGroupIds\\",
+                0,
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"GroupId\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]InstanceC1063A87\\",
             \\"target\\": \\"[dup-ref]VPCPrivateSubnet1Subnet8BCA10E0\\",
-            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPrivateSubnet1Subnet8BCA10E0\\"
+            \\"type\\": \\"Properties.SubnetId.Ref -> VPCPrivateSubnet1Subnet8BCA10E0\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SubnetId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         }
     ]
 }"
@@ -4561,27 +4878,46 @@ exports[`CloudFormation nested template 1`] = `
         {
             \\"source\\": \\"[dup-ref]SomeVPC\\",
             \\"target\\": \\"[dup-ref]InnerOutput\\",
-            \\"type\\": \\"Properties.Tags.0.Value.Fn::GetAtt -> NestedStack.Outputs.InnerOutput\\"
+            \\"type\\": \\"Properties.Tags.0.Value.Fn::GetAtt -> NestedStack.Outputs.InnerOutput\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Tags\\",
+                0,
+                \\"Value\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Outputs\\",
+                \\"InnerOutput\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]NestedStack\\",
             \\"target\\": \\"[dup-ref]SomeVPC\\",
-            \\"type\\": \\"nested-stack-component\\"
+            \\"type\\": \\"nested-stack-component\\",
+            \\"sourcePropertyPath\\": [],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]NestedStack\\",
             \\"target\\": \\"[dup-ref]User00B015A1\\",
-            \\"type\\": \\"nested-stack-component\\"
+            \\"type\\": \\"nested-stack-component\\",
+            \\"sourcePropertyPath\\": [],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]NestedStack\\",
             \\"target\\": \\"[dup-ref]InnerStackParameter\\",
-            \\"type\\": \\"nested-stack-component\\"
+            \\"type\\": \\"nested-stack-component\\",
+            \\"sourcePropertyPath\\": [],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]NestedStack\\",
             \\"target\\": \\"[dup-ref]InnerOutput\\",
-            \\"type\\": \\"nested-stack-component\\"
+            \\"type\\": \\"nested-stack-component\\",
+            \\"sourcePropertyPath\\": [],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]NestedStack\\",
@@ -4606,22 +4942,45 @@ exports[`CloudFormation nested template 1`] = `
         {
             \\"source\\": \\"[dup-ref]User00B015A1\\",
             \\"target\\": \\"[dup-ref]InnerStackParameter\\",
-            \\"type\\": \\"Properties.SomeProperty.Fn::GetAtt -> InnerStackParameter.Type\\"
+            \\"type\\": \\"Properties.SomeProperty.Fn::GetAtt -> InnerStackParameter.Type\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SomeProperty\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Type\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]InnerStackParameter\\",
             \\"target\\": \\"[dup-ref]OuterStackParameter\\",
-            \\"type\\": \\"nested-parameter\\"
+            \\"type\\": \\"nested-parameter\\",
+            \\"sourcePropertyPath\\": [],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]InnerOutput\\",
             \\"target\\": \\"[dup-ref]InnerStackParameter\\",
-            \\"type\\": \\"Value.Fn::Sub -> InnerStackParameter\\"
+            \\"type\\": \\"Value.Fn::Sub -> InnerStackParameter\\",
+            \\"sourcePropertyPath\\": [
+                \\"Value\\",
+                \\"Fn::Sub\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]InnerOutput\\",
             \\"target\\": \\"[dup-ref]User00B015A1\\",
-            \\"type\\": \\"Value.Fn::Sub.1.withAnArgument.Ref -> User00B015A1\\"
+            \\"type\\": \\"Value.Fn::Sub.1.withAnArgument.Ref -> User00B015A1\\",
+            \\"sourcePropertyPath\\": [
+                \\"Value\\",
+                \\"Fn::Sub\\",
+                1,
+                \\"withAnArgument\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         }
     ]
 }"
@@ -7745,22 +8104,68 @@ exports[`CloudFormation simple template 1`] = `
         {
             \\"source\\": \\"[dup-ref]UserDefaultPolicy1F97781E\\",
             \\"target\\": \\"[dup-ref]TableCD117FA1\\",
-            \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.0.Fn::GetAtt -> TableCD117FA1.Arn\\"
+            \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.0.Fn::GetAtt -> TableCD117FA1.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"PolicyDocument\\",
+                \\"Statement\\",
+                0,
+                \\"Resource\\",
+                0,
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]UserDefaultPolicy1F97781E\\",
             \\"target\\": \\"[dup-ref]TableWithGlobalAndLocalSecondaryIndexBC540710\\",
-            \\"type\\": \\"Properties.PolicyDocument.Statement.1.Resource.0.Fn::GetAtt -> TableWithGlobalAndLocalSecondaryIndexBC540710.Arn\\"
+            \\"type\\": \\"Properties.PolicyDocument.Statement.1.Resource.0.Fn::GetAtt -> TableWithGlobalAndLocalSecondaryIndexBC540710.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"PolicyDocument\\",
+                \\"Statement\\",
+                1,
+                \\"Resource\\",
+                0,
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]UserDefaultPolicy1F97781E\\",
             \\"target\\": \\"[dup-ref]TableWithGlobalAndLocalSecondaryIndexBC540710\\",
-            \\"type\\": \\"Properties.PolicyDocument.Statement.1.Resource.1.Fn::Join.1.0.Fn::GetAtt -> TableWithGlobalAndLocalSecondaryIndexBC540710.Arn\\"
+            \\"type\\": \\"Properties.PolicyDocument.Statement.1.Resource.1.Fn::Join.1.0.Fn::GetAtt -> TableWithGlobalAndLocalSecondaryIndexBC540710.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"PolicyDocument\\",
+                \\"Statement\\",
+                1,
+                \\"Resource\\",
+                1,
+                \\"Fn::Join\\",
+                1,
+                0,
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]UserDefaultPolicy1F97781E\\",
             \\"target\\": \\"[dup-ref]User00B015A1\\",
-            \\"type\\": \\"Properties.Users.0.Ref -> User00B015A1\\"
+            \\"type\\": \\"Properties.Users.0.Ref -> User00B015A1\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Users\\",
+                0,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         }
     ]
 }"

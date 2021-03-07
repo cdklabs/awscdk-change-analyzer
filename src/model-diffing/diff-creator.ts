@@ -1,45 +1,53 @@
 import { Component, InfraModel, Relationship } from "../infra-model";
 import { ComponentsMatcher } from "./entity-matchers/components-matcher";
+import { EntitiesMatcherResults } from "./entity-matchers/entities-matcher";
 import {
     InsertComponentOperation,
     RemoveComponentOperation,
     RenameComponentOperation,
-    UpdatePropertiesComponentOperation,
     ComponentOperation,
     RemoveOutgoingComponentOperation,
     InsertOutgoingComponentOperation,
-    UpdateOutgoingComponentOperation
+    UpdateOutgoingComponentOperation,
+    PropertyComponentOperation,
 } from "./operations";
 import { groupArrayBy } from "../utils/arrayUtils";
-import { EntityMatches } from "./entity-matchers/entities-matcher";
 import { RelationshipsMatcher } from "./entity-matchers/relationships-matcher";
 import { isDefined } from "../utils";
+import { Transition } from "./transition";
+import { InfraModelDiff } from "./infra-model-diff";
 
 export class DiffCreator {
     
-    componentMatches: EntityMatches<Component> = new Map();
-    componentOperations: ComponentOperation[] = [];
-    unmatchedNewComponents: Component[] = [];
-    unmatchedOldComponents: Component[] = [];
+    componentTransitions: Transition<Component>[] = [];
+    entityVersionToTransitionMap = new Map<Component | Relationship, Transition<Component | Relationship>>();
+    
 
     constructor(
-        public readonly oldModel: InfraModel,
-        public readonly newModel: InfraModel
+        public readonly modelTransition: Transition<InfraModel>
     ){}
 
-    public create(): ComponentOperation[]{
-        const oldComponentsSplit = this.splitComponentsByType(this.oldModel.components);
-        const newComponentsSplit = this.splitComponentsByType(this.newModel.components);
+    public create(): InfraModelDiff{
+        if(!this.modelTransition.v1 || !this.modelTransition.v2)
+            throw Error("Cannot diff model transition with undefined model version");
+        const oldComponentsSplit = this.splitComponentsByType(this.modelTransition.v1.components);
+        const newComponentsSplit = this.splitComponentsByType(this.modelTransition.v2.components);
 
-        const categories = [...new Set([...Object.keys(oldComponentsSplit), ...Object.keys(newComponentsSplit)])];
-        
-        categories.forEach(
-            (type) => this.diffComponents(oldComponentsSplit[type] ?? [], newComponentsSplit[type] ?? [])
+        const componentOperations: ComponentOperation[] = [];
+
+        const categories = [...new Set([...oldComponentsSplit.keys(), ...newComponentsSplit.keys()])];
+
+        componentOperations.push(...categories.flatMap((type) =>
+            this.diffComponents(
+                oldComponentsSplit.get(type) ?? [],
+                newComponentsSplit.get(type) ?? []
+            ),
+        ));
+        componentOperations.push(...this.componentTransitions.flatMap(
+            ct => this.diffComponentRelationships(ct))
         );
 
-        this.diffRelationships();
-
-        return this.componentOperations;
+        return new InfraModelDiff(componentOperations, this.componentTransitions);
     }
 
     /**
@@ -48,101 +56,74 @@ export class DiffCreator {
      * @param oldComponents The old components to match
      * @param newComponents The new components to match
      */
-    private diffComponents(oldComponents: Component[], newComponents: Component[]): void{
-        const unmatchedNewComponents = new Set([...newComponents]);
-        const unmatchedOldComponents = new Set([...oldComponents]);
+    private diffComponents(oldComponents: Component[], newComponents: Component[]): ComponentOperation[]{
 
-        const sameNameMatcher = new ComponentsMatcher(
-                [...unmatchedNewComponents],
-                [...unmatchedOldComponents]);
-        const sameNameMatches = sameNameMatcher.match((a: Component, b: Component) => a.name === b.name);
-        this.removeMatchesFromUnmachedSets(sameNameMatches, unmatchedNewComponents, unmatchedOldComponents);
+        const sameNameMatches = this.matchComponents(
+            oldComponents,
+            newComponents,
+            (a: Component, b: Component) => a.name === b.name
+        );
 
-        const renamedMatcher = new ComponentsMatcher(
-                [...unmatchedNewComponents],
-                [...unmatchedOldComponents]);
-        const renamedMatches = renamedMatcher.match();
-        this.removeMatchesFromUnmachedSets(renamedMatches, unmatchedNewComponents, unmatchedOldComponents);
+        const renamedMatches = this.matchComponents(
+            sameNameMatches.unmatchedA,
+            sameNameMatches.unmatchedB
+        );
+
+        const updates = [...sameNameMatches.matches, ...renamedMatches.matches].map(
+            ({metadata: propOp}) => propOp
+        ).filter(isDefined);
+        const renames = renamedMatches.matches.map(({transition}) => new RenameComponentOperation(transition));
+        const removals = renamedMatches.unmatchedA.map(c => new RemoveComponentOperation(c));
+        const insertions = renamedMatches.unmatchedB.map(c => new InsertComponentOperation(c));
         
-        const propertyDiffs = new Map([...sameNameMatcher.propertyDiffs, ...renamedMatcher.propertyDiffs]);
+        return [...removals, ...insertions, ...renames, ...updates];
+    }
 
-        const removals = [...unmatchedOldComponents].map(c => new RemoveComponentOperation(c));
-        const insertions = [...unmatchedNewComponents].map(c => new InsertComponentOperation(c));
-        const renames = [...renamedMatches.entries()]
-            .map(([newComponent, match]) => new RenameComponentOperation({v1: match.entity, v2: newComponent}));
-        
-        const updates = [...sameNameMatches.entries(),...renamedMatches.entries()]
-            .map(([newComponent, match]) => {
-                const propertyOperation = propertyDiffs.get(newComponent)?.operation;
-                if(propertyOperation)
-                    return new UpdatePropertiesComponentOperation({v1: match.entity, v2: newComponent}, propertyOperation);
-                return undefined;
-            }).filter(isDefined);
-
-        this.componentMatches = new Map([...this.componentMatches, ...sameNameMatches, ...renamedMatches]);
-        this.componentOperations.push(...removals, ...insertions, ...renames, ...updates);
-        this.unmatchedNewComponents.push(...unmatchedNewComponents);
-        this.unmatchedOldComponents.push(...unmatchedOldComponents);
+    /**
+     * Uses the ComponentMatcher to find the matches between two sets of Components
+     * and registers the obtained component transitions.
+     * @returns the ComponentMatcher's results
+     */
+    private matchComponents(
+        a: Component[],
+        b: Component[],
+        additionalVerification?: ((a: Component, b: Component) => boolean)
+    ): EntitiesMatcherResults<Component, PropertyComponentOperation | undefined> {
+        const matcherResults = new ComponentsMatcher(a, b).match(additionalVerification);
+        matcherResults.matches.forEach(({transition}) => this.componentTransitions.push(transition));
+        return matcherResults;
     }
 
     /**
      * Finds matches between relationships of the matched components;
-     * Returns the ComponentOperations that correspond to each relationship change
+     * @returns the ComponentOperations that correspond to each relationship change
      */
-    private diffRelationships() {
-        const unmatchedNew = new Set<Relationship>();
-        const unmatchedOld = new Set<Relationship>();
+    private diffComponentRelationships(componentTransition: Transition<Component>): ComponentOperation[] {
+        const relationshipMatches = new RelationshipsMatcher(
+            [...componentTransition.v1?.outgoing ?? []],
+            [...componentTransition.v2?.outgoing ?? []]
+        ).match();
 
-        const matches = new Map([...this.componentMatches].flatMap(([newComp, {entity: oldComp}]) => {
-            newComp.outgoing.forEach(r => unmatchedNew.add(r));
-            oldComp.outgoing.forEach(r => unmatchedOld.add(r));
-            const m = new RelationshipsMatcher([...newComp.outgoing], [...oldComp.outgoing])
-                .match((a,b) => this.componentMatches.get(a.target)?.entity === b.target);
-            this.removeMatchesFromUnmachedSets(m, unmatchedNew, unmatchedOld);
-            return [...m.entries()];
-        }));
+        const removals = relationshipMatches.unmatchedA.map(r =>
+            new RemoveOutgoingComponentOperation(componentTransition, r));
+        const insertions = relationshipMatches.unmatchedB.map(r =>
+            new InsertOutgoingComponentOperation(componentTransition, r));
 
-        const transitionBuilder = (r: Relationship) =>
-            ({v1: r.source, v2: this.componentMatches.get(r.source)?.entity}); 
+        const updates = relationshipMatches.matches
+            .filter(({metadata: updated}) => updated)
+            .map(({transition}) => new UpdateOutgoingComponentOperation(
+                componentTransition,
+                transition
+        ));
 
-        const removals = [
-            ...unmatchedOld,
-            ...this.unmatchedOldComponents.flatMap(c => [...c.outgoing])
-        ].map(r => new RemoveOutgoingComponentOperation(
-            transitionBuilder(r) ,r));
-
-        const insertions = [
-            ...unmatchedNew,
-            ...this.unmatchedNewComponents.flatMap(c => [...c.outgoing])
-        ].map(r => new InsertOutgoingComponentOperation(
-            transitionBuilder(r), r));
-        const updates = [...matches]
-            .filter((entry) => entry[1].similarity < 1)
-            .map(([newRelationship, match]) => new UpdateOutgoingComponentOperation(
-                transitionBuilder(newRelationship),
-                newRelationship,
-                match.entity
-            ));
-
-        this.componentOperations.push(...removals, ...insertions, ...updates);
-    }
-
-    private removeMatchesFromUnmachedSets<T>(
-        matches: EntityMatches<T>,
-        unmachedNewComponents: Set<T>,
-        unmachedOldComponents: Set<T>
-    ): void{
-        [...matches.entries()].forEach(([newComp, match]) => {
-            unmachedNewComponents.delete(newComp);
-            unmachedOldComponents.delete(match.entity);
-        });
+        return [...removals, ...insertions, ...updates];
     }
 
     /**
      * Splits components according to their type and subtype
      * @param components 
      */
-    private splitComponentsByType(components: Component[]): Record<string, Component[]>{
+    private splitComponentsByType(components: Component[]): Map<string, Component[]>{
         return groupArrayBy(components, (c: Component) => `${c.type}-${c.subtype}`);
     }
 }

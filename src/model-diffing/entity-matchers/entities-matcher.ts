@@ -1,9 +1,16 @@
 import { isDefined } from "../../utils";
+import { CompleteTransition, Transition } from "../transition";
 
-// Two Components will be matched only if their similarity is above the similarity threshold 
-const similarityThreshold = 0.5;
+export type EntityMatch<T, K = undefined> = {
+    transition: Transition<T>,
+    metadata: K,
+}
 
-export type EntityMatches<T> = Map<T, {entity: T, similarity: number}>;
+export type EntitiesMatcherResults<T, K = undefined> = {
+    unmatchedA: T[],
+    unmatchedB: T[],
+    matches: EntityMatch<T, K>[]
+}
 
 /**
  * EntitiesMatcher is responsible for matching entities according
@@ -12,21 +19,15 @@ export type EntityMatches<T> = Map<T, {entity: T, similarity: number}>;
  * 
  * Entities with similarity below 'similarityThreshold' will never be matched
  */
-export abstract class EntitiesMatcher<T> {
+export abstract class EntitiesMatcher<T, K = undefined> {
 
-    private readonly matchesAToB: Map<T, EntityMatches<T>> = new Map();
-    private readonly matchesBToA: Map<T, EntityMatches<T>> = new Map();
-
-    private readonly entitiesA: T[];
-    private readonly entitiesB: T[];
+    // Two Components will be matched only if their similarity is above the similarity threshold 
+    public static similarityThreshold = 0.5;
 
     constructor(
-        entitiesA: T[],
-        entitiesB: T[]
-    ) {
-        this.entitiesA = entitiesA;
-        this.entitiesB = entitiesB;
-    }
+        private readonly entitiesA: T[],
+        private readonly entitiesB: T[]
+    ) {}
 
     /**
      * Evaluates and returns the valid matches between entitiesA and entitiesB, optionally filtering possible matches
@@ -35,42 +36,58 @@ export abstract class EntitiesMatcher<T> {
      */
     public match(
         additionalVerification?: (a: T, b: T) => boolean
-    ): EntityMatches<T> {
+    ): EntitiesMatcherResults<T, K> {
         
         const matchesBySimilarity = this.findMatchesDecreasingSimilarity(additionalVerification);
         
-        const matchedEntitiesA = new Set<T>();
-        const matchedEntitiesB = new Set<T>();
+        const matchedA = new Set<T>();
+        const matchedB = new Set<T>();
         
-        return new Map(
-            matchesBySimilarity.map(([similarity, entA, entB]): [T, {entity: T, similarity: number}] | undefined => 
-                !matchedEntitiesA.has(entA) && !matchedEntitiesB.has(entB)
-                    ? [entA, {similarity, entity: entB}]
-                    : undefined
-            ).filter(isDefined)
-        );
+        const matches = matchesBySimilarity.map(
+            (entityMatch): EntityMatch<T, K> | undefined => {
+                if(!entityMatch.transition.v1 || !entityMatch.transition.v2)
+                    throw Error("EntityMatcher produced transition with undefined version");
+                if(!matchedA.has(entityMatch.transition.v1)
+                    && !matchedB.has(entityMatch.transition.v2)) {
+                        matchedA.add(entityMatch.transition.v1);
+                        matchedB.add(entityMatch.transition.v2);
+                        return entityMatch;
+                }
+                return;
+            }
+        ).filter(isDefined);
+
+        const unmatchedA = this.entitiesA.filter(e => !matchedA.has(e));
+        const unmatchedB = this.entitiesB.filter(e => !matchedB.has(e));
+
+        return {matches, unmatchedA, unmatchedB};
     }
 
     /**
      * Finds the valid matches and orders them in descending order of similarity
      * @param additionalVerification the additional condition that filters the matches that should be evaluated
      */
-    private findMatchesDecreasingSimilarity(additionalVerification?: (a: T, b: T) => boolean): [number, T, T][]{
-        const matches: [number, T, T][] =
+    private findMatchesDecreasingSimilarity(additionalVerification?: (a: T, b: T) => boolean): EntityMatch<T,K>[]{
+        const matches: [number, EntityMatch<T,K>][] =
             this.entitiesA.flatMap(entityA =>
-                this.entitiesB.map((entityB): [number, T, T] | undefined => {
+                this.entitiesB.map((entityB): [number, EntityMatch<T,K>] | undefined => {
                     if(additionalVerification && !additionalVerification(entityA, entityB))
                         return undefined;
                         
-                    const similarity = this.calcEntitySimilarity(entityA, entityB);
+                    const transition: CompleteTransition<T> = {v1: entityA, v2: entityB};
+                    const similarityCalcResult = this.calcEntitySimilarity(transition);
+                    if(!similarityCalcResult)
+                        return;
 
-                    if(similarity >= similarityThreshold)
-                        return [similarity, entityA, entityB];
-                    return undefined;
+                    const [similarity, metadata] = similarityCalcResult;
+                    if(similarity > (<any>this.constructor).similarityThreshold)
+                        return [similarity, {transition, metadata}];
+
+                    return;
                 })
             ).filter(isDefined);
 
-        return matches.sort((m1, m2) => m1[0] > m2[0] ? 0 : 1);
+        return matches.sort((m1, m2) => m1[0] > m2[0] ? 0 : 1).map(([, entityMatch]) => entityMatch);
     }
 
     /**
@@ -78,6 +95,5 @@ export abstract class EntitiesMatcher<T> {
      * @param a the first entity
      * @param b the second entity
      */
-    protected abstract calcEntitySimilarity(a: T, b: T): number;
-        
+    protected abstract calcEntitySimilarity(t: CompleteTransition<T>): [number, K] | undefined;
 }

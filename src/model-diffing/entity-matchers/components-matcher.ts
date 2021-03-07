@@ -1,22 +1,22 @@
 import { Component } from "../../infra-model";
 import { EntitiesMatcher } from "./entities-matcher";
-import { PropertyDiff } from "../property-diff";
+import { PropertyDiffCreator } from "../property-diff";
+import { PropertyComponentOperation } from "../operations";
+import { CompleteTransition } from "../transition";
 
 /**
- * Matches components based on the type, subtype and property similarity 
+ * Matches components based on the type, subtype and property similarity.
+ * The metadata object in the matcher results will be the PropertyComponentOperation
+ * from Component v1 to Component v2. It can be undefined if the Components are exactly alike
  */
-export class ComponentsMatcher extends EntitiesMatcher<Component> {
+export class ComponentsMatcher extends EntitiesMatcher<Component, PropertyComponentOperation | undefined> {
 
-    // stores the generated property diffs
-    public readonly propertyDiffs: Map<Component, PropertyDiff> = new Map();
-
-    protected calcEntitySimilarity(a: Component, b: Component): number {
-        if(a.type !== b.type || a.subtype !== b.subtype)
-            return 0;
+    protected calcEntitySimilarity(t: CompleteTransition<Component>): [number, PropertyComponentOperation | undefined] | undefined {
+        if(t.v1.type !== t.v2.type || t.v1.subtype !== t.v2.subtype)
+            return;
         
-        const propertyDiff = PropertyDiff.fromProperties(a.properties, b.properties);
-        this.propertyDiffs.set(a, propertyDiff);
+        const propertyDiff = new PropertyDiffCreator(t).create(t.v1.properties, t.v2.properties);
 
-        return propertyDiff.similarity;
+        return [propertyDiff.similarity, propertyDiff.operation];
     }
 }

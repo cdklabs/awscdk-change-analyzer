@@ -12568,342 +12568,977 @@ exports[`CDK kessel run stack template 1`] = `
         {
             \\"source\\": \\"[dup-ref]AccessKey\\",
             \\"target\\": \\"[dup-ref]NVidiaUser1BAF4BFB\\",
-            \\"type\\": \\"Properties.UserName.Ref -> NVidiaUser1BAF4BFB\\"
+            \\"type\\": \\"Properties.UserName.Ref -> NVidiaUser1BAF4BFB\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"UserName\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]GameKeyKeyPairF8B1B0F0\\",
             \\"target\\": \\"[dup-ref]KeyPairProviderCustomResourceProviderHandlerBB6F16AF\\",
-            \\"type\\": \\"Properties.ServiceToken.Fn::GetAtt -> KeyPairProviderCustomResourceProviderHandlerBB6F16AF.Arn\\"
+            \\"type\\": \\"Properties.ServiceToken.Fn::GetAtt -> KeyPairProviderCustomResourceProviderHandlerBB6F16AF.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"ServiceToken\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]InstanceInstanceRoleDefaultPolicy4ACE9290\\",
             \\"target\\": \\"[dup-ref]InstanceInstanceRoleE9785DE5\\",
-            \\"type\\": \\"Properties.Roles.0.Ref -> InstanceInstanceRoleE9785DE5\\"
+            \\"type\\": \\"Properties.Roles.0.Ref -> InstanceInstanceRoleE9785DE5\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Roles\\",
+                0,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]InstanceInstanceProfileAB5AEF02\\",
             \\"target\\": \\"[dup-ref]InstanceInstanceRoleE9785DE5\\",
-            \\"type\\": \\"Properties.Roles.0.Ref -> InstanceInstanceRoleE9785DE5\\"
+            \\"type\\": \\"Properties.Roles.0.Ref -> InstanceInstanceRoleE9785DE5\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Roles\\",
+                0,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]InstanceC1063A87\\",
             \\"target\\": \\"[dup-ref]InstanceInstanceProfileAB5AEF02\\",
-            \\"type\\": \\"Properties.IamInstanceProfile.Ref -> InstanceInstanceProfileAB5AEF02\\"
+            \\"type\\": \\"Properties.IamInstanceProfile.Ref -> InstanceInstanceProfileAB5AEF02\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"IamInstanceProfile\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]InstanceC1063A87\\",
             \\"target\\": \\"[dup-ref]SsmParameterValueawsserviceamiwindowslatestWindowsServer2019EnglishFullBaseC96584B6F00A464EAD1953AFF4B05118Parameter\\",
-            \\"type\\": \\"Properties.ImageId.Ref -> SsmParameterValueawsserviceamiwindowslatestWindowsServer2019EnglishFullBaseC96584B6F00A464EAD1953AFF4B05118Parameter\\"
+            \\"type\\": \\"Properties.ImageId.Ref -> SsmParameterValueawsserviceamiwindowslatestWindowsServer2019EnglishFullBaseC96584B6F00A464EAD1953AFF4B05118Parameter\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"ImageId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]InstanceC1063A87\\",
             \\"target\\": \\"[dup-ref]GameKeyKeyPairF8B1B0F0\\",
-            \\"type\\": \\"Properties.KeyName.Fn::GetAtt -> GameKeyKeyPairF8B1B0F0.KeyName\\"
+            \\"type\\": \\"Properties.KeyName.Fn::GetAtt -> GameKeyKeyPairF8B1B0F0.KeyName\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"KeyName\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"KeyName\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]InstanceC1063A87\\",
             \\"target\\": \\"[dup-ref]InstanceInstanceSecurityGroupF0E2D5BE\\",
-            \\"type\\": \\"Properties.SecurityGroupIds.0.Fn::GetAtt -> InstanceInstanceSecurityGroupF0E2D5BE.GroupId\\"
+            \\"type\\": \\"Properties.SecurityGroupIds.0.Fn::GetAtt -> InstanceInstanceSecurityGroupF0E2D5BE.GroupId\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SecurityGroupIds\\",
+                0,
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"GroupId\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]InstanceC1063A87\\",
             \\"target\\": \\"[dup-ref]AccessKey\\",
-            \\"type\\": \\"Metadata.AWS::CloudFormation::Init.config.commands.000.command.2.Fn::Join.1.1.Ref -> AccessKey\\"
+            \\"type\\": \\"Metadata.AWS::CloudFormation::Init.config.commands.000.command.2.Fn::Join.1.1.Ref -> AccessKey\\",
+            \\"sourcePropertyPath\\": [
+                \\"Metadata\\",
+                \\"AWS::CloudFormation::Init\\",
+                \\"config\\",
+                \\"commands\\",
+                \\"000\\",
+                \\"command\\",
+                2,
+                \\"Fn::Join\\",
+                1,
+                1,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]InstanceC1063A87\\",
             \\"target\\": \\"[dup-ref]AccessKey\\",
-            \\"type\\": \\"Metadata.AWS::CloudFormation::Init.config.commands.000.command.2.Fn::Join.1.3.Fn::GetAtt -> AccessKey.SecretAccessKey\\"
+            \\"type\\": \\"Metadata.AWS::CloudFormation::Init.config.commands.000.command.2.Fn::Join.1.3.Fn::GetAtt -> AccessKey.SecretAccessKey\\",
+            \\"sourcePropertyPath\\": [
+                \\"Metadata\\",
+                \\"AWS::CloudFormation::Init\\",
+                \\"config\\",
+                \\"commands\\",
+                \\"000\\",
+                \\"command\\",
+                2,
+                \\"Fn::Join\\",
+                1,
+                3,
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"SecretAccessKey\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]WebAppDeploymentCustomResourceD7DB25D0\\",
             \\"target\\": \\"[dup-ref]CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536\\",
-            \\"type\\": \\"Properties.ServiceToken.Fn::GetAtt -> CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536.Arn\\"
+            \\"type\\": \\"Properties.ServiceToken.Fn::GetAtt -> CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"ServiceToken\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]WebAppDeploymentCustomResourceD7DB25D0\\",
             \\"target\\": \\"[dup-ref]AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\",
-            \\"type\\": \\"Properties.SourceBucketNames.0.Ref -> AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\"
+            \\"type\\": \\"Properties.SourceBucketNames.0.Ref -> AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SourceBucketNames\\",
+                0,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]WebAppDeploymentCustomResourceD7DB25D0\\",
             \\"target\\": \\"[dup-ref]AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3VersionKeyAC52A7BF\\",
-            \\"type\\": \\"Properties.SourceObjectKeys.0.Fn::Join.1.0.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3VersionKeyAC52A7BF\\"
+            \\"type\\": \\"Properties.SourceObjectKeys.0.Fn::Join.1.0.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3VersionKeyAC52A7BF\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SourceObjectKeys\\",
+                0,
+                \\"Fn::Join\\",
+                1,
+                0,
+                \\"Fn::Select\\",
+                1,
+                \\"Fn::Split\\",
+                1,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]WebAppDeploymentCustomResourceD7DB25D0\\",
             \\"target\\": \\"[dup-ref]AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3VersionKeyAC52A7BF\\",
-            \\"type\\": \\"Properties.SourceObjectKeys.0.Fn::Join.1.1.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3VersionKeyAC52A7BF\\"
+            \\"type\\": \\"Properties.SourceObjectKeys.0.Fn::Join.1.1.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3VersionKeyAC52A7BF\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SourceObjectKeys\\",
+                0,
+                \\"Fn::Join\\",
+                1,
+                1,
+                \\"Fn::Select\\",
+                1,
+                \\"Fn::Split\\",
+                1,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]WebAppDeploymentCustomResourceD7DB25D0\\",
             \\"target\\": \\"[dup-ref]WebAppBucket8F6FA179\\",
-            \\"type\\": \\"Properties.DestinationBucketName.Ref -> WebAppBucket8F6FA179\\"
+            \\"type\\": \\"Properties.DestinationBucketName.Ref -> WebAppBucket8F6FA179\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"DestinationBucketName\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]WebAppLambdaServiceRoleDefaultPolicyB264392B\\",
             \\"target\\": \\"[dup-ref]InstanceInstanceSecurityGroupF0E2D5BE\\",
-            \\"type\\": \\"Properties.PolicyDocument.Statement.1.Resource.Fn::Join.1.3.Fn::GetAtt -> InstanceInstanceSecurityGroupF0E2D5BE.GroupId\\"
+            \\"type\\": \\"Properties.PolicyDocument.Statement.1.Resource.Fn::Join.1.3.Fn::GetAtt -> InstanceInstanceSecurityGroupF0E2D5BE.GroupId\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"PolicyDocument\\",
+                \\"Statement\\",
+                1,
+                \\"Resource\\",
+                \\"Fn::Join\\",
+                1,
+                3,
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"GroupId\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]WebAppLambdaServiceRoleDefaultPolicyB264392B\\",
             \\"target\\": \\"[dup-ref]InstanceC1063A87\\",
-            \\"type\\": \\"Properties.PolicyDocument.Statement.2.Resource.Fn::Join.1.3.Ref -> InstanceC1063A87\\"
+            \\"type\\": \\"Properties.PolicyDocument.Statement.2.Resource.Fn::Join.1.3.Ref -> InstanceC1063A87\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"PolicyDocument\\",
+                \\"Statement\\",
+                2,
+                \\"Resource\\",
+                \\"Fn::Join\\",
+                1,
+                3,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]WebAppLambdaServiceRoleDefaultPolicyB264392B\\",
             \\"target\\": \\"[dup-ref]GameKeyKeyPairF8B1B0F0\\",
-            \\"type\\": \\"Properties.PolicyDocument.Statement.3.Resource.Fn::Join.1.3.Fn::GetAtt -> GameKeyKeyPairF8B1B0F0.Parameter\\"
+            \\"type\\": \\"Properties.PolicyDocument.Statement.3.Resource.Fn::Join.1.3.Fn::GetAtt -> GameKeyKeyPairF8B1B0F0.Parameter\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"PolicyDocument\\",
+                \\"Statement\\",
+                3,
+                \\"Resource\\",
+                \\"Fn::Join\\",
+                1,
+                3,
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Parameter\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]WebAppLambdaServiceRoleDefaultPolicyB264392B\\",
             \\"target\\": \\"[dup-ref]WebAppLambdaServiceRoleB3C5DDDA\\",
-            \\"type\\": \\"Properties.Roles.0.Ref -> WebAppLambdaServiceRoleB3C5DDDA\\"
+            \\"type\\": \\"Properties.Roles.0.Ref -> WebAppLambdaServiceRoleB3C5DDDA\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Roles\\",
+                0,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]WebAppLambdaE4C4A83F\\",
             \\"target\\": \\"[dup-ref]AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3BucketA30C151C\\",
-            \\"type\\": \\"Properties.Code.S3Bucket.Ref -> AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3BucketA30C151C\\"
+            \\"type\\": \\"Properties.Code.S3Bucket.Ref -> AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3BucketA30C151C\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Code\\",
+                \\"S3Bucket\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]WebAppLambdaE4C4A83F\\",
             \\"target\\": \\"[dup-ref]AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3VersionKeyE2D63F25\\",
-            \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.0.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3VersionKeyE2D63F25\\"
+            \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.0.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3VersionKeyE2D63F25\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Code\\",
+                \\"S3Key\\",
+                \\"Fn::Join\\",
+                1,
+                0,
+                \\"Fn::Select\\",
+                1,
+                \\"Fn::Split\\",
+                1,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]WebAppLambdaE4C4A83F\\",
             \\"target\\": \\"[dup-ref]AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3VersionKeyE2D63F25\\",
-            \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.1.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3VersionKeyE2D63F25\\"
+            \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.1.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3VersionKeyE2D63F25\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Code\\",
+                \\"S3Key\\",
+                \\"Fn::Join\\",
+                1,
+                1,
+                \\"Fn::Select\\",
+                1,
+                \\"Fn::Split\\",
+                1,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]WebAppLambdaE4C4A83F\\",
             \\"target\\": \\"[dup-ref]WebAppLambdaServiceRoleB3C5DDDA\\",
-            \\"type\\": \\"Properties.Role.Fn::GetAtt -> WebAppLambdaServiceRoleB3C5DDDA.Arn\\"
+            \\"type\\": \\"Properties.Role.Fn::GetAtt -> WebAppLambdaServiceRoleB3C5DDDA.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Role\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]WebAppLambdaE4C4A83F\\",
             \\"target\\": \\"[dup-ref]InstanceC1063A87\\",
-            \\"type\\": \\"Properties.Environment.Variables.INSTANCE_ID.Ref -> InstanceC1063A87\\"
+            \\"type\\": \\"Properties.Environment.Variables.INSTANCE_ID.Ref -> InstanceC1063A87\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Environment\\",
+                \\"Variables\\",
+                \\"INSTANCE_ID\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]WebAppLambdaE4C4A83F\\",
             \\"target\\": \\"[dup-ref]InstanceInstanceSecurityGroupF0E2D5BE\\",
-            \\"type\\": \\"Properties.Environment.Variables.SECURITY_GROUP_ID.Fn::GetAtt -> InstanceInstanceSecurityGroupF0E2D5BE.GroupId\\"
+            \\"type\\": \\"Properties.Environment.Variables.SECURITY_GROUP_ID.Fn::GetAtt -> InstanceInstanceSecurityGroupF0E2D5BE.GroupId\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Environment\\",
+                \\"Variables\\",
+                \\"SECURITY_GROUP_ID\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"GroupId\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]WebAppLambdaE4C4A83F\\",
             \\"target\\": \\"[dup-ref]GameKeyKeyPairF8B1B0F0\\",
-            \\"type\\": \\"Properties.Environment.Variables.KEY_PARAMETER_NAME.Fn::GetAtt -> GameKeyKeyPairF8B1B0F0.Parameter\\"
+            \\"type\\": \\"Properties.Environment.Variables.KEY_PARAMETER_NAME.Fn::GetAtt -> GameKeyKeyPairF8B1B0F0.Parameter\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Environment\\",
+                \\"Variables\\",
+                \\"KEY_PARAMETER_NAME\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Parameter\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppAccount244C69A0\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameAppCloudWatchRole3E18F736\\",
-            \\"type\\": \\"Properties.CloudWatchRoleArn.Fn::GetAtt -> S3GatewayGameAppCloudWatchRole3E18F736.Arn\\"
+            \\"type\\": \\"Properties.CloudWatchRoleArn.Fn::GetAtt -> S3GatewayGameAppCloudWatchRole3E18F736.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"CloudWatchRoleArn\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppDeployment45A40F1C1ea3f370273feac6dc79badcdb1c5090\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameApp7F73230F\\",
-            \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\"
+            \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RestApiId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppDeploymentStageprod501ACE37\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameApp7F73230F\\",
-            \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\"
+            \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RestApiId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppDeploymentStageprod501ACE37\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameAppDeployment45A40F1C1ea3f370273feac6dc79badcdb1c5090\\",
-            \\"type\\": \\"Properties.DeploymentId.Ref -> S3GatewayGameAppDeployment45A40F1C1ea3f370273feac6dc79badcdb1c5090\\"
+            \\"type\\": \\"Properties.DeploymentId.Ref -> S3GatewayGameAppDeployment45A40F1C1ea3f370273feac6dc79badcdb1c5090\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"DeploymentId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppGET419DC6F4\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameApp7F73230F\\",
-            \\"type\\": \\"Properties.ResourceId.Fn::GetAtt -> S3GatewayGameApp7F73230F.RootResourceId\\"
+            \\"type\\": \\"Properties.ResourceId.Fn::GetAtt -> S3GatewayGameApp7F73230F.RootResourceId\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"ResourceId\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"RootResourceId\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppGET419DC6F4\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameApp7F73230F\\",
-            \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\"
+            \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RestApiId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppGET419DC6F4\\",
             \\"target\\": \\"[dup-ref]S3IntegrationRoleF31D2F62\\",
-            \\"type\\": \\"Properties.Integration.Credentials.Fn::GetAtt -> S3IntegrationRoleF31D2F62.Arn\\"
+            \\"type\\": \\"Properties.Integration.Credentials.Fn::GetAtt -> S3IntegrationRoleF31D2F62.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Integration\\",
+                \\"Credentials\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppGET419DC6F4\\",
             \\"target\\": \\"[dup-ref]WebAppBucket8F6FA179\\",
-            \\"type\\": \\"Properties.Integration.Uri.Fn::Join.1.3.Ref -> WebAppBucket8F6FA179\\"
+            \\"type\\": \\"Properties.Integration.Uri.Fn::Join.1.3.Ref -> WebAppBucket8F6FA179\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Integration\\",
+                \\"Uri\\",
+                \\"Fn::Join\\",
+                1,
+                3,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppproxy2374A00B\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameApp7F73230F\\",
-            \\"type\\": \\"Properties.ParentId.Fn::GetAtt -> S3GatewayGameApp7F73230F.RootResourceId\\"
+            \\"type\\": \\"Properties.ParentId.Fn::GetAtt -> S3GatewayGameApp7F73230F.RootResourceId\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"ParentId\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"RootResourceId\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppproxy2374A00B\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameApp7F73230F\\",
-            \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\"
+            \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RestApiId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppproxyGET2D68D639\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameAppproxy2374A00B\\",
-            \\"type\\": \\"Properties.ResourceId.Ref -> S3GatewayGameAppproxy2374A00B\\"
+            \\"type\\": \\"Properties.ResourceId.Ref -> S3GatewayGameAppproxy2374A00B\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"ResourceId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppproxyGET2D68D639\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameApp7F73230F\\",
-            \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\"
+            \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RestApiId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppproxyGET2D68D639\\",
             \\"target\\": \\"[dup-ref]S3IntegrationRoleF31D2F62\\",
-            \\"type\\": \\"Properties.Integration.Credentials.Fn::GetAtt -> S3IntegrationRoleF31D2F62.Arn\\"
+            \\"type\\": \\"Properties.Integration.Credentials.Fn::GetAtt -> S3IntegrationRoleF31D2F62.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Integration\\",
+                \\"Credentials\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppproxyGET2D68D639\\",
             \\"target\\": \\"[dup-ref]WebAppBucket8F6FA179\\",
-            \\"type\\": \\"Properties.Integration.Uri.Fn::Join.1.3.Ref -> WebAppBucket8F6FA179\\"
+            \\"type\\": \\"Properties.Integration.Uri.Fn::Join.1.3.Ref -> WebAppBucket8F6FA179\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Integration\\",
+                \\"Uri\\",
+                \\"Fn::Join\\",
+                1,
+                3,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppapi997B66C0\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameApp7F73230F\\",
-            \\"type\\": \\"Properties.ParentId.Fn::GetAtt -> S3GatewayGameApp7F73230F.RootResourceId\\"
+            \\"type\\": \\"Properties.ParentId.Fn::GetAtt -> S3GatewayGameApp7F73230F.RootResourceId\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"ParentId\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"RootResourceId\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppapi997B66C0\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameApp7F73230F\\",
-            \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\"
+            \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RestApiId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppapiANYApiPermissionKesselRunStackS3GatewayGameAppDDC26D96ANYapi5CCFEF3A\\",
             \\"target\\": \\"[dup-ref]WebAppLambdaE4C4A83F\\",
-            \\"type\\": \\"Properties.FunctionName.Fn::GetAtt -> WebAppLambdaE4C4A83F.Arn\\"
+            \\"type\\": \\"Properties.FunctionName.Fn::GetAtt -> WebAppLambdaE4C4A83F.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"FunctionName\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppapiANYApiPermissionKesselRunStackS3GatewayGameAppDDC26D96ANYapi5CCFEF3A\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameApp7F73230F\\",
-            \\"type\\": \\"Properties.SourceArn.Fn::Join.1.3.Ref -> S3GatewayGameApp7F73230F\\"
+            \\"type\\": \\"Properties.SourceArn.Fn::Join.1.3.Ref -> S3GatewayGameApp7F73230F\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SourceArn\\",
+                \\"Fn::Join\\",
+                1,
+                3,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppapiANYApiPermissionKesselRunStackS3GatewayGameAppDDC26D96ANYapi5CCFEF3A\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameAppDeploymentStageprod501ACE37\\",
-            \\"type\\": \\"Properties.SourceArn.Fn::Join.1.5.Ref -> S3GatewayGameAppDeploymentStageprod501ACE37\\"
+            \\"type\\": \\"Properties.SourceArn.Fn::Join.1.5.Ref -> S3GatewayGameAppDeploymentStageprod501ACE37\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SourceArn\\",
+                \\"Fn::Join\\",
+                1,
+                5,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppapiANYApiPermissionTestKesselRunStackS3GatewayGameAppDDC26D96ANYapi11815113\\",
             \\"target\\": \\"[dup-ref]WebAppLambdaE4C4A83F\\",
-            \\"type\\": \\"Properties.FunctionName.Fn::GetAtt -> WebAppLambdaE4C4A83F.Arn\\"
+            \\"type\\": \\"Properties.FunctionName.Fn::GetAtt -> WebAppLambdaE4C4A83F.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"FunctionName\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppapiANYApiPermissionTestKesselRunStackS3GatewayGameAppDDC26D96ANYapi11815113\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameApp7F73230F\\",
-            \\"type\\": \\"Properties.SourceArn.Fn::Join.1.3.Ref -> S3GatewayGameApp7F73230F\\"
+            \\"type\\": \\"Properties.SourceArn.Fn::Join.1.3.Ref -> S3GatewayGameApp7F73230F\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"SourceArn\\",
+                \\"Fn::Join\\",
+                1,
+                3,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppapiANY8309A6C9\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameAppapi997B66C0\\",
-            \\"type\\": \\"Properties.ResourceId.Ref -> S3GatewayGameAppapi997B66C0\\"
+            \\"type\\": \\"Properties.ResourceId.Ref -> S3GatewayGameAppapi997B66C0\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"ResourceId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppapiANY8309A6C9\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameApp7F73230F\\",
-            \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\"
+            \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"RestApiId\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppapiANY8309A6C9\\",
             \\"target\\": \\"[dup-ref]WebAppLambdaE4C4A83F\\",
-            \\"type\\": \\"Properties.Integration.Uri.Fn::Join.1.3.Fn::GetAtt -> WebAppLambdaE4C4A83F.Arn\\"
+            \\"type\\": \\"Properties.Integration.Uri.Fn::Join.1.3.Fn::GetAtt -> WebAppLambdaE4C4A83F.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Integration\\",
+                \\"Uri\\",
+                \\"Fn::Join\\",
+                1,
+                3,
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]S3IntegrationRoleDefaultPolicy5B77AE07\\",
             \\"target\\": \\"[dup-ref]WebAppBucket8F6FA179\\",
-            \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.0.Fn::GetAtt -> WebAppBucket8F6FA179.Arn\\"
+            \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.0.Fn::GetAtt -> WebAppBucket8F6FA179.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"PolicyDocument\\",
+                \\"Statement\\",
+                0,
+                \\"Resource\\",
+                0,
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]S3IntegrationRoleDefaultPolicy5B77AE07\\",
             \\"target\\": \\"[dup-ref]WebAppBucket8F6FA179\\",
-            \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.1.Fn::Join.1.0.Fn::GetAtt -> WebAppBucket8F6FA179.Arn\\"
+            \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.1.Fn::Join.1.0.Fn::GetAtt -> WebAppBucket8F6FA179.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"PolicyDocument\\",
+                \\"Statement\\",
+                0,
+                \\"Resource\\",
+                1,
+                \\"Fn::Join\\",
+                1,
+                0,
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]S3IntegrationRoleDefaultPolicy5B77AE07\\",
             \\"target\\": \\"[dup-ref]S3IntegrationRoleF31D2F62\\",
-            \\"type\\": \\"Properties.Roles.0.Ref -> S3IntegrationRoleF31D2F62\\"
+            \\"type\\": \\"Properties.Roles.0.Ref -> S3IntegrationRoleF31D2F62\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Roles\\",
+                0,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]KeyPairProviderCustomResourceProviderHandlerBB6F16AF\\",
             \\"target\\": \\"[dup-ref]AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3Bucket69CDE7B7\\",
-            \\"type\\": \\"Properties.Code.S3Bucket.Ref -> AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3Bucket69CDE7B7\\"
+            \\"type\\": \\"Properties.Code.S3Bucket.Ref -> AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3Bucket69CDE7B7\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Code\\",
+                \\"S3Bucket\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]KeyPairProviderCustomResourceProviderHandlerBB6F16AF\\",
             \\"target\\": \\"[dup-ref]AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3VersionKey3E23C446\\",
-            \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.0.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3VersionKey3E23C446\\"
+            \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.0.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3VersionKey3E23C446\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Code\\",
+                \\"S3Key\\",
+                \\"Fn::Join\\",
+                1,
+                0,
+                \\"Fn::Select\\",
+                1,
+                \\"Fn::Split\\",
+                1,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]KeyPairProviderCustomResourceProviderHandlerBB6F16AF\\",
             \\"target\\": \\"[dup-ref]AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3VersionKey3E23C446\\",
-            \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.1.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3VersionKey3E23C446\\"
+            \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.1.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3VersionKey3E23C446\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Code\\",
+                \\"S3Key\\",
+                \\"Fn::Join\\",
+                1,
+                1,
+                \\"Fn::Select\\",
+                1,
+                \\"Fn::Split\\",
+                1,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]KeyPairProviderCustomResourceProviderHandlerBB6F16AF\\",
             \\"target\\": \\"[dup-ref]KeyPairProviderCustomResourceProviderRoleA32FD897\\",
-            \\"type\\": \\"Properties.Role.Fn::GetAtt -> KeyPairProviderCustomResourceProviderRoleA32FD897.Arn\\"
+            \\"type\\": \\"Properties.Role.Fn::GetAtt -> KeyPairProviderCustomResourceProviderRoleA32FD897.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Role\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF\\",
             \\"target\\": \\"[dup-ref]AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\",
-            \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.0.Fn::Join.1.3.Ref -> AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\"
+            \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.0.Fn::Join.1.3.Ref -> AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"PolicyDocument\\",
+                \\"Statement\\",
+                0,
+                \\"Resource\\",
+                0,
+                \\"Fn::Join\\",
+                1,
+                3,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF\\",
             \\"target\\": \\"[dup-ref]AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\",
-            \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.1.Fn::Join.1.3.Ref -> AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\"
+            \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.1.Fn::Join.1.3.Ref -> AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"PolicyDocument\\",
+                \\"Statement\\",
+                0,
+                \\"Resource\\",
+                1,
+                \\"Fn::Join\\",
+                1,
+                3,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF\\",
             \\"target\\": \\"[dup-ref]WebAppBucket8F6FA179\\",
-            \\"type\\": \\"Properties.PolicyDocument.Statement.1.Resource.0.Fn::GetAtt -> WebAppBucket8F6FA179.Arn\\"
+            \\"type\\": \\"Properties.PolicyDocument.Statement.1.Resource.0.Fn::GetAtt -> WebAppBucket8F6FA179.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"PolicyDocument\\",
+                \\"Statement\\",
+                1,
+                \\"Resource\\",
+                0,
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF\\",
             \\"target\\": \\"[dup-ref]WebAppBucket8F6FA179\\",
-            \\"type\\": \\"Properties.PolicyDocument.Statement.1.Resource.1.Fn::Join.1.0.Fn::GetAtt -> WebAppBucket8F6FA179.Arn\\"
+            \\"type\\": \\"Properties.PolicyDocument.Statement.1.Resource.1.Fn::Join.1.0.Fn::GetAtt -> WebAppBucket8F6FA179.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"PolicyDocument\\",
+                \\"Statement\\",
+                1,
+                \\"Resource\\",
+                1,
+                \\"Fn::Join\\",
+                1,
+                0,
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF\\",
             \\"target\\": \\"[dup-ref]CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265\\",
-            \\"type\\": \\"Properties.Roles.0.Ref -> CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265\\"
+            \\"type\\": \\"Properties.Roles.0.Ref -> CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Roles\\",
+                0,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536\\",
             \\"target\\": \\"[dup-ref]AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3Bucket77147E20\\",
-            \\"type\\": \\"Properties.Code.S3Bucket.Ref -> AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3Bucket77147E20\\"
+            \\"type\\": \\"Properties.Code.S3Bucket.Ref -> AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3Bucket77147E20\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Code\\",
+                \\"S3Bucket\\",
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536\\",
             \\"target\\": \\"[dup-ref]AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3VersionKey4253216F\\",
-            \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.0.Fn::Select.1.Fn::Split.1.Ref -> AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3VersionKey4253216F\\"
+            \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.0.Fn::Select.1.Fn::Split.1.Ref -> AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3VersionKey4253216F\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Code\\",
+                \\"S3Key\\",
+                \\"Fn::Join\\",
+                1,
+                0,
+                \\"Fn::Select\\",
+                1,
+                \\"Fn::Split\\",
+                1,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536\\",
             \\"target\\": \\"[dup-ref]AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3VersionKey4253216F\\",
-            \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.1.Fn::Select.1.Fn::Split.1.Ref -> AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3VersionKey4253216F\\"
+            \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.1.Fn::Select.1.Fn::Split.1.Ref -> AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3VersionKey4253216F\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Code\\",
+                \\"S3Key\\",
+                \\"Fn::Join\\",
+                1,
+                1,
+                \\"Fn::Select\\",
+                1,
+                \\"Fn::Split\\",
+                1,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536\\",
             \\"target\\": \\"[dup-ref]CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265\\",
-            \\"type\\": \\"Properties.Role.Fn::GetAtt -> CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265.Arn\\"
+            \\"type\\": \\"Properties.Role.Fn::GetAtt -> CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Role\\",
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppEndpoint960301A3\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameApp7F73230F\\",
-            \\"type\\": \\"Value.Fn::Join.1.1.Ref -> S3GatewayGameApp7F73230F\\"
+            \\"type\\": \\"Value.Fn::Join.1.1.Ref -> S3GatewayGameApp7F73230F\\",
+            \\"sourcePropertyPath\\": [
+                \\"Value\\",
+                \\"Fn::Join\\",
+                1,
+                1,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]S3GatewayGameAppEndpoint960301A3\\",
             \\"target\\": \\"[dup-ref]S3GatewayGameAppDeploymentStageprod501ACE37\\",
-            \\"type\\": \\"Value.Fn::Join.1.5.Ref -> S3GatewayGameAppDeploymentStageprod501ACE37\\"
+            \\"type\\": \\"Value.Fn::Join.1.5.Ref -> S3GatewayGameAppDeploymentStageprod501ACE37\\",
+            \\"sourcePropertyPath\\": [
+                \\"Value\\",
+                \\"Fn::Join\\",
+                1,
+                5,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]NVidiaUser\\",
@@ -14515,12 +15150,31 @@ exports[`CDK simple template 1`] = `
         {
             \\"source\\": \\"[dup-ref]userDefaultPolicy083DF682\\",
             \\"target\\": \\"[dup-ref]Table2DBDCD1F7\\",
-            \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.0.Fn::GetAtt -> Table2DBDCD1F7.Arn\\"
+            \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.0.Fn::GetAtt -> Table2DBDCD1F7.Arn\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"PolicyDocument\\",
+                \\"Statement\\",
+                0,
+                \\"Resource\\",
+                0,
+                \\"Fn::GetAtt\\"
+            ],
+            \\"targetAttributePath\\": [
+                \\"Arn\\"
+            ]
         },
         {
             \\"source\\": \\"[dup-ref]userDefaultPolicy083DF682\\",
             \\"target\\": \\"[dup-ref]user2C2B57AE\\",
-            \\"type\\": \\"Properties.Users.0.Ref -> user2C2B57AE\\"
+            \\"type\\": \\"Properties.Users.0.Ref -> user2C2B57AE\\",
+            \\"sourcePropertyPath\\": [
+                \\"Properties\\",
+                \\"Users\\",
+                0,
+                \\"Ref\\"
+            ],
+            \\"targetAttributePath\\": []
         },
         {
             \\"source\\": \\"[dup-ref]Table1\\",

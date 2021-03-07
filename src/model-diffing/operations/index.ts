@@ -1,2 +1,2 @@
 export * from './component-operation';
-export * from './property-operation';
+export * from './property-component-operation';

@@ -6,7 +6,9 @@ import {
     InfraModel,
     ComponentPropertyRecord,
     ComponentPropertyPrimitive,
-    ComponentPropertyArray
+    ComponentPropertyArray,
+    DependencyRelationshipOptions,
+    PropertyPath
 } from "../../infra-model";
 import { isDefined } from "../../utils";
 import { CFParserArgs } from "./cf-parser-args";
@@ -14,7 +16,7 @@ import { CFRef } from "./cf-ref";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-export type CFProperty = Array<CFProperty> | Record<string, CFProperty> | string | number;
+export type CFDefinition = Array<CFDefinition> | Record<string, CFDefinition> | string | number;
 
 /**
  * CFEntity builds a Component and its outgoing realtionships
@@ -54,23 +56,17 @@ export abstract class CFEntity {
                 .map(ref =>
                     this.createDependencyRelationship(
                         cfEntities[ref.logicalId].getComponentInAttributePath(ref.destPath),
-                        ref.getDescription()
+                        ref.getDescription(),
+                        {sourcePropertyPath: ref.sourcePath, targetAttributePath: ref.destPath}
                     )
                 )
         );
         model.components.push(this.component);
     }
 
-    protected createDependencyRelationshipFromRef(targetCFEntity: CFEntity, ref: CFRef): DependencyRelationship{
-        return this.createDependencyRelationship(
-            targetCFEntity.getComponentInAttributePath(ref.destPath),
-            ref.getDescription()
-        );
-    }
-
-    protected createDependencyRelationship(targetComponent: Component, type: string): DependencyRelationship {
+    protected createDependencyRelationship(targetComponent: Component, type: string, options?: DependencyRelationshipOptions): DependencyRelationship {
         const relationship = new DependencyRelationship(
-            this.component, targetComponent, type
+            this.component, targetComponent, type, options
         );
 
         this.component.addOutgoing(relationship);
@@ -79,7 +75,7 @@ export abstract class CFEntity {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getComponentInAttributePath(attributePath:string[]): Component{
+    getComponentInAttributePath(attributePath:PropertyPath): Component{
         return this.component;
     }
 
@@ -90,11 +86,12 @@ export abstract class CFEntity {
      * @param definition the CloudFormation definition (js object as it comes from the template)
      * @param propertyPath the property key path that leads to this definition
      */
-    protected cfDefinitionToComponentProperty(definition: CFProperty): ComponentProperty{
+    protected cfDefinitionToComponentProperty(definition: CFDefinition): ComponentProperty{
+        
         const updateTypeGetter = this.getUpdateTypeForPropertyPath.bind(this);
         return factory(definition, []);
-
-        function factory (definition: CFProperty, propertyPath: string[]): ComponentProperty {
+        
+        function factory (definition: CFDefinition, propertyPath: string[]): ComponentProperty {
             return new ComponentPropertyRecord(Object.fromEntries(
                 Object.entries(definition).map(([propKey, propValue]) => {
                     const newPropertyPath = [...propertyPath, propKey];
