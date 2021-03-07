@@ -79,6 +79,11 @@ export class DiffCreator {
         return [...removals, ...insertions, ...renames, ...updates];
     }
 
+    /**
+     * Uses the ComponentMatcher to find the matches between two sets of Components
+     * and registers the obtained component transitions.
+     * @returns the ComponentMatcher's results
+     */
     private matchComponents(
         a: Component[],
         b: Component[],
@@ -91,7 +96,7 @@ export class DiffCreator {
 
     /**
      * Finds matches between relationships of the matched components;
-     * Returns the ComponentOperations that correspond to each relationship change
+     * @returns the ComponentOperations that correspond to each relationship change
      */
     private diffComponentRelationships(componentTransition: Transition<Component>): ComponentOperation[] {
         const relationshipMatches = new RelationshipsMatcher(

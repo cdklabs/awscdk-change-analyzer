@@ -6,8 +6,7 @@ import { Transition } from "./transition";
 export class InfraModelDiff {
 
     private readonly componentToTransitionMap: Map<Component, Transition<Component>>;
-    // TODO PUT PRIVATE
-    public readonly componentTransitionToOperationsMap: Map<Transition<Component>, ComponentOperation[]>;
+    private readonly componentTransitionToOperationsMap: Map<Transition<Component>, ComponentOperation[]>;
 
     constructor(
         public readonly componentOperations: ComponentOperation[],

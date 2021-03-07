@@ -15,6 +15,9 @@ export class PropertyDiff {
     ) {}
 }
 
+/**
+ * Creates the PropertyDiff between two properties of a given Transition<Component>.
+ */
 export class PropertyDiffCreator {
 
     constructor(

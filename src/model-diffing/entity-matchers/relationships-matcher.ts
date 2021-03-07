@@ -4,8 +4,9 @@ import { stringSimilarity } from "../../utils";
 import { CompleteTransition } from "../transition";
 
 /**
- * Matches relationships based on their class and type similarity
- * metadata is a boolean value that states if the relationship was changed or not
+ * Matches relationships based on their class and type similarity.
+ * The metadata object in the matcher results will be a boolean value that
+ * states if the relationship was changed or not
  */
 export class RelationshipsMatcher extends EntitiesMatcher<Relationship, boolean> {
 

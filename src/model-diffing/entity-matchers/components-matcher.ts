@@ -5,7 +5,9 @@ import { PropertyComponentOperation } from "../operations";
 import { CompleteTransition } from "../transition";
 
 /**
- * Matches components based on the type, subtype and property similarity 
+ * Matches components based on the type, subtype and property similarity.
+ * The metadata object in the matcher results will be the PropertyComponentOperation
+ * from Component v1 to Component v2. It can be undefined if the Components are exactly alike
  */
 export class ComponentsMatcher extends EntitiesMatcher<Component, PropertyComponentOperation | undefined> {
 

@@ -4,7 +4,8 @@ import { CompleteTransition, Transition } from "../transition";
 import { EntitiesMatcher } from "./entities-matcher";
 
 /**
- * Matches ComponentProperties based on their similarity 
+ * Matches ComponentProperties based on their similarity.
+ * The metadata object in the matcher results will be the PropertyDiff
  */
 export class ComponentPropertiesMatcher<K extends (string | number)> extends EntitiesMatcher<[K, ComponentProperty], PropertyDiff> {
 

@@ -1,8 +1,6 @@
 import { isDefined } from "../../utils";
 import { CompleteTransition, Transition } from "../transition";
 
-export type EntityMatches<T, K = undefined> = Map<T, {entity: T, similarity: number, metadata?: K}>;
-
 export type EntityMatch<T, K = undefined> = {
     transition: Transition<T>,
     metadata: K,
@@ -23,9 +21,6 @@ export type EntitiesMatcherResults<T, K = undefined> = {
  */
 export abstract class EntitiesMatcher<T, K = undefined> {
 
-    private readonly matchesAToB: Map<T, EntityMatches<T, K>> = new Map();
-    private readonly matchesBToA: Map<T, EntityMatches<T, K>> = new Map();
-    
     // Two Components will be matched only if their similarity is above the similarity threshold 
     public static similarityThreshold = 0.5;
 

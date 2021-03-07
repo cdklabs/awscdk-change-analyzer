@@ -14,6 +14,10 @@ import {
 } from "./operations";
 import { Transition } from "./transition";
 
+/**
+ * Creates the ComponentOperations caused by existing ones
+ * using the propagate method and returns the new InfraModelDiff
+ */
 export class ChangePropagator {
     
     private readonly propagatedOperations: ComponentOperation[] = [];
@@ -22,10 +26,14 @@ export class ChangePropagator {
         private readonly modelDiff: InfraModelDiff,
     ){}
 
+    /**
+     * Performs the propagation of InfraModelDiff's changes
+     * @returns the new InfraModelDiff
+     */
     propagate(): InfraModelDiff{
         this.modelDiff.componentOperations.forEach(o => {
                 if(o instanceof UpdatePropertyComponentOperation){   
-                    this.propagatePropertyUpdate(o.componentTransition, o);
+                    this.propagatePropertyOperation(o);
                 }
         });
         return new InfraModelDiff(
@@ -34,15 +42,22 @@ export class ChangePropagator {
         );
     }
 
-    private propagatePropertyUpdate(
-        componentTransition: Transition<Component>,
+    /**
+     * Creates the ReplaceComponentOperation for any Component that had a
+     * PropertyComponentOperation on a property with UpdateType = REPLACEMENT or POSSIBLE_REPLACEMENT.
+     * Creates and recursively propagates the UpdatePropertyComponentOperations for the properties of
+     * other Components that depend on this Component.
+     * @param compOp the PropertyComponentOperation to be propagated
+     */
+    private propagatePropertyOperation(
         compOp: UpdatePropertyComponentOperation
     ) {
         const componentUpdate = compOp.getUpdateType();
         if(componentUpdate !== ComponentUpdateType.REPLACEMENT
             && componentUpdate !== ComponentUpdateType.POSSIBLE_REPLACEMENT)
             return;
-        
+            
+        const componentTransition = compOp.componentTransition;
         const replacementOp = new ReplaceComponentOperation(componentTransition, {
             cause: compOp,
             certainty: componentUpdate === ComponentUpdateType.POSSIBLE_REPLACEMENT
@@ -64,10 +79,18 @@ export class ChangePropagator {
             
             const consequentPropertyUpdateOp = this.createUpdateOperationForComponent(sourceComponentTransition, rel.sourcePropertyPath, replacementOp);
             this.propagatedOperations.push(consequentPropertyUpdateOp);
-            this.propagatePropertyUpdate(sourceComponentTransition, consequentPropertyUpdateOp);
+            this.propagatePropertyOperation(consequentPropertyUpdateOp);
         });
     }
 
+    /**
+     * Creates an UpdatePropertyComponentOperation for a given component, current property path and cause
+     * by finding the previous property path and ComponentProperty.
+     * @param componentTransition 
+     * @param v2PropertyPath 
+     * @param cause 
+     * @returns 
+     */
     private createUpdateOperationForComponent(
         componentTransition: Transition<Component>,
         v2PropertyPath: PropertyPath,
@@ -86,6 +109,13 @@ export class ChangePropagator {
         );
     }
 
+    /**
+     * Find the previous PropertyPath and ComponentProperty for a current PropertyPath of a ComponentTransition
+     * @param componentTransition 
+     * @param v2PropertyPath 
+     * @returns [previous PropertyPath, previous ComponentProperty].
+     * They can be undefined if the property was inserted
+     */
     private getV1PropertyForComponentTransition(
         componentTransition: Transition<Component>,
         v2PropertyPath: PropertyPath
