@@ -72,7 +72,7 @@ test('Update type on second level resource property', () => {
         .toBe(ComponentUpdateType.NONE);
 });
 
-test('Unknow type on second level resource property', () => {
+test('Unknown type on second level resource property', () => {
 
     const parser = new CFParser({
         Parameters: {
