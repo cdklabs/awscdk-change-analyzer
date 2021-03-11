@@ -1,21 +1,30 @@
 import { Component, InfraModel, Relationship } from "../infra-model";
-import { ComponentsMatcher } from "./entity-matchers/components-matcher";
-import { EntitiesMatcherResults } from "./entity-matchers/entities-matcher";
+import {
+    EntitiesMatcherResults,
+    matchEntities,
+    SimilarityEvaluator
+} from "./entity-matchers/entities-matcher";
 import {
     InsertComponentOperation,
     RemoveComponentOperation,
     RenameComponentOperation,
     ComponentOperation,
-    RemoveOutgoingComponentOperation,
-    InsertOutgoingComponentOperation,
-    UpdateOutgoingComponentOperation,
+    RemoveOutgoingRelationshipComponentOperation,
+    InsertOutgoingRelationshipComponentOperation,
+    UpdateOutgoingRelationshipComponentOperation,
     PropertyComponentOperation,
 } from "./operations";
 import { groupArrayBy } from "../utils/arrayUtils";
-import { RelationshipsMatcher } from "./entity-matchers/relationships-matcher";
 import { isDefined } from "../utils";
 import { Transition } from "./transition";
 import { InfraModelDiff } from "./infra-model-diff";
+import {
+    componentSimilarityEvaluator,
+    sameNameComponentSimilarityEvaluator
+} from "./entity-matchers/component-similarity";
+import { relationshipSimilarityEvaluator } from "./entity-matchers/relationship-similarity";
+
+const similarityThreshold = 0.5;
 
 export class DiffCreator {
     
@@ -30,17 +39,20 @@ export class DiffCreator {
     public create(): InfraModelDiff{
         if(!this.modelTransition.v1 || !this.modelTransition.v2)
             throw Error("Cannot diff model transition with undefined model version");
-        const oldComponentsSplit = this.splitComponentsByType(this.modelTransition.v1.components);
-        const newComponentsSplit = this.splitComponentsByType(this.modelTransition.v2.components);
+
+        // Grouping components by their type and subtype for performance reasons, since their matching will test them n*n.
+        // We are reducing the amount of candidates that will be explored for each component
+        const oldComponentsGrouped = this.groupComponentsByType(this.modelTransition.v1.components);
+        const newComponentsGrouped = this.groupComponentsByType(this.modelTransition.v2.components);
 
         const componentOperations: ComponentOperation[] = [];
 
-        const categories = [...new Set([...oldComponentsSplit.keys(), ...newComponentsSplit.keys()])];
+        const categories = [...new Set([...oldComponentsGrouped.keys(), ...newComponentsGrouped.keys()])];
 
         componentOperations.push(...categories.flatMap((type) =>
             this.diffComponents(
-                oldComponentsSplit.get(type) ?? [],
-                newComponentsSplit.get(type) ?? []
+                oldComponentsGrouped.get(type) ?? [],
+                newComponentsGrouped.get(type) ?? []
             ),
         ));
         componentOperations.push(...this.componentTransitions.flatMap(
@@ -61,12 +73,13 @@ export class DiffCreator {
         const sameNameMatches = this.matchComponents(
             oldComponents,
             newComponents,
-            (a: Component, b: Component) => a.name === b.name
+            sameNameComponentSimilarityEvaluator
         );
 
         const renamedMatches = this.matchComponents(
             sameNameMatches.unmatchedA,
-            sameNameMatches.unmatchedB
+            sameNameMatches.unmatchedB,
+            componentSimilarityEvaluator
         );
 
         const updates = [...sameNameMatches.matches, ...renamedMatches.matches].map(
@@ -87,9 +100,9 @@ export class DiffCreator {
     private matchComponents(
         a: Component[],
         b: Component[],
-        additionalVerification?: ((a: Component, b: Component) => boolean)
+        similarityEvaluator: SimilarityEvaluator<Component, PropertyComponentOperation | undefined>
     ): EntitiesMatcherResults<Component, PropertyComponentOperation | undefined> {
-        const matcherResults = new ComponentsMatcher(a, b).match(additionalVerification);
+        const matcherResults = matchEntities(a, b, similarityEvaluator, similarityThreshold);
         matcherResults.matches.forEach(({transition}) => this.componentTransitions.push(transition));
         return matcherResults;
     }
@@ -99,19 +112,20 @@ export class DiffCreator {
      * @returns the ComponentOperations that correspond to each relationship change
      */
     private diffComponentRelationships(componentTransition: Transition<Component>): ComponentOperation[] {
-        const relationshipMatches = new RelationshipsMatcher(
+        const relationshipMatches = matchEntities(
             [...componentTransition.v1?.outgoing ?? []],
-            [...componentTransition.v2?.outgoing ?? []]
-        ).match();
+            [...componentTransition.v2?.outgoing ?? []],
+            relationshipSimilarityEvaluator
+        );
 
         const removals = relationshipMatches.unmatchedA.map(r =>
-            new RemoveOutgoingComponentOperation(componentTransition, r));
+            new RemoveOutgoingRelationshipComponentOperation(componentTransition, r));
         const insertions = relationshipMatches.unmatchedB.map(r =>
-            new InsertOutgoingComponentOperation(componentTransition, r));
+            new InsertOutgoingRelationshipComponentOperation(componentTransition, r));
 
         const updates = relationshipMatches.matches
             .filter(({metadata: updated}) => updated)
-            .map(({transition}) => new UpdateOutgoingComponentOperation(
+            .map(({transition}) => new UpdateOutgoingRelationshipComponentOperation(
                 componentTransition,
                 transition
         ));
@@ -123,7 +137,7 @@ export class DiffCreator {
      * Splits components according to their type and subtype
      * @param components 
      */
-    private splitComponentsByType(components: Component[]): Map<string, Component[]>{
+    private groupComponentsByType(components: Component[]): Map<string, Component[]>{
         return groupArrayBy(components, (c: Component) => `${c.type}-${c.subtype}`);
     }
 }

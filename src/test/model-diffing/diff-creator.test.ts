@@ -2,11 +2,11 @@ import { CFParser } from "../../platform-mapping";
 import {
     DiffCreator,
     InsertComponentOperation,
-    InsertOutgoingComponentOperation,
+    InsertOutgoingRelationshipComponentOperation,
     InsertPropertyComponentOperation,
     MovePropertyComponentOperation,
     RemoveComponentOperation,
-    RemoveOutgoingComponentOperation,
+    RemoveOutgoingRelationshipComponentOperation,
     RenameComponentOperation,
     UpdatePropertyComponentOperation,
 } from "../../model-diffing";
@@ -135,7 +135,7 @@ test('Remove Component', () => {
 
     expect(diff.componentOperations.length).toBe(2);
     expect(diff.componentOperations.filter(o => o instanceof RemoveComponentOperation).length).toBe(1);
-    expect(diff.componentOperations.filter(o => o instanceof RemoveOutgoingComponentOperation).length).toBe(1);
+    expect(diff.componentOperations.filter(o => o instanceof RemoveOutgoingRelationshipComponentOperation).length).toBe(1);
 });
 
 test('Insert Component', () => {
@@ -167,7 +167,7 @@ test('Insert Component', () => {
 
     expect(diff.componentOperations.length).toBe(2);
     expect(diff.componentOperations.filter(o => o instanceof InsertComponentOperation).length).toBe(1);
-    expect(diff.componentOperations.filter(o => o instanceof InsertOutgoingComponentOperation).length).toBe(1);
+    expect(diff.componentOperations.filter(o => o instanceof InsertOutgoingRelationshipComponentOperation).length).toBe(1);
 });
 
 test('Renamed Component', () => {
@@ -230,6 +230,6 @@ test('Insert Relationship', () => {
     const diff = new DiffCreator({v1: oldModel, v2: newModel}).create();
 
     expect(diff.componentOperations.length).toBe(2);
-    expect(diff.componentOperations.filter(o => o instanceof InsertOutgoingComponentOperation).length).toBe(1);
+    expect(diff.componentOperations.filter(o => o instanceof InsertOutgoingRelationshipComponentOperation).length).toBe(1);
     expect(diff.componentOperations.filter(o => o instanceof InsertPropertyComponentOperation).length).toBe(1);
 });

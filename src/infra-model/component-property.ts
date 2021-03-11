@@ -51,15 +51,15 @@ export abstract class ComponentProperty {
     }
 }
 
-export class ComponentPropertyCollection extends ComponentProperty {}
+export class ComponentCollectionProperty extends ComponentProperty {}
 
-export class ComponentPropertyRecord extends ComponentPropertyCollection  {
+export class ComponentPropertyRecord extends ComponentCollectionProperty  {
     constructor(value: Record<string, ComponentProperty>, componentUpdateType?: ComponentUpdateType){
         super(value, componentUpdateType);
     }
 }
 
-export class ComponentPropertyArray extends ComponentPropertyCollection {
+export class ComponentPropertyArray extends ComponentCollectionProperty {
     constructor(value: ComponentProperty[], componentUpdateType?: ComponentUpdateType){
         super(value, componentUpdateType);
     }

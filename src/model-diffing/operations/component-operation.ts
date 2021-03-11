@@ -51,7 +51,7 @@ export class RenameComponentOperation extends ComponentOperation {
     ){super(componentTransition, options);}
 }
 
-export class OutgoingComponentOperation extends ComponentOperation {
+export class OutgoingRelationshipComponentOperation extends ComponentOperation {
 
     constructor(
         componentTransition: Transition<Component>,
@@ -60,7 +60,7 @@ export class OutgoingComponentOperation extends ComponentOperation {
     ){super(componentTransition, options);}
 }
 
-export class InsertOutgoingComponentOperation extends OutgoingComponentOperation {
+export class InsertOutgoingRelationshipComponentOperation extends OutgoingRelationshipComponentOperation {
     constructor(
         componentTransition: Transition<Component>,
         relationship: Relationship,
@@ -68,7 +68,7 @@ export class InsertOutgoingComponentOperation extends OutgoingComponentOperation
     ){super(componentTransition, {v2: relationship}, options);}
 }
 
-export class RemoveOutgoingComponentOperation extends OutgoingComponentOperation {
+export class RemoveOutgoingRelationshipComponentOperation extends OutgoingRelationshipComponentOperation {
     constructor(
         componentTransition: Transition<Component>,
         relationship: Relationship,
@@ -76,7 +76,7 @@ export class RemoveOutgoingComponentOperation extends OutgoingComponentOperation
     ){super(componentTransition, {v1: relationship}, options);}
 }
 
-export class UpdateOutgoingComponentOperation extends OutgoingComponentOperation {
+export class UpdateOutgoingRelationshipComponentOperation extends OutgoingRelationshipComponentOperation {
     constructor(
         componentTransition: Transition<Component>,
         public readonly relationshipTransition: Transition<Relationship>,

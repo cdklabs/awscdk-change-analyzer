@@ -1,5 +1,5 @@
 import {
-    ChangePropagator,
+    propagateChanges,
     ReplaceComponentOperation,
     UpdatePropertyComponentOperation,
 } from "../../model-diffing";
@@ -77,7 +77,7 @@ const createTestCase1 = (): InfraModelDiff => {
 test('Basic Replacement from Property Change', () => {
     
     const diff = createTestCase1();
-    const propagatedDiff = new ChangePropagator(diff).propagate();
+    const propagatedDiff = propagateChanges(diff);
     const operations = propagatedDiff.componentOperations;
 
     const originalUpdateComponent1 = operations.find(o => o instanceof UpdatePropertyComponentOperation
@@ -121,7 +121,7 @@ test('Basic Replacement from Property Change', () => {
 test('ReplaceOperation-caused PropertyUpdate should have the proper property paths', () => {
     
     const diff = createTestCase1();
-    const propagatedDiff = new ChangePropagator(diff).propagate();
+    const propagatedDiff = propagateChanges(diff);
     const operations = propagatedDiff.componentOperations;
 
     const updateCausedByReplacement = operations.find(o =>
