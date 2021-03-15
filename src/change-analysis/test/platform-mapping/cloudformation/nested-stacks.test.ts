@@ -2,7 +2,7 @@ import { CFParser } from "../../../platform-mapping";
 import {
     DependencyRelationship,
     StructuralRelationship
-} from "../../../infra-model";
+} from "change-cd-iac-models/infra-model";
 import { ParserUtilsCreator } from "../../utils";
 
 const cloudformationDir = `test/platform-mapping/cloudformation`;

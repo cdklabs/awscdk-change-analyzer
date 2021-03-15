@@ -1,4 +1,4 @@
-import { Component } from "../../infra-model";
+import { Component } from "change-cd-iac-models/infra-model";
 
 export interface CFParserArgs {
     readonly parameterValues?: Record<string, string>;

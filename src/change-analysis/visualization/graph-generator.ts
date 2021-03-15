@@ -1,8 +1,5 @@
 import * as graphviz from 'graphviz';
-import { InfraModel } from '../infra-model/infra-model';
-import { Component } from '../infra-model/component';
-import { DependencyRelationship } from '../infra-model/dependency-relationship';
-import { StructuralRelationship } from '../infra-model/structural-relationship';
+import { InfraModel, Component, DependencyRelationship, StructuralRelationship } from 'change-cd-iac-models/infra-model';
 import * as fs from 'fs';
 import * as path from 'path';
 

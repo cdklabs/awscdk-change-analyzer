@@ -1,4 +1,4 @@
-import { ComponentOperation } from "../../../model-diffing";
+import { ComponentOperation } from "change-cd-iac-models/model-diffing";
 import { EqualityIGModule } from "../../ig-module";
 import { operationEntityIGModule } from "./operation-entity";
 import { operationTypeIGModule } from "./operation-type";

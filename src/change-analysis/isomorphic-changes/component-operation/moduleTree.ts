@@ -1,4 +1,4 @@
-import { ComponentOperation } from "../../model-diffing";
+import { ComponentOperation } from "change-cd-iac-models/model-diffing";
 import { IGModuleTree } from "../ig-module-tree";
 import {
     componentTypeIGModule,

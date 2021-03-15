@@ -2,7 +2,7 @@ import { CFParser } from "../../../platform-mapping";
 import {
     ComponentUpdateType,
     DependencyRelationship
-} from "../../../infra-model";
+} from "change-cd-iac-models/infra-model";
 
 test('Update type on first level resource property', () => {
     

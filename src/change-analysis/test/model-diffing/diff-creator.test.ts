@@ -1,6 +1,6 @@
 import { CFParser } from "../../platform-mapping";
+import { DiffCreator } from "../../model-diffing";
 import {
-    DiffCreator,
     InsertComponentOperation,
     InsertOutgoingRelationshipComponentOperation,
     InsertPropertyComponentOperation,
@@ -9,7 +9,7 @@ import {
     RemoveOutgoingRelationshipComponentOperation,
     RenameComponentOperation,
     UpdatePropertyComponentOperation,
-} from "../../model-diffing";
+} from "change-cd-iac-models//model-diffing";
 
 test('Update Component Property', () => {
     const oldModel = new CFParser({

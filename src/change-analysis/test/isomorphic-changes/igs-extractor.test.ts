@@ -1,8 +1,15 @@
 import {
     UpdatePropertyComponentOperation,
     InfraModelDiff,
-} from "../../model-diffing";
-import { Component, ComponentPropertyPrimitive, ComponentPropertyRecord, ComponentUpdateType, DependencyRelationship, InfraModel } from "../../infra-model";
+} from "change-cd-iac-models/model-diffing";
+import {
+    Component,
+    ComponentPropertyPrimitive,
+    ComponentPropertyRecord,
+    ComponentUpdateType,
+    DependencyRelationship,
+    InfraModel
+} from "change-cd-iac-models/infra-model";
 import {
     extractComponentOperationsIGs,
 } from "../../isomorphic-changes";
@@ -15,8 +22,7 @@ import {
 const dir = `test/isomorphic-changes`;
 
 const {
-    readSampleInput,
-    stringifyComponents
+    readSampleInput
 } = ParserUtilsCreator(dir);
 
 const createTestCase1 = (): InfraModelDiff => {

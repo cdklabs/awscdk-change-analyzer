@@ -1,5 +1,5 @@
 {
-  "name": "changes-cd-iac",
+  "name": "change-cd-iac-models",
   "version": "1.0.0",
   "description": "Proof-of-concept for dissertation \"Change Interpretation Techniques for Continuous Deployment in IaC\"",
   "main": "index.js",
@@ -20,11 +20,7 @@
   },
   "homepage": "https://github.com/S-R-MSc/2021_henriquelima#readme",
   "dependencies": {
-    "@aws-cdk/cfnspec": "^1.90.0",
-    "@types/graphviz": "0.0.32",
-    "@types/string-similarity": "^4.0.0",
-    "change-cd-iac-models": "file:../change-analysis-models",
-    "graphviz": "0.0.9"
+    "@aws-cdk/cfnspec": "^1.90.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.13",

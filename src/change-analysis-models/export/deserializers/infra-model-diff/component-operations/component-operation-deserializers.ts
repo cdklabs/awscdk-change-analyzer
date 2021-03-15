@@ -4,8 +4,8 @@ import {
     RemoveComponentOperation,
     RenameComponentOperation,
     ReplaceComponentOperation,
-} from "../../../../model-diffing";
-import { Transition } from "../../../../model-diffing/transition";
+    Transition
+} from "../../../../model-diffing/";
 import { JSONSerializable, Serialized } from "../../../json-serializable";
 import { SerializationID } from "../../../json-serializer";
 import { SerializedComponentOperation } from "../../../serialized-interfaces/infra-model-diff/serialized-component-operation";

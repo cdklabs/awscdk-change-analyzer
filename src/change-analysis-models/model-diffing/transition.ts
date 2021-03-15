@@ -1,4 +1,3 @@
-import { serialize } from "node:v8";
 import { JSONSerializable } from "../export/json-serializable";
 import { SerializationClasses } from "../export/serialization-classes";
 import { SerializedTransition } from "../export/serialized-interfaces/infra-model-diff/serialized-transition";

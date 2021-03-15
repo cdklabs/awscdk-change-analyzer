@@ -2,7 +2,7 @@ import {
     Component,
     ComponentPropertyAccessError,
     InfraModel
-} from "../../infra-model";
+} from "change-cd-iac-models/infra-model";
 import { CFParser } from "../cloudformation";
 import { Parser } from "../parser";
 import { CDKConstruct } from "./cdk-construct";

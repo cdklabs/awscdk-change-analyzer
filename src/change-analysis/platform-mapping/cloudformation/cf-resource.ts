@@ -1,7 +1,7 @@
 import {
     Component,
     ComponentUpdateType
-} from '../../infra-model';
+} from 'change-cd-iac-models/infra-model';
 import { CFEntity } from './cf-entity';
 import { CFParserArgs } from './cf-parser-args';
 import { specification } from '@aws-cdk/cfnspec/lib';

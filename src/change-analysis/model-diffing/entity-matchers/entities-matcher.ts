@@ -1,5 +1,5 @@
-import { isDefined } from "../../utils";
-import { CompleteTransition, Transition } from "../transition";
+import { isDefined } from "change-cd-iac-models/utils";
+import { CompleteTransition, Transition } from "change-cd-iac-models/model-diffing/transition";
 
 export type EntityMatch<T, K = undefined> = {
     transition: Transition<T>,

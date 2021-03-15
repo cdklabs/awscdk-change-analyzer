@@ -1,4 +1,4 @@
-import { setsEqual } from "../utils";
+import { setsEqual } from "change-cd-iac-models/utils";
 import { IGModuleTree } from "./ig-module-tree";
 import { IsomorphicGroup } from "./isomorphic-group";
 

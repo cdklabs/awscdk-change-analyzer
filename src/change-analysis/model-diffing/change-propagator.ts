@@ -4,16 +4,16 @@ import {
     DependencyRelationship,
     ComponentProperty,
     PropertyPath,
-} from "../infra-model";
-import { InfraModelDiff } from "./infra-model-diff";
+} from "change-cd-iac-models/infra-model";
 import { 
     ComponentOperation,
     OperationCertainty,
     RenameComponentOperation,
     ReplaceComponentOperation,
-    UpdatePropertyComponentOperation
-} from "./operations";
-import { Transition } from "./transition";
+    UpdatePropertyComponentOperation,
+    Transition,
+    InfraModelDiff
+} from "change-cd-iac-models/model-diffing";
 
 /**
  * Creates the ComponentOperations caused by existing ones

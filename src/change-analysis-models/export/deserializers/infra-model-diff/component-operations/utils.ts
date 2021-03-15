@@ -1,5 +1,4 @@
-import { ComponentOperation, ComponentOperationOptions, OperationCertainty } from "../../../../model-diffing";
-import { Transition } from "../../../../model-diffing/transition";
+import { ComponentOperation, ComponentOperationOptions, OperationCertainty } from "../../../../model-diffing/";
 import { JSONSerializable } from "../../../json-serializable";
 import { SerializationID } from "../../../json-serializer";
 import { SerializedComponentOperation } from "../../../serialized-interfaces/infra-model-diff/serialized-component-operation";

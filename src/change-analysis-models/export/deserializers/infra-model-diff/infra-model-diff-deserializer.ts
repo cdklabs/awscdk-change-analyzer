@@ -1,6 +1,5 @@
 import { Component, InfraModel } from "../../../infra-model";
-import { ComponentOperation, InfraModelDiff } from "../../../model-diffing";
-import { Transition } from "../../../model-diffing/transition";
+import { ComponentOperation, InfraModelDiff, Transition } from "../../../model-diffing";
 import { JSONSerializable, Serialized } from "../../json-serializable";
 import { SerializationID } from "../../json-serializer";
 import { SerializedInfraModelDiff } from "../../serialized-interfaces/infra-model-diff/serialized-infra-model-diff";

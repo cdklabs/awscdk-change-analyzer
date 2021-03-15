@@ -1,4 +1,4 @@
-import { ComponentOperation, OutgoingRelationshipComponentOperation } from "../../../model-diffing";
+import { ComponentOperation, OutgoingRelationshipComponentOperation } from "change-cd-iac-models/model-diffing";
 import { EqualityIGModule } from "../../ig-module";
 
 export const operationEntityIGModule = new EqualityIGModule(

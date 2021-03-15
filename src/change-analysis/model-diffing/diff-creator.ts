@@ -1,4 +1,4 @@
-import { Component, InfraModel, Relationship } from "../infra-model";
+import { Component, InfraModel, Relationship } from "change-cd-iac-models/infra-model";
 import {
     EntitiesMatcherResults,
     matchEntities,
@@ -13,11 +13,11 @@ import {
     InsertOutgoingRelationshipComponentOperation,
     UpdateOutgoingRelationshipComponentOperation,
     PropertyComponentOperation,
-} from "./operations";
-import { groupArrayBy } from "../utils/arrayUtils";
-import { isDefined } from "../utils";
-import { Transition } from "./transition";
-import { InfraModelDiff } from "./infra-model-diff";
+    Transition,
+    InfraModelDiff
+} from "change-cd-iac-models/model-diffing";
+import { groupArrayBy } from "change-cd-iac-models/utils/arrayUtils";
+import { isDefined } from "change-cd-iac-models/utils";
 import {
     componentSimilarityEvaluator,
     sameNameComponentSimilarityEvaluator

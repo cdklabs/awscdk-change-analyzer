@@ -1,12 +1,16 @@
+import { JSONSerializer } from "../../export/json-serializer";
+import { JSONDeserializer } from "../../export/json-deserializer";
 import {
-    ReplaceComponentOperation,
-    UpdatePropertyComponentOperation,
-    InfraModelDiff
-} from "change-cd-iac-models/model-diffing";
-import { Component, ComponentPropertyPrimitive, ComponentPropertyRecord, ComponentUpdateType, DependencyRelationship, InfraModel } from "change-cd-iac-models/infra-model";
-import { propagateChanges } from '../../model-diffing/';
+    Component,
+    ComponentPropertyPrimitive,
+    ComponentPropertyRecord,
+    ComponentUpdateType,
+    DependencyRelationship,
+    InfraModel
+} from "../../infra-model";
+import { InfraModelDiff, UpdatePropertyComponentOperation } from "../../model-diffing";
 
-const createTestCase1 = (): InfraModelDiff => {
+const buildModelV1 = () => {
     const component1v1 = new Component('component1', 'resource', {
         subtype: "AWS::IAM::Role",
         properties: new ComponentPropertyRecord(
@@ -29,6 +33,10 @@ const createTestCase1 = (): InfraModelDiff => {
     component2v1.addOutgoing(relationship1v1);
     const infraModelv1 = new InfraModel([component1v1, component2v1], [relationship1v1]);
 
+    return infraModelv1;
+};
+
+const buildModelV2 = () => {
     const component1v2 = new Component('component1', 'resource', {
         subtype: "AWS::IAM::Role",
         properties: new ComponentPropertyRecord(
@@ -51,6 +59,19 @@ const createTestCase1 = (): InfraModelDiff => {
     component2v2.addOutgoing(relationship1v2);
     const infraModelv2 = new InfraModel([component1v2, component2v2], [relationship1v2]);
 
+    return infraModelv2;
+};
+
+const buildDiff = (): InfraModelDiff => {
+
+    const infraModelv1 = buildModelV1();
+    const infraModelv2 = buildModelV2();
+
+    const component1v1 = infraModelv1.components[0];
+    const component1v2 = infraModelv2.components[0];
+    const component2v1 = infraModelv1.components[1];
+    const component2v2 = infraModelv2.components[1];
+    
     const component1Transition = {v1: component1v1, v2: component1v2};
     const component2Transition = {v1: component2v1, v2: component2v2};
 
@@ -77,59 +98,19 @@ const createTestCase1 = (): InfraModelDiff => {
     return new InfraModelDiff([directChangeComponent1, directChangeComponent2], [component1Transition, component2Transition], infraModelTransition);
 };
 
-test('Basic Replacement from Property Change', () => {
-    
-    const diff = createTestCase1();
-    const propagatedDiff = propagateChanges(diff);
-    const operations = propagatedDiff.componentOperations;
-
-    const originalUpdateComponent1 = operations.find(o => o instanceof UpdatePropertyComponentOperation
-        && o.componentTransition.v1.name === "component1"
-        && !o.cause);
-    const originalUpdateComponent2 = operations.find(o => o instanceof UpdatePropertyComponentOperation
-        && o.componentTransition.v1.name === "component2"
-        && !o.cause);
-    
-    expect(originalUpdateComponent1).toBeDefined();
-    expect(originalUpdateComponent2).toBeDefined();
-    
-    const replacementComp1CausedByOriginalUpdate = operations.find(o => o instanceof ReplaceComponentOperation
-        && o.componentTransition.v1.name === "component1"
-        && o.cause === originalUpdateComponent1
-    );
-    const replacementComp2CausedByOriginalUpdate = operations.find(o => o instanceof ReplaceComponentOperation
-        && o.componentTransition.v1.name === "component2"
-        && o.cause === originalUpdateComponent2
-    );
-
-    expect(replacementComp1CausedByOriginalUpdate).toBeDefined();
-    expect(replacementComp2CausedByOriginalUpdate).toBeDefined();
-
-    const updateComp2CausedByReplacementComp1 = operations.find(o => o instanceof UpdatePropertyComponentOperation
-        && o.componentTransition.v1.name === "component2"
-        && o.cause === replacementComp1CausedByOriginalUpdate
-    );
-    const replacementComp2CausedByUpdateComp2CausedByReplacementComp1 = operations.find(o => o instanceof ReplaceComponentOperation
-        && o.componentTransition.v1.name === "component2"
-        && o.cause === updateComp2CausedByReplacementComp1
-    );
-
-    expect(updateComp2CausedByReplacementComp1).toBeDefined();
-    expect(replacementComp2CausedByUpdateComp2CausedByReplacementComp1).toBeDefined();
-
-    expect(operations.length).toBe(6);
+test('InfraModel toSerialized', () => {
+    const model = buildModelV1();
+    const serialized = new JSONSerializer().serialize(model);
+    const deserialized = new JSONDeserializer<InfraModel>().deserialize(serialized);
+    expect(deserialized).toEqual(model);
 });
 
+test('InfraModelDiff toSerialized', () => {
+    const diff = buildDiff();
 
-test('ReplaceOperation-caused PropertyUpdate should have the proper property paths', () => {
-    
-    const diff = createTestCase1();
-    const propagatedDiff = propagateChanges(diff);
-    const operations = propagatedDiff.componentOperations;
-
-    const updateCausedByReplacement = operations.find(o =>
-        o instanceof UpdatePropertyComponentOperation
-        && o.cause instanceof ReplaceComponentOperation) as UpdatePropertyComponentOperation;
-    expect(updateCausedByReplacement).toBeDefined();
-    expect(updateCausedByReplacement.pathTransition).toEqual({v1: ["nested", "propComp2"], v2: ["nestedNameChanged", "propComp2NameChanged"]});
+    const serialized = new JSONSerializer().serialize(diff);
+    const deserialized = new JSONDeserializer<InfraModelDiff>().deserialize(serialized);
+    expect(deserialized.componentOperations.length).toBe(diff.componentOperations.length);
+    expect(deserialized.componentTransitions.length).toBe(diff.componentTransitions.length);
+    expect(deserialized).toEqual(diff);
 });

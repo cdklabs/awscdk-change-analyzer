@@ -1,9 +1,23 @@
-import { Component, ComponentProperty, ComponentPropertyArray, ComponentCollectionProperty, ComponentPropertyPrimitive, ComponentPropertyRecord, EmptyComponentProperty } from "../infra-model";
-import { arrayIntersection, isDefined, stringSimilarity } from '../utils';
+import {
+    Component,
+    ComponentProperty,
+    ComponentPropertyArray,
+    ComponentCollectionProperty,
+    ComponentPropertyPrimitive,
+    ComponentPropertyRecord,
+    EmptyComponentProperty,
+} from "change-cd-iac-models/infra-model";
+import { arrayIntersection, isDefined, stringSimilarity } from 'change-cd-iac-models/utils';
 import { propertySimilarityEvaluatorCreator } from "./entity-matchers/component-properties-matcher";
 import { matchEntities } from "./entity-matchers/entities-matcher";
-import { InsertPropertyComponentOperation, PropertyComponentOperation, RemovePropertyComponentOperation, UpdatePropertyComponentOperation, MovePropertyComponentOperation } from "./operations";
-import { Transition } from "./transition";
+import {
+    Transition,
+    InsertPropertyComponentOperation,
+    PropertyComponentOperation,
+    RemovePropertyComponentOperation,
+    UpdatePropertyComponentOperation,
+    MovePropertyComponentOperation
+} from "change-cd-iac-models/model-diffing";
 
 /**
  * Describes how two ComponentProperties differ

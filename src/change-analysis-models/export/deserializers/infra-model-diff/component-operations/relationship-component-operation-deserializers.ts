@@ -1,6 +1,11 @@
 import { Component, Relationship } from "../../../../infra-model";
-import { InsertOutgoingRelationshipComponentOperation, RemoveOutgoingRelationshipComponentOperation, UpdateOutgoingRelationshipComponentOperation } from "../../../../model-diffing";
-import { Transition } from "../../../../model-diffing/transition";
+import {
+    InsertOutgoingRelationshipComponentOperation,
+    RemoveOutgoingRelationshipComponentOperation,
+    UpdateOutgoingRelationshipComponentOperation,
+    Transition
+} from "../../../../model-diffing/";
+import {  } from "../../../../model-diffing/";
 import { JSONSerializable, Serialized } from "../../../json-serializable";
 import { SerializationID } from "../../../json-serializer";
 import { SerializedOutgoingRelationshipComponentOperation } from "../../../serialized-interfaces/infra-model-diff/serialized-component-operation";

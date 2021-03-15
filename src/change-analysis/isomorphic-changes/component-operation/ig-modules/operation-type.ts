@@ -7,7 +7,7 @@ import {
     RemoveOutgoingRelationshipComponentOperation,
     RenameComponentOperation,
     UpdateOutgoingRelationshipComponentOperation
-} from "../../../model-diffing";
+} from "change-cd-iac-models/model-diffing";
 import { EqualityIGModule } from "../../ig-module";
 
 export const operationTypeIGModule = new EqualityIGModule(

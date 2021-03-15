@@ -1,4 +1,4 @@
-import { Component, ComponentPropertyPrimitive, StructuralRelationship } from "../../infra-model";
+import { Component, ComponentPropertyPrimitive, StructuralRelationship } from "change-cd-iac-models/infra-model";
 
 export class CDKConstructInitError extends Error {}
 

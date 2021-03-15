@@ -1,4 +1,4 @@
-import { groupArrayBy } from "../utils";
+import { groupArrayBy } from "change-cd-iac-models/utils";
 import { IsomorphicGroup } from "./isomorphic-group";
 
 /**

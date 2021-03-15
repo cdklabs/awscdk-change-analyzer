@@ -1,8 +1,8 @@
-import { PropertyPrimitive } from "../../../infra-model";
+import { PropertyPrimitive } from "change-cd-iac-models/infra-model";
 import {
     ComponentOperation,
     PropertyComponentOperation,
-} from "../../../model-diffing";
+} from "change-cd-iac-models/model-diffing";
 import { EqualityIGModule } from "../../ig-module";
 
 export const propertyValueV1IGModule = new EqualityIGModule(

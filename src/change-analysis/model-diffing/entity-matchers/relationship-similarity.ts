@@ -1,6 +1,6 @@
-import { Relationship } from "../../infra-model";
-import { stringSimilarity } from "../../utils";
-import { CompleteTransition } from "../transition";
+import { Relationship } from "change-cd-iac-models/infra-model";
+import { stringSimilarity } from "change-cd-iac-models/utils";
+import { CompleteTransition } from "change-cd-iac-models/model-diffing";
 
 /**
  * Relationship similarity evaluator for use with matchEntities.

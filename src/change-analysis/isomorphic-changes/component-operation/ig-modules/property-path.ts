@@ -1,7 +1,7 @@
 import {
     ComponentOperation,
     PropertyComponentOperation,
-} from "../../../model-diffing";
+} from "change-cd-iac-models/model-diffing";
 import { EqualityIGModule } from "../../ig-module";
 
 export const propertyPathV1IGModule = new EqualityIGModule(

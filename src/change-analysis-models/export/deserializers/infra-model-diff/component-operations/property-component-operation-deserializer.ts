@@ -1,6 +1,12 @@
 import { Component, ComponentProperty } from "../../../../infra-model";
-import { InsertPropertyComponentOperation, MovePropertyComponentOperation, PropertyComponentOperation, RemovePropertyComponentOperation, UpdatePropertyComponentOperation } from "../../../../model-diffing";
-import { Transition } from "../../../../model-diffing/transition";
+import {
+    InsertPropertyComponentOperation,
+    MovePropertyComponentOperation,
+    PropertyComponentOperation,
+    RemovePropertyComponentOperation,
+    UpdatePropertyComponentOperation,
+    Transition
+} from "../../../../model-diffing/";
 import { JSONSerializable, Serialized } from "../../../json-serializable";
 import { SerializationID } from "../../../json-serializer";
 import { SerializedPropertyComponentOperation, SerializedUpdatePropertyComponentOperation } from "../../../serialized-interfaces/infra-model-diff/serialized-component-operation";
