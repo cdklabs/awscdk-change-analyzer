@@ -4,27 +4,24 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const outputDirectory = 'dist';
 
 module.exports = {
-  entry: ['@babel/polyfill', './src/index.js'],
+  entry: './src/index',
   output: {
     path: path.join(__dirname, outputDirectory),
     filename: 'bundle.js'
   },
   module: {
-    rules: [{
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader'
-      }
-    },
-    {
-      test: /\.css$/,
-      use: ['style-loader', 'css-loader']
-    }
-    ]
+    rules: [
+      {
+        test: /\.(ts|js)x?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        }
+      },
+    ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['.tsx', '.ts', '.js', '.json'],
   },
   devServer: {
     port: 3000,
