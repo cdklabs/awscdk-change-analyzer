@@ -1,6 +1,6 @@
 import { setsEqual } from "change-cd-iac-models/utils";
 import { IGModuleTree } from "./ig-module-tree";
-import { IsomorphicGroup } from "./isomorphic-group";
+import { IsomorphicGroup } from "change-cd-iac-models/isomorphic-groups";
 
 export class ModuleTreeIGsExtractor {
 
@@ -15,24 +15,25 @@ export class ModuleTreeIGsExtractor {
         moduleTree: IGModuleTree<T>,
         ig: IsomorphicGroup<T>,
     ): [IsomorphicGroup<T>[], IsomorphicGroup<T>[]] {
-
         const newIGs = moduleTree.map(({module, submodules}): [IsomorphicGroup<T>[], IsomorphicGroup<T>[]] => {
                 const directIGs = module.extractGroups([...ig.entities]);
                 directIGs.forEach(g => g.characteristics = {...g.characteristics, ...ig.characteristics});
 
                 if(!submodules) return [directIGs, []];
 
-                const [innerDirectIGs, innerSubmoduleIGs] = directIGs.flatMap(directIG => {
+                const innerIGs = directIGs.map(directIG => {
                     return ModuleTreeIGsExtractor.extractTreeRoot<T>(submodules, directIG);
                 });
 
+                const [innerDirectIGs, innerSubmoduleIGs] = [innerIGs.flatMap(([i]) => i), innerIGs.flatMap(([,i]) => i)];
+
                 const intersections = ModuleTreeIGsExtractor.findIGsIntersections<T>(innerDirectIGs);
 
+                
                 ModuleTreeIGsExtractor.handleDuplicateEntitySets(directIGs, intersections);
-
                 return [directIGs, [...intersections, ...innerSubmoduleIGs]];
-        });
-        
+            });
+             
         return [newIGs.flatMap(([i]) => i), newIGs.flatMap(([,i]) => i)];
     }
 
@@ -70,8 +71,8 @@ export class ModuleTreeIGsExtractor {
         for(let d = directIGs.length-1; d > 0; d--){
             for(let i = intersectionIGs.length-1; i > 0; i--){
                 if(setsEqual(directIGs[d].entities, intersectionIGs[i].entities)){
-                    const newDirectIG = intersectionIGs.splice(i)[0];
-                    directIGs.splice(d);
+                    const newDirectIG = intersectionIGs.splice(i, 1)[0];
+                    directIGs.splice(d, 1);
                     directIGs.push(newDirectIG);
                 }
             }

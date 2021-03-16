@@ -89,7 +89,12 @@ function propagateReplacementOperation(replacementOp: ReplaceComponentOperation,
         const sourceComponentTransition = modelDiff.getComponentTransition(rel.source);
         
         const consequentPropertyUpdateOp = createUpdateOperationForComponent(modelDiff, sourceComponentTransition, rel.sourcePropertyPath, replacementOp);
-        return [consequentPropertyUpdateOp, ...propagatePropertyOperation(consequentPropertyUpdateOp, modelDiff)];
+        
+        let propagatedPropertyUpdateOp: ComponentOperation[] = [];
+        if(consequentPropertyUpdateOp)
+            propagatedPropertyUpdateOp = [consequentPropertyUpdateOp, ...propagatePropertyOperation(consequentPropertyUpdateOp, modelDiff)];
+        
+        return propagatedPropertyUpdateOp;
     });
 
     return [...replacementPropagations];
@@ -110,6 +115,9 @@ function createUpdateOperationForComponent(
     cause: ComponentOperation
 ){
     const [v1PropertyPath, v1Property] = getV1PropertyForComponentTransition(modelDiff, componentTransition, v2PropertyPath);
+
+    //If there was no previous path, it means this value was inserted. No update will be done
+    if(!v1PropertyPath) return;
 
     return new UpdatePropertyComponentOperation(
         {v1: v1PropertyPath, v2: v2PropertyPath},

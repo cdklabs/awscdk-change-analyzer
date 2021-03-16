@@ -15,13 +15,13 @@ const propertyValueSubModules = [{module: propertyValueV1IGModule}, {module: pro
 
 export const ComponentOperationIGModuleTree: IGModuleTree<ComponentOperation> = [
     {
-        module: operationEntityIGModule,
+        module: componentTypeIGModule,
         submodules: [{
-            module: operationTypeIGModule,
+            module: componentSubtypeIGModule,
             submodules: [{
-                module: componentTypeIGModule,
+                module: operationTypeIGModule,
                 submodules: [{
-                    module: componentSubtypeIGModule,
+                    module: operationEntityIGModule,
                     submodules: [
                         {module: operationCertaintyIGModule},
                         {module: operationCauseIGModule},

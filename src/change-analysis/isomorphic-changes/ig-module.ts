@@ -1,5 +1,5 @@
 import { groupArrayBy } from "change-cd-iac-models/utils";
-import { IsomorphicGroup } from "./isomorphic-group";
+import { IsomorphicGroup } from "change-cd-iac-models/isomorphic-groups";
 
 /**
  * Defines an Isomorphic Group
@@ -19,7 +19,7 @@ export abstract class IGModule<T> {
 export class EqualityIGModule<T> extends IGModule<T> {
     constructor(
         label: string,
-        public readonly indexValueGetter: (e: T) => string | number | boolean
+        public readonly indexValueGetter: (e: T) => string | number | boolean | undefined
     ){super(label);}
 
     extractGroups(entities: T[]): IsomorphicGroup<T>[] {
