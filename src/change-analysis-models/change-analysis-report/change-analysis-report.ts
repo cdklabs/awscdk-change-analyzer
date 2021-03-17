@@ -22,7 +22,7 @@ export class ChangeAnalysisReport implements JSONSerializable {
                 serializeCustom(
                     ig,
                     SerializationClasses.ISOMORPHIC_GROUP,
-                    isomorphicGroupSerializer(ig, serialize)
+                    isomorphicGroupSerializer(ig, serialize, serializeCustom)
                 )
             )
         };

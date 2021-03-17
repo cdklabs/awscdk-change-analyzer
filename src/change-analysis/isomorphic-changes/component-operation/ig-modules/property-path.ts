@@ -1,3 +1,4 @@
+import { CompOpIGCharacteristics } from "change-cd-iac-models/isomorphic-groups";
 import {
     ComponentOperation,
     PropertyComponentOperation,
@@ -5,17 +6,19 @@ import {
 import { EqualityIGModule } from "../../ig-module";
 
 export const propertyPathV1IGModule = new EqualityIGModule(
-    'Property Path Before',
+    CompOpIGCharacteristics.PROPERTY_PATH_BEFORE,
     (cOp: ComponentOperation) => {
-        if(cOp instanceof PropertyComponentOperation) return cOp.pathTransition.v1 ? JSON.stringify(cOp.pathTransition.v1) : 'Unknown';
-        return 'Unknown';
-    } 
+        if(cOp instanceof PropertyComponentOperation && cOp.pathTransition.v1)
+            return JSON.stringify(cOp.pathTransition.v1);
+        return;
+    }
 );
 
 export const propertyPathV2IGModule = new EqualityIGModule(
-    'Property Path After',
+    CompOpIGCharacteristics.PROPERTY_PATH_AFTER,
     (cOp: ComponentOperation) => {
-        if(cOp instanceof PropertyComponentOperation) return cOp.pathTransition.v2 ? JSON.stringify(cOp.pathTransition.v2) : 'Unknown';
-        return 'Unknown';
-    } 
+        if(cOp instanceof PropertyComponentOperation && cOp.pathTransition.v2)
+            return JSON.stringify(cOp.pathTransition.v2);
+        return;
+    }
 );

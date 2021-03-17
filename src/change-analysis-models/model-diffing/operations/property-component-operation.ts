@@ -98,6 +98,11 @@ export class UpdatePropertyComponentOperation extends PropertyComponentOperation
         return;
     }
 
+    public getLeaves(): PropertyComponentOperation[] {
+        if(!this.innerOperations) return [this];
+        return this.innerOperations.flatMap(o => o instanceof UpdatePropertyComponentOperation ? o.getLeaves() : [o]);
+    }
+
     public toSerialized(
         serialize: (obj: JSONSerializable) => number,
         serializeCustom: (obj: any, serializationClass: string, serialized: Serialized) => SerializationID

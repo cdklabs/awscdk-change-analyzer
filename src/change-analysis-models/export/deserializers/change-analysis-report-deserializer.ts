@@ -10,6 +10,6 @@ export function changeAnalysisReportDeserializer(obj: Serialized, deserialize: (
 
     return new ChangeAnalysisReport(
         deserialize(serialized.infraModelDiff) as InfraModelDiff,
-        serialized.isomorphicGroups.map(ig => deserialize(ig)) as IsomorphicGroup<ComponentOperation>[]
+        serialized.isomorphicGroups.map(deserialize) as IsomorphicGroup<ComponentOperation>[]
     );
 }

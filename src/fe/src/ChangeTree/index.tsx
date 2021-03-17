@@ -11,7 +11,7 @@ import {
 } from '@material-ui/icons';
 import { ChangeAnalysisReport } from 'change-cd-iac-models/change-analysis-report';
 import ChangesGroup from './ChangesGroup';
-import { IsomorphicGroup } from 'change-cd-iac-models/isomorphic-groups';
+import { CompOpIGCharacteristics, IsomorphicGroup } from 'change-cd-iac-models/isomorphic-groups';
 import { ComponentOperation } from 'change-cd-iac-models/model-diffing';
 import { isDefined } from 'change-cd-iac-models/utils';
 
@@ -76,7 +76,7 @@ function ChangeTree({changeReport}: props) {
 }
 
 function renderIGs(igs: IsomorphicGroup<ComponentOperation>[]){
-  const baseCharacteristics = ['Component Type', 'Component Subtype'];
+  const baseCharacteristics = [CompOpIGCharacteristics.COMPONENT_TYPE, CompOpIGCharacteristics.COMPONENT_SUBTYPE];
   const igAccumulator = (igs: IsomorphicGroup<ComponentOperation>[], requiredCharacteristics: string[]) =>
     igs.flatMap((ig: IsomorphicGroup<ComponentOperation>): IsomorphicGroup<ComponentOperation>[] => {
       const nonFoundCs = requiredCharacteristics.filter(c => !ig.characteristics[c]);
@@ -87,11 +87,11 @@ function renderIGs(igs: IsomorphicGroup<ComponentOperation>[]){
     });
 
   return igAccumulator(igs, baseCharacteristics).map(ig => {
-    const operationTypes = [ig, ...igAccumulator(ig.subGroups ?? [], ['Operation Type'])].map(ig => ig.characteristics['Operation Type']).filter(isDefined);
-    const subCharacteristics = Object.entries(ig.characteristics).filter(([c]) => !baseCharacteristics.includes(c) && (c !== 'Operation Type' || operationTypes.length > 1));
+    const operationTypes = [ig, ...igAccumulator(ig.subGroups ?? [], [CompOpIGCharacteristics.OPERATION_TYPE])].map(ig => ig.characteristics[CompOpIGCharacteristics.OPERATION_TYPE]).filter(isDefined);
+    const subCharacteristics = Object.entries(ig.characteristics).filter(([c]) => !baseCharacteristics.includes(c as CompOpIGCharacteristics) && (c !== CompOpIGCharacteristics.OPERATION_TYPE || operationTypes.length > 1));
     return <ChangesGroup
       ig={subCharacteristics.length > 0 ? {...ig, subGroups: [{...ig, characteristics: Object.fromEntries(subCharacteristics)}]} : ig}
-      title={`${ig.characteristics['Component Type']} ${ig.characteristics['Component Subtype'] || ''}`}
+      title={`${ig.characteristics[CompOpIGCharacteristics.COMPONENT_TYPE]} ${ig.characteristics[CompOpIGCharacteristics.COMPONENT_SUBTYPE] || ''}`}
       description={operationTypes.join(', ')}
     />
   });

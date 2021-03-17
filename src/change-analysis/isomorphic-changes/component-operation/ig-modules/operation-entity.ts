@@ -1,10 +1,12 @@
-import { ComponentOperation, OutgoingRelationshipComponentOperation } from "change-cd-iac-models/model-diffing";
+import { CompOpIGCharacteristics } from "change-cd-iac-models/isomorphic-groups";
+import { ComponentOperation, OutgoingRelationshipComponentOperation, PropertyComponentOperation } from "change-cd-iac-models/model-diffing";
 import { EqualityIGModule } from "../../ig-module";
 
 export const operationEntityIGModule = new EqualityIGModule(
-    'Affected Entity',
+    CompOpIGCharacteristics.AFFECTED_ENTITY,
     (cOp: ComponentOperation) => {
         if(cOp instanceof OutgoingRelationshipComponentOperation) return 'Relationship';
+        if(cOp instanceof PropertyComponentOperation) return 'Property';
         return 'Component';
     }
 );

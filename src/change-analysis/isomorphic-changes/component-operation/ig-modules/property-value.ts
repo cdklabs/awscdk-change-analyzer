@@ -1,4 +1,5 @@
 import { PropertyPrimitive } from "change-cd-iac-models/infra-model";
+import { CompOpIGCharacteristics } from "change-cd-iac-models/isomorphic-groups";
 import {
     ComponentOperation,
     PropertyComponentOperation,
@@ -6,29 +7,25 @@ import {
 import { EqualityIGModule } from "../../ig-module";
 
 export const propertyValueV1IGModule = new EqualityIGModule(
-    'Property Value Before',
+    CompOpIGCharacteristics.PROPERTY_VALUE_BEFORE,
     (cOp: ComponentOperation) => {
         if(!(cOp instanceof PropertyComponentOperation))
-            return '[Unknown]';
+            return;
         const property = cOp.propertyTransition.v1;
         if(property?.isRecord()) return '[Record]';
         if(property?.isArray()) return '[Array]';
-        return property
-            ? property.value as PropertyPrimitive :
-            '[Unknown]';
-    } 
+        return property?.value as PropertyPrimitive;
+    }
 );
 
 export const propertyValueV2IGModule = new EqualityIGModule(
-    'Property Value After',
+    CompOpIGCharacteristics.PROPERTY_VALUE_AFTER,
     (cOp: ComponentOperation) => {
         if(!(cOp instanceof PropertyComponentOperation))
-            return '[Unknown]';
+            return;
         const property = cOp.propertyTransition.v2;
         if(property?.isRecord()) return '[Record]';
         if(property?.isArray()) return '[Array]';
-        return property
-            ? property.value as PropertyPrimitive :
-            '[Unknown]';
-    } 
+        return property?.value as PropertyPrimitive;
+    }
 );

@@ -1,24 +1,25 @@
+import { CompOpIGCharacteristics } from "change-cd-iac-models/isomorphic-groups";
 import {
     ComponentOperation,
     InsertComponentOperation,
-    InsertOutgoingRelationshipComponentOperation,
+    OutgoingRelationshipComponentOperation,
     PropertyComponentOperation,
     RemoveComponentOperation,
-    RemoveOutgoingRelationshipComponentOperation,
     RenameComponentOperation,
     ReplaceComponentOperation,
-    UpdateOutgoingRelationshipComponentOperation
 } from "change-cd-iac-models/model-diffing";
 import { EqualityIGModule } from "../../ig-module";
 
 export const operationTypeIGModule = new EqualityIGModule(
-    'Operation Type',
+    CompOpIGCharacteristics.OPERATION_TYPE,
     (cOp: ComponentOperation) => {
-        if(cOp instanceof InsertComponentOperation || cOp instanceof InsertOutgoingRelationshipComponentOperation) return 'Insert';
-        if(cOp instanceof RemoveComponentOperation || cOp instanceof RemoveOutgoingRelationshipComponentOperation) return 'Remove';
+        if(cOp instanceof InsertComponentOperation) return 'Insert';
+        if(cOp instanceof RemoveComponentOperation) return 'Remove';
         if(cOp instanceof RenameComponentOperation) return 'Rename';
         if(cOp instanceof ReplaceComponentOperation) return 'Replace';
-        if(cOp instanceof PropertyComponentOperation || cOp instanceof UpdateOutgoingRelationshipComponentOperation) return 'Update';
-        return 'Unknown';
+        if(cOp instanceof PropertyComponentOperation
+            || cOp instanceof OutgoingRelationshipComponentOperation
+        ) return 'Update';
+        return;
     } 
 );

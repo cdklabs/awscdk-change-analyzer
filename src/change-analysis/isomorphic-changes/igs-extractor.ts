@@ -1,40 +1,45 @@
 import { setsEqual } from "change-cd-iac-models/utils";
-import { IGModuleTree } from "./ig-module-tree";
-import { IsomorphicGroup } from "change-cd-iac-models/isomorphic-groups";
+import { IGModuleTreeNode } from "./ig-module-tree";
+import { IGCharacteristicValue, IsomorphicGroup } from "change-cd-iac-models/isomorphic-groups";
 
 export class ModuleTreeIGsExtractor {
 
     public static extract<T>(
-        moduleTree: IGModuleTree<T>,
+        moduleNode: IGModuleTreeNode<T>,
         entities: T[],
     ): IsomorphicGroup<T>[] {
-        return this.extractTreeRoot(moduleTree, {entities: new Set(entities), characteristics: {}}).flat();
+        return this.extractTreeRoot(moduleNode, new Set(entities));
     }
 
     private static extractTreeRoot<T>(
-        moduleTree: IGModuleTree<T>,
-        ig: IsomorphicGroup<T>,
-    ): [IsomorphicGroup<T>[], IsomorphicGroup<T>[]] {
-        const newIGs = moduleTree.map(({module, submodules}): [IsomorphicGroup<T>[], IsomorphicGroup<T>[]] => {
-                const directIGs = module.extractGroups([...ig.entities]);
-                directIGs.forEach(g => g.characteristics = {...g.characteristics, ...ig.characteristics});
-
-                if(!submodules) return [directIGs, []];
-
-                const innerIGs = directIGs.map(directIG => {
-                    return ModuleTreeIGsExtractor.extractTreeRoot<T>(submodules, directIG);
-                });
-
-                const [innerDirectIGs, innerSubmoduleIGs] = [innerIGs.flatMap(([i]) => i), innerIGs.flatMap(([,i]) => i)];
-
-                const intersections = ModuleTreeIGsExtractor.findIGsIntersections<T>(innerDirectIGs);
-
-                
-                ModuleTreeIGsExtractor.handleDuplicateEntitySets(directIGs, intersections);
-                return [directIGs, [...intersections, ...innerSubmoduleIGs]];
+        moduleNode: IGModuleTreeNode<T>,
+        entities: Set<T>,
+        characteristics: Record<string, IGCharacteristicValue> = {}
+    ): IsomorphicGroup<T>[] {
+        if(moduleNode.requiredCharacteristics){
+            const isValid = Object.entries(moduleNode.requiredCharacteristics).every(([c, v]) => {
+                return characteristics[c] === v;
             });
-             
-        return [newIGs.flatMap(([i]) => i), newIGs.flatMap(([,i]) => i)];
+            if(!isValid) return [];
+        }
+
+        const groups = moduleNode.module.extractGroups(entities)
+            .map(g => {
+                const gs = ModuleTreeIGsExtractor.findIGsIntersections<T>(
+                    moduleNode.submodules?.flatMap(
+                        sm => ModuleTreeIGsExtractor.extractTreeRoot(sm, g.entities, {...characteristics, ...g.characteristics})
+                    ) ?? []
+                );
+
+                if(gs.length === 1 && setsEqual(g.entities, gs[0].entities)){
+                    return {...gs[0], characteristics: {...g.characteristics, ...gs[0].characteristics} };
+                } else if(gs)
+                    g.subGroups = gs;
+                return g;
+            }
+        ); 
+
+        return groups;
     }
 
     private static findIGsIntersections<T>(groups: IsomorphicGroup<T>[]): IsomorphicGroup<T>[]{
@@ -66,17 +71,4 @@ export class ModuleTreeIGsExtractor {
         }
         return [...groups, ...Object.values(resultingIntersections)].filter(ig => ig.entities.size > 0);
     }
-
-    private static handleDuplicateEntitySets<T>(directIGs: IsomorphicGroup<T>[], intersectionIGs: IsomorphicGroup<T>[]): void{
-        for(let d = directIGs.length-1; d > 0; d--){
-            for(let i = intersectionIGs.length-1; i > 0; i--){
-                if(setsEqual(directIGs[d].entities, intersectionIGs[i].entities)){
-                    const newDirectIG = intersectionIGs.splice(i, 1)[0];
-                    directIGs.splice(d, 1);
-                    directIGs.push(newDirectIG);
-                }
-            }
-        }
-    }
-
 }

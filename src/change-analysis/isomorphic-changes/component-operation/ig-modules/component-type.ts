@@ -1,8 +1,9 @@
+import { CompOpIGCharacteristics } from "change-cd-iac-models/isomorphic-groups";
 import { ComponentOperation } from "change-cd-iac-models/model-diffing";
 import { EqualityIGModule } from "../../ig-module";
 
 export const componentTypeIGModule = new EqualityIGModule(
-    'Component Type',
+    CompOpIGCharacteristics.COMPONENT_TYPE,
     (cOp: ComponentOperation) => {
         const type = cOp.componentTransition.v2?.type
             ?? cOp.componentTransition.v1?.type;

@@ -9,7 +9,7 @@ export abstract class IGModule<T> {
         public readonly label: string
     ){}
 
-    public abstract extractGroups(entities: T[]): IsomorphicGroup<T>[];
+    public abstract extractGroups(entities: Set<T>): IsomorphicGroup<T>[];
 }
 
 /**
@@ -22,8 +22,8 @@ export class EqualityIGModule<T> extends IGModule<T> {
         public readonly indexValueGetter: (e: T) => string | number | boolean | undefined
     ){super(label);}
 
-    extractGroups(entities: T[]): IsomorphicGroup<T>[] {
-        return [...groupArrayBy(entities, this.indexValueGetter)].map(([key, ops]) => ({
+    extractGroups(entities: Set<T>): IsomorphicGroup<T>[] {
+        return [...groupArrayBy([...entities], this.indexValueGetter)].map(([key, ops]) => ({
             entities: new Set(ops),
             characteristics: {
                 [this.label]: key
