@@ -92,15 +92,15 @@ export abstract class CFEntity {
         return factory(definition, []);
         
         function factory (definition: CFDefinition, propertyPath: string[]): ComponentProperty {
+            if (typeof definition === 'string' || typeof definition === 'number') {
+                return new ComponentPropertyPrimitive(definition,
+                    updateTypeGetter(propertyPath));
+            }
             return new ComponentPropertyRecord(Object.fromEntries(
                 Object.entries(definition).map(([propKey, propValue]) => {
                     const newPropertyPath = [...propertyPath, propKey];
-
-                    if (typeof propValue === 'string' || typeof propValue === 'number') {
-                        return [propKey, new ComponentPropertyPrimitive(propValue,
-                            updateTypeGetter(newPropertyPath))
-                        ];
-                    } else if (Array.isArray(propValue)) {
+  
+                    if (Array.isArray(propValue)) {
                         return [propKey, new ComponentPropertyArray(
                                 propValue.map((v, i) => factory(v, [...newPropertyPath, i.toString()])),
                                 updateTypeGetter(newPropertyPath)
@@ -108,8 +108,9 @@ export abstract class CFEntity {
                         ];
                     } else if(typeof propValue === 'object' && propValue !== null) {
                         return [propKey, factory(propValue, newPropertyPath)];
+                    } else {
+                        return [propKey, factory(propValue, newPropertyPath)];
                     }
-                    return undefined;
                 }).filter(isDefined)
             ), updateTypeGetter(propertyPath));
         }

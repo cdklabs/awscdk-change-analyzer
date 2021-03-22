@@ -56,6 +56,7 @@ export class CDKParser implements Parser {
             const metadata = (cfComponent.properties.getRecord() ?? {})["Metadata"];
             if(typeof metadata === 'object' && metadata !== null){
                 const resourcePath = (metadata.getRecord() ?? {})["aws:cdk:path"].value;
+                delete metadata.getRecord()["aws:cdk:path"];
                 if(typeof resourcePath === 'string'){
                     return this.extractConstructPath(resourcePath);      
                 }

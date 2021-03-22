@@ -10,5 +10,6 @@ export function isomorphicGroupDeserializer<T extends JSONSerializable>(obj: Ser
         entities: new Set(serialized.entities.map(deserialize) as T[]),
         characteristics: serialized.characteristics,
         subGroups: serialized.subGroups?.map(deserialize) as IsomorphicGroup<T>[],
+        descriptions: serialized.descriptions
     };
 }

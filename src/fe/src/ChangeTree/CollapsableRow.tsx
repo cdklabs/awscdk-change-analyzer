@@ -7,12 +7,12 @@ import { withStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
   head: {
-    backgroundColor: (props: Props) => props.color,
+    backgroundColor: (props: Props) => props.selected ? 'rgba(0,0,0,0.14)' : props.color ?? 'rgba(0,0,0,0)',
     '& :first-child': {
         alignItems: 'center',
     },
     '&.Mui-focused': {
-      backgroundColor: (props: Props) => props.color,
+      backgroundColor: undefined,
     },
     '&.Mui-expanded': {
         backgroundColor: (props: Props) => props.color ?? 'rgba(0,0,0,0.06)',
@@ -70,7 +70,8 @@ interface Props {
     color?: string,
     expanded?: boolean,
     onChange?: (event: React.ChangeEvent<{}>, expanded: boolean) => void,
-    className?: string
+    className?: string,
+    selected?: boolean
 }
 
 const CollapsableRow = (props: Props) => {

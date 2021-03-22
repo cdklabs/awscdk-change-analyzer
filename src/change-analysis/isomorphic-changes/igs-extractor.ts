@@ -1,5 +1,5 @@
 import { setsEqual } from "change-cd-iac-models/utils";
-import { IGModuleTreeNode } from "./ig-module-tree";
+import { IGModuleTreeNode } from "./ig-module-tree-node";
 import { IGCharacteristicValue, IsomorphicGroup } from "change-cd-iac-models/isomorphic-groups";
 
 export class ModuleTreeIGsExtractor {
@@ -23,23 +23,31 @@ export class ModuleTreeIGsExtractor {
             if(!isValid) return [];
         }
 
-        const groups = moduleNode.module.extractGroups(entities)
-            .map(g => {
+        const directIGs = moduleNode.module.extractGroups(entities);
+
+        if(moduleNode.disableOnNoExtraInfo && directIGs.length <= 1)
+            return [];
+
+        const finalIGs = directIGs.flatMap(g => {
                 const gs = ModuleTreeIGsExtractor.findIGsIntersections<T>(
                     moduleNode.submodules?.flatMap(
                         sm => ModuleTreeIGsExtractor.extractTreeRoot(sm, g.entities, {...characteristics, ...g.characteristics})
                     ) ?? []
                 );
 
-                if(gs.length === 1 && setsEqual(g.entities, gs[0].entities)){
-                    return {...gs[0], characteristics: {...g.characteristics, ...gs[0].characteristics} };
-                } else if(gs)
-                    g.subGroups = gs;
-                return g;
-            }
-        ); 
+                if(gs.length === 1 && !Object.values(gs[0].characteristics).filter(v => v !== undefined).length)
+                    return [];
 
-        return groups;
+                if(moduleNode.forceSubmoduleCollapse
+                    || (!moduleNode.disableSubmoduleCollapse && gs.length === 1 && setsEqual(g.entities, gs[0].entities))){
+                    return gs.map(gSubGroup => ({...gSubGroup, characteristics: {...g.characteristics, ...gSubGroup.characteristics} }));
+                } else if(gs && gs.length)
+                    g.subGroups = gs;
+                return [g];
+            }
+        );
+
+        return finalIGs;
     }
 
     private static findIGsIntersections<T>(groups: IsomorphicGroup<T>[]): IsomorphicGroup<T>[]{

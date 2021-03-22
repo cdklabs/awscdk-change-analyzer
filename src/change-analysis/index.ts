@@ -9,5 +9,7 @@ const readSampleInput = (sampleInputFilename: string) => JSON.parse(fs.readFileS
 const oldModel = new CDKParser(readSampleInput('kessel-run-stack-before.json')).parse();
 const newModel = new CDKParser(readSampleInput('kessel-run-stack-after.json')).parse();
 
-console.log(new JSONSerializer().serialize(createChangeAnalysisReport({v1: oldModel, v2: newModel})));
+console.log(
+    new JSONSerializer().serialize(createChangeAnalysisReport({v1: oldModel, v2: newModel}))
+    );
 

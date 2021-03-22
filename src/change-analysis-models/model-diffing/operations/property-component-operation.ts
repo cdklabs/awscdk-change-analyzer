@@ -100,7 +100,7 @@ export class UpdatePropertyComponentOperation extends PropertyComponentOperation
 
     public getLeaves(): PropertyComponentOperation[] {
         if(!this.innerOperations) return [this];
-        return this.innerOperations.flatMap(o => o instanceof UpdatePropertyComponentOperation ? o.getLeaves() : [o]);
+        return this.innerOperations.flatMap(o => (o instanceof UpdatePropertyComponentOperation) ? o.getLeaves() : [o]);
     }
 
     public toSerialized(

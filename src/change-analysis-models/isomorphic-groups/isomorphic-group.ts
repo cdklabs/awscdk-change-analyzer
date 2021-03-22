@@ -7,8 +7,10 @@ export type IGCharacteristicValue =  string | number | boolean | undefined;
 export interface IsomorphicGroup<T> {
     entities: Set<T>,
     characteristics: Record<string, IGCharacteristicValue>,
-    subGroups?: IsomorphicGroup<T>[]
+    subGroups?: IsomorphicGroup<T>[],
+    descriptions?: string[]
 }
+
 
 
 export const isomorphicGroupSerializer = <T extends JSONSerializable>(
@@ -22,5 +24,6 @@ export const isomorphicGroupSerializer = <T extends JSONSerializable>(
         subGroups: ig.subGroups?.map(sg => serializeCustom(
             sg, SerializationClasses.ISOMORPHIC_GROUP, isomorphicGroupSerializer(sg, serialize, serializeCustom)
         )),
+        descriptions: ig.descriptions
     };
 };

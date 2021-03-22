@@ -32,12 +32,15 @@ const useStyles = makeStyles({
 });
 
 interface props {
-    changeReport: ChangeAnalysisReport
+    changeReport: ChangeAnalysisReport,
+    setSelectedIG: Function,
+    selectedIG?: IsomorphicGroup<ComponentOperation>
 }
 
-function ChangeTree({changeReport}: props) {
+function ChangeTree({changeReport, setSelectedIG, selectedIG}: props) {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(0);
+
     return (
         <Paper elevation={3} className={classes.root}>
             <CollapsableRow
@@ -48,7 +51,7 @@ function ChangeTree({changeReport}: props) {
               title="High Risk Changes"
               content={
                 <List disablePadding style={{width: '100%'}}>{
-                  renderIGs(changeReport.isomorphicGroups)
+                  renderIGs(changeReport.isomorphicGroups, setSelectedIG, selectedIG)
                 }</List>
               }
               color="#EA9B9A"
@@ -75,26 +78,19 @@ function ChangeTree({changeReport}: props) {
     );
 }
 
-function renderIGs(igs: IsomorphicGroup<ComponentOperation>[]){
-  const baseCharacteristics = [CompOpIGCharacteristics.COMPONENT_TYPE, CompOpIGCharacteristics.COMPONENT_SUBTYPE];
-  const igAccumulator = (igs: IsomorphicGroup<ComponentOperation>[], requiredCharacteristics: string[]) =>
-    igs.flatMap((ig: IsomorphicGroup<ComponentOperation>): IsomorphicGroup<ComponentOperation>[] => {
-      const nonFoundCs = requiredCharacteristics.filter(c => !ig.characteristics[c]);
-      if(nonFoundCs.length && ig.subGroups){
-        return igAccumulator(ig.subGroups, nonFoundCs).map(i => ({...i, characteristics: {...i.characteristics, ...ig.characteristics}}));
-      }
-      return [ig];
-    });
-
-  return igAccumulator(igs, baseCharacteristics).map(ig => {
-    const operationTypes = [ig, ...igAccumulator(ig.subGroups ?? [], [CompOpIGCharacteristics.OPERATION_TYPE])].map(ig => ig.characteristics[CompOpIGCharacteristics.OPERATION_TYPE]).filter(isDefined);
-    const subCharacteristics = Object.entries(ig.characteristics).filter(([c]) => !baseCharacteristics.includes(c as CompOpIGCharacteristics) && (c !== CompOpIGCharacteristics.OPERATION_TYPE || operationTypes.length > 1));
-    return <ChangesGroup
-      ig={subCharacteristics.length > 0 ? {...ig, subGroups: [{...ig, characteristics: Object.fromEntries(subCharacteristics)}]} : ig}
+function renderIGs(igs: IsomorphicGroup<ComponentOperation>[], setSelectedIG: Function, selectedIG?: IsomorphicGroup<ComponentOperation>){
+  return igs.map(ig => <ChangesGroup
+      ig={ig}
       title={`${ig.characteristics[CompOpIGCharacteristics.COMPONENT_TYPE]} ${ig.characteristics[CompOpIGCharacteristics.COMPONENT_SUBTYPE] || ''}`}
-      description={operationTypes.join(', ')}
-    />
-  });
+      description={
+        ig.characteristics[CompOpIGCharacteristics.OPERATION_TYPE]
+        ? ig.characteristics[CompOpIGCharacteristics.OPERATION_TYPE]
+        : [...new Set(ig.subGroups?.map(sg => sg.characteristics[CompOpIGCharacteristics.OPERATION_TYPE]))]
+          .filter(isDefined).join(', ')
+      }
+      setSelectedIG={setSelectedIG}
+      selectedIG={selectedIG}
+    />);
 }
 
 

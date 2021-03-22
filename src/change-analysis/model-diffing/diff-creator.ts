@@ -22,7 +22,7 @@ import {
     componentSimilarityEvaluator,
     sameNameComponentSimilarityEvaluator
 } from "./entity-matchers/component-similarity";
-import { relationshipSimilarityEvaluator } from "./entity-matchers/relationship-similarity";
+import { relationshipSimilarityEvaluatorCreator } from "./entity-matchers/relationship-similarity";
 
 const similarityThreshold = 0.5;
 
@@ -75,7 +75,7 @@ export class DiffCreator {
             newComponents,
             sameNameComponentSimilarityEvaluator
         );
-
+        
         const renamedMatches = this.matchComponents(
             sameNameMatches.unmatchedA,
             sameNameMatches.unmatchedB,
@@ -115,7 +115,7 @@ export class DiffCreator {
         const relationshipMatches = matchEntities(
             [...componentTransition.v1?.outgoing ?? []],
             [...componentTransition.v2?.outgoing ?? []],
-            relationshipSimilarityEvaluator
+            relationshipSimilarityEvaluatorCreator(this.entityVersionToTransitionMap)
         );
 
         const removals = relationshipMatches.unmatchedA.map(r =>

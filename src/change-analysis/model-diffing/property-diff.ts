@@ -40,6 +40,7 @@ export class PropertyDiffCreator {
     ) {
         if(!this.componentTransition.v1 || !this.componentTransition.v2)
             throw Error("Cannot diff Properties of Transition<Component> with undefined version");
+            
     }
 
     public create(p1: ComponentProperty, p2: ComponentProperty, basePathP1: Array<string | number> = [], basePathP2 = basePathP1): PropertyDiff {
@@ -64,10 +65,12 @@ export class PropertyDiffCreator {
         const [a, b] = [p1,p2].map(p => p.getRecord());
         
         const sameNameKeys = arrayIntersection(Object.keys(a), Object.keys(b));
-        const pickedSameNames = sameNameKeys
+        
+        const pickedSameNames: [string, PropertyDiff][] = sameNameKeys
             .map((k): [string, PropertyDiff] => [k, this.create(a[k], b[k], [...pathP1, k], [...pathP2, k])])
-            .filter(([, pd]) => pd.similarity >= propertySimilarityThreshold);
-
+            .filter(([, pd]) => pd.similarity >= propertySimilarityThreshold)
+            .map(([k, pd]) => [k, {...pd, weight: pd.weight + 1}]); // similar structure impacts similarity weight
+            
         const pickedSameNameKeys = new Set(pickedSameNames.map(([k]) => k));
         const sameNameDiffs = pickedSameNames.map(([, pd]) => pd);
 
@@ -106,7 +109,7 @@ export class PropertyDiffCreator {
             weight: this.calcPropertyWeight(b[k]),
             operation: new InsertPropertyComponentOperation({v2: [...pathP2, k]}, {v2: b[k]}, this.componentTransition)
         }));
-                
+
         return this.fromCollectionDiffs(p1, p2, [...sameNameDiffs, ...renamedDiffs, ...removedDiffs, ...insertedDiffs], pathP1, pathP2);
     }
     
@@ -189,6 +192,7 @@ export class PropertyDiffCreator {
         pathP1: Array<string | number>,
         pathP2: Array<string | number>
     ) {
+        
         const similarity = 
             typeof p1.value === 'string' && typeof p2.value === 'string'
                 ? stringSimilarity(p1.value, p2.value)
@@ -197,7 +201,7 @@ export class PropertyDiffCreator {
         let operation;
         if(similarity !== 1)
             operation = new UpdatePropertyComponentOperation({v1: pathP1, v2: pathP2}, {v1: p1, v2: p2}, this.componentTransition);
-                
+        
         return {similarity, weight: 1, operation};
     }
     

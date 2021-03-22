@@ -5,10 +5,11 @@ import React from "react";
 import CollapsableRow from "./CollapsableRow"
 
 import { makeStyles } from '@material-ui/core/styles';
+import { groupArrayBy } from "change-cd-iac-models/utils";
 
 const useStyles = makeStyles({
   root: {
-    width: '100%',
+    width: '100%'
   },
   content: {
     flexDirection: 'column',
@@ -22,24 +23,25 @@ interface Props {
     ig: IsomorphicGroup<ComponentOperation>,
     title?: React.ReactNode,
     description?: React.ReactNode,
+    setSelectedIG?: Function,
+    selectedIG?: IsomorphicGroup<ComponentOperation>
 }
 
-const ChangesGroup = ({ig, title, description}: Props) => {
+const ChangesGroup = ({ig, title, description, setSelectedIG, selectedIG}: Props) => {
     const classes = useStyles();
 
     return <CollapsableRow
         className={classes.root}
         icon={ig.entities.size + 'x'}
-        title={title ?? Object.entries(ig.characteristics).map(([c, v]) => <div>{`${c}: `}<b>{v}</b></div>)}
+        title={title ?? ig.descriptions?.map(d => <div>{d}</div>) ?? Object.entries(ig.characteristics).map(([c, v]) => <div>{`${c}: `}<b>{v}</b></div>)}
         description={description}
-        content={<Box className={classes.content}>{
-          ig.subGroups
-            ? ig.subGroups.map(sg => <ChangesGroup ig={sg} />)
-            : [...ig.entities].map(e => <CollapsableRow icon={'C'} title={e.componentTransition.v2?.name || e.componentTransition.v1?.name || 'Error: Could not find component name'} />)
+        selected={selectedIG && selectedIG === ig}
+        onChange={!ig.subGroups ? (() => setSelectedIG && setSelectedIG(ig)) : undefined}
+        content={ig.subGroups && <Box className={classes.content}>{
+          ig.subGroups.map(sg => <ChangesGroup ig={sg} setSelectedIG={setSelectedIG} selectedIG={selectedIG} />)
           }</Box>
         }
     />
-
 }
 
 export default ChangesGroup;
