@@ -15,7 +15,7 @@ export class CFNestedStack extends CFResource {
     readonly parameterRefs: CFRef[];
 
     protected generateComponent(name: string, definition:Record<string, any>): Component {
-        return new Component(name, 'resource', {subtype: definition.Type, properties: this.cfDefinitionToComponentProperty(definition)});
+        return new Component(name, 'Resource', {subtype: definition.Type, properties: this.cfDefinitionToComponentProperty(definition)});
     }
 
     constructor(name: string, definition: Record<string, any>, args: CFParserArgs){

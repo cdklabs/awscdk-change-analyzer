@@ -1,11 +1,11 @@
 import { Box } from "@material-ui/core";
-import { IsomorphicGroup } from "change-cd-iac-models/isomorphic-groups"
+import { Aggregation } from "change-cd-iac-models/aggregations"
 import { ComponentOperation } from "change-cd-iac-models/model-diffing"
 import React from "react";
-import CollapsableRow from "./CollapsableRow"
+import CollapsableRow from "../reusable-components/CollapsableRow"
 
 import { makeStyles } from '@material-ui/core/styles';
-import { groupArrayBy } from "change-cd-iac-models/utils";
+import { AppContext } from '../App';
 
 const useStyles = makeStyles({
   root: {
@@ -20,28 +20,28 @@ const useStyles = makeStyles({
 });
 
 interface Props {
-    ig: IsomorphicGroup<ComponentOperation>,
+    ig: Aggregation<ComponentOperation>,
     title?: React.ReactNode,
-    description?: React.ReactNode,
-    setSelectedIG?: Function,
-    selectedIG?: IsomorphicGroup<ComponentOperation>
+    description?: React.ReactNode
 }
 
-const ChangesGroup = ({ig, title, description, setSelectedIG, selectedIG}: Props) => {
+const ChangesGroup = ({ig, title, description}: Props) => {
     const classes = useStyles();
 
-    return <CollapsableRow
+    return <AppContext.Consumer>{({selectedAgg, setSelectedAgg}) => 
+      <CollapsableRow
         className={classes.root}
         icon={ig.entities.size + 'x'}
         title={title ?? ig.descriptions?.map(d => <div>{d}</div>) ?? Object.entries(ig.characteristics).map(([c, v]) => <div>{`${c}: `}<b>{v}</b></div>)}
         description={description}
-        selected={selectedIG && selectedIG === ig}
-        onChange={!ig.subGroups ? (() => setSelectedIG && setSelectedIG(ig)) : undefined}
-        content={ig.subGroups && <Box className={classes.content}>{
-          ig.subGroups.map(sg => <ChangesGroup ig={sg} setSelectedIG={setSelectedIG} selectedIG={selectedIG} />)
+        selected={selectedAgg && selectedAgg === ig}
+        onChange={!ig.subAggs ? (() => setSelectedAgg && setSelectedAgg(ig)) : undefined}
+        content={ig.subAggs && <Box className={classes.content}>{
+          ig.subAggs.map(sg => <ChangesGroup ig={sg}/>)
           }</Box>
         }
-    />
+      />
+      }</AppContext.Consumer>
 }
 
 export default ChangesGroup;

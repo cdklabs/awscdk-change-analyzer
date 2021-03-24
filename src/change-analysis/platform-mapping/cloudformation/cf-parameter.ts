@@ -4,7 +4,7 @@ import { CFEntity } from "./cf-entity";
 export class CFParameter extends CFEntity {
 
     protected generateComponent(name: string, definition: Record<string, any>): Component {
-        const component = new Component(name, 'parameter', {subtype: definition.Type, properties: this.cfDefinitionToComponentProperty(definition)});
+        const component = new Component(name, 'Parameter', {subtype: definition.Type, properties: this.cfDefinitionToComponentProperty(definition)});
 
         const propertiesRecord = component.properties.getRecord();
         if(this.parserArgs.parameterValues && this.parserArgs.parameterValues[name] !== undefined && propertiesRecord){

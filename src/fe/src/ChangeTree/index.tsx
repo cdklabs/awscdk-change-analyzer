@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import CollapsableRow from './CollapsableRow';
+import CollapsableRow from '../reusable-components/CollapsableRow';
 import { List, Paper, Typography } from '@material-ui/core';
 
 import {
@@ -11,7 +11,7 @@ import {
 } from '@material-ui/icons';
 import { ChangeAnalysisReport } from 'change-cd-iac-models/change-analysis-report';
 import ChangesGroup from './ChangesGroup';
-import { CompOpIGCharacteristics, IsomorphicGroup } from 'change-cd-iac-models/isomorphic-groups';
+import { CompOpAggCharacteristics, Aggregation } from 'change-cd-iac-models/aggregations';
 import { ComponentOperation } from 'change-cd-iac-models/model-diffing';
 import { isDefined } from 'change-cd-iac-models/utils';
 
@@ -32,12 +32,10 @@ const useStyles = makeStyles({
 });
 
 interface props {
-    changeReport: ChangeAnalysisReport,
-    setSelectedIG: Function,
-    selectedIG?: IsomorphicGroup<ComponentOperation>
+    changeReport: ChangeAnalysisReport
 }
 
-function ChangeTree({changeReport, setSelectedIG, selectedIG}: props) {
+function ChangeTree({changeReport}: props) {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(0);
 
@@ -51,7 +49,7 @@ function ChangeTree({changeReport, setSelectedIG, selectedIG}: props) {
               title="High Risk Changes"
               content={
                 <List disablePadding style={{width: '100%'}}>{
-                  renderIGs(changeReport.isomorphicGroups, setSelectedIG, selectedIG)
+                  renderAggs(changeReport.aggregations)
                 }</List>
               }
               color="#EA9B9A"
@@ -78,18 +76,16 @@ function ChangeTree({changeReport, setSelectedIG, selectedIG}: props) {
     );
 }
 
-function renderIGs(igs: IsomorphicGroup<ComponentOperation>[], setSelectedIG: Function, selectedIG?: IsomorphicGroup<ComponentOperation>){
+function renderAggs(igs: Aggregation<ComponentOperation>[]){
   return igs.map(ig => <ChangesGroup
       ig={ig}
-      title={`${ig.characteristics[CompOpIGCharacteristics.COMPONENT_TYPE]} ${ig.characteristics[CompOpIGCharacteristics.COMPONENT_SUBTYPE] || ''}`}
+      title={`${ig.characteristics[CompOpAggCharacteristics.COMPONENT_TYPE]} ${ig.characteristics[CompOpAggCharacteristics.COMPONENT_SUBTYPE] || ''}`}
       description={
-        ig.characteristics[CompOpIGCharacteristics.OPERATION_TYPE]
-        ? ig.characteristics[CompOpIGCharacteristics.OPERATION_TYPE]
-        : [...new Set(ig.subGroups?.map(sg => sg.characteristics[CompOpIGCharacteristics.OPERATION_TYPE]))]
+        ig.characteristics[CompOpAggCharacteristics.OPERATION_TYPE]
+        ? ig.characteristics[CompOpAggCharacteristics.OPERATION_TYPE]
+        : [...new Set(ig.subAggs?.map(sg => sg.characteristics[CompOpAggCharacteristics.OPERATION_TYPE]))]
           .filter(isDefined).join(', ')
       }
-      setSelectedIG={setSelectedIG}
-      selectedIG={selectedIG}
     />);
 }
 

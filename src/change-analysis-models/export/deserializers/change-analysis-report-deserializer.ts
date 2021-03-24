@@ -1,5 +1,5 @@
 import { ChangeAnalysisReport } from "../../change-analysis-report";
-import { IsomorphicGroup } from "../../isomorphic-groups";
+import { Aggregation } from "../../aggregations";
 import { ComponentOperation, InfraModelDiff } from "../../model-diffing";
 import { JSONSerializable, Serialized } from "../json-serializable";
 import { SerializationID } from "../json-serializer";
@@ -10,6 +10,6 @@ export function changeAnalysisReportDeserializer(obj: Serialized, deserialize: (
 
     return new ChangeAnalysisReport(
         deserialize(serialized.infraModelDiff) as InfraModelDiff,
-        serialized.isomorphicGroups.map(deserialize) as IsomorphicGroup<ComponentOperation>[]
+        serialized.aggregations.map(deserialize) as Aggregation<ComponentOperation>[]
     );
 }

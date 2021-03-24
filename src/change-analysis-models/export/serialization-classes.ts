@@ -24,7 +24,7 @@ export enum SerializationClasses {
     UPDATE_PROPERTY_COMPONENT_OPERATION = "UpdatePropertyComponentOperation",
     MOVE_PROPERTY_COMPONENT_OPERATION = "MovePropertyComponentOperation",
 
-    ISOMORPHIC_GROUP = "IsomorphicGroup",
+    AGGREGATION = "Aggregation",
 
     CHANGE_ANALYSIS_REPORT = "ChangeAnalysisReport",
 }

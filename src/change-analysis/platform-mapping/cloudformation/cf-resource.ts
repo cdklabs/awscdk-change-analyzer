@@ -32,7 +32,7 @@ export class CFResource extends CFEntity {
     protected generateComponent(name: string, definition:Record<string, any>): Component {
         this.resourceType = definition.Type;
         // delete definition.Metadata;
-        return new Component(name, 'resource', {subtype: definition.Type, properties: this.cfDefinitionToComponentProperty(definition)});
+        return new Component(name, 'Resource', {subtype: definition.Type, properties: this.cfDefinitionToComponentProperty(definition)});
     }
 
     /**

@@ -1,14 +1,14 @@
 import { JSONSerializable, Serialized } from "../export/json-serializable";
 import { SerializationClasses } from "../export/serialization-classes";
 import { SerializedChangeAnalysisReport } from "../export/serialized-interfaces/serialized-change-analysis-report";
-import { IsomorphicGroup, isomorphicGroupSerializer } from "../isomorphic-groups";
+import { Aggregation, aggregationSerializer } from "../aggregations";
 import { ComponentOperation, InfraModelDiff } from "../model-diffing";
 
 export class ChangeAnalysisReport implements JSONSerializable {
 
     constructor(
         public readonly infraModelDiff: InfraModelDiff,
-        public readonly isomorphicGroups: IsomorphicGroup<ComponentOperation>[]
+        public readonly aggregations: Aggregation<ComponentOperation>[]
     ){}
 
 
@@ -18,11 +18,11 @@ export class ChangeAnalysisReport implements JSONSerializable {
     ): SerializedChangeAnalysisReport {
         return {
             infraModelDiff: serialize(this.infraModelDiff),
-            isomorphicGroups: this.isomorphicGroups.map(ig =>
+            aggregations: this.aggregations.map(ig =>
                 serializeCustom(
                     ig,
-                    SerializationClasses.ISOMORPHIC_GROUP,
-                    isomorphicGroupSerializer(ig, serialize, serializeCustom)
+                    SerializationClasses.AGGREGATION,
+                    aggregationSerializer(ig, serialize, serializeCustom)
                 )
             )
         };

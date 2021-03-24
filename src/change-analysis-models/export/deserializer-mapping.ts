@@ -11,7 +11,7 @@ import { infraModelDiffDeserializer } from './deserializers/infra-model-diff/inf
 import { transitionDeserializer } from './deserializers/infra-model-diff/transition-deserializer';
 import { SerializationID } from './json-serializer';
 import { JSONSerializable, Serialized } from './json-serializable';
-import { isomorphicGroupDeserializer } from './deserializers/isomorphic-groups/isomorphic-group-deserializer';
+import { aggregationDeserializer } from './deserializers/aggregations/aggregation-deserializer';
 import { changeAnalysisReportDeserializer } from './deserializers/change-analysis-report-deserializer';
 
 type classDeserializer = (obj: Serialized, deserialize: (id: SerializationID) => JSONSerializable) => any;
@@ -45,7 +45,7 @@ export const classToDeserializer: Record<string, classDeserializer> = Object.fre
     [SerializationClasses.UPDATE_PROPERTY_COMPONENT_OPERATION]: updatePropertyComponentOperationDeserializer,
     [SerializationClasses.MOVE_PROPERTY_COMPONENT_OPERATION]: movePropertyComponentOperationDeserializer,
 
-    [SerializationClasses.ISOMORPHIC_GROUP]: isomorphicGroupDeserializer,
+    [SerializationClasses.AGGREGATION]: aggregationDeserializer,
 
     [SerializationClasses.CHANGE_ANALYSIS_REPORT]: changeAnalysisReportDeserializer,
 });

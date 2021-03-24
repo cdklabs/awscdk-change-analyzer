@@ -1,0 +1,29 @@
+import { AggCharacteristicValue, Aggregation } from "change-cd-iac-models/aggregations";
+
+export type AggDescriptionCreator = {
+    describesCharacteristics: string[],
+    creatorFunction: (characteristics: Record<string, AggCharacteristicValue>) => string[]
+}
+
+export function addAggDescriptions<T>(
+    aggRoots: Aggregation<T>[], descriptionCreators: AggDescriptionCreator[]
+): Aggregation<T>[]{
+    const aggStack: Aggregation<T>[] = [...aggRoots];
+
+    while(aggStack.length){
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const agg = aggStack.pop()!;
+        aggStack.push(...agg?.subAggs ?? []);
+        if(!agg.descriptions)
+            agg.descriptions = [];
+        const undescribedCharacteristics = new Set(Object.keys(agg.characteristics));
+        agg.descriptions.push(...descriptionCreators.flatMap(creator => {
+            creator.describesCharacteristics.forEach(c => undescribedCharacteristics.delete(c));
+            return creator.creatorFunction(agg.characteristics);
+        }));
+
+        agg.descriptions.push(...[...undescribedCharacteristics].map(c => `${c}: ${agg.characteristics[c]}`));
+    }
+
+    return aggRoots;
+}
