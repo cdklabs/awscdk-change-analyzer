@@ -12,7 +12,8 @@ import {
     ReplaceComponentOperation,
     UpdatePropertyComponentOperation,
     Transition,
-    InfraModelDiff
+    InfraModelDiff,
+    TransitionNotFoundError
 } from "change-cd-iac-models/model-diffing";
 
 /**
@@ -86,15 +87,20 @@ function propagateReplacementOperation(replacementOp: ReplaceComponentOperation,
 
         
     const replacementPropagations = dependentRelationships.flatMap((rel: DependencyRelationship) => {
-        const sourceComponentTransition = modelDiff.getComponentTransition(rel.source);
+        try{
+            const sourceComponentTransition = modelDiff.getComponentTransition(rel.source);
+
+            const consequentPropertyUpdateOp = createUpdateOperationForComponent(modelDiff, sourceComponentTransition, rel.sourcePropertyPath, replacementOp);
         
-        const consequentPropertyUpdateOp = createUpdateOperationForComponent(modelDiff, sourceComponentTransition, rel.sourcePropertyPath, replacementOp);
-        
-        let propagatedPropertyUpdateOp: ComponentOperation[] = [];
-        if(consequentPropertyUpdateOp)
-            propagatedPropertyUpdateOp = [consequentPropertyUpdateOp, ...propagatePropertyOperation(consequentPropertyUpdateOp, modelDiff)];
-        
-        return propagatedPropertyUpdateOp;
+            let propagatedPropertyUpdateOp: ComponentOperation[] = [];
+            if(consequentPropertyUpdateOp)
+                propagatedPropertyUpdateOp = [consequentPropertyUpdateOp, ...propagatePropertyOperation(consequentPropertyUpdateOp, modelDiff)];
+            
+            return propagatedPropertyUpdateOp;
+        } catch(e) {
+            if(!(e instanceof TransitionNotFoundError)) throw e;
+            return [];
+        }
     });
 
     return [...replacementPropagations];

@@ -15,6 +15,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/styles": "^4.11.3",
     "change-cd-iac-models": "file:../change-analysis-models",
+    "diff": "^5.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
@@ -23,6 +24,7 @@
     "@babel/preset-env": "^7.13.10",
     "@babel/preset-react": "^7.12.13",
     "@babel/preset-typescript": "^7.13.0",
+    "@types/diff": "^5.0.0",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.2",
     "babel-loader": "^8.2.2",

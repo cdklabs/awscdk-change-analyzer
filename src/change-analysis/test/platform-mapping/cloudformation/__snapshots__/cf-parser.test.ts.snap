@@ -28,11 +28,11 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"EnableDnsHostnames\\": {
-                                \\"value\\": {},
+                                \\"value\\": true,
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"EnableDnsSupport\\": {
-                                \\"value\\": {},
+                                \\"value\\": true,
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"InstanceTenancy\\": {
@@ -64,7 +64,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCB9E5F0B4\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::VPC\\"
         },
         {
@@ -96,7 +96,7 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"MapPublicIpOnLaunch\\": {
-                                \\"value\\": {},
+                                \\"value\\": true,
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"Tags\\": {
@@ -150,7 +150,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet1SubnetB4246D30\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::Subnet\\"
         },
         {
@@ -198,7 +198,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet1RouteTableFEE4B781\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::RouteTable\\"
         },
         {
@@ -237,7 +237,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet1RouteTableAssociation0B0896DC\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::SubnetRouteTableAssociation\\"
         },
         {
@@ -289,7 +289,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet1DefaultRoute91CEF279\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::Route\\"
         },
         {
@@ -332,7 +332,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet1EIP6AD938E8\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::EIP\\"
         },
         {
@@ -398,7 +398,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet1NATGatewayE0556630\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::NatGateway\\"
         },
         {
@@ -430,7 +430,7 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"MapPublicIpOnLaunch\\": {
-                                \\"value\\": {},
+                                \\"value\\": true,
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"Tags\\": {
@@ -484,7 +484,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet2Subnet74179F39\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::Subnet\\"
         },
         {
@@ -532,7 +532,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet2RouteTable6F1A15F1\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::RouteTable\\"
         },
         {
@@ -571,7 +571,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet2RouteTableAssociation5A808732\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::SubnetRouteTableAssociation\\"
         },
         {
@@ -623,7 +623,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet2DefaultRouteB7481BBA\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::Route\\"
         },
         {
@@ -666,7 +666,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet2EIP4947BC00\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::EIP\\"
         },
         {
@@ -732,7 +732,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet2NATGateway3C070193\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::NatGateway\\"
         },
         {
@@ -764,7 +764,7 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"MapPublicIpOnLaunch\\": {
-                                \\"value\\": {},
+                                \\"value\\": true,
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"Tags\\": {
@@ -818,7 +818,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet3Subnet631C5E25\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::Subnet\\"
         },
         {
@@ -866,7 +866,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet3RouteTable98AE0E14\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::RouteTable\\"
         },
         {
@@ -905,7 +905,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet3RouteTableAssociation427FE0C6\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::SubnetRouteTableAssociation\\"
         },
         {
@@ -957,7 +957,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet3DefaultRouteA0D29D46\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::Route\\"
         },
         {
@@ -1000,7 +1000,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet3EIPAD4BC883\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::EIP\\"
         },
         {
@@ -1066,7 +1066,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPublicSubnet3NATGatewayD3048F5C\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::NatGateway\\"
         },
         {
@@ -1098,7 +1098,7 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"MapPublicIpOnLaunch\\": {
-                                \\"value\\": {},
+                                \\"value\\": false,
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"Tags\\": {
@@ -1152,7 +1152,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPrivateSubnet1Subnet8BCA10E0\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::Subnet\\"
         },
         {
@@ -1200,7 +1200,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPrivateSubnet1RouteTableBE8A6027\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::RouteTable\\"
         },
         {
@@ -1239,7 +1239,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPrivateSubnet1RouteTableAssociation347902D1\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::SubnetRouteTableAssociation\\"
         },
         {
@@ -1282,7 +1282,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPrivateSubnet1DefaultRouteAE1D6490\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::Route\\"
         },
         {
@@ -1314,7 +1314,7 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"MapPublicIpOnLaunch\\": {
-                                \\"value\\": {},
+                                \\"value\\": false,
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"Tags\\": {
@@ -1368,7 +1368,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPrivateSubnet2SubnetCFCDAA7A\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::Subnet\\"
         },
         {
@@ -1416,7 +1416,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPrivateSubnet2RouteTable0A19E10E\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::RouteTable\\"
         },
         {
@@ -1455,7 +1455,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPrivateSubnet2RouteTableAssociation0C73D413\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::SubnetRouteTableAssociation\\"
         },
         {
@@ -1498,7 +1498,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPrivateSubnet2DefaultRouteF4F5CFD2\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::Route\\"
         },
         {
@@ -1530,7 +1530,7 @@ exports[`CloudFormation complex template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"MapPublicIpOnLaunch\\": {
-                                \\"value\\": {},
+                                \\"value\\": false,
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"Tags\\": {
@@ -1584,7 +1584,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPrivateSubnet3Subnet3EDCD457\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::Subnet\\"
         },
         {
@@ -1632,7 +1632,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPrivateSubnet3RouteTable192186F8\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::RouteTable\\"
         },
         {
@@ -1671,7 +1671,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPrivateSubnet3RouteTableAssociationC28D144E\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::SubnetRouteTableAssociation\\"
         },
         {
@@ -1714,7 +1714,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCPrivateSubnet3DefaultRoute27F311AE\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::Route\\"
         },
         {
@@ -1753,7 +1753,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCIGWB7E252D3\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::InternetGateway\\"
         },
         {
@@ -1792,7 +1792,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"VPCVPCGW99B986DC\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::VPCGatewayAttachment\\"
         },
         {
@@ -1896,7 +1896,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"InstanceInstanceSecurityGroupF0E2D5BE\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::SecurityGroup\\"
         },
         {
@@ -1935,12 +1935,12 @@ exports[`CloudFormation complex template 1`] = `
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             },
                                                                             {
-                                                                                \\"value\\": {
-                                                                                    \\"0\\": {
+                                                                                \\"value\\": [
+                                                                                    {
                                                                                         \\"value\\": \\"ec2.\\",
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     },
-                                                                                    \\"1\\": {
+                                                                                    {
                                                                                         \\"value\\": {
                                                                                             \\"Ref\\": {
                                                                                                 \\"value\\": \\"AWS::URLSuffix\\",
@@ -1949,7 +1949,7 @@ exports[`CloudFormation complex template 1`] = `
                                                                                         },
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     }
-                                                                                },
+                                                                                ],
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             }
                                                                         ],
@@ -1999,7 +1999,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"InstanceInstanceRoleE9785DE5\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::Role\\"
         },
         {
@@ -2069,7 +2069,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"InstanceInstanceRoleDefaultPolicy4ACE9290\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::Policy\\"
         },
         {
@@ -2104,7 +2104,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"InstanceInstanceProfileAB5AEF02\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::InstanceProfile\\"
         },
         {
@@ -2223,7 +2223,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"InstanceC1063A87\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::Instance\\"
         },
         {
@@ -2243,7 +2243,7 @@ exports[`CloudFormation complex template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>\\"
         }
     ],
@@ -3047,11 +3047,11 @@ exports[`CloudFormation nested template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"EnableDnsHostnames\\": {
-                                \\"value\\": {},
+                                \\"value\\": true,
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"EnableDnsSupport\\": {
-                                \\"value\\": {},
+                                \\"value\\": true,
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"InstanceTenancy\\": {
@@ -3097,7 +3097,7 @@ exports[`CloudFormation nested template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"SomeVPC\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::VPC\\"
         },
         {
@@ -3136,7 +3136,7 @@ exports[`CloudFormation nested template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"NestedStack\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::CloudFormation::Stack\\"
         },
         {
@@ -3155,11 +3155,11 @@ exports[`CloudFormation nested template 1`] = `
                                 \\"componentUpdateType\\": \\"Replacement\\"
                             },
                             \\"EnableDnsHostnames\\": {
-                                \\"value\\": {},
+                                \\"value\\": true,
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"EnableDnsSupport\\": {
-                                \\"value\\": {},
+                                \\"value\\": true,
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"InstanceTenancy\\": {
@@ -3191,7 +3191,7 @@ exports[`CloudFormation nested template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"SomeVPC\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::VPC\\"
         },
         {
@@ -3230,7 +3230,7 @@ exports[`CloudFormation nested template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"User00B015A1\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::User\\"
         },
         {
@@ -3250,7 +3250,7 @@ exports[`CloudFormation nested template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"InnerStackParameter\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"String\\"
         },
         {
@@ -3290,7 +3290,7 @@ exports[`CloudFormation nested template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"InnerOutput\\",
-            \\"type\\": \\"output\\"
+            \\"type\\": \\"Output\\"
         },
         {
             \\"incoming\\": {},
@@ -3309,7 +3309,7 @@ exports[`CloudFormation nested template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"OuterStackParameter\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"String\\"
         }
     ],
@@ -3527,7 +3527,7 @@ exports[`CloudFormation simple template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"TableCD117FA1\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::DynamoDB::Table\\"
         },
         {
@@ -4238,7 +4238,7 @@ exports[`CloudFormation simple template 1`] = `
                             \\"PointInTimeRecoverySpecification\\": {
                                 \\"value\\": {
                                     \\"PointInTimeRecoveryEnabled\\": {
-                                        \\"value\\": {},
+                                        \\"value\\": true,
                                         \\"componentUpdateType\\": \\"None\\"
                                     }
                                 },
@@ -4260,7 +4260,7 @@ exports[`CloudFormation simple template 1`] = `
                             \\"SSESpecification\\": {
                                 \\"value\\": {
                                     \\"SSEEnabled\\": {
-                                        \\"value\\": {},
+                                        \\"value\\": true,
                                         \\"componentUpdateType\\": \\"None\\"
                                     }
                                 },
@@ -4300,7 +4300,7 @@ exports[`CloudFormation simple template 1`] = `
                                         \\"componentUpdateType\\": \\"None\\"
                                     },
                                     \\"Enabled\\": {
-                                        \\"value\\": {},
+                                        \\"value\\": true,
                                         \\"componentUpdateType\\": \\"None\\"
                                     }
                                 },
@@ -4321,7 +4321,7 @@ exports[`CloudFormation simple template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"TableWithGlobalAndLocalSecondaryIndexBC540710\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::DynamoDB::Table\\"
         },
         {
@@ -4466,7 +4466,7 @@ exports[`CloudFormation simple template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"TableWithGlobalSecondaryIndexCC8E841E\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::DynamoDB::Table\\"
         },
         {
@@ -4637,7 +4637,7 @@ exports[`CloudFormation simple template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"TableWithLocalSecondaryIndex4DA3D08F\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::DynamoDB::Table\\"
         },
         {
@@ -4653,7 +4653,7 @@ exports[`CloudFormation simple template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"User00B015A1\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::User\\"
         },
         {
@@ -4813,8 +4813,8 @@ exports[`CloudFormation simple template 1`] = `
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             },
                                                                             {
-                                                                                \\"value\\": {
-                                                                                    \\"0\\": {
+                                                                                \\"value\\": [
+                                                                                    {
                                                                                         \\"value\\": {
                                                                                             \\"Fn::GetAtt\\": {
                                                                                                 \\"value\\": [
@@ -4832,11 +4832,11 @@ exports[`CloudFormation simple template 1`] = `
                                                                                         },
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     },
-                                                                                    \\"1\\": {
+                                                                                    {
                                                                                         \\"value\\": \\"/index/*\\",
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     }
-                                                                                },
+                                                                                ],
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             }
                                                                         ],
@@ -4886,7 +4886,7 @@ exports[`CloudFormation simple template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"UserDefaultPolicy1F97781E\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::Policy\\"
         }
     ],

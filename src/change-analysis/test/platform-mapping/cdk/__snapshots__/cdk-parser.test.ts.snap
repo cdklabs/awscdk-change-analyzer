@@ -25,12 +25,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
                                                     {
-                                                        \\"value\\": {
-                                                            \\"0\\": {
+                                                        \\"value\\": [
+                                                            {
                                                                 \\"value\\": \\"arn:\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"1\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Ref\\": {
                                                                         \\"value\\": \\"AWS::Partition\\",
@@ -39,11 +39,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"2\\": {
+                                                            {
                                                                 \\"value\\": \\":iam::aws:policy/AmazonS3ReadOnlyAccess\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             }
-                                                        },
+                                                        ],
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
                                                 ],
@@ -66,7 +66,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"NVidiaUser1BAF4BFB\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::User\\"
         },
         {
@@ -100,7 +100,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"AccessKey\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::AccessKey\\"
         },
         {
@@ -155,7 +155,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"GameKeyKeyPairF8B1B0F0\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"Custom::KeyPair\\"
         },
         {
@@ -250,7 +250,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"InstanceInstanceSecurityGroupF0E2D5BE\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::SecurityGroup\\"
         },
         {
@@ -329,7 +329,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"InstanceInstanceRoleE9785DE5\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::Role\\"
         },
         {
@@ -417,7 +417,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"InstanceInstanceRoleDefaultPolicy4ACE9290\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::Policy\\"
         },
         {
@@ -456,7 +456,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"InstanceInstanceProfileAB5AEF02\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::InstanceProfile\\"
         },
         {
@@ -485,7 +485,7 @@ exports[`CDK kessel run stack template 1`] = `
                                             \\"Ebs\\": {
                                                 \\"value\\": {
                                                     \\"DeleteOnTermination\\": {
-                                                        \\"value\\": {},
+                                                        \\"value\\": true,
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
                                                     \\"VolumeSize\\": {
@@ -506,7 +506,7 @@ exports[`CDK kessel run stack template 1`] = `
                                 \\"componentUpdateType\\": \\"PossibleReplacement\\"
                             },
                             \\"EbsOptimized\\": {
-                                \\"value\\": {},
+                                \\"value\\": true,
                                 \\"componentUpdateType\\": \\"PossibleReplacement\\"
                             },
                             \\"IamInstanceProfile\\": {
@@ -605,12 +605,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
                                                     {
-                                                        \\"value\\": {
-                                                            \\"0\\": {
+                                                        \\"value\\": [
+                                                            {
                                                                 \\"value\\": \\"<powershell># fingerprint: 749f8215a096bff1\\\\ncfn-init.exe -v --region \\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"1\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Ref\\": {
                                                                         \\"value\\": \\"AWS::Region\\",
@@ -619,11 +619,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"2\\": {
+                                                            {
                                                                 \\"value\\": \\" --stack \\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"3\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Ref\\": {
                                                                         \\"value\\": \\"AWS::StackName\\",
@@ -632,11 +632,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"4\\": {
+                                                            {
                                                                 \\"value\\": \\" --resource InstanceC1063A87 -c default\\\\ncfn-signal.exe -e $LASTEXITCODE --region \\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"5\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Ref\\": {
                                                                         \\"value\\": \\"AWS::Region\\",
@@ -645,11 +645,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"6\\": {
+                                                            {
                                                                 \\"value\\": \\" --stack \\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"7\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Ref\\": {
                                                                         \\"value\\": \\"AWS::StackName\\",
@@ -658,11 +658,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"8\\": {
+                                                            {
                                                                 \\"value\\": \\" --resource InstanceC1063A87\\\\ntype C:\\\\\\\\cfn\\\\\\\\log\\\\\\\\cfn-init.log</powershell>\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             }
-                                                        },
+                                                        ],
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
                                                 ],
@@ -782,12 +782,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     },
                                                                                     {
-                                                                                        \\"value\\": {
-                                                                                            \\"0\\": {
+                                                                                        \\"value\\": [
+                                                                                            {
                                                                                                 \\"value\\": \\"Set-AWSCredential -AccessKey \\",
                                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                                             },
-                                                                                            \\"1\\": {
+                                                                                            {
                                                                                                 \\"value\\": {
                                                                                                     \\"Ref\\": {
                                                                                                         \\"value\\": \\"AccessKey\\",
@@ -796,11 +796,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                                 },
                                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                                             },
-                                                                                            \\"2\\": {
+                                                                                            {
                                                                                                 \\"value\\": \\" -SecretKey \\",
                                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                                             },
-                                                                                            \\"3\\": {
+                                                                                            {
                                                                                                 \\"value\\": {
                                                                                                     \\"Fn::GetAtt\\": {
                                                                                                         \\"value\\": [
@@ -818,11 +818,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                                 },
                                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                                             },
-                                                                                            \\"4\\": {
+                                                                                            {
                                                                                                 \\"value\\": \\" -StoreAs GPUUpdateG4Dn\\",
                                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                                             }
-                                                                                        },
+                                                                                        ],
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     }
                                                                                 ],
@@ -853,7 +853,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"InstanceC1063A87\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::EC2::Instance\\"
         },
         {
@@ -881,7 +881,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"WebAppBucket8F6FA179\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::S3::Bucket\\"
         },
         {
@@ -938,8 +938,8 @@ exports[`CDK kessel run stack template 1`] = `
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
                                                     {
-                                                        \\"value\\": {
-                                                            \\"0\\": {
+                                                        \\"value\\": [
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Fn::Select\\": {
                                                                         \\"value\\": [
@@ -976,7 +976,7 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"1\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Fn::Select\\": {
                                                                         \\"value\\": [
@@ -1013,7 +1013,7 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             }
-                                                        },
+                                                        ],
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
                                                 ],
@@ -1035,7 +1035,7 @@ exports[`CDK kessel run stack template 1`] = `
                                 \\"componentUpdateType\\": \\"None\\"
                             },
                             \\"Prune\\": {
-                                \\"value\\": {},
+                                \\"value\\": true,
                                 \\"componentUpdateType\\": \\"None\\"
                             }
                         },
@@ -1057,7 +1057,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"WebAppDeploymentCustomResourceD7DB25D0\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"Custom::CDKBucketDeployment\\"
         },
         {
@@ -1118,12 +1118,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
                                                     {
-                                                        \\"value\\": {
-                                                            \\"0\\": {
+                                                        \\"value\\": [
+                                                            {
                                                                 \\"value\\": \\"arn:\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"1\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Ref\\": {
                                                                         \\"value\\": \\"AWS::Partition\\",
@@ -1132,11 +1132,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"2\\": {
+                                                            {
                                                                 \\"value\\": \\":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             }
-                                                        },
+                                                        ],
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
                                                 ],
@@ -1159,7 +1159,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"WebAppLambdaServiceRoleB3C5DDDA\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::Role\\"
         },
         {
@@ -1231,12 +1231,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                     },
                                                                     {
-                                                                        \\"value\\": {
-                                                                            \\"0\\": {
+                                                                        \\"value\\": [
+                                                                            {
                                                                                 \\"value\\": \\"arn:\\",
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             },
-                                                                            \\"1\\": {
+                                                                            {
                                                                                 \\"value\\": {
                                                                                     \\"Ref\\": {
                                                                                         \\"value\\": \\"AWS::Partition\\",
@@ -1245,11 +1245,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                 },
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             },
-                                                                            \\"2\\": {
+                                                                            {
                                                                                 \\"value\\": \\":ec2:us-east-1:00000000:security-group/\\",
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             },
-                                                                            \\"3\\": {
+                                                                            {
                                                                                 \\"value\\": {
                                                                                     \\"Fn::GetAtt\\": {
                                                                                         \\"value\\": [
@@ -1267,7 +1267,7 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                 },
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             }
-                                                                        },
+                                                                        ],
                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                     }
                                                                 ],
@@ -1311,12 +1311,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                     },
                                                                     {
-                                                                        \\"value\\": {
-                                                                            \\"0\\": {
+                                                                        \\"value\\": [
+                                                                            {
                                                                                 \\"value\\": \\"arn:\\",
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             },
-                                                                            \\"1\\": {
+                                                                            {
                                                                                 \\"value\\": {
                                                                                     \\"Ref\\": {
                                                                                         \\"value\\": \\"AWS::Partition\\",
@@ -1325,11 +1325,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                 },
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             },
-                                                                            \\"2\\": {
+                                                                            {
                                                                                 \\"value\\": \\":ec2:us-east-1:00000000:instance/\\",
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             },
-                                                                            \\"3\\": {
+                                                                            {
                                                                                 \\"value\\": {
                                                                                     \\"Ref\\": {
                                                                                         \\"value\\": \\"InstanceC1063A87\\",
@@ -1338,7 +1338,7 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                 },
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             }
-                                                                        },
+                                                                        ],
                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                     }
                                                                 ],
@@ -1369,12 +1369,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                     },
                                                                     {
-                                                                        \\"value\\": {
-                                                                            \\"0\\": {
+                                                                        \\"value\\": [
+                                                                            {
                                                                                 \\"value\\": \\"arn:\\",
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             },
-                                                                            \\"1\\": {
+                                                                            {
                                                                                 \\"value\\": {
                                                                                     \\"Ref\\": {
                                                                                         \\"value\\": \\"AWS::Partition\\",
@@ -1383,11 +1383,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                 },
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             },
-                                                                            \\"2\\": {
+                                                                            {
                                                                                 \\"value\\": \\":ssm:us-east-1:00000000:parameter\\",
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             },
-                                                                            \\"3\\": {
+                                                                            {
                                                                                 \\"value\\": {
                                                                                     \\"Fn::GetAtt\\": {
                                                                                         \\"value\\": [
@@ -1405,7 +1405,7 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                 },
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             }
-                                                                        },
+                                                                        ],
                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                     }
                                                                 ],
@@ -1473,7 +1473,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"WebAppLambdaServiceRoleDefaultPolicyB264392B\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::Policy\\"
         },
         {
@@ -1507,8 +1507,8 @@ exports[`CDK kessel run stack template 1`] = `
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
                                                     {
-                                                        \\"value\\": {
-                                                            \\"0\\": {
+                                                        \\"value\\": [
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Fn::Select\\": {
                                                                         \\"value\\": [
@@ -1545,7 +1545,7 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"1\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Fn::Select\\": {
                                                                         \\"value\\": [
@@ -1582,7 +1582,7 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             }
-                                                        },
+                                                        ],
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
                                                 ],
@@ -1712,7 +1712,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"WebAppLambdaE4C4A83F\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::Lambda::Function\\"
         },
         {
@@ -1750,7 +1750,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"S3GatewayGameApp7F73230F\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::ApiGateway::RestApi\\"
         },
         {
@@ -1811,12 +1811,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
                                                     {
-                                                        \\"value\\": {
-                                                            \\"0\\": {
+                                                        \\"value\\": [
+                                                            {
                                                                 \\"value\\": \\"arn:\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"1\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Ref\\": {
                                                                         \\"value\\": \\"AWS::Partition\\",
@@ -1825,11 +1825,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"2\\": {
+                                                            {
                                                                 \\"value\\": \\":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             }
-                                                        },
+                                                        ],
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
                                                 ],
@@ -1852,7 +1852,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"S3GatewayGameAppCloudWatchRole3E18F736\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::Role\\"
         },
         {
@@ -1904,7 +1904,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"S3GatewayGameAppAccount244C69A0\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::ApiGateway::Account\\"
         },
         {
@@ -1967,7 +1967,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"S3GatewayGameAppDeployment45A40F1C1ea3f370273feac6dc79badcdb1c5090\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::ApiGateway::Deployment\\"
         },
         {
@@ -2014,7 +2014,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"S3GatewayGameAppDeploymentStageprod501ACE37\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::ApiGateway::Stage\\"
         },
         {
@@ -2140,12 +2140,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
                                                     {
-                                                        \\"value\\": {
-                                                            \\"0\\": {
+                                                        \\"value\\": [
+                                                            {
                                                                 \\"value\\": \\"arn:\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"1\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Ref\\": {
                                                                         \\"value\\": \\"AWS::Partition\\",
@@ -2154,11 +2154,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"2\\": {
+                                                            {
                                                                 \\"value\\": \\":apigateway:us-east-1:s3:path/\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"3\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Ref\\": {
                                                                         \\"value\\": \\"WebAppBucket8F6FA179\\",
@@ -2167,11 +2167,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"4\\": {
+                                                            {
                                                                 \\"value\\": \\"/index.html\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             }
-                                                        },
+                                                        ],
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
                                                 ],
@@ -2190,11 +2190,11 @@ exports[`CDK kessel run stack template 1`] = `
                                             \\"ResponseParameters\\": {
                                                 \\"value\\": {
                                                     \\"method.response.header.Content-Type\\": {
-                                                        \\"value\\": {},
+                                                        \\"value\\": false,
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
                                                     \\"method.response.header.Content-Disposition\\": {
-                                                        \\"value\\": {},
+                                                        \\"value\\": false,
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
                                                 },
@@ -2230,7 +2230,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"S3GatewayGameAppGET419DC6F4\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::ApiGateway::Method\\"
         },
         {
@@ -2286,7 +2286,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"S3GatewayGameAppproxy2374A00B\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::ApiGateway::Resource\\"
         },
         {
@@ -2412,12 +2412,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
                                                     {
-                                                        \\"value\\": {
-                                                            \\"0\\": {
+                                                        \\"value\\": [
+                                                            {
                                                                 \\"value\\": \\"arn:\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"1\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Ref\\": {
                                                                         \\"value\\": \\"AWS::Partition\\",
@@ -2426,11 +2426,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"2\\": {
+                                                            {
                                                                 \\"value\\": \\":apigateway:us-east-1:s3:path/\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"3\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Ref\\": {
                                                                         \\"value\\": \\"WebAppBucket8F6FA179\\",
@@ -2439,11 +2439,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"4\\": {
+                                                            {
                                                                 \\"value\\": \\"/{objkey}\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             }
-                                                        },
+                                                        ],
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
                                                 ],
@@ -2462,11 +2462,11 @@ exports[`CDK kessel run stack template 1`] = `
                                             \\"ResponseParameters\\": {
                                                 \\"value\\": {
                                                     \\"method.response.header.Content-Type\\": {
-                                                        \\"value\\": {},
+                                                        \\"value\\": false,
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
                                                     \\"method.response.header.Content-Disposition\\": {
-                                                        \\"value\\": {},
+                                                        \\"value\\": false,
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
                                                 },
@@ -2494,7 +2494,7 @@ exports[`CDK kessel run stack template 1`] = `
                             \\"RequestParameters\\": {
                                 \\"value\\": {
                                     \\"method.request.path.proxy\\": {
-                                        \\"value\\": {},
+                                        \\"value\\": true,
                                         \\"componentUpdateType\\": \\"None\\"
                                     }
                                 },
@@ -2511,7 +2511,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"S3GatewayGameAppproxyGET2D68D639\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::ApiGateway::Method\\"
         },
         {
@@ -2567,7 +2567,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"S3GatewayGameAppapi997B66C0\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::ApiGateway::Resource\\"
         },
         {
@@ -2616,12 +2616,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                 \\"componentUpdateType\\": \\"None\\"
                                             },
                                             {
-                                                \\"value\\": {
-                                                    \\"0\\": {
+                                                \\"value\\": [
+                                                    {
                                                         \\"value\\": \\"arn:\\",
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
-                                                    \\"1\\": {
+                                                    {
                                                         \\"value\\": {
                                                             \\"Ref\\": {
                                                                 \\"value\\": \\"AWS::Partition\\",
@@ -2630,11 +2630,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                         },
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
-                                                    \\"2\\": {
+                                                    {
                                                         \\"value\\": \\":execute-api:us-east-1:00000000:\\",
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
-                                                    \\"3\\": {
+                                                    {
                                                         \\"value\\": {
                                                             \\"Ref\\": {
                                                                 \\"value\\": \\"S3GatewayGameApp7F73230F\\",
@@ -2643,11 +2643,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                         },
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
-                                                    \\"4\\": {
+                                                    {
                                                         \\"value\\": \\"/\\",
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
-                                                    \\"5\\": {
+                                                    {
                                                         \\"value\\": {
                                                             \\"Ref\\": {
                                                                 \\"value\\": \\"S3GatewayGameAppDeploymentStageprod501ACE37\\",
@@ -2656,11 +2656,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                         },
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
-                                                    \\"6\\": {
+                                                    {
                                                         \\"value\\": \\"/*/api\\",
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
-                                                },
+                                                ],
                                                 \\"componentUpdateType\\": \\"None\\"
                                             }
                                         ],
@@ -2680,7 +2680,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"S3GatewayGameAppapiANYApiPermissionKesselRunStackS3GatewayGameAppDDC26D96ANYapi5CCFEF3A\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::Lambda::Permission\\"
         },
         {
@@ -2729,12 +2729,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                 \\"componentUpdateType\\": \\"None\\"
                                             },
                                             {
-                                                \\"value\\": {
-                                                    \\"0\\": {
+                                                \\"value\\": [
+                                                    {
                                                         \\"value\\": \\"arn:\\",
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
-                                                    \\"1\\": {
+                                                    {
                                                         \\"value\\": {
                                                             \\"Ref\\": {
                                                                 \\"value\\": \\"AWS::Partition\\",
@@ -2743,11 +2743,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                         },
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
-                                                    \\"2\\": {
+                                                    {
                                                         \\"value\\": \\":execute-api:us-east-1:00000000:\\",
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
-                                                    \\"3\\": {
+                                                    {
                                                         \\"value\\": {
                                                             \\"Ref\\": {
                                                                 \\"value\\": \\"S3GatewayGameApp7F73230F\\",
@@ -2756,11 +2756,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                         },
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
-                                                    \\"4\\": {
+                                                    {
                                                         \\"value\\": \\"/test-invoke-stage/*/api\\",
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
-                                                },
+                                                ],
                                                 \\"componentUpdateType\\": \\"None\\"
                                             }
                                         ],
@@ -2780,7 +2780,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"S3GatewayGameAppapiANYApiPermissionTestKesselRunStackS3GatewayGameAppDDC26D96ANYapi11815113\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::Lambda::Permission\\"
         },
         {
@@ -2839,12 +2839,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
                                                     {
-                                                        \\"value\\": {
-                                                            \\"0\\": {
+                                                        \\"value\\": [
+                                                            {
                                                                 \\"value\\": \\"arn:\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"1\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Ref\\": {
                                                                         \\"value\\": \\"AWS::Partition\\",
@@ -2853,11 +2853,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"2\\": {
+                                                            {
                                                                 \\"value\\": \\":apigateway:us-east-1:lambda:path/2015-03-31/functions/\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"3\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Fn::GetAtt\\": {
                                                                         \\"value\\": [
@@ -2875,11 +2875,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"4\\": {
+                                                            {
                                                                 \\"value\\": \\"/invocations\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             }
-                                                        },
+                                                        ],
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
                                                 ],
@@ -2925,7 +2925,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"S3GatewayGameAppapiANY8309A6C9\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::ApiGateway::Method\\"
         },
         {
@@ -2986,7 +2986,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"S3IntegrationRoleF31D2F62\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::Role\\"
         },
         {
@@ -3056,8 +3056,8 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             },
                                                                             {
-                                                                                \\"value\\": {
-                                                                                    \\"0\\": {
+                                                                                \\"value\\": [
+                                                                                    {
                                                                                         \\"value\\": {
                                                                                             \\"Fn::GetAtt\\": {
                                                                                                 \\"value\\": [
@@ -3075,11 +3075,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                         },
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     },
-                                                                                    \\"1\\": {
+                                                                                    {
                                                                                         \\"value\\": \\"/*\\",
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     }
-                                                                                },
+                                                                                ],
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             }
                                                                         ],
@@ -3133,7 +3133,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"S3IntegrationRoleDefaultPolicy5B77AE07\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::Policy\\"
         },
         {
@@ -3275,7 +3275,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"KeyPairProviderCustomResourceProviderRoleA32FD897\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::Role\\"
         },
         {
@@ -3309,8 +3309,8 @@ exports[`CDK kessel run stack template 1`] = `
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
                                                     {
-                                                        \\"value\\": {
-                                                            \\"0\\": {
+                                                        \\"value\\": [
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Fn::Select\\": {
                                                                         \\"value\\": [
@@ -3347,7 +3347,7 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"1\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Fn::Select\\": {
                                                                         \\"value\\": [
@@ -3384,7 +3384,7 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             }
-                                                        },
+                                                        ],
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
                                                 ],
@@ -3450,7 +3450,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"KeyPairProviderCustomResourceProviderHandlerBB6F16AF\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::Lambda::Function\\"
         },
         {
@@ -3511,12 +3511,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
                                                     {
-                                                        \\"value\\": {
-                                                            \\"0\\": {
+                                                        \\"value\\": [
+                                                            {
                                                                 \\"value\\": \\"arn:\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"1\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Ref\\": {
                                                                         \\"value\\": \\"AWS::Partition\\",
@@ -3525,11 +3525,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"2\\": {
+                                                            {
                                                                 \\"value\\": \\":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole\\",
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             }
-                                                        },
+                                                        ],
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
                                                 ],
@@ -3552,7 +3552,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::Role\\"
         },
         {
@@ -3604,12 +3604,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             },
                                                                             {
-                                                                                \\"value\\": {
-                                                                                    \\"0\\": {
+                                                                                \\"value\\": [
+                                                                                    {
                                                                                         \\"value\\": \\"arn:\\",
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     },
-                                                                                    \\"1\\": {
+                                                                                    {
                                                                                         \\"value\\": {
                                                                                             \\"Ref\\": {
                                                                                                 \\"value\\": \\"AWS::Partition\\",
@@ -3618,11 +3618,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                         },
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     },
-                                                                                    \\"2\\": {
+                                                                                    {
                                                                                         \\"value\\": \\":s3:::\\",
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     },
-                                                                                    \\"3\\": {
+                                                                                    {
                                                                                         \\"value\\": {
                                                                                             \\"Ref\\": {
                                                                                                 \\"value\\": \\"AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\",
@@ -3631,7 +3631,7 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                         },
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     }
-                                                                                },
+                                                                                ],
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             }
                                                                         ],
@@ -3649,12 +3649,12 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             },
                                                                             {
-                                                                                \\"value\\": {
-                                                                                    \\"0\\": {
+                                                                                \\"value\\": [
+                                                                                    {
                                                                                         \\"value\\": \\"arn:\\",
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     },
-                                                                                    \\"1\\": {
+                                                                                    {
                                                                                         \\"value\\": {
                                                                                             \\"Ref\\": {
                                                                                                 \\"value\\": \\"AWS::Partition\\",
@@ -3663,11 +3663,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                         },
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     },
-                                                                                    \\"2\\": {
+                                                                                    {
                                                                                         \\"value\\": \\":s3:::\\",
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     },
-                                                                                    \\"3\\": {
+                                                                                    {
                                                                                         \\"value\\": {
                                                                                             \\"Ref\\": {
                                                                                                 \\"value\\": \\"AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\",
@@ -3676,11 +3676,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                         },
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     },
-                                                                                    \\"4\\": {
+                                                                                    {
                                                                                         \\"value\\": \\"/*\\",
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     }
-                                                                                },
+                                                                                ],
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             }
                                                                         ],
@@ -3759,8 +3759,8 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             },
                                                                             {
-                                                                                \\"value\\": {
-                                                                                    \\"0\\": {
+                                                                                \\"value\\": [
+                                                                                    {
                                                                                         \\"value\\": {
                                                                                             \\"Fn::GetAtt\\": {
                                                                                                 \\"value\\": [
@@ -3778,11 +3778,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                                                         },
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     },
-                                                                                    \\"1\\": {
+                                                                                    {
                                                                                         \\"value\\": \\"/*\\",
                                                                                         \\"componentUpdateType\\": \\"None\\"
                                                                                     }
-                                                                                },
+                                                                                ],
                                                                                 \\"componentUpdateType\\": \\"None\\"
                                                                             }
                                                                         ],
@@ -3836,7 +3836,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::Policy\\"
         },
         {
@@ -3870,8 +3870,8 @@ exports[`CDK kessel run stack template 1`] = `
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     },
                                                     {
-                                                        \\"value\\": {
-                                                            \\"0\\": {
+                                                        \\"value\\": [
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Fn::Select\\": {
                                                                         \\"value\\": [
@@ -3908,7 +3908,7 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             },
-                                                            \\"1\\": {
+                                                            {
                                                                 \\"value\\": {
                                                                     \\"Fn::Select\\": {
                                                                         \\"value\\": [
@@ -3945,7 +3945,7 @@ exports[`CDK kessel run stack template 1`] = `
                                                                 },
                                                                 \\"componentUpdateType\\": \\"None\\"
                                                             }
-                                                        },
+                                                        ],
                                                         \\"componentUpdateType\\": \\"None\\"
                                                     }
                                                 ],
@@ -4020,7 +4020,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::Lambda::Function\\"
         },
         {
@@ -4049,7 +4049,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"CDKMetadata\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::CDK::Metadata\\"
         },
         {
@@ -4066,12 +4066,12 @@ exports[`CDK kessel run stack template 1`] = `
                                         \\"componentUpdateType\\": \\"None\\"
                                     },
                                     {
-                                        \\"value\\": {
-                                            \\"0\\": {
+                                        \\"value\\": [
+                                            {
                                                 \\"value\\": \\"https://\\",
                                                 \\"componentUpdateType\\": \\"None\\"
                                             },
-                                            \\"1\\": {
+                                            {
                                                 \\"value\\": {
                                                     \\"Ref\\": {
                                                         \\"value\\": \\"S3GatewayGameApp7F73230F\\",
@@ -4080,11 +4080,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                 },
                                                 \\"componentUpdateType\\": \\"None\\"
                                             },
-                                            \\"2\\": {
+                                            {
                                                 \\"value\\": \\".execute-api.us-east-1.\\",
                                                 \\"componentUpdateType\\": \\"None\\"
                                             },
-                                            \\"3\\": {
+                                            {
                                                 \\"value\\": {
                                                     \\"Ref\\": {
                                                         \\"value\\": \\"AWS::URLSuffix\\",
@@ -4093,11 +4093,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                 },
                                                 \\"componentUpdateType\\": \\"None\\"
                                             },
-                                            \\"4\\": {
+                                            {
                                                 \\"value\\": \\"/\\",
                                                 \\"componentUpdateType\\": \\"None\\"
                                             },
-                                            \\"5\\": {
+                                            {
                                                 \\"value\\": {
                                                     \\"Ref\\": {
                                                         \\"value\\": \\"S3GatewayGameAppDeploymentStageprod501ACE37\\",
@@ -4106,11 +4106,11 @@ exports[`CDK kessel run stack template 1`] = `
                                                 },
                                                 \\"componentUpdateType\\": \\"None\\"
                                             },
-                                            \\"6\\": {
+                                            {
                                                 \\"value\\": \\"/\\",
                                                 \\"componentUpdateType\\": \\"None\\"
                                             }
-                                        },
+                                        ],
                                         \\"componentUpdateType\\": \\"None\\"
                                     }
                                 ],
@@ -4123,7 +4123,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"S3GatewayGameAppEndpoint960301A3\\",
-            \\"type\\": \\"output\\"
+            \\"type\\": \\"Output\\"
         },
         {
             \\"incoming\\": {},
@@ -4142,7 +4142,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3Bucket69CDE7B7\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"String\\"
         },
         {
@@ -4162,7 +4162,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3VersionKey3E23C446\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"String\\"
         },
         {
@@ -4182,7 +4182,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047ArtifactHashDD30B458\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"String\\"
         },
         {
@@ -4202,7 +4202,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3Bucket77147E20\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"String\\"
         },
         {
@@ -4222,7 +4222,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3VersionKey4253216F\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"String\\"
         },
         {
@@ -4242,7 +4242,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176ArtifactHash4E343C6C\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"String\\"
         },
         {
@@ -4262,7 +4262,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"String\\"
         },
         {
@@ -4282,7 +4282,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3VersionKeyAC52A7BF\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"String\\"
         },
         {
@@ -4302,7 +4302,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fArtifactHashE5AC1E7E\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"String\\"
         },
         {
@@ -4322,7 +4322,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3BucketA30C151C\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"String\\"
         },
         {
@@ -4342,7 +4342,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3VersionKeyE2D63F25\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"String\\"
         },
         {
@@ -4362,7 +4362,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7ArtifactHash6C4D52FA\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"String\\"
         },
         {
@@ -4382,7 +4382,7 @@ exports[`CDK kessel run stack template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"SsmParameterValueawsserviceamiwindowslatestWindowsServer2019EnglishFullBaseC96584B6F00A464EAD1953AFF4B05118Parameter\\",
-            \\"type\\": \\"parameter\\",
+            \\"type\\": \\"Parameter\\",
             \\"subtype\\": \\"AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>\\"
         },
         {
@@ -5963,7 +5963,7 @@ exports[`CDK simple template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"Table1725C6B72\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::DynamoDB::Table\\"
         },
         {
@@ -6045,7 +6045,7 @@ exports[`CDK simple template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"ConstructWithTableTable14C141063\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::DynamoDB::Table\\"
         },
         {
@@ -6118,7 +6118,7 @@ exports[`CDK simple template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"Table2DBDCD1F7\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::DynamoDB::Table\\"
         },
         {
@@ -6138,7 +6138,7 @@ exports[`CDK simple template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"user2C2B57AE\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::User\\"
         },
         {
@@ -6281,7 +6281,7 @@ exports[`CDK simple template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"userDefaultPolicy083DF682\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::IAM::Policy\\"
         },
         {
@@ -6314,7 +6314,7 @@ exports[`CDK simple template 1`] = `
                 \\"componentUpdateType\\": \\"None\\"
             },
             \\"name\\": \\"CDKMetadata\\",
-            \\"type\\": \\"resource\\",
+            \\"type\\": \\"Resource\\",
             \\"subtype\\": \\"AWS::CDK::Metadata\\"
         },
         {

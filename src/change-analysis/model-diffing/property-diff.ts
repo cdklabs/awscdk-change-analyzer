@@ -68,9 +68,13 @@ export class PropertyDiffCreator {
         
         const pickedSameNames: [string, PropertyDiff][] = sameNameKeys
             .map((k): [string, PropertyDiff] => [k, this.create(a[k], b[k], [...pathP1, k], [...pathP2, k])])
-            .filter(([, pd]) => pd.similarity >= propertySimilarityThreshold)
-            .map(([k, pd]) => [k, {...pd, weight: pd.weight + 1}]); // similar structure impacts similarity weight
-            
+            .map(([k, pd]): [string, PropertyDiff] => [k, {
+                ...pd,
+                similarity: pd.similarity + (1 - pd.similarity)*(1/(pd.weight+1)),
+                weight: pd.weight + 1
+            }]) // keys impact similiarity as much as string values
+            .filter(([, pd]) => pd.similarity >= propertySimilarityThreshold);
+
         const pickedSameNameKeys = new Set(pickedSameNames.map(([k]) => k));
         const sameNameDiffs = pickedSameNames.map(([, pd]) => pd);
 

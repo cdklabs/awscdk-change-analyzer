@@ -22,13 +22,6 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
   },
-  row: {
-    alignItems: 'stretch',
-    overflowY: 'hidden',
-  },
-  selected: {
-    height: '100%',
-  }
 });
 
 interface props {
@@ -43,8 +36,8 @@ function ChangeTree({changeReport}: props) {
         <Paper elevation={3} className={classes.root}>
             <CollapsableRow
               icon={<ErrorIcon/>}
-              className={`${expanded === 0 ? classes.selected : ''} ${classes.row}`}
               expanded={expanded === 0}
+              stretchOnExpand
               onChange={(e, expand) => expand ? setExpanded(0) : setExpanded(-1)}
               title="High Risk Changes"
               content={
@@ -56,8 +49,8 @@ function ChangeTree({changeReport}: props) {
             />
             <CollapsableRow
               icon={<WarningIcon/>}
-              className={`${expanded === 1 ? classes.selected : ''} ${classes.row}`}
               expanded={expanded === 1}
+              stretchOnExpand
               onChange={(e, expand) => expand ? setExpanded(1) : setExpanded(-1)}
               title="Medium Risk Changes"
               content={"asd"}
@@ -65,8 +58,8 @@ function ChangeTree({changeReport}: props) {
             />
             <CollapsableRow
               icon={<InfoIcon/>}
-              className={`${expanded === 2 ? classes.selected : ''} ${classes.row}`}
               expanded={expanded === 2}
+              stretchOnExpand
               onChange={(e, expand) => expand ? setExpanded(2) : setExpanded(-1)}
               title="Low Risk Changes"
               content={"asd"}

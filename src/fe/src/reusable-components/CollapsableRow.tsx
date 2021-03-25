@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Accordion as MuiAccordion, AccordionDetails, AccordionSummary, Box, Theme, Typography } from "@material-ui/core";
 import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
 
@@ -6,10 +6,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
+  wrapper: {
+    display: props => props.stickySummary ? 'contents' : 'flex',
+    alignItems: 'stretch',
+    overflowY: 'hidden',
+    height: props => props.expanded && props.stretchOnExpand ? '100%' : 'auto',
+  },
   head: {
+    position: 'sticky',
+    top: '0',
     overflow: 'hidden',
     maxWidth: '100%',
-    backgroundColor: (props: Props) => props.selected ? 'rgba(0,0,0,0.14)' : props.color ?? 'rgba(0,0,0,0)',
+    margin: props => props.expanded && props.stickySummary ? theme.spacing(0,0,1,0) : 0,
+    backgroundColor: (props: Props) => props.selected ? '#ddd' : props.color ?? '#fff',
     '& > :first-child': {
         alignItems: 'center',
         maxWidth: '100%',
@@ -19,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         backgroundColor: undefined,
     },
     '&.Mui-expanded': {
-        backgroundColor: (props: Props) => props.color ?? 'rgba(0,0,0,0.06)',
+        backgroundColor: (props: Props) => props.color ?? '#eee',
     },
   },
   headText: {
@@ -49,7 +58,6 @@ const Accordion = withStyles({
         boxShadow: 'none',
         display: 'flex',
         flexDirection: 'column',
-        height: '100%',
         width: '100%',  
         '&:not(:last-child)': {
             borderBottom: 0,
@@ -76,15 +84,24 @@ interface Props {
     color?: string,
     expanded?: boolean,
     onChange?: (event: React.ChangeEvent<{}>, expanded: boolean) => void,
-    className?: string,
-    selected?: boolean
+    selected?: boolean,
+    stretchOnExpand?: boolean,
+    stickySummary?: boolean,
 }
 
 const CollapsableRow = (props: Props) => {
-    const classes = useStyles(props);
-    const {title, description, content, expanded, onChange, className, icon} = props;
+    
+    let {expanded, onChange} = props;
+    if(!onChange){
+        const expandedUseState = useState(expanded ?? false);
+        expanded = expandedUseState[0];
+        onChange = (e, expanded) => expandedUseState[1](expanded);
+    }
+    const {title, description, content, icon} = props;
+    const classes = useStyles({...props, expanded});
+
     return (
-        <div className={className}>
+        <div className={classes.wrapper}>
             <Accordion onChange={onChange} expanded={content ? expanded : false} TransitionProps={{ unmountOnExit: true }}>
                 <AccordionSummary className={classes.head} expandIcon={content ? <ExpandMoreIcon /> : <React.Fragment/>}>
                     <Typography className={classes.headIcon}>{icon}</Typography>

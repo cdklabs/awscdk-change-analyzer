@@ -77,6 +77,10 @@ export abstract class ComponentProperty implements JSONSerializable {
     public abstract toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedComponentProperty;
 
     public abstract getSerializationClass(): string;
+
+    public toJSON(): ComponentPropertyValue | undefined{
+        return this.value;
+    }
 }
 
 export abstract class ComponentCollectionProperty extends ComponentProperty {}

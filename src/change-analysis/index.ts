@@ -11,5 +11,5 @@ const newModel = new CDKParser(readSampleInput('kessel-run-stack-after.json')).p
 
 console.log(
     new JSONSerializer().serialize(createChangeAnalysisReport({v1: oldModel, v2: newModel}))
-    );
+);
 

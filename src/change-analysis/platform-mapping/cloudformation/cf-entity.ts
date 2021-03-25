@@ -92,27 +92,21 @@ export abstract class CFEntity {
         return factory(definition, []);
         
         function factory (definition: CFDefinition, propertyPath: string[]): ComponentProperty {
-            if (typeof definition === 'string' || typeof definition === 'number') {
-                return new ComponentPropertyPrimitive(definition,
-                    updateTypeGetter(propertyPath));
+            const updateType = updateTypeGetter(propertyPath);
+            if (Array.isArray(definition)) {
+                return new ComponentPropertyArray(
+                    definition.map((v, i) => factory(v, [...propertyPath, i.toString()])),
+                    updateType
+                );
+            } else if(typeof definition === 'object' && definition !== null) {
+                return new ComponentPropertyRecord(Object.fromEntries(
+                    Object.entries(definition).map(([propKey, propValue]) => {
+                        const newPropertyPath = [...propertyPath, propKey];
+                        return [propKey, factory(propValue, newPropertyPath)];
+                    })), updateType);
+            } else {
+                return new ComponentPropertyPrimitive(definition, updateType);
             }
-            return new ComponentPropertyRecord(Object.fromEntries(
-                Object.entries(definition).map(([propKey, propValue]) => {
-                    const newPropertyPath = [...propertyPath, propKey];
-  
-                    if (Array.isArray(propValue)) {
-                        return [propKey, new ComponentPropertyArray(
-                                propValue.map((v, i) => factory(v, [...newPropertyPath, i.toString()])),
-                                updateTypeGetter(newPropertyPath)
-                            )
-                        ];
-                    } else if(typeof propValue === 'object' && propValue !== null) {
-                        return [propKey, factory(propValue, newPropertyPath)];
-                    } else {
-                        return [propKey, factory(propValue, newPropertyPath)];
-                    }
-                }).filter(isDefined)
-            ), updateTypeGetter(propertyPath));
         }
     }
 

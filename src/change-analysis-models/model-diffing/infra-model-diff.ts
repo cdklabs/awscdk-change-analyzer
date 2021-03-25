@@ -5,6 +5,8 @@ import { Component, InfraModel } from "../infra-model";
 import { groupArrayBy, isDefined } from "../utils";
 import { ComponentOperation } from "./operations";
 import { Transition, transitionSerializer } from "./transition";
+
+export class TransitionNotFoundError extends Error {}
  
 export class InfraModelDiff implements JSONSerializable {
 
@@ -36,7 +38,7 @@ export class InfraModelDiff implements JSONSerializable {
     public getComponentTransition(e: Component): Transition<Component>{
         const t = this.componentToTransitionMap.get(e);
         if(!t)
-            throw Error(`Could not find component ${e.name} in model`);
+            throw new TransitionNotFoundError(`Could not find transition for component ${e.name} in model`);
         return t;
     }
 
