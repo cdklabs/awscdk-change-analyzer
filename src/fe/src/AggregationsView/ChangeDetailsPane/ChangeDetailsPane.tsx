@@ -1,11 +1,10 @@
 import React from 'react';
-import { ComponentOperation, PropertyComponentOperation } from 'change-cd-iac-models/model-diffing';
-import { Accordion, AccordionDetails, AccordionSummary, Box, Chip, Divider, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
-import { ChangeAnalysisReport } from 'change-cd-iac-models/change-analysis-report';
+import { ComponentOperation } from 'change-cd-iac-models/model-diffing';
+import { Box, makeStyles, Theme, Typography } from '@material-ui/core';
 import { Aggregation, getAllDescriptions } from 'change-cd-iac-models/aggregations';
 import ChangesDiff from './ChangesDiff';
-import CollapsableRow from '../reusable-components/CollapsableRow';
-import { useIdAssignerHook } from '../utils/idCreator';
+import CollapsableRow from '../../reusable-components/CollapsableRow';
+import { useIdAssignerHook } from '../../utils/idCreator';
 
 interface props {
     agg?: Aggregation<ComponentOperation>,
@@ -89,7 +88,7 @@ function ChangeDetailsPane({agg}: props) {
                             expanded={agg.entities.size === 1}
                             icon={`${i+1}.`}
                             title={<b>{(op.componentTransition.v2?.name || op.componentTransition.v1?.name)}</b>}
-                            content={<div className={`${classes.occurrenceContent}`}><ChangesDiff operation={op} /></div>}
+                            content={<div className={`${classes.occurrenceContent}`}><ChangesDiff componentTransition={op.componentTransition} /></div>}
                         />
                     )}
                 </Box>

@@ -1,14 +1,14 @@
 import React from 'react';
 import { ComponentOperation, PropertyComponentOperation, Transition } from 'change-cd-iac-models/model-diffing';
 import { Typography } from '@material-ui/core';
-import { AppContext } from '../App';
-import { getPropertyDiff } from '../selectors/getPropertyDiff';
+import { AppContext } from '../../App';
+import { getPropertyDiff } from '../../selectors/getPropertyDiff';
 import { ChangeAnalysisReport } from 'change-cd-iac-models/change-analysis-report';
 import { Component } from 'change-cd-iac-models/infra-model';
-import { DiffHighlightType } from '../selectors/diff-stringifier';
+import { DiffHighlightType } from '../../selectors/diff-stringifier';
 
-interface props {
-    operation: ComponentOperation,
+interface Props {
+    componentTransition: Transition<Component>,
 }
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,14 +23,14 @@ const useStyles = makeStyles({
   },
 });
 
-function ChangesDiff({operation}: props) {
+function ChangesDiff({componentTransition}: Props) {
     const classes = useStyles();
     return (
         <AppContext.Consumer>{({changeReport}) =>
             <Typography>
                 <pre className={classes.pre}>
                     {
-                        renderPropertyDiff(operation.componentTransition, changeReport)
+                        renderPropertyDiff(componentTransition, changeReport)
                     }
                 </pre>
             </Typography>

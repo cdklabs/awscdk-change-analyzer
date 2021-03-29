@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import CollapsableRow from '../reusable-components/CollapsableRow';
+import CollapsableRow from '../../reusable-components/CollapsableRow';
 import { List, Paper, Typography } from '@material-ui/core';
 
 import {
   Error as ErrorIcon,
   Warning as WarningIcon,
   Info as InfoIcon,
-  ListAltRounded
 } from '@material-ui/icons';
-import { ChangeAnalysisReport } from 'change-cd-iac-models/change-analysis-report';
 import ChangesGroup from './ChangesGroup';
 import { CompOpAggCharacteristics, Aggregation } from 'change-cd-iac-models/aggregations';
 import { ComponentOperation } from 'change-cd-iac-models/model-diffing';
 import { isDefined } from 'change-cd-iac-models/utils';
+import { AppContext } from '../../App';
 
 const useStyles = makeStyles({
   root: {
@@ -24,15 +23,12 @@ const useStyles = makeStyles({
   },
 });
 
-interface props {
-    changeReport: ChangeAnalysisReport
-}
-
-function ChangeTree({changeReport}: props) {
+function ChangeTree() {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(0);
 
     return (
+      <AppContext.Consumer>{({changeReport}) =>
         <Paper elevation={3} className={classes.root}>
             <CollapsableRow
               icon={<ErrorIcon/>}
@@ -66,6 +62,7 @@ function ChangeTree({changeReport}: props) {
               color="#C1DEEC"
             />
         </Paper>
+      }</AppContext.Consumer>
     );
 }
 

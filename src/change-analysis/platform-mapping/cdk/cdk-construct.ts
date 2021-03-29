@@ -15,7 +15,7 @@ export class CDKConstruct {
 
         const name = this.path[this.path.length-1];
 
-        this.component = new Component(name, 'cdk-construct', {properties: new ComponentPropertyPrimitive(path)});
+        this.component = new Component(name, 'CDK Construct', {properties: new ComponentPropertyPrimitive(path)});
     }
 
     public addChild(child: Component): void{

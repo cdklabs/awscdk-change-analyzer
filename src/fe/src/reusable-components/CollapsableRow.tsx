@@ -36,6 +36,8 @@ const useStyles = makeStyles((theme: Theme) => ({
       flexDirection: 'column',
       paddingLeft: theme.spacing(1),
       wordWrap: 'break-word',
+      whiteSpace: 'pre-wrap',
+      wordBreak: 'break-all',
   },
   headDescription: {
       color: theme.palette.text.secondary,
@@ -62,7 +64,7 @@ const Accordion = withStyles({
         '&:not(:last-child)': {
             borderBottom: 0,
         },
-        '& :last-child': {
+        '& > :last-child': {
             overflowY: 'auto',
         },
         '&:before': {

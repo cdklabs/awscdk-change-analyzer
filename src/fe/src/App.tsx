@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
-import { ComponentOperation, InfraModelDiff } from 'change-cd-iac-models/model-diffing';
-import ChangeTree from './ChangeTree';
-import ChangeDetailsPane from './ChangeDetailsPane/ChangeDetailsPane';
-import { Grid } from '@material-ui/core';
+import { Tab, Tabs, AppBar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ChangeAnalysisReport } from 'change-cd-iac-models/change-analysis-report';
-import { Aggregation } from 'change-cd-iac-models/aggregations';
-import { useIdAssignerHook } from './utils/idCreator';
+import AggregationsTab from './AggregationsView/AggregationsTab';
+import HierarchicalTab from './HierarchicalView/HierarchicalTab';
 
 
 interface AppState {
-    selectedAgg?: Aggregation<ComponentOperation>,
-    setSelectedAgg?: (agg?: Aggregation<ComponentOperation>) => void,
     changeReport: ChangeAnalysisReport,
 }
 
@@ -19,8 +14,16 @@ export const AppContext = React.createContext({} as AppState);
 
 
 const useStyles = makeStyles({
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh',
+  },
   panel: {
-    height: '100vh'
+    height: '100%',
+    maxHeight: '100%',
+    overflow: 'hidden',
+    flexGrow: 1
   },
 });
 
@@ -31,22 +34,26 @@ interface props {
 const App = ({changeReport}: props) => {
     const classes = useStyles();
 
-    const [selectedAgg, setSelectedAgg] = useState(undefined as Aggregation<ComponentOperation> | undefined);
-
-    const idAssigner = useIdAssignerHook();
+    const [selectedTab, setSelectedTab] = useState(0);
     
     return (
         <AppContext.Provider
-            value={{ selectedAgg, setSelectedAgg, changeReport }}
+            value={{ changeReport }}
         >
-            <Grid container spacing={0}>
-                <Grid item xs={12} md={6} lg={4} className={classes.panel}>
-                    <ChangeTree changeReport={changeReport}/>
-                </Grid>
-                <Grid item xs={12} md={6} lg={8} className={classes.panel}>
-                    <ChangeDetailsPane key={idAssigner.get(selectedAgg)} agg={selectedAgg}/>
-                </Grid>
-            </Grid>
+            <div className={classes.wrapper}>
+                <AppBar position="static" color="transparent">
+                    <Tabs value={selectedTab} onChange={(e, v) => setSelectedTab(v)} aria-label="simple tabs example">
+                        <Tab label="All Changes" />
+                        <Tab label="Hierarchical View" />
+                    </Tabs>
+                </AppBar>
+                <div className={classes.panel} hidden={selectedTab !== 0}>
+                    <AggregationsTab />
+                </div>
+                <div className={classes.panel} hidden={selectedTab !== 1}>
+                    <HierarchicalTab />
+                </div>
+            </div>
         </AppContext.Provider>
     );
 };

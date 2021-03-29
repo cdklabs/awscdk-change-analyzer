@@ -1,11 +1,11 @@
-import { Box, Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { Aggregation } from "change-cd-iac-models/aggregations"
 import { ComponentOperation } from "change-cd-iac-models/model-diffing"
 import React from "react";
-import CollapsableRow from "../reusable-components/CollapsableRow"
+import CollapsableRow from "../../reusable-components/CollapsableRow"
 
 import { makeStyles } from '@material-ui/core/styles';
-import { AppContext } from '../App';
+import { AggregationsContext } from '../AggregationsTab';
 
 const useStyles = makeStyles({
   content: {
@@ -25,7 +25,7 @@ interface Props {
 const ChangesGroup = ({ig, title, description}: Props) => {
     const classes = useStyles();
 
-    return <AppContext.Consumer>{({selectedAgg, setSelectedAgg}) => 
+    return <AggregationsContext.Consumer>{({selectedAgg, setSelectedAgg}) => 
       <CollapsableRow
         icon={`${ig.entities.size}x`}
         title={title
@@ -40,7 +40,7 @@ const ChangesGroup = ({ig, title, description}: Props) => {
           }</Box>
         }
       />
-      }</AppContext.Consumer>
+      }</AggregationsContext.Consumer>
 }
 
 export default ChangesGroup;
