@@ -28,7 +28,7 @@ export interface PropertyDiff {
     readonly operation?: PropertyComponentOperation,
 }
 
-const propertySimilarityThreshold = 0.5;
+const propertySimilarityThreshold = 0.6;
 
 /**
  * Creates the PropertyDiff between two properties of a given Transition<Component>.
@@ -206,7 +206,7 @@ export class PropertyDiffCreator {
         if(similarity !== 1)
             operation = new UpdatePropertyComponentOperation({v1: pathP1, v2: pathP2}, {v1: p1, v2: p2}, this.componentTransition);
         
-        return {similarity, weight: 1, operation};
+        return {similarity, weight: 2, operation};
     }
     
     private fromDifferentProperties(

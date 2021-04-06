@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         backgroundColor: undefined,
     },
     '&.Mui-expanded': {
-        backgroundColor: (props: Props) => props.color ?? '#eee',
+        backgroundColor: (props: Props) => props.selected ? '#ddd' : props.color ?? '#eee',
     },
   },
   headText: {
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       wordWrap: 'break-word',
       whiteSpace: 'pre-wrap',
       wordBreak: 'break-all',
+      flex: '1',
   },
   headDescription: {
       color: theme.palette.text.secondary,
@@ -89,6 +90,7 @@ interface Props {
     selected?: boolean,
     stretchOnExpand?: boolean,
     stickySummary?: boolean,
+    rightIcon?: React.ReactNode,
 }
 
 const CollapsableRow = (props: Props) => {
@@ -99,7 +101,7 @@ const CollapsableRow = (props: Props) => {
         expanded = expandedUseState[0];
         onChange = (e, expanded) => expandedUseState[1](expanded);
     }
-    const {title, description, content, icon} = props;
+    const {title, description, content, icon, rightIcon} = props;
     const classes = useStyles({...props, expanded});
 
     return (
@@ -111,6 +113,7 @@ const CollapsableRow = (props: Props) => {
                         <Typography>{title}</Typography>
                         {description && <Typography variant="body2" className={classes.headDescription}>{description}</Typography>}
                     </div>
+                    {rightIcon ? rightIcon : ''}
                 </AccordionSummary>
                 <AccordionDetails className={classes.content}>
                         {content}

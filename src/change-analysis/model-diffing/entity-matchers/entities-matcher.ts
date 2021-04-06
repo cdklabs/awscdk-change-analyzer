@@ -25,7 +25,7 @@ export function matchEntities<T, K = undefined>(
     entitiesA: T[],
     entitiesB: T[],
     similarityEvaluator: SimilarityEvaluator<T, K>,
-    similarityThreshold = 0.5,
+    similarityThreshold = 0.6,
 ): EntitiesMatcherResults<T, K> {
     
     const matchesBySimilarity = findMatchesDecreasingSimilarity(

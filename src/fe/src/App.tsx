@@ -4,10 +4,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ChangeAnalysisReport } from 'change-cd-iac-models/change-analysis-report';
 import AggregationsTab from './AggregationsView/AggregationsTab';
 import HierarchicalTab from './HierarchicalView/HierarchicalTab';
+import { Component } from 'change-cd-iac-models/infra-model';
+import { Transition } from 'change-cd-iac-models/model-diffing';
 
 
 interface AppState {
     changeReport: ChangeAnalysisReport,
+    showComponentInHierarchy: (comp: Transition<Component>) => void
 }
 
 export const AppContext = React.createContext({} as AppState);
@@ -36,9 +39,16 @@ const App = ({changeReport}: props) => {
 
     const [selectedTab, setSelectedTab] = useState(0);
     
+    const [selectedCompTransition, setSelectedCompTransition] = useState(undefined as Transition<Component> | undefined);
+
+    const showComponentInHierarchy = (comp: Transition<Component>) => {
+        setSelectedTab(1);
+        setSelectedCompTransition(comp);
+    };
+
     return (
         <AppContext.Provider
-            value={{ changeReport }}
+            value={{ changeReport, showComponentInHierarchy }}
         >
             <div className={classes.wrapper}>
                 <AppBar position="static" color="transparent">
@@ -51,7 +61,7 @@ const App = ({changeReport}: props) => {
                     <AggregationsTab />
                 </div>
                 <div className={classes.panel} hidden={selectedTab !== 1}>
-                    <HierarchicalTab />
+                    <HierarchicalTab selectedCompTransition={selectedCompTransition} setSelectedCompTransition={setSelectedCompTransition}/>
                 </div>
             </div>
         </AppContext.Provider>

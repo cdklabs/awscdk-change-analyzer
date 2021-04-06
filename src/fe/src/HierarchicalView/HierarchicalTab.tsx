@@ -11,8 +11,8 @@ import { AppContext } from '../App';
 
 
 interface HierarchicalViewState {
-    selectedComponentTransition?: Transition<Component>,
-    setSelectedComponentTransition: Function
+    selectedCompTransition?: Transition<Component>,
+    setSelectedCompTransition: Function
 }
 
 export const HierarchicalViewContext = React.createContext({} as HierarchicalViewState);
@@ -24,16 +24,14 @@ const useStyles = makeStyles({
   },
 });
 
-const HierarchicalTab = () => {
+const HierarchicalTab = ({selectedCompTransition, setSelectedCompTransition}: HierarchicalViewState) => {
     const classes = useStyles();
-
-    const [selectedComponentTransition, setSelectedComponentTransition] = useState(undefined as Transition<Component> | undefined);
 
     const idAssigner = useIdAssignerHook();
     
     return (
         <HierarchicalViewContext.Provider
-            value={{ selectedComponentTransition, setSelectedComponentTransition }}
+            value={{ selectedCompTransition, setSelectedCompTransition }}
         >
             <AppContext.Consumer>{({changeReport}) => 
             <Grid container spacing={0} className={classes.fillHeight}>
@@ -41,7 +39,7 @@ const HierarchicalTab = () => {
                     <HierarchicalTree />
                 </Grid>
                 <Grid item xs={12} md={6} lg={8} className={classes.fillHeight}>
-                    <HierarchicalDetailsPane key={idAssigner.get(selectedComponentTransition)} componentTransition={selectedComponentTransition} componentOps={selectedComponentTransition && changeReport.infraModelDiff.getTransitionOperations(selectedComponentTransition)} />
+                    <HierarchicalDetailsPane key={idAssigner.get(selectedCompTransition)} componentTransition={selectedCompTransition} componentOps={selectedCompTransition && changeReport.infraModelDiff.getTransitionOperations(selectedCompTransition)} />
                 </Grid>
             </Grid>
             }</AppContext.Consumer>

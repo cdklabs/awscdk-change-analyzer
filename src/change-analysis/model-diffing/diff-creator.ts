@@ -24,7 +24,7 @@ import {
 } from "./entity-matchers/component-similarity";
 import { relationshipSimilarityEvaluatorCreator } from "./entity-matchers/relationship-similarity";
 
-const similarityThreshold = 0.5;
+const similarityThreshold = 0.6;
 
 export class DiffCreator {
     

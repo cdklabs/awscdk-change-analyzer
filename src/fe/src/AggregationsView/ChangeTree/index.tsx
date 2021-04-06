@@ -48,7 +48,7 @@ function ChangeTree() {
               expanded={expanded === 1}
               stretchOnExpand
               onChange={(e, expand) => expand ? setExpanded(1) : setExpanded(-1)}
-              title="Medium Risk Changes"
+              title="Unclassified Risk Changes"
               content={"asd"}
               color="#F5E48E"
             />

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CollapsableRow from '../reusable-components/CollapsableRow';
-import { Badge, List, Paper } from '@material-ui/core';
+import { Badge, IconButton, List, Paper, Tooltip } from '@material-ui/core';
 
 import { InfraModelDiff, Transition } from 'change-cd-iac-models/model-diffing';
 import { isDefined } from 'change-cd-iac-models/utils';
@@ -10,6 +10,7 @@ import { Component, StructuralRelationship } from 'change-cd-iac-models/infra-mo
 import { HierarchicalViewContext } from './HierarchicalTab';
 
 import UpdateIcon from '@material-ui/icons/Update';
+import { DoneOutline as DoneOutlineIcon } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   root: {
@@ -69,26 +70,24 @@ function renderTransition(
     }
 
     const renderedInnerTransitions = [...innerTransitions]
-        .map(t => renderTransition(t, modelDiff, new Set([...parentsSet, compTransition]))).filter(isDefined);
-
-    if(!renderedInnerTransitions.length && !modelDiff.getTransitionOperations(compTransition).length)
-        return;
-
-    //if(renderedInnerTransitions.length === 1) return renderedInnerTransitions[0];
+        .map(t => renderTransition(t, modelDiff, new Set([...parentsSet, compTransition])))
+        .filter(isDefined)
+        .sort((r1, r2) => (r1.operations < r2.operations) ? 1 : -1);
     
     const opsCount = renderedInnerTransitions.reduce((acc, t) => acc+t.operations, modelDiff.getTransitionOperations(compTransition).length);
     return {
         operations: opsCount,
-        reactNode: <HierarchicalViewContext.Consumer>{({selectedComponentTransition, setSelectedComponentTransition}) =>
+        reactNode: <HierarchicalViewContext.Consumer>{({selectedCompTransition, setSelectedCompTransition}) =>
             <CollapsableRow
                 icon={<Badge badgeContent={opsCount} color="secondary"><UpdateIcon/></Badge>}
                 title={compTransition.v2?.name || compTransition.v1?.name}
+                rightIcon={<Tooltip title="Approve this change"><IconButton size="small"><DoneOutlineIcon/></IconButton></Tooltip>}
                 description={`${compTransition.v2?.type || compTransition.v1?.type} ${compTransition.v2?.subtype ?? compTransition.v1?.subtype ?? ''}`}
                 content={renderedInnerTransitions.length > 0 ? <List style={{marginLeft: '2.5em', width: 'calc(100% - 2.5em)'}}>
                     {renderedInnerTransitions.map(t => t.reactNode)}
                 </List> : undefined}
-                selected={selectedComponentTransition === compTransition}
-                onChange={(ev, e) => e && setSelectedComponentTransition(compTransition)}
+                selected={selectedCompTransition === compTransition}
+                onChange={(ev, e) => setSelectedCompTransition(compTransition)}
             />
         }</HierarchicalViewContext.Consumer>
     }

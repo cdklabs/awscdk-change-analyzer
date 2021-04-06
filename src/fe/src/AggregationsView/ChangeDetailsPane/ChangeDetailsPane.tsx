@@ -1,10 +1,13 @@
 import React from 'react';
-import { ComponentOperation } from 'change-cd-iac-models/model-diffing';
-import { Box, makeStyles, Theme, Typography } from '@material-ui/core';
+import { ComponentOperation, OutgoingRelationshipComponentOperation, PropertyComponentOperation } from 'change-cd-iac-models/model-diffing';
+import { Box, IconButton, makeStyles, Theme, Tooltip, Typography } from '@material-ui/core';
+import { Launch as LaunchIcon } from '@material-ui/icons';
 import { Aggregation, getAllDescriptions } from 'change-cd-iac-models/aggregations';
-import ChangesDiff from './ChangesDiff';
 import CollapsableRow from '../../reusable-components/CollapsableRow';
 import { useIdAssignerHook } from '../../utils/idCreator';
+import ComponentPropertyDiff from '../../reusable-components/ComponentPropertyDiff';
+import RelationshipOpDetails from '../../reusable-components/RelationshipOpDetails';
+import { AppContext } from '../../App';
 
 interface props {
     agg?: Aggregation<ComponentOperation>,
@@ -60,7 +63,8 @@ function ChangeDetailsPane({agg}: props) {
 
     const idAssigner = useIdAssignerHook();
 
-    return !agg
+    return <AppContext.Consumer>{({showComponentInHierarchy}) =>
+        !agg
             ? <Box className={`${classes.fillParent} ${classes.emptyRoot}`}>Select a set of changes to view their details</Box> 
             : <Box className={`${classes.root} ${classes.fillParent}`}>
                 <Box className={classes.header}>
@@ -87,11 +91,22 @@ function ChangeDetailsPane({agg}: props) {
                             key={idAssigner.get(op)}
                             expanded={agg.entities.size === 1}
                             icon={`${i+1}.`}
+                            rightIcon={<Tooltip title="Open in Hierarchical View"><IconButton size="small" onClick={() => showComponentInHierarchy(op.componentTransition)}><LaunchIcon/></IconButton></Tooltip>}
                             title={<b>{(op.componentTransition.v2?.name || op.componentTransition.v1?.name)}</b>}
-                            content={<div className={`${classes.occurrenceContent}`}><ChangesDiff componentTransition={op.componentTransition} /></div>}
+                            content={
+                                <div className={`${classes.occurrenceContent}`}>
+                                    {op instanceof OutgoingRelationshipComponentOperation && <RelationshipOpDetails relTransition={op.relationshipTransition}/>}
+                                    <Typography><b>Source Definition:</b></Typography>
+                                    <ComponentPropertyDiff
+                                        componentTransition={op.componentTransition}
+                                        propertyOp={op instanceof PropertyComponentOperation ? op : undefined}
+                                    />
+                                </div>
+                            }
                         />
                     )}
                 </Box>
-            </Box>;
+            </Box>
+        }</AppContext.Consumer>;
 }
 export default ChangeDetailsPane;
