@@ -3,6 +3,7 @@ import { ParserUtilsCreator } from "../utils";
 import {
     DiffCreator,
 } from "../../model-diffing";
+import { Transition } from "change-cd-iac-models/model-diffing";
 
 const dir = `test/model-diffing`;
 
@@ -19,7 +20,7 @@ test('Matching basic template', () => {
     genGraphOnEnvFlag(oldModel, 'simple-template-before');
     genGraphOnEnvFlag(newModel, 'simple-template-after');
 
-    const diff = new DiffCreator({v1: oldModel, v2: newModel}).create();
+    const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
     expect(stringifyComponents(diff)).toMatchSnapshot();
 });
 
@@ -27,6 +28,6 @@ test('Matching big template', () => {
     const oldModel = new CDKParser(readSampleInput('kessel-run-stack-before.json')).parse();
     const newModel = new CDKParser(readSampleInput('kessel-run-stack-after.json')).parse();
     
-    const diff = new DiffCreator({v1: oldModel, v2: newModel}).create();
+    const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
     expect(stringifyComponents(diff)).toMatchSnapshot();
 });

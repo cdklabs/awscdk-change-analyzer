@@ -1,4 +1,3 @@
-import { PropertyPath } from "../../../infra-model";
 import { SerializedRecord } from "../../json-serializable";
 import { SerializationID } from "../../json-serializer";
 
@@ -13,7 +12,7 @@ export interface SerializedOutgoingRelationshipComponentOperation extends Serial
 }
 
 export interface SerializedPropertyComponentOperation extends SerializedComponentOperation {
-    pathTransition: {v1?: PropertyPath, v2?: PropertyPath},
+    pathTransition: SerializationID,
     propertyTransition: SerializationID
 }
 

@@ -8,10 +8,10 @@ import { structuralRelationshipDeserializer } from './deserializers/infra-model/
 import { infraModelDeserializer } from './deserializers/infra-model/infra-model-deserializer';
 import { componentPropertyArrayDeserializer, componentPropertyEmptyDeserializer, componentPropertyPrimitiveDeserializer, componentPropertyRecordDeserializer } from './deserializers/infra-model/component-property-deserializer';
 import { infraModelDiffDeserializer } from './deserializers/infra-model-diff/infra-model-diff-deserializer';
-import { transitionDeserializer } from './deserializers/infra-model-diff/transition-deserializer';
 import { SerializationID } from './json-serializer';
 import { JSONSerializable, Serialized } from './json-serializable';
 import { aggregationDeserializer } from './deserializers/aggregations/aggregation-deserializer';
+import { transitionDeserializer } from './deserializers/transition-deserializer';
 import { changeAnalysisReportDeserializer } from './deserializers/change-analysis-report-deserializer';
 
 type classDeserializer = (obj: Serialized, deserialize: (id: SerializationID) => JSONSerializable) => any;

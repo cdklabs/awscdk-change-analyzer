@@ -4,7 +4,7 @@ import { SerializationClasses } from "../export/serialization-classes";
 import { Component, InfraModel } from "../infra-model";
 import { groupArrayBy, isDefined } from "../utils";
 import { ComponentOperation } from "./operations";
-import { Transition, transitionSerializer } from "./transition";
+import { Transition } from "./transition";
 
 export class TransitionNotFoundError extends Error {}
  
@@ -48,16 +48,11 @@ export class InfraModelDiff implements JSONSerializable {
 
     public toSerialized(
         serialize: (obj: JSONSerializable) => SerializationID,
-        serializeCustom: (obj: any, serializationClass: string, serialized: Serialized) => SerializationID
     ): Serialized {
         return {
             componentOperations: this.componentOperations.map(serialize),
-            componentTransitions: this.componentTransitions.map(t => serializeCustom(t, SerializationClasses.TRANSITION, transitionSerializer(t, serialize))),
-            infraModelTransition: serializeCustom(
-                this.infraModelTransition,
-                SerializationClasses.TRANSITION,
-                transitionSerializer(this.infraModelTransition, serialize),
-            )
+            componentTransitions: this.componentTransitions.map(t => serialize(t)),
+            infraModelTransition: serialize(this.infraModelTransition)
         };
     }
     public getSerializationClass(): string {

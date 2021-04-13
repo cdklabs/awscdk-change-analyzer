@@ -10,6 +10,7 @@ import {
     RenameComponentOperation,
     UpdatePropertyComponentOperation,
 } from "change-cd-iac-models//model-diffing";
+import { Transition } from "change-cd-iac-models/model-diffing/transition";
 
 test('Update Component Property', () => {
     const oldModel = new CFParser({
@@ -41,7 +42,7 @@ test('Update Component Property', () => {
         }
     }).parse();
 
-    const diff = new DiffCreator({v1: oldModel, v2: newModel}).create();
+    const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
 
     expect(diff.componentOperations.length).toBe(1);
     expect(diff.componentOperations[0] instanceof UpdatePropertyComponentOperation).toBe(true);
@@ -91,7 +92,7 @@ test('Update Multiple Nested Component Properties', () => {
         }
     }).parse();
 
-    const diff = new DiffCreator({v1: oldModel, v2: newModel}).create();
+    const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
     expect(diff.componentOperations.length).toBe(1);
     expect(diff.componentOperations[0] instanceof UpdatePropertyComponentOperation).toBe(true);
 
@@ -131,7 +132,7 @@ test('Remove Component', () => {
         }
     }).parse();
 
-    const diff = new DiffCreator({v1: oldModel, v2: newModel}).create();
+    const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
 
     expect(diff.componentOperations.length).toBe(2);
     expect(diff.componentOperations.filter(o => o instanceof RemoveComponentOperation).length).toBe(1);
@@ -163,7 +164,7 @@ test('Insert Component', () => {
         }
     }).parse();
 
-    const diff = new DiffCreator({v1: oldModel, v2: newModel}).create();
+    const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
 
     expect(diff.componentOperations.length).toBe(2);
     expect(diff.componentOperations.filter(o => o instanceof InsertComponentOperation).length).toBe(1);
@@ -192,8 +193,7 @@ test('Renamed Component', () => {
         }
     }).parse();
 
-    const diff = new DiffCreator({v1: oldModel, v2: newModel}).create();
-
+    const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
     expect(diff.componentOperations.length).toBe(1);
     expect(diff.componentOperations[0] instanceof RenameComponentOperation).toBe(true);
 });
@@ -227,7 +227,7 @@ test('Insert Relationship', () => {
         }
     }).parse();
 
-    const diff = new DiffCreator({v1: oldModel, v2: newModel}).create();
+    const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
 
     expect(diff.componentOperations.length).toBe(2);
     expect(diff.componentOperations.filter(o => o instanceof InsertOutgoingRelationshipComponentOperation).length).toBe(1);

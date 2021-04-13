@@ -3,7 +3,19 @@ import { SerializationID } from "../export/json-serializer";
 import { SerializationClasses } from "../export/serialization-classes";
 import { SerializedComponent } from "../export/serialized-interfaces/infra-model/serialized-component";
 import { ComponentProperty, EmptyComponentProperty } from "./component-property";
+import { ModelEntity } from "./model-entity";
 import { Relationship } from "./relationship";
+
+type NodeData = {
+    readonly type: string;
+    readonly subtype?: string;
+    readonly name: string;
+}
+
+type OutgoingNodeReferences = {
+    readonly hasRelationship: Set<Relationship>;
+    readonly hasProperties: ComponentProperty;
+}
 
 interface ComponentOptions {
     readonly subtype?: string;
@@ -17,26 +29,30 @@ interface ComponentOptions {
  * or any other entity that influences the infrastructure deployment or the user's
  * perception of it in any way.
  */
-export class Component implements JSONSerializable {
+export class Component extends ModelEntity<NodeData, OutgoingNodeReferences> implements JSONSerializable {
     
-    public readonly incoming: Set<Relationship> = new Set();
-    public readonly outgoing: Set<Relationship> = new Set();
+    get outgoing(): Set<Relationship>{ return this.outgoingNodeReferences.hasRelationship; }
+    public incoming: Set<Relationship> = new Set();
+
+    get properties(): ComponentProperty { return this.outgoingNodeReferences.hasProperties; }
 
     /**
      * properties hold any values that should be tracked
      * by the change analysis but do not have any other relevant behaviors
      */
-    public readonly properties: ComponentProperty;
-
-    public readonly type: string;
-    public readonly subtype?: string;
-    public readonly name: string;
+    public get type(): string { return this.nodeData.type; }
+    public get subtype(): string | undefined { return this.nodeData.subtype; }
+    public get name(): string { return this.nodeData.name; }
 
     constructor(name: string, type: string, options? : ComponentOptions){
-        this.properties = options?.properties ?? new EmptyComponentProperty();
-        this.name = name;
-        this.type = type;
-        this.subtype = options?.subtype;
+        super({
+            name,
+            type,
+            subtype: options?.subtype,
+        }, {
+            hasRelationship: new Set(),
+            hasProperties: options?.properties ?? new EmptyComponentProperty()
+        });
     }
 
     public addOutgoing(relationship: Relationship): void{

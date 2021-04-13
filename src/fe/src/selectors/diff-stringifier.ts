@@ -86,7 +86,7 @@ export class DiffStringifier<T> {
             return [
                 {str: `[\n`, highlights: activeHighlights},
                 ...resultingStrings, //remove additional comma
-                {str: `\n${this.indent(currentIndentation)}]`, highlights: activeHighlights},
+                {str: `${this.indent(currentIndentation)}]`, highlights: activeHighlights},
             ]
         }
         return [{str: `[]`, highlights: activeHighlights}];
@@ -114,7 +114,7 @@ export class DiffStringifier<T> {
             return [
                 {str: `{\n`, highlights: activeHighlights},
                 ...resultingStrings, //remove additional comma
-                {str: `\n${this.indent(currentIndentation)}}`, highlights: activeHighlights},
+                {str: `${this.indent(currentIndentation)}}`, highlights: activeHighlights},
             ]
         }
         return [{str: `{}`, highlights: activeHighlights}];

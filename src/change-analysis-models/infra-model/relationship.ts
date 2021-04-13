@@ -2,22 +2,31 @@ import { JSONSerializable } from "../export/json-serializable";
 import { SerializationID } from "../export/json-serializer";
 import { SerializedRelationship } from "../export/serialized-interfaces/infra-model/serialized-relationship";
 import { Component } from "./component";
+import { ModelEntity } from "./model-entity";
+
+export interface RelationshipData {
+    readonly type: string;
+}
+
+export type RelationshipEdges = {
+    readonly source: Component,
+    readonly target: Component,
+}
 
 /**
  * Relationships connect two components and
  * describe how they relate to each other
  */
-export abstract class Relationship implements JSONSerializable {
+export abstract class Relationship<T extends RelationshipData = RelationshipData>
+    extends ModelEntity<T, RelationshipEdges>
+    implements JSONSerializable
+{
+    public get type(): string { return this.nodeData.type; }
+    public get target(): Component { return this.outgoingNodeReferences.target; }
+    public get source(): Component { return this.outgoingNodeReferences.source; }
 
-    public readonly source: Component;
-    public readonly target: Component;
-
-    public readonly type: string;
-
-    constructor(source: Component, target: Component, type: string){
-        this.source = source;
-        this.target = target;
-        this.type = type;
+    constructor(source: Component, target: Component, nodeData: T){
+        super(nodeData, {source, target});
     }
 
     public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedRelationship {

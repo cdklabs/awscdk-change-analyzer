@@ -76,7 +76,6 @@ const Accordion = withStyles({
         },
     },
     expanded: {},
-    focused: {},
 })(MuiAccordion);
 
 interface Props {

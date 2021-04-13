@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-class ObjIdAssigner {
+export class ObjIdAssigner {
     map = new WeakMap();
     counter = 0;
 

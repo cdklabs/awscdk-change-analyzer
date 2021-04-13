@@ -12,10 +12,8 @@ interface Props {
 
 
 function ComponentPropertyDiff({componentTransition, propertyOp}: Props) {
-
     return (
         <AppContext.Consumer>{({changeReport}) =>
-
             <ChangesDiff
                 stringifierOutput={
                     getPropertyDiff({v1: componentTransition.v1?.properties, v2: componentTransition.v2?.properties},

@@ -7,6 +7,7 @@ import CollapsableRow from "../../reusable-components/CollapsableRow"
 import { makeStyles } from '@material-ui/core/styles';
 import { AggregationsContext } from '../AggregationsTab';
 import { Done as DoneIcon, DoneAll as DoneAllIcon } from "@material-ui/icons";
+import { useIdAssignerHook } from "../../utils/idCreator";
 
 const useStyles = makeStyles({
   content: {
@@ -26,19 +27,21 @@ interface Props {
 const ChangesGroup = ({ig, title, description}: Props) => {
     const classes = useStyles();
 
+    const idAssigner = useIdAssignerHook();
+
     return <AggregationsContext.Consumer>{({selectedAgg, setSelectedAgg}) => 
       <CollapsableRow
         icon={`${ig.entities.size}x`}
         title={title
-            ?? ig.descriptions?.map(d => <div>{d}</div>)
-            ?? Object.entries(ig.characteristics).map(([c, v]) => <div>{`${c}: `}<b>{v}</b></div>)
+            ?? ig.descriptions?.map(d => <span key={d}>{d}</span>)
+            ?? Object.entries(ig.characteristics).map(([c, v]) => <span key={c}>{`${c}: `}<b>{v}</b></span>)
         }
         rightIcon={<Tooltip title={`Approve ${ig.subAggs ? 'these changes' : 'this change'}`}><IconButton size="small">{ig.subAggs ? <DoneAllIcon/> : <DoneIcon/>}</IconButton></Tooltip>}
         description={<>{description} {description && '-'} {new Set([...ig.entities].map(e => e.componentTransition)).size} affected</>}
         selected={selectedAgg && selectedAgg === ig}
         onChange={!ig.subAggs ? (() => setSelectedAgg && setSelectedAgg(ig)) : undefined}
         content={ig.subAggs && <Box className={classes.content}>{
-          ig.subAggs.map(sg => <ChangesGroup ig={sg}/>)
+          ig.subAggs.map(sg => <ChangesGroup key={idAssigner.get(sg)} ig={sg}/>)
           }</Box>
         }
       />

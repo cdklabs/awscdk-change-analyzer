@@ -85,9 +85,9 @@ export class DiffCreator {
         const updates = [...sameNameMatches.matches, ...renamedMatches.matches].map(
             ({metadata: propOp}) => propOp
         ).filter(isDefined);
-        const renames = renamedMatches.matches.map(({transition}) => new RenameComponentOperation(transition));
-        const removals = renamedMatches.unmatchedA.map(c => new RemoveComponentOperation(c));
-        const insertions = renamedMatches.unmatchedB.map(c => new InsertComponentOperation(c));
+        const renames = renamedMatches.matches.map(({transition}) => new RenameComponentOperation({}, {componentTransition: transition}));
+        const removals = renamedMatches.unmatchedA.map(c => new RemoveComponentOperation({}, {componentTransition: new Transition({v1: c})}));
+        const insertions = renamedMatches.unmatchedB.map(c => new InsertComponentOperation({}, {componentTransition: new Transition({v2: c})}));
         
         return [...removals, ...insertions, ...renames, ...updates];
     }
@@ -119,15 +119,14 @@ export class DiffCreator {
         );
 
         const removals = relationshipMatches.unmatchedA.map(r =>
-            new RemoveOutgoingRelationshipComponentOperation(componentTransition, r));
+            new RemoveOutgoingRelationshipComponentOperation({}, {componentTransition, relationshipTransition: new Transition({v1: r})}));
         const insertions = relationshipMatches.unmatchedB.map(r =>
-            new InsertOutgoingRelationshipComponentOperation(componentTransition, r));
+            new InsertOutgoingRelationshipComponentOperation({}, {componentTransition, relationshipTransition: new Transition({v2: r})}));
 
         const updates = relationshipMatches.matches
             .filter(({metadata: updated}) => updated)
             .map(({transition}) => new UpdateOutgoingRelationshipComponentOperation(
-                componentTransition,
-                transition
+                {}, {componentTransition, relationshipTransition: transition}
         ));
 
         return [...removals, ...insertions, ...updates];

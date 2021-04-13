@@ -32,13 +32,11 @@ function ChangesDiff<T>({stringifierOutput, flashObj}: Props<T>) {
     },[]);
 
     return (
-            <Typography>
-                <pre className={classes.pre}>
-                    {
-                        renderPropertyDiff(stringifierOutput, (r) => opRef(r), flashObj)
-                    }
-                </pre>
-            </Typography>
+        <Typography className={classes.pre}>
+            {
+                renderPropertyDiff(stringifierOutput, (r) => opRef(r), flashObj)
+            }
+        </Typography>
     );
 }
 
@@ -82,7 +80,7 @@ function renderPropertyDiff<T>(stringifierOutput: DiffStringOutput<T>, opRef: (n
 
 function highlightsIncludeObj<T>(highlights: Highlights<T>, op?: T){
     if(op === undefined) return false;
-    return Object.values(highlights).flat().some(o => (console.log('found'), o === op));
+    return Object.values(highlights).flat().some(o => o === op);
 }
 
 function makeHighlightDescriptions<T>(highlights: Highlights<T>): string {

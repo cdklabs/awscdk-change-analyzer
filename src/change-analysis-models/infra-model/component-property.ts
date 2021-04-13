@@ -2,6 +2,7 @@ import { JSONSerializable } from "../export/json-serializable";
 import { SerializationID } from "../export/json-serializer";
 import { SerializationClasses } from "../export/serialization-classes";
 import { SerializedComponentProperty, SerializedComponentPropertyArray, SerializedComponentPropertyEmpty, SerializedComponentPropertyPrimitive, SerializedComponentPropertyRecord } from "../export/serialized-interfaces/infra-model/serialized-component-property";
+import { ModelEntity, OutgoingReferences } from "./model-entity";
 
 /**
  * How a change in a ComponentProperty
@@ -16,15 +17,29 @@ export enum ComponentUpdateType {
 export type PropertyPath = (string | number)[];
 
 export type PropertyPrimitive = string | number;
-export type ComponentPropertyValue = PropertyPrimitive | Array<ComponentProperty> | Record<string, ComponentProperty>;
+export type PropertyCollectionValue = Array<ComponentProperty> | Record<string, ComponentProperty>;
+export type ComponentPropertyValue/* TODO Type*/ = PropertyPrimitive | PropertyCollectionValue;
 
 export class ComponentPropertyAccessError extends Error {}
 
-export abstract class ComponentProperty implements JSONSerializable {
+type NodeData = {
+    readonly componentUpdateType?: ComponentUpdateType,
+}
+
+export abstract class ComponentProperty/* TODO Value*/<ND extends NodeData = any, OR extends OutgoingReferences = any>
+    extends ModelEntity<ND, OR>
+    implements JSONSerializable {
+    
+    public get componentUpdateType(): ComponentUpdateType { return this.nodeData.componentUpdateType ?? ComponentUpdateType.NONE; }
+    
+    public abstract get value(): ComponentPropertyValue | undefined;
+
     constructor(
-        public readonly value: ComponentPropertyValue | undefined,
-        public readonly componentUpdateType: ComponentUpdateType = ComponentUpdateType.NONE
-    ) {}
+        data: ND,
+        outgoingReferences: OR,
+    ) {
+        super(data, outgoingReferences);
+    }
 
     getRecord(): Record<string, ComponentProperty> {
         if(!this.isRecord()){
@@ -47,16 +62,16 @@ export abstract class ComponentProperty implements JSONSerializable {
         return this.value as PropertyPrimitive;
     }
 
-    isRecord(): boolean {
-        return typeof this.value === 'object' && this.value !== null && !Array.isArray(this.value);
+    isRecord(): this is ComponentPropertyRecord {
+        return this instanceof ComponentPropertyRecord;
     }
 
-    isArray(): boolean {
-        return Array.isArray(this.value);
+    isArray(): this is ComponentPropertyArray {
+        return this instanceof ComponentPropertyArray;
     }
 
-    isPrimitive(): boolean {
-        return !(this.isRecord() || this.isArray());
+    isPrimitive(): this is ComponentPropertyPrimitive {
+        return this instanceof ComponentPropertyPrimitive;
     }
 
     getPropertyInPath(path: PropertyPath): ComponentProperty {
@@ -83,11 +98,23 @@ export abstract class ComponentProperty implements JSONSerializable {
     }
 }
 
-export abstract class ComponentCollectionProperty extends ComponentProperty {}
+interface NodeDataPrimitive extends NodeData {
+    readonly value: PropertyPrimitive;
+}
+
+type OutgoingCollectionReferences = {
+    readonly value: PropertyCollectionValue;
+}
+
+export abstract class ComponentCollectionProperty extends ComponentProperty<NodeData, OutgoingCollectionReferences> {
+    public get value(): ComponentPropertyValue {
+        return this.outgoingNodeReferences.value;
+    }
+}
 
 export class ComponentPropertyRecord extends ComponentCollectionProperty  {
     constructor(value: Record<string, ComponentProperty>, componentUpdateType?: ComponentUpdateType){
-        super(value, componentUpdateType);
+        super({componentUpdateType}, {value});
     }
 
     public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedComponentPropertyRecord {
@@ -104,7 +131,7 @@ export class ComponentPropertyRecord extends ComponentCollectionProperty  {
 
 export class ComponentPropertyArray extends ComponentCollectionProperty {
     constructor(value: ComponentProperty[], componentUpdateType?: ComponentUpdateType){
-        super(value, componentUpdateType);
+        super({componentUpdateType}, {value});
     }
 
     public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedComponentPropertyArray {
@@ -119,9 +146,14 @@ export class ComponentPropertyArray extends ComponentCollectionProperty {
     }
 }
 
-export class ComponentPropertyPrimitive extends ComponentProperty {
+export class ComponentPropertyPrimitive extends ComponentProperty<NodeDataPrimitive, Record<string, never>> {
+
+    public get value(): ComponentPropertyValue {
+        return this.nodeData.value;
+    }
+
     constructor(value: PropertyPrimitive, componentUpdateType?: ComponentUpdateType){
-        super(value, componentUpdateType);
+        super({componentUpdateType, value}, {});
     }
 
     public toSerialized(): SerializedComponentPropertyPrimitive {
@@ -137,8 +169,10 @@ export class ComponentPropertyPrimitive extends ComponentProperty {
 }
 
 export class EmptyComponentProperty extends ComponentProperty {
+    public get value(): ComponentPropertyValue | undefined { return undefined; }
+    
     constructor(){
-        super(undefined);
+        super({},{});
     }
 
     public toSerialized(): SerializedComponentPropertyEmpty {

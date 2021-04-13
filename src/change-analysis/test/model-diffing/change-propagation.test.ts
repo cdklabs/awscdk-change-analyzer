@@ -1,7 +1,8 @@
 import {
     ReplaceComponentOperation,
     UpdatePropertyComponentOperation,
-    InfraModelDiff
+    InfraModelDiff,
+    Transition
 } from "change-cd-iac-models/model-diffing";
 import { Component, ComponentPropertyPrimitive, ComponentPropertyRecord, ComponentUpdateType, DependencyRelationship, InfraModel } from "change-cd-iac-models/infra-model";
 import { propagateChanges } from '../../model-diffing/';
@@ -51,25 +52,31 @@ const createTestCase1 = (): InfraModelDiff => {
     component2v2.addOutgoing(relationship1v2);
     const infraModelv2 = new InfraModel([component1v2, component2v2], [relationship1v2]);
 
-    const component1Transition = {v1: component1v1, v2: component1v2};
-    const component2Transition = {v1: component2v1, v2: component2v2};
+    const component1Transition = new Transition<Component>({v1: component1v1, v2: component1v2});
+    const component2Transition = new Transition<Component>({v1: component2v1, v2: component2v2});
 
     const directChangeComponent1 = new UpdatePropertyComponentOperation(
-        {v1: ["someKey"], v2: ["someKey"]},
+        {},
         {
-            v1: component1v1.properties.getRecord()["someKey"], 
-            v2: component1v2.properties.getRecord()["someKey"], 
-        },
-        component1Transition,
+            pathTransition: new Transition({v1: ["someKey"], v2: ["someKey"]}),
+            propertyTransition: new Transition({
+                v1: component1v1.properties.getRecord()["someKey"], 
+                v2: component1v2.properties.getRecord()["someKey"], 
+            }),
+            componentTransition: component1Transition,
+        }
     );
 
     const directChangeComponent2 = new UpdatePropertyComponentOperation(
-        {v1: ["nested", "propComp2"], v2: ["nestedNameChanged", "propComp2NameChanged"]},
+        {},
         {
-            v1: component2v1.properties.getRecord()["nested"].getRecord()["propComp2"], 
-            v2: component2v2.properties.getRecord()["nestedNameChanged"].getRecord()["propComp2NameChanged"], 
-        },
-        component2Transition
+            pathTransition: new Transition({v1: ["nested", "propComp2"], v2: ["nestedNameChanged", "propComp2NameChanged"]}),
+            propertyTransition: new Transition({
+                v1: component2v1.properties.getRecord()["nested"].getRecord()["propComp2"], 
+                v2: component2v2.properties.getRecord()["nestedNameChanged"].getRecord()["propComp2NameChanged"], 
+            }),
+            componentTransition: component2Transition
+        }
     );
 
     const infraModelTransition = {v1: infraModelv1, v2: infraModelv2};
@@ -131,5 +138,6 @@ test('ReplaceOperation-caused PropertyUpdate should have the proper property pat
         o instanceof UpdatePropertyComponentOperation
         && o.cause instanceof ReplaceComponentOperation) as UpdatePropertyComponentOperation;
     expect(updateCausedByReplacement).toBeDefined();
-    expect(updateCausedByReplacement.pathTransition).toEqual({v1: ["nested", "propComp2"], v2: ["nestedNameChanged", "propComp2NameChanged"]});
+    expect(updateCausedByReplacement.pathTransition.v1).toEqual(["nested", "propComp2"]);
+    expect(updateCausedByReplacement.pathTransition.v2).toEqual(["nestedNameChanged", "propComp2NameChanged"]);
 });

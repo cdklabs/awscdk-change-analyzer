@@ -1,11 +1,44 @@
-import { ComponentOperation, ComponentOperationOptions, OperationCertainty } from "../../../../model-diffing/";
+import { Component, ComponentProperty, PropertyPath, Relationship } from "../../../../infra-model";
+import { ComponentOperation, OperationCertainty, OpNodeData, OpOutgoingNodeReferences, PropertyComponentOperation, PropOpOutgoingNodeReferences, RelationshipOpOutgoingNodeReferences, Transition, UpdatePropOpOutgoingNodeReferences } from "../../../../model-diffing/";
 import { JSONSerializable } from "../../../json-serializable";
 import { SerializationID } from "../../../json-serializer";
-import { SerializedComponentOperation } from "../../../serialized-interfaces/infra-model-diff/serialized-component-operation";
+import { SerializedComponentOperation, SerializedOutgoingRelationshipComponentOperation, SerializedPropertyComponentOperation, SerializedUpdatePropertyComponentOperation } from "../../../serialized-interfaces/infra-model-diff/serialized-component-operation";
 
-export function deserializeComponentOperationOptions(serialized: SerializedComponentOperation, deserialize: (obj: SerializationID) => JSONSerializable): ComponentOperationOptions {
+export function deserializeOpNodeData(serialized: SerializedComponentOperation): OpNodeData {
+    return {
+        certainty: OperationCertainty[serialized.certainty as keyof typeof OperationCertainty],
+    };
+}
+
+export function deserializeOpOutoingNodeReferences(serialized: SerializedComponentOperation, deserialize: (obj: SerializationID) => JSONSerializable): OpOutgoingNodeReferences {
     return {
         cause: serialized.cause ? deserialize(serialized.cause) as ComponentOperation : undefined,
-        certainty: OperationCertainty[serialized.certainty as keyof typeof OperationCertainty],
+        componentTransition: deserialize(serialized.componentTransition) as Transition<Component>,
+    };
+}
+
+// OutgoingRelationshipComponentOperations
+
+export function deserializeRelationshipOpOutoingNodeReferences(serialized: SerializedOutgoingRelationshipComponentOperation, deserialize: (obj: SerializationID) => JSONSerializable): RelationshipOpOutgoingNodeReferences {
+    return {
+        ...deserializeOpOutoingNodeReferences(serialized, deserialize),
+        relationshipTransition: deserialize(serialized.relationshipTransition) as Transition<Relationship>,
+    };
+}
+
+// PropertyComponentOperations
+
+export function deserializePropOpOutoingNodeReferences(serialized: SerializedPropertyComponentOperation, deserialize: (obj: SerializationID) => JSONSerializable): PropOpOutgoingNodeReferences {
+    return {
+        ...deserializeOpOutoingNodeReferences(serialized, deserialize),
+        pathTransition: deserialize(serialized.pathTransition) as Transition<PropertyPath>,
+        propertyTransition: deserialize(serialized.propertyTransition) as Transition<ComponentProperty>,
+    };
+}
+
+export function deserializeUpdatePropOpOutoingNodeReferences(serialized: SerializedUpdatePropertyComponentOperation, deserialize: (obj: SerializationID) => JSONSerializable): UpdatePropOpOutgoingNodeReferences {
+    return {
+        ...deserializePropOpOutoingNodeReferences(serialized, deserialize),
+        innerOperations: serialized.innerOperations ? serialized.innerOperations.map(deserialize) as PropertyComponentOperation[] : undefined,
     };
 }

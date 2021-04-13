@@ -1,4 +1,5 @@
 import { SerializationClasses } from "../export/serialization-classes";
+import { Component } from "./component";
 import { Relationship } from "./relationship";
 
 /**
@@ -7,6 +8,10 @@ import { Relationship } from "./relationship";
  * and not its actual deployment.
  */
 export class StructuralRelationship extends Relationship {
+
+    constructor(source: Component, target: Component, type: string){
+        super(source, target, {type});
+    }
 
     public getSerializationClass(): string{
         return SerializationClasses.STRUCTURAL_RELATIONSHIP;

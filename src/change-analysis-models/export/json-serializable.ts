@@ -21,3 +21,9 @@ export interface JSONSerializable {
 
     getSerializationClass(): string;
 }
+
+export function isJSONSerializable(o: any): o is JSONSerializable {
+    return typeof o.toSerialized === 'function'
+        && typeof o.getSerializationClass === 'function'
+        && typeof o.getSerializationClass() === 'string'; 
+}

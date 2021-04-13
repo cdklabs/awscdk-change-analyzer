@@ -1,17 +1,23 @@
-import { JSONSerializable, Serialized } from "../export/json-serializable";
+import { JSONSerializable } from "../export/json-serializable";
 import { SerializationID } from "../export/json-serializer";
 import { SerializationClasses } from "../export/serialization-classes";
 import { SerializedInfraModel } from "../export/serialized-interfaces/infra-model/serialized-infra-model";
 import { Component } from "./component";
+import { ModelEntity } from "./model-entity";
 import { Relationship } from "./relationship";
 
-export class InfraModel implements JSONSerializable {
-    public readonly components: Component[];
-    public readonly relationships: Relationship[];
+type OutgoingNodeReferences = {
+    components: Component[],
+    relationships: Relationship[],
+}
+
+export class InfraModel extends ModelEntity<any, OutgoingNodeReferences> implements JSONSerializable {
+
+    public get components(): Component[] { return this.outgoingNodeReferences.components; }
+    public get relationships(): Relationship[] { return this.outgoingNodeReferences.relationships; }
 
     constructor(components: Component[], relationships: Relationship[]){
-        this.components = components;
-        this.relationships = relationships;
+        super({}, {components, relationships});
     }
 
     public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedInfraModel {

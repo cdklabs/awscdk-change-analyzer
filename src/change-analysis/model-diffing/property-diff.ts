@@ -62,12 +62,12 @@ export class PropertyDiffCreator {
         pathP1: Array<string | number>,
         pathP2: Array<string | number>,
     ): PropertyDiff {
-        const [a, b] = [p1,p2].map(p => p.getRecord());
+        const [p1Record, p2Record] = [p1,p2].map(p => p.getRecord());
         
-        const sameNameKeys = arrayIntersection(Object.keys(a), Object.keys(b));
+        const sameNameKeys = arrayIntersection(Object.keys(p1Record), Object.keys(p2Record));
         
         const pickedSameNames: [string, PropertyDiff][] = sameNameKeys
-            .map((k): [string, PropertyDiff] => [k, this.create(a[k], b[k], [...pathP1, k], [...pathP2, k])])
+            .map((k): [string, PropertyDiff] => [k, this.create(p1Record[k], p2Record[k], [...pathP1, k], [...pathP2, k])])
             .map(([k, pd]): [string, PropertyDiff] => [k, {
                 ...pd,
                 similarity: pd.similarity + (1 - pd.similarity)*(1/(pd.weight+1)),
@@ -77,13 +77,13 @@ export class PropertyDiffCreator {
 
         const pickedSameNameKeys = new Set(pickedSameNames.map(([k]) => k));
         const sameNameDiffs = pickedSameNames.map(([, pd]) => pd);
-
-        const renamedDiffMatchResults = matchEntities(
-            Object.entries(a).filter(([k]) => !pickedSameNameKeys.has(k)),
-            Object.entries(b).filter(([k]) => !pickedSameNameKeys.has(k)),
+        
+        const renamedDiffMatchResults = matchEntities<string, PropertyDiff>(
+            Object.keys(p1Record).filter((k) => !pickedSameNameKeys.has(k)),
+            Object.keys(p2Record).filter((k) => !pickedSameNameKeys.has(k)),
             propertySimilarityEvaluatorCreator(
                 this.componentTransition,
-                pathP1, pathP2
+                p1Record, p2Record, pathP1, pathP2,
             ),
             propertySimilarityThreshold
         );
@@ -94,24 +94,24 @@ export class PropertyDiffCreator {
             return {
                 similarity: propDiff.similarity,
                 weight: propDiff.weight,
-                operation: new MovePropertyComponentOperation(
-                    {v1: [...pathP1, v1[0]], v2: [...pathP2, v2[0]]},
-                    {v1: v1[1], v2: v2[1]},
-                    this.componentTransition,
-                    {},
-                    (propDiff.operation as UpdatePropertyComponentOperation)?.innerOperations
-            )};
+                operation: new MovePropertyComponentOperation({}, {
+                    pathTransition: new Transition({v1: [...pathP1, v1[0]], v2: [...pathP2, v2[0]]}),
+                    propertyTransition: new Transition({v1: p1Record[v1], v2: p2Record[v2]}),
+                    componentTransition: this.componentTransition,
+                    innerOperations: (propDiff.operation as UpdatePropertyComponentOperation)?.innerOperations
+                })
+            };
         });
 
-        const removedDiffs = renamedDiffMatchResults.unmatchedA.map(([k]) => ({
+        const removedDiffs = renamedDiffMatchResults.unmatchedA.map((k) => ({
             similarity: 0,
-            weight: this.calcPropertyWeight(a[k]),
-            operation: new RemovePropertyComponentOperation({v1: [...pathP1, k]}, {v1: a[k]}, this.componentTransition)
+            weight: this.calcPropertyWeight(p1Record[k]),
+            operation: new RemovePropertyComponentOperation({}, {pathTransition: new Transition({v1: [...pathP1, k]}), propertyTransition: new Transition({v1: p1Record[k]}), componentTransition: this.componentTransition})
         }));
-        const insertedDiffs = renamedDiffMatchResults.unmatchedB.map(([k]) => ({
+        const insertedDiffs = renamedDiffMatchResults.unmatchedB.map((k) => ({
             similarity: 0,
-            weight: this.calcPropertyWeight(b[k]),
-            operation: new InsertPropertyComponentOperation({v2: [...pathP2, k]}, {v2: b[k]}, this.componentTransition)
+            weight: this.calcPropertyWeight(p2Record[k]),
+            operation: new InsertPropertyComponentOperation({}, { pathTransition: new Transition({v2: [...pathP2, k]}), propertyTransition: new Transition({v2: p2Record[k]}), componentTransition: this.componentTransition})
         }));
 
         return this.fromCollectionDiffs(p1, p2, [...sameNameDiffs, ...renamedDiffs, ...removedDiffs, ...insertedDiffs], pathP1, pathP2);
@@ -123,44 +123,45 @@ export class PropertyDiffCreator {
         pathP1: Array<string | number>,
         pathP2: Array<string | number>,
     ) => {
-        const [a, b] = [p1,p2].map(p => p.getArray());
+        const [p1Array, p2Array] = [p1,p2].map(p => p.getArray());
         
         const matcherResults = matchEntities(
-            a.map((e,i): [number, ComponentProperty] => [i,e]),
-            b.map((e,i): [number, ComponentProperty] => [i,e]),
+            p1Array.map((_,i) => i),
+            p2Array.map((_,i) => i),
             propertySimilarityEvaluatorCreator(
                 this.componentTransition,
+                Object.fromEntries(p1Array.map((e, i) => [i, e])),
+                Object.fromEntries(p2Array.map((e, i) => [i, e])),
                 pathP1, pathP2
             ),
             propertySimilarityThreshold
         );
         
         const matchedDiffs = matcherResults.matches.map(({transition: {v1, v2}, metadata: propDiff}) => 
-            v1 && v2 && v1[0] !== v2[0]
+            v1 && v2 && v1 !== v2
                 ? {
                     similarity: propDiff.similarity,
                     weight: propDiff.weight,
-                    operation: new MovePropertyComponentOperation(
-                        {v1: [...pathP1, v1[0]], v2: [...pathP2, v2[0]]},
-                        {v1: v1[1], v2: v2[1]},
-                        this.componentTransition,
-                        {},
-                        (propDiff.operation as UpdatePropertyComponentOperation)?.innerOperations
-                    )
+                    operation: new MovePropertyComponentOperation({}, {
+                        pathTransition: new Transition({v1: [...pathP1, v1], v2: [...pathP2, v2]}),
+                        propertyTransition: new Transition({v1: p1Array[v1], v2: p2Array[v2]}),
+                        componentTransition: this.componentTransition,
+                        innerOperations: (propDiff.operation as UpdatePropertyComponentOperation)?.innerOperations
+                    })
                 }    
                 : propDiff
         ).filter(isDefined);
         
-        const removedDiffs = matcherResults.unmatchedA.map(([i, e]) => ({
+        const removedDiffs = matcherResults.unmatchedA.map((i) => ({
                 similarity: 0,
-                weight: this.calcPropertyWeight(e),
-                operation: new RemovePropertyComponentOperation({v1: [...pathP1, i]}, {v1: e}, this.componentTransition)
+                weight: this.calcPropertyWeight(p1Array[i]),
+                operation: new RemovePropertyComponentOperation({}, { pathTransition: new Transition({v1: [...pathP1, i]}), propertyTransition: new Transition({v1: p1Array[i]}), componentTransition: this.componentTransition})
         }));
 
-        const insertedDiffs = matcherResults.unmatchedB.map(([i, e]) => ({
+        const insertedDiffs = matcherResults.unmatchedB.map((i) => ({
             similarity: 0,
-            weight: this.calcPropertyWeight(e),
-            operation: new InsertPropertyComponentOperation({v2: [...pathP2, i]}, {v2: e}, this.componentTransition)
+            weight: this.calcPropertyWeight(p2Array[i]),
+            operation: new InsertPropertyComponentOperation({}, { pathTransition: new Transition({v2: [...pathP2, i]}), propertyTransition: new Transition({v2: p2Array[i]}), componentTransition: this.componentTransition})
         }));
     
         return this.fromCollectionDiffs(p1, p2, [...matchedDiffs, ...insertedDiffs, ...removedDiffs], pathP1, pathP2);
@@ -182,7 +183,12 @@ export class PropertyDiffCreator {
     
         let operation;
         if(innerOperations.length > 1){
-            operation = new UpdatePropertyComponentOperation({v1: pathP1, v2: pathP2}, {v1: p1, v2: p2}, this.componentTransition, {}, innerOperations);
+            operation = new UpdatePropertyComponentOperation({}, {
+                pathTransition: new Transition({v1: pathP1, v2: pathP2}),
+                propertyTransition: new Transition({v1: p1, v2: p2}),
+                componentTransition: this.componentTransition,
+                innerOperations
+            });
         } else if(innerOperations.length == 1){
             operation = innerOperations[0];
         }
@@ -204,7 +210,11 @@ export class PropertyDiffCreator {
 
         let operation;
         if(similarity !== 1)
-            operation = new UpdatePropertyComponentOperation({v1: pathP1, v2: pathP2}, {v1: p1, v2: p2}, this.componentTransition);
+            operation = new UpdatePropertyComponentOperation({}, {
+                pathTransition: new Transition({v1: pathP1, v2: pathP2}),
+                propertyTransition: new Transition({v1: p1, v2: p2}),
+                componentTransition: this.componentTransition
+            });
         
         return {similarity, weight: 2, operation};
     }
@@ -217,9 +227,9 @@ export class PropertyDiffCreator {
     ) {
         let operation;
         if(p1 === undefined && p2 !== undefined){
-            operation = new InsertPropertyComponentOperation({v2: pathP2}, {v2: p1}, this.componentTransition);
+            operation = new InsertPropertyComponentOperation({pathTransition: {v2: pathP2}}, {propertyTransition: new Transition({v2: p2}), componentTransition: this.componentTransition});
         } else if (p1 !== undefined && p2 === undefined){
-            operation = new RemovePropertyComponentOperation({v1: pathP1}, {v1: p1}, this.componentTransition);
+            operation = new RemovePropertyComponentOperation({pathTransition: {v1: pathP1}}, {propertyTransition: new Transition({v1: p1}), componentTransition: this.componentTransition});
         }
     
         return {

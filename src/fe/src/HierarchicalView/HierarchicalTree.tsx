@@ -11,6 +11,7 @@ import { HierarchicalViewContext } from './HierarchicalTab';
 
 import UpdateIcon from '@material-ui/icons/Update';
 import { DoneOutline as DoneOutlineIcon } from '@material-ui/icons';
+import { ObjIdAssigner, useIdAssignerHook } from '../utils/idCreator';
 
 const useStyles = makeStyles({
   root: {
@@ -25,25 +26,26 @@ const useStyles = makeStyles({
 function HierarchicalTree() {
     const classes = useStyles();
 
+    const idAssigner = useIdAssignerHook();
+
     return (
       <AppContext.Consumer>{({changeReport}) =>
         <Paper elevation={3} className={classes.root}>
             <List disablePadding style={{width: '100%'}}>
-                {renderTree(changeReport.infraModelDiff)}
+                {renderTree(changeReport.infraModelDiff, idAssigner)}
             </List>
         </Paper>
       }</AppContext.Consumer>
     );
 }
 
-function renderTree(modelDiff: InfraModelDiff, ){
+function renderTree(modelDiff: InfraModelDiff, idAssigner: ObjIdAssigner){
   return modelDiff.componentTransitions
         .filter(t =>
             [   ...(t.v2?.outgoing || [])]
                 .filter(r => r instanceof StructuralRelationship).length
             && (!t.v1?.incoming.size || !t.v2?.incoming.size)
-        ).map(t => renderTransition(t, modelDiff, new Set())?.reactNode)
-        .filter(isDefined);
+        ).map(t => <React.Fragment key={idAssigner.get(t)}>{renderTransition(t, modelDiff, new Set())?.reactNode}</React.Fragment>)
 }
 
 function renderTransition(

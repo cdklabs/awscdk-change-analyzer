@@ -13,6 +13,7 @@ import { CompOpAggCharacteristics, Aggregation } from 'change-cd-iac-models/aggr
 import { ComponentOperation } from 'change-cd-iac-models/model-diffing';
 import { isDefined } from 'change-cd-iac-models/utils';
 import { AppContext } from '../../App';
+import { useIdAssignerHook, ObjIdAssigner } from '../../utils/idCreator';
 
 const useStyles = makeStyles({
   root: {
@@ -27,6 +28,8 @@ function ChangeTree() {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(0);
 
+    const idAssigner = useIdAssignerHook();
+
     return (
       <AppContext.Consumer>{({changeReport}) =>
         <Paper elevation={3} className={classes.root}>
@@ -38,7 +41,7 @@ function ChangeTree() {
               title="High Risk Changes"
               content={
                 <List disablePadding style={{width: '100%'}}>{
-                  renderAggs(changeReport.aggregations)
+                  renderAggs(changeReport.aggregations, idAssigner)
                 }</List>
               }
               color="#EA9B9A"
@@ -66,8 +69,9 @@ function ChangeTree() {
     );
 }
 
-function renderAggs(igs: Aggregation<ComponentOperation>[]){
+function renderAggs(igs: Aggregation<ComponentOperation>[], idAssigner: ObjIdAssigner){
   return igs.map(ig => <ChangesGroup
+      key={idAssigner.get(ig)}
       ig={ig}
       title={`${ig.characteristics[CompOpAggCharacteristics.COMPONENT_TYPE]} ${ig.characteristics[CompOpAggCharacteristics.COMPONENT_SUBTYPE] || ''}`}
       description={

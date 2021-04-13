@@ -7,7 +7,8 @@
     "start": "npm run lint && npm run compile && node out/index.js",
     "compile": "npx tsc",
     "lint": "eslint . --ext .ts",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "npm --prefix node_modules/fifinet run build && mv node_modules/fifinet/dist/* node_modules/fifinet"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,8 @@
   },
   "homepage": "https://github.com/S-R-MSc/2021_henriquelima#readme",
   "dependencies": {
-    "@aws-cdk/cfnspec": "^1.90.0"
+    "@aws-cdk/cfnspec": "^1.90.0",
+    "fifinet": "github:rix0rrr/fifinet"
   },
   "devDependencies": {
     "@babel/core": "^7.12.13",

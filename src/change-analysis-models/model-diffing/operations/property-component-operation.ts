@@ -1,23 +1,30 @@
-import { JSONSerializable, Serialized } from "../../export/json-serializable";
-import { SerializationID } from "../../export/json-serializer";
+import { JSONSerializable } from "../../export/json-serializable";
 import { SerializationClasses } from "../../export/serialization-classes";
 import { SerializedPropertyComponentOperation, SerializedUpdatePropertyComponentOperation } from "../../export/serialized-interfaces/infra-model-diff/serialized-component-operation";
-import { Component, ComponentProperty, ComponentUpdateType, PropertyPath } from "../../infra-model";
+import { ComponentProperty, ComponentUpdateType, PropertyPath } from "../../infra-model";
 import { arraysEqual } from "../../utils";
-import { Transition, transitionSerializer } from "../transition";
-import { ComponentOperation, ComponentOperationOptions } from "./component-operation";
+import { Transition } from "../transition";
+import { ComponentOperation, OpNodeData, OpOutgoingNodeReferences } from "./component-operation";
 
-export abstract class PropertyComponentOperation extends ComponentOperation {
+export type PropOpOutgoingNodeReferences = OpOutgoingNodeReferences & {
+    readonly propertyTransition: Transition<ComponentProperty>,
+    readonly pathTransition: Transition<PropertyPath>,
+}
+
+export abstract class PropertyComponentOperation<ND extends OpNodeData = any, OR extends PropOpOutgoingNodeReferences = any>
+    extends ComponentOperation<ND, OR> {
+    
+    public get pathTransition(): Transition<PropertyPath> { return this.outgoingNodeReferences.pathTransition; }
+    public get propertyTransition(): Transition<ComponentProperty> { return this.outgoingNodeReferences.propertyTransition; }
+    
     constructor(
-        public readonly pathTransition: Transition<PropertyPath>,
-        public readonly propertyTransition: Transition<ComponentProperty>,
-        componentTransition: Transition<Component>,
-        options?: ComponentOperationOptions
+        nodeData: ND,
+        outgoingReferences: OR,
     ){
-        super(componentTransition, options);
+        super(nodeData, outgoingReferences);
     }
 
-    getUpdateType(): ComponentUpdateType{
+    getUpdateType(): ComponentUpdateType {
         if(!this.propertyTransition.v2 && !this.propertyTransition.v1){
             throw Error("Property Operation has no before or after property states");
         }
@@ -36,16 +43,11 @@ export abstract class PropertyComponentOperation extends ComponentOperation {
 
     public toSerialized(
         serialize: (obj: JSONSerializable) => number,
-        serializeCustom: (obj: any, serializationClass: string, serialized: Serialized) => SerializationID
     ): SerializedPropertyComponentOperation {
         return {
-            ...super.toSerialized(serialize, serializeCustom),
-            pathTransition: {...this.pathTransition},
-            propertyTransition: serializeCustom(
-                this.propertyTransition,
-                SerializationClasses.TRANSITION,
-                transitionSerializer(this.propertyTransition, serialize)
-            )
+            ...super.toSerialized(serialize),
+            pathTransition: serialize(this.pathTransition),
+            propertyTransition: serialize(this.propertyTransition),
         };
     }
 }
@@ -62,14 +64,18 @@ export class RemovePropertyComponentOperation extends PropertyComponentOperation
     }
 }
 
-export class UpdatePropertyComponentOperation extends PropertyComponentOperation {
+export type UpdatePropOpOutgoingNodeReferences = PropOpOutgoingNodeReferences & {
+    readonly innerOperations?: PropertyComponentOperation[],
+}
+
+export class UpdatePropertyComponentOperation extends PropertyComponentOperation<OpNodeData, UpdatePropOpOutgoingNodeReferences> {
+
+    public get innerOperations(): PropertyComponentOperation[] | undefined { return this.outgoingNodeReferences.innerOperations; }
+
     constructor(
-        pathTransition: Transition<Array<string | number>>,
-        propertyTransition: Transition<ComponentProperty>,
-        componentTransition: Transition<Component>,
-        options?: ComponentOperationOptions,
-        public readonly innerOperations?: PropertyComponentOperation[],
-    ){super(pathTransition, propertyTransition, componentTransition, options);}
+        nodeData: OpNodeData,
+        outgoingReferences: UpdatePropOpOutgoingNodeReferences,
+    ){super(nodeData, outgoingReferences);}
 
     getAllInnerOperations(): PropertyComponentOperation[]{
         if(!this.innerOperations || this.innerOperations.length === 0) {
@@ -105,10 +111,9 @@ export class UpdatePropertyComponentOperation extends PropertyComponentOperation
 
     public toSerialized(
         serialize: (obj: JSONSerializable) => number,
-        serializeCustom: (obj: any, serializationClass: string, serialized: Serialized) => SerializationID
     ): SerializedUpdatePropertyComponentOperation {
         return {
-            ...super.toSerialized(serialize, serializeCustom),
+            ...super.toSerialized(serialize),
             innerOperations: this.innerOperations?.map(o => serialize(o)),
         };
     }

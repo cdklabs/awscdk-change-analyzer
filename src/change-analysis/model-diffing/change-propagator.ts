@@ -55,11 +55,14 @@ function propagatePropertyOperation(
         
     const componentTransition = compOp.componentTransition;
 
-    const replacementOp = new ReplaceComponentOperation(componentTransition, {
-        cause: compOp,
-        certainty: componentUpdate === ComponentUpdateType.POSSIBLE_REPLACEMENT
-                 ? OperationCertainty.PARTIAL : OperationCertainty.ABSOLUTE,
-    });
+    const replacementOp = new ReplaceComponentOperation({
+            certainty: componentUpdate === ComponentUpdateType.POSSIBLE_REPLACEMENT
+                ? OperationCertainty.PARTIAL : OperationCertainty.ABSOLUTE,
+        }, {
+            cause: compOp,
+            componentTransition, 
+        }
+    );
     
     return [replacementOp, ...propagateReplacementOperation(replacementOp, modelDiff)];
 }
@@ -68,10 +71,13 @@ function propagateRenameOperation(
     compOp: RenameComponentOperation,
     modelDiff: InfraModelDiff,
 ): ComponentOperation[] {
-    const replacementOp = new ReplaceComponentOperation(compOp.componentTransition, {
-        cause: compOp,
-        certainty: OperationCertainty.ABSOLUTE,
-    });
+    const replacementOp = new ReplaceComponentOperation(
+        {certainty: OperationCertainty.ABSOLUTE},
+        {
+            cause: compOp,
+            componentTransition: compOp.componentTransition,
+        }
+    );
     
     return [replacementOp, ...propagateReplacementOperation(replacementOp, modelDiff)];
 }
@@ -126,13 +132,16 @@ function createUpdateOperationForComponent(
     if(!v1PropertyPath) return;
 
     return new UpdatePropertyComponentOperation(
-        {v1: v1PropertyPath, v2: v2PropertyPath},
+        {certainty: cause.certainty},
         {
-            v1: v1Property,
-            v2: componentTransition.v2?.properties.getPropertyInPath(v2PropertyPath)
-        },
-        componentTransition,
-        {certainty: cause.certainty, cause}
+            pathTransition: new Transition({v1: v1PropertyPath, v2: v2PropertyPath}),
+            propertyTransition: new Transition({
+                v1: v1Property,
+                v2: componentTransition.v2?.properties.getPropertyInPath(v2PropertyPath)
+            }),
+            componentTransition,
+            cause
+        }
     );
 }
 

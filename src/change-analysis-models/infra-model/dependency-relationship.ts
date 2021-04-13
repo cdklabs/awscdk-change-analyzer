@@ -4,26 +4,26 @@ import { SerializationClasses } from "../export/serialization-classes";
 import { SerializedDependencyRelationship } from "../export/serialized-interfaces/infra-model/serialized-relationship";
 import { Component } from "./component";
 import { PropertyPath } from "./component-property";
-import { Relationship } from "./relationship";
+import { Relationship, RelationshipData } from "./relationship";
 
 export type DependencyRelationshipOptions = {
     readonly sourcePropertyPath?: PropertyPath
     readonly targetAttributePath?: PropertyPath
 }
 
+interface DependencyRelationshipData extends RelationshipData, DependencyRelationshipOptions {}
+
 /**
  * DependencyRelationship describes whether changes in the target component
  * impact the source component, and how.
  */
-export class DependencyRelationship extends Relationship{
+export class DependencyRelationship extends Relationship<DependencyRelationshipData> {
 
-    public readonly sourcePropertyPath: PropertyPath
-    public readonly targetAttributePath: PropertyPath
+    public get sourcePropertyPath(): PropertyPath { return this.nodeData.sourcePropertyPath ?? []; }
+    public get targetAttributePath(): PropertyPath { return this.nodeData.targetAttributePath ?? []; }
 
     constructor(source: Component, target: Component, type: string, options?: DependencyRelationshipOptions){
-        super(source, target, type);
-        this.sourcePropertyPath = options?.sourcePropertyPath ?? [];
-        this.targetAttributePath = options?.targetAttributePath ?? [];
+        super(source, target, {type, ...options});
     }
 
     public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedDependencyRelationship {

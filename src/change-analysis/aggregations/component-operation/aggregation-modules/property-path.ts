@@ -9,6 +9,7 @@ import { EqualityAggModule } from "../../aggregation-module";
 export const propertyPathV1AggModule = new EqualityAggModule(
     CompOpAggCharacteristics.PROPERTY_PATH_BEFORE,
     (cOp: ComponentOperation) => {
+        if(cOp instanceof PropertyComponentOperation && !cOp.pathTransition) console.log(cOp);
         if(cOp instanceof PropertyComponentOperation && cOp.pathTransition.v1 && !arraysEqual(cOp.pathTransition.v1, cOp.pathTransition.v2 || []))
             return cOp.pathTransition.v1.join(' -> ');
         return;
