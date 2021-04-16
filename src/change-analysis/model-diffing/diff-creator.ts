@@ -14,7 +14,8 @@ import {
     UpdateOutgoingRelationshipComponentOperation,
     PropertyComponentOperation,
     Transition,
-    InfraModelDiff
+    InfraModelDiff,
+    TransitionVersions
 } from "change-cd-iac-models/model-diffing";
 import { groupArrayBy } from "change-cd-iac-models/utils/arrayUtils";
 import { isDefined } from "change-cd-iac-models/utils";
@@ -86,8 +87,8 @@ export class DiffCreator {
             ({metadata: propOp}) => propOp
         ).filter(isDefined);
         const renames = renamedMatches.matches.map(({transition}) => new RenameComponentOperation({}, {componentTransition: transition}));
-        const removals = renamedMatches.unmatchedA.map(c => new RemoveComponentOperation({}, {componentTransition: new Transition({v1: c})}));
-        const insertions = renamedMatches.unmatchedB.map(c => new InsertComponentOperation({}, {componentTransition: new Transition({v2: c})}));
+        const removals = renamedMatches.unmatchedA.map(c => new RemoveComponentOperation({}, {componentTransition: this.createComponentTransition({v1: c})}));
+        const insertions = renamedMatches.unmatchedB.map(c => new InsertComponentOperation({}, {componentTransition: this.createComponentTransition({v2: c})}));
         
         return [...removals, ...insertions, ...renames, ...updates];
     }
@@ -105,6 +106,18 @@ export class DiffCreator {
         const matcherResults = matchEntities(a, b, similarityEvaluator, similarityThreshold);
         matcherResults.matches.forEach(({transition}) => this.componentTransitions.push(transition));
         return matcherResults;
+    }
+
+    /**
+     * Creates and registers a new component transition.
+     * @returns the transition
+     */
+    private createComponentTransition(
+        versions: TransitionVersions<Component>
+    ): Transition<Component> {
+        const t = new Transition<Component>(versions);
+        this.componentTransitions.push(t);
+        return t;
     }
 
     /**

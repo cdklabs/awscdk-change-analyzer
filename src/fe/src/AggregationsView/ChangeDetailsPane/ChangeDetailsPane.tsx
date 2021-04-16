@@ -74,7 +74,7 @@ function ChangeDetailsPane({agg}: props) {
                                 Changes to <b>{descriptions[0]}</b>
                             </Typography>
                             {descriptions && descriptions.slice(1).map(description => 
-                                <><Typography className={classes.characteristicDescription}>{description}</Typography></>
+                                <Typography key={description} className={classes.characteristicDescription}>{description}</Typography>
                             )}
                         </>
                         : <Typography variant="h5" className={classes.mainCharacteristicDescription}>

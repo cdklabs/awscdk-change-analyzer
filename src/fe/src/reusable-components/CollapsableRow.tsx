@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Ref, useState } from 'react';
 import { Accordion as MuiAccordion, AccordionDetails, AccordionSummary, Box, Theme, Typography } from "@material-ui/core";
 import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
 
@@ -92,7 +92,7 @@ interface Props {
     rightIcon?: React.ReactNode,
 }
 
-const CollapsableRow = (props: Props) => {
+const CollapsableRow = React.forwardRef((props: Props, ref?: Ref<HTMLDivElement>) => {
     
     let {expanded, onChange} = props;
     if(!onChange){
@@ -104,7 +104,7 @@ const CollapsableRow = (props: Props) => {
     const classes = useStyles({...props, expanded});
 
     return (
-        <div className={classes.wrapper}>
+        <div ref={ref} className={classes.wrapper}>
             <Accordion onChange={onChange} expanded={content ? expanded : false} TransitionProps={{ unmountOnExit: true }}>
                 <AccordionSummary className={classes.head} expandIcon={content ? <ExpandMoreIcon /> : <React.Fragment/>}>
                     <Typography className={classes.headIcon}>{icon}</Typography>
@@ -120,6 +120,6 @@ const CollapsableRow = (props: Props) => {
             </Accordion>
         </div>
     )
-}
+});
 
 export default CollapsableRow;

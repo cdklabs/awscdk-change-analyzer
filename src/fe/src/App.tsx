@@ -10,7 +10,9 @@ import { Transition } from 'change-cd-iac-models/model-diffing';
 
 interface AppState {
     changeReport: ChangeAnalysisReport,
-    showComponentInHierarchy: (comp: Transition<Component>) => void
+    showComponentInHierarchy: (comp: Transition<Component>) => void,
+    selectedCompTransition?: Transition<Component>,
+    setSelectedCompTransition: Function,
 }
 
 export const AppContext = React.createContext({} as AppState);
@@ -48,7 +50,7 @@ const App = ({changeReport}: props) => {
 
     return (
         <AppContext.Provider
-            value={{ changeReport, showComponentInHierarchy }}
+            value={{ changeReport, showComponentInHierarchy, selectedCompTransition, setSelectedCompTransition }}
         >
             <div className={classes.wrapper}>
                 <AppBar position="static" color="transparent">
@@ -61,7 +63,7 @@ const App = ({changeReport}: props) => {
                     <AggregationsTab />
                 </div>
                 <div className={classes.panel} hidden={selectedTab !== 1}>
-                    <HierarchicalTab selectedCompTransition={selectedCompTransition} setSelectedCompTransition={setSelectedCompTransition}/>
+                    <HierarchicalTab />
                 </div>
             </div>
         </AppContext.Provider>

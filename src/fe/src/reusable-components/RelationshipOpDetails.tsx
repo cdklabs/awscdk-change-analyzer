@@ -2,8 +2,7 @@ import React from 'react';
 import { ComponentOperation, OutgoingRelationshipComponentOperation, PropertyComponentOperation, Transition } from 'change-cd-iac-models/model-diffing';
 import { AppContext } from '../App';
 import { getPropertyDiff } from '../selectors/getPropertyDiff';
-import { Component, Relationship } from 'change-cd-iac-models/infra-model';
-import ChangesDiff from './ChangesDiff';
+import { Relationship } from 'change-cd-iac-models/infra-model';
 import { Typography } from '@material-ui/core';
 
 interface Props {

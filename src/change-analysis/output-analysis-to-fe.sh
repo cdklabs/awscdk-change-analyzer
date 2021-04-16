@@ -1,0 +1,1 @@
+npm start > tmp.json && tail -n 1 tmp.json > ../fe/model-diff-example.json && rm tmp.json

@@ -70,8 +70,8 @@ function ChangeTree() {
 }
 
 function renderAggs(igs: Aggregation<ComponentOperation>[], idAssigner: ObjIdAssigner){
-  return igs.map(ig => <ChangesGroup
-      key={idAssigner.get(ig)}
+  return igs.map((ig, i) => <ChangesGroup
+      key={i}
       ig={ig}
       title={`${ig.characteristics[CompOpAggCharacteristics.COMPONENT_TYPE]} ${ig.characteristics[CompOpAggCharacteristics.COMPONENT_SUBTYPE] || ''}`}
       description={
