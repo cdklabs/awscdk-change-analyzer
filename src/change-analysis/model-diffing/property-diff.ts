@@ -72,8 +72,7 @@ export class PropertyDiffCreator {
                 ...pd,
                 similarity: pd.similarity + (1 - pd.similarity)*(1/(pd.weight+1)),
                 weight: pd.weight + 1
-            }]) // keys impact similiarity as much as string values
-            .filter(([, pd]) => pd.similarity >= propertySimilarityThreshold);
+            }]); // keys impact similiarity as much as string values
 
         const pickedSameNameKeys = new Set(pickedSameNames.map(([k]) => k));
         const sameNameDiffs = pickedSameNames.map(([, pd]) => pd);
