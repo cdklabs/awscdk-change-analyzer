@@ -58,19 +58,11 @@ export class CDKParser implements Parser {
                 const resourcePath = (metadata.getRecord() ?? {})["aws:cdk:path"].value;
                 delete metadata.getRecord()["aws:cdk:path"];
                 if(typeof resourcePath === 'string'){
-                    return this.extractConstructPath(resourcePath);      
+                    return resourcePath;      
                 }
             }
         } catch(e) {
             if(!(e instanceof ComponentPropertyAccessError)) throw e;
-        }
-    }
-
-    // Extracts the construct path from the CDK path of a resource
-    private extractConstructPath(path: string): string | void {
-        const constructPathMatches = path.match(/^(.*)\/Resource$/);
-        if(constructPathMatches){
-            return constructPathMatches[1];
         }
     }
 
