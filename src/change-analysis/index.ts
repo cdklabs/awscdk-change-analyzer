@@ -4,13 +4,15 @@ import { createChangeAnalysisReport } from './change-analysis-report/create-chan
 import { CDKParser } from './platform-mapping';
 import { Transition } from 'change-cd-iac-models/model-diffing';
 
-const dir = 'test/model-diffing';
-const readSampleInput = (sampleInputFilename: string) => JSON.parse(fs.readFileSync(`${dir}/sample-inputs/${sampleInputFilename}`, 'utf8'));
+const dir = '../experiment templates/exp2';
+const readSampleInput = (sampleInputFilename: string) => JSON.parse(fs.readFileSync(`${dir}/${sampleInputFilename}`, 'utf8'));
 
-const oldModel = new CDKParser(readSampleInput('kessel-run-stack-before.json')).parse();
-const newModel = new CDKParser(readSampleInput('kessel-run-stack-after.json')).parse();
+const oldModel = new CDKParser(readSampleInput('before.json')).parse();
+const newModel = new CDKParser(readSampleInput('after.json')).parse();
+
+const changeReport = createChangeAnalysisReport(new Transition({v1: oldModel, v2: newModel}));
 
 console.log(
-    new JSONSerializer().serialize(createChangeAnalysisReport(new Transition({v1: oldModel, v2: newModel})))
+    new JSONSerializer().serialize(changeReport)
 );
 

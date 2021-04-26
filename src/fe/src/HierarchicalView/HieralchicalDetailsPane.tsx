@@ -1,11 +1,10 @@
 import React from 'react';
 import { ComponentOperation, Transition } from 'change-cd-iac-models/model-diffing';
 import { Box, makeStyles, Theme, Typography } from '@material-ui/core';
-import CollapsableRow from '../reusable-components/CollapsableRow';
 import { Component } from 'change-cd-iac-models/infra-model';
-import ComponentPropertyDiff from '../reusable-components/ComponentPropertyDiff';
 import { getComponentOperationsDescription } from '../selectors/description-generators';
 import { AppContext } from '../App';
+import ComponentTransitionDetails from '../reusable-components/ComponentTransitionDetails';
 
 interface props {
     componentTransition?: Transition<Component>,
@@ -75,16 +74,10 @@ function HierarchicalDetailsPane({componentTransition}: props) {
                 </Box>
                     <Box className={`${classes.fillParent} ${classes.occurrences}`}>
                     {
-                        <CollapsableRow
-                            stickySummary
-                            expanded={true}
-                            icon={`P`}
-                            title={<b>Properties</b>}
-                            content={<div className={`${classes.occurrenceContent}`}><ComponentPropertyDiff componentTransition={componentTransition} /></div>}
-                        />
+                        <ComponentTransitionDetails componentTransition={componentTransition} showReferences/>
                     }
+                    </Box>
                 </Box>
-            </Box>
         }</AppContext.Consumer>;
 }
 export default HierarchicalDetailsPane;

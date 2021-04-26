@@ -1,4 +1,4 @@
-import React, { Ref, useState } from 'react';
+import React, { Ref, useEffect, useRef, useState } from 'react';
 import { Accordion as MuiAccordion, AccordionDetails, AccordionSummary, Box, Theme, Typography } from "@material-ui/core";
 import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
 
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     top: '0',
     overflow: 'hidden',
     maxWidth: '100%',
-    margin: props => props.expanded && props.stickySummary ? theme.spacing(0,0,1,0) : 0,
+    zIndex: 1,
     backgroundColor: (props: Props) => props.selected ? '#ddd' : props.color ?? '#fff',
     '& > :first-child': {
         alignItems: 'center',
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         backgroundColor: undefined,
     },
     '&.Mui-expanded': {
+        boxShadow: '0px 2px 3px -1px rgba(0,0,0,0.05)', 
         backgroundColor: (props: Props) => props.selected ? '#ddd' : props.color ?? '#eee',
     },
   },
@@ -50,27 +51,31 @@ const useStyles = makeStyles((theme: Theme) => ({
   content: {
     height: '100%',
     padding: 0,
+    zIndex: 0,
+    display: 'contents',   
     overflowY: 'auto',
-    boxShadow: 'inset 2px 3px -1px rgba(0,0,0,0.6)',
   },
+  root: {
+    border: '0',
+    boxShadow: 'none',
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',  
+    '&:not(:last-child)': {
+        borderBottom: 0,
+    },
+    '&:before': {
+        display: 'none',
+    },
+    '& > :last-child': {
+        position: 'sticky',
+        overflowY: props => props.stickySummary ? undefined : 'auto',
+    },
+  }
 }));
 
 const Accordion = withStyles({
     root: {
-        border: '0',
-        boxShadow: 'none',
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',  
-        '&:not(:last-child)': {
-            borderBottom: 0,
-        },
-        '& > :last-child': {
-            overflowY: 'auto',
-        },
-        '&:before': {
-            display: 'none',
-        },
         '&$expanded': {
             margin: '0',
         },
@@ -105,7 +110,7 @@ const CollapsableRow = React.forwardRef((props: Props, ref?: Ref<HTMLDivElement>
 
     return (
         <div ref={ref} className={classes.wrapper}>
-            <Accordion onChange={onChange} expanded={content ? expanded : false} TransitionProps={{ unmountOnExit: true }}>
+            <Accordion className={classes.root} onChange={onChange} expanded={content ? expanded : false} TransitionProps={{ unmountOnExit: true }}>
                 <AccordionSummary className={classes.head} expandIcon={content ? <ExpandMoreIcon /> : <React.Fragment/>}>
                     <Typography className={classes.headIcon}>{icon}</Typography>
                     <div className={classes.headText}>

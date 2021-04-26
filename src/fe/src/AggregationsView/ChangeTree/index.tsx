@@ -8,7 +8,7 @@ import {
   Warning as WarningIcon,
   Info as InfoIcon,
 } from '@material-ui/icons';
-import ChangesGroup from './ChangesGroup';
+import ChangesGroup from '../../reusable-components/ChangesGroup';
 import { CompOpAggCharacteristics, Aggregation } from 'change-cd-iac-models/aggregations';
 import { ComponentOperation } from 'change-cd-iac-models/model-diffing';
 import { isDefined } from 'change-cd-iac-models/utils';
@@ -69,15 +69,15 @@ function ChangeTree() {
     );
 }
 
-function renderAggs(igs: Aggregation<ComponentOperation>[], idAssigner: ObjIdAssigner){
-  return igs.map((ig, i) => <ChangesGroup
+function renderAggs(aggs: Aggregation<ComponentOperation>[], idAssigner: ObjIdAssigner){
+  return aggs.map((agg, i) => <ChangesGroup
       key={i}
-      ig={ig}
-      title={`${ig.characteristics[CompOpAggCharacteristics.COMPONENT_TYPE]} ${ig.characteristics[CompOpAggCharacteristics.COMPONENT_SUBTYPE] || ''}`}
+      agg={agg}
+      title={`${agg.characteristics[CompOpAggCharacteristics.COMPONENT_TYPE]} ${agg.characteristics[CompOpAggCharacteristics.COMPONENT_SUBTYPE] || ''}`}
       description={
-        ig.characteristics[CompOpAggCharacteristics.OPERATION_TYPE]
-        ? ig.characteristics[CompOpAggCharacteristics.OPERATION_TYPE]
-        : [...new Set(ig.subAggs?.map(sg => sg.characteristics[CompOpAggCharacteristics.OPERATION_TYPE]))]
+        agg.characteristics[CompOpAggCharacteristics.OPERATION_TYPE]
+        ? agg.characteristics[CompOpAggCharacteristics.OPERATION_TYPE]
+        : [...new Set(agg.subAggs?.map(sg => sg.characteristics[CompOpAggCharacteristics.OPERATION_TYPE]))]
           .filter(isDefined).join(', ')
       }
     />);

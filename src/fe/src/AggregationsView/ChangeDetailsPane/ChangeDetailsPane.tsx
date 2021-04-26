@@ -1,13 +1,12 @@
 import React from 'react';
-import { ComponentOperation, OutgoingRelationshipComponentOperation, PropertyComponentOperation } from 'change-cd-iac-models/model-diffing';
+import { ComponentOperation } from 'change-cd-iac-models/model-diffing';
 import { Box, IconButton, makeStyles, Theme, Tooltip, Typography } from '@material-ui/core';
 import { Launch as LaunchIcon } from '@material-ui/icons';
 import { Aggregation, getAllDescriptions } from 'change-cd-iac-models/aggregations';
 import CollapsableRow from '../../reusable-components/CollapsableRow';
 import { useIdAssignerHook } from '../../utils/idCreator';
-import ComponentPropertyDiff from '../../reusable-components/ComponentPropertyDiff';
-import RelationshipOpDetails from '../../reusable-components/RelationshipOpDetails';
 import { AppContext } from '../../App';
+import ComponentTransitionDetails from '../../reusable-components/ComponentTransitionDetails';
 
 interface props {
     agg?: Aggregation<ComponentOperation>,
@@ -35,11 +34,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         overflowX: 'hidden',
         overflowY: 'auto',
         height: '100%',
-        padding: theme.spacing(0, 2),
-    },
-    occurrenceContent: {
-        width: '100%',
-        padding: theme.spacing(0, 2)
     },
     fillParent: {
         maxHeight: '100%',
@@ -82,7 +76,7 @@ function ChangeDetailsPane({agg}: props) {
                         </Typography>
                     }
                     
-                    <Typography className={classes.ocurrencesTitle} variant="h6">Occurrences:</Typography>
+                    <Typography className={classes.ocurrencesTitle} variant="h6">Occurrences ({agg.entities.size}):</Typography>
                 </Box>
                     <Box className={`${classes.fillParent} ${classes.occurrences}`}>
                     {[...agg.entities].map((op,i) =>
@@ -94,14 +88,7 @@ function ChangeDetailsPane({agg}: props) {
                             rightIcon={<Tooltip title="Open in Hierarchical View"><IconButton size="small" onClick={() => showComponentInHierarchy(op.componentTransition)}><LaunchIcon/></IconButton></Tooltip>}
                             title={<b>{(op.componentTransition.v2?.name || op.componentTransition.v1?.name)}</b>}
                             content={
-                                <div className={`${classes.occurrenceContent}`}>
-                                    {op instanceof OutgoingRelationshipComponentOperation && <RelationshipOpDetails relTransition={op.relationshipTransition}/>}
-                                    <Typography><b>Source Definition:</b></Typography>
-                                    <ComponentPropertyDiff
-                                        componentTransition={op.componentTransition}
-                                        propertyOp={op instanceof PropertyComponentOperation ? op : undefined}
-                                    />
-                                </div>
+                                <ComponentTransitionDetails componentTransition={op.componentTransition} highlightOperation={op} />
                             }
                         />
                     )}

@@ -10,7 +10,6 @@ import {
     DependencyRelationshipOptions,
     PropertyPath
 } from "change-cd-iac-models/infra-model";
-import { isDefined } from "change-cd-iac-models/utils";
 import { CFParserArgs } from "./cf-parser-args";
 import { CFRef } from "./cf-ref";
 

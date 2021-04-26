@@ -1,6 +1,6 @@
 import { InfraModelDiff, Transition } from "change-cd-iac-models/model-diffing";
 
-import { Component, StructuralRelationship } from "change-cd-iac-models/infra-model";
+import { Component, Relationship, StructuralRelationship } from "change-cd-iac-models/infra-model";
 import { isDefined } from "change-cd-iac-models/utils";
 
 export interface VisualHierarchyNode {
@@ -10,7 +10,6 @@ export interface VisualHierarchyNode {
 };
 
 export function buildVisualHierarchy(infraModelDiff: InfraModelDiff): VisualHierarchyNode[] {
-    
     return infraModelDiff.componentTransitions
         .filter(t =>
             ![...t.v2?.incoming ?? []].some(r => r instanceof StructuralRelationship)
@@ -24,18 +23,10 @@ function buildVisualHierarchyForComponentTransition(
     modelDiff: InfraModelDiff
 ) : VisualHierarchyNode {
 
-    const structuralRelationships = [
-        ...compTransition.v1?.outgoing ?? [],
+    const innerTransitions = getChildNodes([
+        ...compTransition.v2 ? [] : compTransition.v1?.outgoing ?? [],
         ...compTransition.v2?.outgoing ?? []
-    ].filter(r => r instanceof StructuralRelationship) as StructuralRelationship[];
-
-    const innerTransitions = new Set(structuralRelationships.map(r => {
-        try {
-            return modelDiff.getComponentTransition(r.target)
-        } catch(e){
-            return undefined;
-        }
-    }).filter(isDefined));
+    ], modelDiff);
 
     const innerNodes = [...innerTransitions]
         .map(t => buildVisualHierarchyForComponentTransition(t, modelDiff))
@@ -48,4 +39,16 @@ function buildVisualHierarchyForComponentTransition(
         compTransition,
         innerNodes
     };
+}
+
+function getChildNodes(outgoingRelationships: Relationship[], modelDiff: InfraModelDiff): Transition<Component>[]{
+    const structuralRelationships = outgoingRelationships.filter(r => r instanceof StructuralRelationship) as StructuralRelationship[];
+
+    return [...new Set(structuralRelationships.map(r => {
+        try {
+            return modelDiff.getComponentTransition(r.target)
+        } catch(e){
+            return undefined;
+        }
+    }).filter(isDefined))];
 }

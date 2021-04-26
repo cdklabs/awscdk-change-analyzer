@@ -16,10 +16,10 @@ function RelationshipOpDetails({relTransition}: Props) {
         <AppContext.Consumer>{({changeReport}) =>
             <>
                 <Typography>
-                    <b>Source:</b> {(relTransition.v2 ?? relTransition.v1!).source.name}
+                    <b>Relationship Source:</b> {(relTransition.v2 ?? relTransition.v1!).source.name}
                 </Typography>
                 <Typography>
-                    <b>Target:</b> {(relTransition.v2 ?? relTransition.v1!).target.name}
+                    <b>Relationship Target:</b> {(relTransition.v2 ?? relTransition.v1!).target.name}
                 </Typography>
                 
             </>

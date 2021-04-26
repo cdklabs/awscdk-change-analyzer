@@ -5,7 +5,9 @@ import { ChangeAnalysisReport } from 'change-cd-iac-models/change-analysis-repor
 import AggregationsTab from './AggregationsView/AggregationsTab';
 import HierarchicalTab from './HierarchicalView/HierarchicalTab';
 import { Component } from 'change-cd-iac-models/infra-model';
-import { Transition } from 'change-cd-iac-models/model-diffing';
+import { ComponentOperation, Transition } from 'change-cd-iac-models/model-diffing';
+import { Aggregation } from 'change-cd-iac-models/aggregations';
+import { findAggregationWithChange } from './selectors/aggregation-helpers';
 
 
 interface AppState {
@@ -13,6 +15,10 @@ interface AppState {
     showComponentInHierarchy: (comp: Transition<Component>) => void,
     selectedCompTransition?: Transition<Component>,
     setSelectedCompTransition: Function,
+    selectedAgg?: Aggregation<ComponentOperation>,
+    setSelectedAgg: Function,
+    setSelectedChange: Function,
+    showAggregation: Function,
 }
 
 export const AppContext = React.createContext({} as AppState);
@@ -42,15 +48,27 @@ const App = ({changeReport}: props) => {
     const [selectedTab, setSelectedTab] = useState(0);
     
     const [selectedCompTransition, setSelectedCompTransition] = useState(undefined as Transition<Component> | undefined);
+    const [selectedAgg, setSelectedAgg] = useState(undefined as Aggregation<ComponentOperation> | undefined);
 
     const showComponentInHierarchy = (comp: Transition<Component>) => {
         setSelectedTab(1);
         setSelectedCompTransition(comp);
     };
 
+    const showAggregation = (agg: Aggregation<ComponentOperation>) => {
+        setSelectedTab(0);
+        setSelectedAgg(agg);
+    };
+
+    const setSelectedChange = (op: ComponentOperation) => {
+        const agg = findAggregationWithChange(op, changeReport.aggregations);
+        if(agg)
+            showAggregation(agg);
+    }
+
     return (
         <AppContext.Provider
-            value={{ changeReport, showComponentInHierarchy, selectedCompTransition, setSelectedCompTransition }}
+            value={{ changeReport, showComponentInHierarchy, selectedCompTransition, setSelectedCompTransition, selectedAgg, setSelectedAgg, setSelectedChange, showAggregation }}
         >
             <div className={classes.wrapper}>
                 <AppBar position="static" color="transparent">
