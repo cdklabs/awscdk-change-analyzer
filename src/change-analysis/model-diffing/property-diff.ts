@@ -226,9 +226,9 @@ export class PropertyDiffCreator {
     ) {
         let operation;
         if(p1 === undefined && p2 !== undefined){
-            operation = new InsertPropertyComponentOperation({pathTransition: {v2: pathP2}}, {propertyTransition: new Transition({v2: p2}), componentTransition: this.componentTransition});
+            operation = new InsertPropertyComponentOperation({}, {pathTransition: new Transition({v2: pathP2}), propertyTransition: new Transition({v2: p2}), componentTransition: this.componentTransition});
         } else if (p1 !== undefined && p2 === undefined){
-            operation = new RemovePropertyComponentOperation({pathTransition: {v1: pathP1}}, {propertyTransition: new Transition({v1: p1}), componentTransition: this.componentTransition});
+            operation = new RemovePropertyComponentOperation({}, {pathTransition: new Transition({v1: pathP1}), propertyTransition: new Transition({v1: p1}), componentTransition: this.componentTransition});
         }
     
         return {

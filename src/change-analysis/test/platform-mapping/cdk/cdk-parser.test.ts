@@ -53,8 +53,8 @@ test('Basic resources', () => {
     });
     const model = parser.parse();
     genGraphOnEnvFlag(model, 'basic-resources-template');
-    expect(model.components.length).toBe(7);
-    expect(model.relationships.length).toBe(7);
+    expect(model.components.length).toBe(9);
+    expect(model.relationships.length).toBe(9);
     expect(model.relationships.filter(r => r instanceof DependencyRelationship).length).toBe(1);
     expect(model.components.filter(c => c.name == 'InnerConstruct').length).toBe(2);
     expect(model.components.filter(c => c.name == 'InnerConstruct').length).toBe(2);

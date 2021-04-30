@@ -4,6 +4,7 @@ import { SerializationClasses } from "../export/serialization-classes";
 import { SerializedInfraModel } from "../export/serialized-interfaces/infra-model/serialized-infra-model";
 import { Component } from "./component";
 import { ModelEntity } from "./model-entity";
+import { ModelEntityTypes } from "./model-entity-types";
 import { Relationship } from "./relationship";
 
 type OutgoingNodeReferences = {
@@ -17,7 +18,7 @@ export class InfraModel extends ModelEntity<any, OutgoingNodeReferences> impleme
     public get relationships(): Relationship[] { return this.outgoingNodeReferences.relationships; }
 
     constructor(components: Component[], relationships: Relationship[]){
-        super({}, {components, relationships});
+        super(ModelEntityTypes.infrastructureState, {}, {components, relationships});
     }
 
     public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedInfraModel {

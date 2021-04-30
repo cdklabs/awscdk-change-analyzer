@@ -2,17 +2,17 @@ import { JSONSerializable, Serialized } from "../export/json-serializable";
 import { SerializationClasses } from "../export/serialization-classes";
 import { SerializedChangeAnalysisReport } from "../export/serialized-interfaces/serialized-change-analysis-report";
 import { Aggregation, aggregationSerializer } from "../aggregations";
-import { ComponentOperation, InfraModelDiff, Transition } from "../model-diffing";
-import * as fn from 'fifinet';
-import { ModelEntity } from "../infra-model/model-entity";
+import { ComponentOperation, InfraModelDiff, Transition, UpdatePropertyComponentOperation } from "../model-diffing";
 import { Component } from "../infra-model";
+import { RuleEffect } from "../rules";
 
 export class ChangeAnalysisReport implements JSONSerializable {
 
     constructor(
         public readonly infraModelDiff: InfraModelDiff,
         public readonly aggregations: Aggregation<ComponentOperation>[],
-        public readonly aggregationsPerComponent: Map<Transition<Component>, Aggregation<ComponentOperation>[]>
+        public readonly aggregationsPerComponent: Map<Transition<Component>, Aggregation<ComponentOperation>[]>,
+        public readonly rulesOutput: Map<ComponentOperation, RuleEffect>, 
     ){}
 
     toSerialized(
@@ -27,6 +27,9 @@ export class ChangeAnalysisReport implements JSONSerializable {
                     return [serialize(compTransition), aggArr.map(agg => this.serializeAgg(agg, serialize, serializeCustom))]
                 })
             ),
+            rulesOutput: Object.fromEntries(
+                [...this.rulesOutput].map(([op, effect]) => [serialize(op), effect])
+            )
         };
     }
 
@@ -43,15 +46,4 @@ export class ChangeAnalysisReport implements JSONSerializable {
     getSerializationClass(): string {
         return SerializationClasses.CHANGE_ANALYSIS_REPORT;
     }
-
-    generateGraph() {
-        const entities: ModelEntity[] = [...new Set([
-            ...this.infraModelDiff.componentOperations.flatMap(op => op.explodeNodeReferences()),
-            ...this.infraModelDiff.infraModelTransition.v1?.components.flatMap(op => op.explodeNodeReferences()) ?? [],
-            ...this.infraModelDiff.infraModelTransition.v2?.components.flatMap(op => op.explodeNodeReferences()) ?? []
-        ])];
-
-        return new fn.Graph(entities.map(e => e.nodeData), entities.flatMap(e => e.getOutgoingNodeEdges()));
-    }
-    
 }

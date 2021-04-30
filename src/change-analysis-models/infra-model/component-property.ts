@@ -3,6 +3,7 @@ import { SerializationID } from "../export/json-serializer";
 import { SerializationClasses } from "../export/serialization-classes";
 import { SerializedComponentProperty, SerializedComponentPropertyArray, SerializedComponentPropertyEmpty, SerializedComponentPropertyPrimitive, SerializedComponentPropertyRecord } from "../export/serialized-interfaces/infra-model/serialized-component-property";
 import { ModelEntity, OutgoingReferences } from "./model-entity";
+import { ModelEntityTypes } from "./model-entity-types";
 
 /**
  * How a change in a ComponentProperty
@@ -38,7 +39,7 @@ export abstract class ComponentProperty/* TODO Value*/<ND extends NodeData = any
         data: ND,
         outgoingReferences: OR,
     ) {
-        super(data, outgoingReferences);
+        super(ModelEntityTypes.property, data, outgoingReferences);
     }
 
     getRecord(): Record<string, ComponentProperty> {

@@ -1,23 +1,34 @@
 import { JSONSerializable, Serialized } from "../export/json-serializable";
 import { SerializationID } from "../export/json-serializer";
 import { SerializationClasses } from "../export/serialization-classes";
-import { Component, InfraModel } from "../infra-model";
+import { Component, InfraModel, ModelEntity } from "../infra-model";
 import { groupArrayBy, isDefined } from "../utils";
 import { ComponentOperation } from "./operations";
 import { Transition } from "./transition";
 
 export class TransitionNotFoundError extends Error {}
  
-export class InfraModelDiff implements JSONSerializable {
+type OutgoingNodeReferences = {
+    readonly componentOperations: ComponentOperation[],
+    readonly componentTransitions: Transition<Component>[],
+    readonly infraModelTransition: Transition<InfraModel>,
+}
+
+export class InfraModelDiff extends ModelEntity<{}, OutgoingNodeReferences> implements JSONSerializable {
 
     private readonly componentToTransitionMap: Map<Component, Transition<Component>>;
     private readonly componentTransitionToOperationsMap: Map<Transition<Component>, ComponentOperation[]>;
 
+    public get componentOperations() { return this.outgoingNodeReferences.componentOperations; };
+    public get componentTransitions() { return this.outgoingNodeReferences.componentTransitions; };
+    public get infraModelTransition() { return this.outgoingNodeReferences.infraModelTransition; };
+
     constructor(
-        public readonly componentOperations: ComponentOperation[],
-        public readonly componentTransitions: Transition<Component>[],
-        public readonly infraModelTransition: Transition<InfraModel>,
+        componentOperations: ComponentOperation[],
+        componentTransitions: Transition<Component>[],
+        infraModelTransition: Transition<InfraModel>,
     ){
+        super('diff', {}, {componentOperations, componentTransitions, infraModelTransition});
         this.componentToTransitionMap = InfraModelDiff.createComponentTransitionMap(componentTransitions);
         this.componentTransitionToOperationsMap = InfraModelDiff.createComponentTransitionToOperationsMap(componentOperations);
     }

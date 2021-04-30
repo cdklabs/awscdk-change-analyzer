@@ -3,8 +3,9 @@ import { SerializationID } from "../export/json-serializer";
 import { SerializedRelationship } from "../export/serialized-interfaces/infra-model/serialized-relationship";
 import { Component } from "./component";
 import { ModelEntity } from "./model-entity";
+import { ModelEntityTypes } from "./model-entity-types";
 
-export interface RelationshipData {
+export type RelationshipData = {
     readonly type: string;
 }
 
@@ -26,7 +27,7 @@ export abstract class Relationship<T extends RelationshipData = RelationshipData
     public get source(): Component { return this.outgoingNodeReferences.source; }
 
     constructor(source: Component, target: Component, nodeData: T){
-        super(nodeData, {source, target});
+        super(ModelEntityTypes.relationship, nodeData, {source, target});
     }
 
     public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedRelationship {

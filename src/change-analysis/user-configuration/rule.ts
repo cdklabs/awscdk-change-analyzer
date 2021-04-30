@@ -1,3 +1,4 @@
+import { RuleEffect } from 'change-cd-iac-models/rules';
 
 export enum RuleConditionOperator {
     references = '->', // for following dependency relationships
@@ -14,8 +15,10 @@ export enum RuleConditionOperator {
     lessOrEqual = '<=',
 }
 
+export type Scalar = number | string | boolean;
+
 export type ConditionInput = {
-    scalar?: number | string | boolean;
+    scalar?: Scalar;
     identifier?: string;
     propertyPath?: string[];
 }
@@ -28,28 +31,42 @@ export type RuleCondition = {
 
 export type RuleConditions = RuleCondition[];
 
-export type Selector = {
-    filter?: Record<string, any>;
+export type RulePropertyReference = {
+    identifier: string,
+    propertyPath: string[]
+}
+
+export type SelectorFilter = {
+    [key: string]: Scalar,
+} & {
+    _entityType: string,
+}
+
+export type Selector = ({
+        filter?: SelectorFilter;
+    } | {
+        propertyReference: RulePropertyReference;
+}) & {
     where?: RuleConditions;
+}
+
+export function selectorIsPropertyReference(
+    s: Selector
+): s is {propertyReference: RulePropertyReference} & {where?: RuleConditions} {
+    return {}.hasOwnProperty.call(s, 'propertyReference');
 }
 
 export type Bindings = {[identifier: string]: Selector};
 
-export enum RuleRisk {
-    Low = 'low',
-    High = 'high',
-    Unknown = 'unknown',
-}
-
-export enum RuleAction {
-    Approve = 'approve',
-    Reject = 'reject',
-    None = 'none',
-}
-
-export interface Scope {
+export interface UserRule {
     let?: Bindings;
     where?: RuleConditions;
-    then?: Scope[];
-    classifications?: { risk: RuleRisk; action?: RuleAction } | { risk?: RuleRisk; action: RuleAction };
+    then?: UserRule[];
+    effect?: RuleEffectDefinition;
 }
+
+export type UserRules = UserRule[];
+
+export type RuleEffectDefinition = {
+    target: string,
+} & RuleEffect;

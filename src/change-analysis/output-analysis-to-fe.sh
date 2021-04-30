@@ -1,1 +1,1 @@
-npm start > tmp.json && tail -n 1 tmp.json > ../fe/model-diff-example.json && rm tmp.json
+npm start -- "../experiment templates/$1/before.json" "../experiment templates/$1/after.json" "../experiment templates/$1/rules.json" "../fe/model-diff-example.json"

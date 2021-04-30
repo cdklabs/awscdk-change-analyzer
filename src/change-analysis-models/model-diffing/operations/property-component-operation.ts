@@ -4,7 +4,7 @@ import { SerializedPropertyComponentOperation, SerializedUpdatePropertyComponent
 import { ComponentProperty, ComponentUpdateType, PropertyPath } from "../../infra-model";
 import { arraysEqual } from "../../utils";
 import { Transition } from "../transition";
-import { ComponentOperation, OpNodeData, OpOutgoingNodeReferences } from "./component-operation";
+import { ComponentOperation, OperationType, OpNodeData, OpOutgoingNodeReferences } from "./component-operation";
 
 export type PropOpOutgoingNodeReferences = OpOutgoingNodeReferences & {
     readonly propertyTransition: Transition<ComponentProperty>,
@@ -20,8 +20,9 @@ export abstract class PropertyComponentOperation<ND extends OpNodeData = any, OR
     constructor(
         nodeData: ND,
         outgoingReferences: OR,
+        operationType: OperationType,
     ){
-        super(nodeData, outgoingReferences);
+        super(nodeData, outgoingReferences, operationType);
     }
 
     getUpdateType(): ComponentUpdateType {
@@ -50,15 +51,35 @@ export abstract class PropertyComponentOperation<ND extends OpNodeData = any, OR
             propertyTransition: serialize(this.propertyTransition),
         };
     }
+
+    public explode(): PropertyComponentOperation[] {
+        return this instanceof UpdatePropertyComponentOperation ? this.getAllInnerOperations() : [this];
+    }
 }
 
-export class InsertPropertyComponentOperation extends PropertyComponentOperation {
+export class InsertPropertyComponentOperation extends PropertyComponentOperation<OpNodeData, PropOpOutgoingNodeReferences> {
+
+    constructor(
+        nodeData: OpNodeData,
+        outgoingReferences: PropOpOutgoingNodeReferences
+    ){
+        super(nodeData, outgoingReferences, OperationType.INSERT);
+    }
+
     public getSerializationClass(): string {
         return SerializationClasses.INSERT_PROPERTY_COMPONENT_OPERATION;
     }
 }
 
 export class RemovePropertyComponentOperation extends PropertyComponentOperation {
+
+    constructor(
+        nodeData: OpNodeData,
+        outgoingReferences: PropOpOutgoingNodeReferences
+    ){
+        super(nodeData, outgoingReferences, OperationType.REMOVE);
+    }
+
     public getSerializationClass(): string {
         return SerializationClasses.REMOVE_PROPERTY_COMPONENT_OPERATION;
     }
@@ -75,7 +96,8 @@ export class UpdatePropertyComponentOperation extends PropertyComponentOperation
     constructor(
         nodeData: OpNodeData,
         outgoingReferences: UpdatePropOpOutgoingNodeReferences,
-    ){super(nodeData, outgoingReferences);}
+        operationType: OperationType = OperationType.UPDATE
+    ){super(nodeData, outgoingReferences, operationType);}
 
     getAllInnerOperations(): PropertyComponentOperation[]{
         if(!this.innerOperations || this.innerOperations.length === 0) {
@@ -124,6 +146,14 @@ export class UpdatePropertyComponentOperation extends PropertyComponentOperation
 }
 
 export class MovePropertyComponentOperation extends UpdatePropertyComponentOperation {
+
+    constructor(
+        nodeData: OpNodeData,
+        outgoingReferences: UpdatePropOpOutgoingNodeReferences
+    ){
+        super(nodeData, outgoingReferences, OperationType.RENAME);
+    }
+
     public getSerializationClass(): string {
         return SerializationClasses.MOVE_PROPERTY_COMPONENT_OPERATION;
     }

@@ -3,6 +3,7 @@ import { SerializationID } from "../export/json-serializer";
 import { SerializationClasses } from "../export/serialization-classes";
 import { SerializedTransition } from "../export/serialized-interfaces/infra-model-diff/serialized-transition";
 import { ModelEntity } from "../infra-model/model-entity";
+import { ModelEntityTypes } from "../infra-model/model-entity-types";
 
 /**
  * Represents two versions (v1 and v2) of an Entity
@@ -31,7 +32,7 @@ export class Transition<T extends JSONSerializable | Serialized, V extends Trans
     private isModelEntityTransition: boolean;
     constructor(versions: V){
         const isModelEntityTransition = Transition.isModelEntityTransition(versions);
-        super(isModelEntityTransition ? {} : versions, isModelEntityTransition ? versions : {});
+        super(ModelEntityTypes.transition, isModelEntityTransition ? {} : versions, isModelEntityTransition ? versions : {});
         this.isModelEntityTransition = isModelEntityTransition;
     }
 

@@ -4,6 +4,7 @@ import { SerializationClasses } from "../export/serialization-classes";
 import { SerializedComponent } from "../export/serialized-interfaces/infra-model/serialized-component";
 import { ComponentProperty, EmptyComponentProperty } from "./component-property";
 import { ModelEntity } from "./model-entity";
+import { ModelEntityTypes } from "./model-entity-types";
 import { Relationship } from "./relationship";
 
 type NodeData = {
@@ -45,14 +46,17 @@ export class Component extends ModelEntity<NodeData, OutgoingNodeReferences> imp
     public get name(): string { return this.nodeData.name; }
 
     constructor(name: string, type: string, options? : ComponentOptions){
-        super({
-            name,
-            type,
-            subtype: options?.subtype,
-        }, {
-            hasRelationship: new Set(),
-            hasProperties: options?.properties ?? new EmptyComponentProperty()
-        });
+        super(
+            ModelEntityTypes.component,
+            {
+                name,
+                type,
+                subtype: options?.subtype,
+            }, {
+                hasRelationship: new Set(),
+                hasProperties: options?.properties ?? new EmptyComponentProperty()
+            }
+        );
     }
 
     public addOutgoing(relationship: Relationship): void{

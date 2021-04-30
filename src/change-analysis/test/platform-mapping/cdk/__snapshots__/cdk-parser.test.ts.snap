@@ -3,13 +3,15 @@
 exports[`CDK kessel run stack template 1`] = `
 "{
     \\"nodeData\\": {
-        \\"_id\\": \\"1380\\"
+        \\"_entityType\\": \\"infrastructureState\\",
+        \\"_id\\": \\"1575\\"
     },
     \\"outgoingNodeReferences\\": {
         \\"components\\": [
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"162\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"191\\",
                     \\"name\\": \\"NVidiaUser1BAF4BFB\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::IAM::User\\"
@@ -41,7 +43,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"170\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"199\\",
                     \\"name\\": \\"AccessKey\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::IAM::AccessKey\\"
@@ -62,7 +65,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"183\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"212\\",
                     \\"name\\": \\"GameKeyKeyPairF8B1B0F0\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"Custom::KeyPair\\"
@@ -89,7 +93,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"205\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"234\\",
                     \\"name\\": \\"InstanceInstanceSecurityGroupF0E2D5BE\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::EC2::SecurityGroup\\"
@@ -129,7 +134,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"223\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"252\\",
                     \\"name\\": \\"InstanceInstanceRoleE9785DE5\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::IAM::Role\\"
@@ -165,7 +171,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"243\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"272\\",
                     \\"name\\": \\"InstanceInstanceRoleDefaultPolicy4ACE9290\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::IAM::Policy\\"
@@ -204,7 +211,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"252\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"281\\",
                     \\"name\\": \\"InstanceInstanceProfileAB5AEF02\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::IAM::InstanceProfile\\"
@@ -227,7 +235,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"341\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"370\\",
                     \\"name\\": \\"InstanceC1063A87\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::EC2::Instance\\"
@@ -368,7 +377,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"348\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"377\\",
                     \\"name\\": \\"WebAppBucket8F6FA179\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::S3::Bucket\\"
@@ -386,7 +396,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"387\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"416\\",
                     \\"name\\": \\"WebAppDeploymentCustomResourceD7DB25D0\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"Custom::CDKBucketDeployment\\"
@@ -456,7 +467,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"410\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"439\\",
                     \\"name\\": \\"WebAppLambdaServiceRoleB3C5DDDA\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::IAM::Role\\"
@@ -500,7 +512,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"481\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"510\\",
                     \\"name\\": \\"WebAppLambdaServiceRoleDefaultPolicyB264392B\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::IAM::Policy\\"
@@ -612,7 +625,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"534\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"563\\",
                     \\"name\\": \\"WebAppLambdaE4C4A83F\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::Lambda::Function\\"
@@ -703,7 +717,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"543\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"572\\",
                     \\"name\\": \\"S3GatewayGameApp7F73230F\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::ApiGateway::RestApi\\"
@@ -725,7 +740,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"566\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"595\\",
                     \\"name\\": \\"S3GatewayGameAppCloudWatchRole3E18F736\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::IAM::Role\\"
@@ -769,7 +785,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"578\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"607\\",
                     \\"name\\": \\"S3GatewayGameAppAccount244C69A0\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::ApiGateway::Account\\"
@@ -796,7 +813,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"593\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"622\\",
                     \\"name\\": \\"S3GatewayGameAppDeployment45A40F1C1ea3f370273feac6dc79badcdb1c5090\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::ApiGateway::Deployment\\"
@@ -825,7 +843,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"604\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"633\\",
                     \\"name\\": \\"S3GatewayGameAppDeploymentStageprod501ACE37\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::ApiGateway::Stage\\"
@@ -850,7 +869,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"653\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"682\\",
                     \\"name\\": \\"S3GatewayGameAppGET419DC6F4\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::ApiGateway::Method\\"
@@ -930,7 +950,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"666\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"695\\",
                     \\"name\\": \\"S3GatewayGameAppproxy2374A00B\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::ApiGateway::Resource\\"
@@ -958,7 +979,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"717\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"746\\",
                     \\"name\\": \\"S3GatewayGameAppproxyGET2D68D639\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::ApiGateway::Method\\"
@@ -1041,7 +1063,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"730\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"759\\",
                     \\"name\\": \\"S3GatewayGameAppapi997B66C0\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::ApiGateway::Resource\\"
@@ -1069,7 +1092,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"756\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"785\\",
                     \\"name\\": \\"S3GatewayGameAppapiANYApiPermissionKesselRunStackS3GatewayGameAppDDC26D96ANYapi5CCFEF3A\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::Lambda::Permission\\"
@@ -1115,7 +1139,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"779\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"808\\",
                     \\"name\\": \\"S3GatewayGameAppapiANYApiPermissionTestKesselRunStackS3GatewayGameAppDDC26D96ANYapi11815113\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::Lambda::Permission\\"
@@ -1157,7 +1182,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"812\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"841\\",
                     \\"name\\": \\"S3GatewayGameAppapiANY8309A6C9\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::ApiGateway::Method\\"
@@ -1214,7 +1240,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"826\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"855\\",
                     \\"name\\": \\"S3IntegrationRoleF31D2F62\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::IAM::Role\\"
@@ -1244,7 +1271,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"859\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"888\\",
                     \\"name\\": \\"S3IntegrationRoleDefaultPolicy5B77AE07\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::IAM::Policy\\"
@@ -1303,7 +1331,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"891\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"920\\",
                     \\"name\\": \\"KeyPairProviderCustomResourceProviderRoleA32FD897\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::IAM::Role\\"
@@ -1360,7 +1389,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"930\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"959\\",
                     \\"name\\": \\"KeyPairProviderCustomResourceProviderHandlerBB6F16AF\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::Lambda::Function\\"
@@ -1429,7 +1459,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"953\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"982\\",
                     \\"name\\": \\"CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::IAM::Role\\"
@@ -1473,7 +1504,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1017\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1046\\",
                     \\"name\\": \\"CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::IAM::Policy\\"
@@ -1576,7 +1608,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1058\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1087\\",
                     \\"name\\": \\"CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::Lambda::Function\\"
@@ -1648,7 +1681,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1065\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1094\\",
                     \\"name\\": \\"CDKMetadata\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::CDK::Metadata\\"
@@ -1667,7 +1701,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1081\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1110\\",
                     \\"name\\": \\"S3GatewayGameAppEndpoint960301A3\\",
                     \\"type\\": \\"Output\\"
                 },
@@ -1700,7 +1735,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1085\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1114\\",
                     \\"name\\": \\"AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3Bucket69CDE7B7\\",
                     \\"type\\": \\"Parameter\\",
                     \\"subtype\\": \\"String\\"
@@ -1716,7 +1752,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1089\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1118\\",
                     \\"name\\": \\"AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3VersionKey3E23C446\\",
                     \\"type\\": \\"Parameter\\",
                     \\"subtype\\": \\"String\\"
@@ -1732,7 +1769,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1093\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1122\\",
                     \\"name\\": \\"AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047ArtifactHashDD30B458\\",
                     \\"type\\": \\"Parameter\\",
                     \\"subtype\\": \\"String\\"
@@ -1748,7 +1786,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1097\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1126\\",
                     \\"name\\": \\"AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3Bucket77147E20\\",
                     \\"type\\": \\"Parameter\\",
                     \\"subtype\\": \\"String\\"
@@ -1764,7 +1803,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1101\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1130\\",
                     \\"name\\": \\"AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3VersionKey4253216F\\",
                     \\"type\\": \\"Parameter\\",
                     \\"subtype\\": \\"String\\"
@@ -1780,7 +1820,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1105\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1134\\",
                     \\"name\\": \\"AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176ArtifactHash4E343C6C\\",
                     \\"type\\": \\"Parameter\\",
                     \\"subtype\\": \\"String\\"
@@ -1796,7 +1837,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1109\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1138\\",
                     \\"name\\": \\"AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\",
                     \\"type\\": \\"Parameter\\",
                     \\"subtype\\": \\"String\\"
@@ -1812,7 +1854,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1113\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1142\\",
                     \\"name\\": \\"AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3VersionKeyAC52A7BF\\",
                     \\"type\\": \\"Parameter\\",
                     \\"subtype\\": \\"String\\"
@@ -1828,7 +1871,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1117\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1146\\",
                     \\"name\\": \\"AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fArtifactHashE5AC1E7E\\",
                     \\"type\\": \\"Parameter\\",
                     \\"subtype\\": \\"String\\"
@@ -1844,7 +1888,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1121\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1150\\",
                     \\"name\\": \\"AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3BucketA30C151C\\",
                     \\"type\\": \\"Parameter\\",
                     \\"subtype\\": \\"String\\"
@@ -1860,7 +1905,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1125\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1154\\",
                     \\"name\\": \\"AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3VersionKeyE2D63F25\\",
                     \\"type\\": \\"Parameter\\",
                     \\"subtype\\": \\"String\\"
@@ -1876,7 +1922,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1129\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1158\\",
                     \\"name\\": \\"AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7ArtifactHash6C4D52FA\\",
                     \\"type\\": \\"Parameter\\",
                     \\"subtype\\": \\"String\\"
@@ -1892,7 +1939,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1133\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1162\\",
                     \\"name\\": \\"SsmParameterValueawsserviceamiwindowslatestWindowsServer2019EnglishFullBaseC96584B6F00A464EAD1953AFF4B05118Parameter\\",
                     \\"type\\": \\"Parameter\\",
                     \\"subtype\\": \\"AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>\\"
@@ -1908,7 +1956,503 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1252\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1281\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/NVidiaUser/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1285\\",
+                    \\"name\\": \\"AccessKey\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/AccessKey\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1289\\",
+                    \\"name\\": \\"Default\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/GameKey/KeyPair/Default\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1293\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/Instance/InstanceSecurityGroup/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1297\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/Instance/InstanceRole/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1301\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/Instance/InstanceRole/DefaultPolicy/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1305\\",
+                    \\"name\\": \\"InstanceProfile\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/Instance/InstanceProfile\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1309\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/Instance/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1313\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/WebAppBucket/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1317\\",
+                    \\"name\\": \\"Default\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/WebAppDeployment/CustomResource/Default\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1321\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/WebAppLambda/ServiceRole/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1325\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/WebAppLambda/ServiceRole/DefaultPolicy/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1329\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/WebAppLambda/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1333\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1337\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/CloudWatchRole/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1341\\",
+                    \\"name\\": \\"Account\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Account\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1345\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Deployment/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1349\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/DeploymentStage.prod/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1353\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/GET/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1357\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/{proxy+}/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1361\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/{proxy+}/GET/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1365\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/api/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1369\\",
+                    \\"name\\": \\"ApiPermission.KesselRunStackS3GatewayGameAppDDC26D96.ANY..api\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/api/ANY/ApiPermission.KesselRunStackS3GatewayGameAppDDC26D96.ANY..api\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1373\\",
+                    \\"name\\": \\"ApiPermission.Test.KesselRunStackS3GatewayGameAppDDC26D96.ANY..api\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/api/ANY/ApiPermission.Test.KesselRunStackS3GatewayGameAppDDC26D96.ANY..api\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1377\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/api/ANY/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1381\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3IntegrationRole/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1385\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3IntegrationRole/DefaultPolicy/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1389\\",
+                    \\"name\\": \\"Role\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/KeyPairProviderCustomResourceProvider/Role\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1393\\",
+                    \\"name\\": \\"Handler\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/KeyPairProviderCustomResourceProvider/Handler\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1397\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1401\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1405\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1409\\",
+                    \\"name\\": \\"Default\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/CDKMetadata/Default\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1413\\",
                     \\"name\\": \\"NVidiaUser\\",
                     \\"type\\": \\"CDK Construct\\"
                 },
@@ -1922,315 +2466,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1256\\",
-                    \\"name\\": \\"InstanceSecurityGroup\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/Instance/InstanceSecurityGroup\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1260\\",
-                    \\"name\\": \\"InstanceRole\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/Instance/InstanceRole\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1264\\",
-                    \\"name\\": \\"DefaultPolicy\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/Instance/InstanceRole/DefaultPolicy\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1268\\",
-                    \\"name\\": \\"Instance\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/Instance\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1272\\",
-                    \\"name\\": \\"WebAppBucket\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/WebAppBucket\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1276\\",
-                    \\"name\\": \\"ServiceRole\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/WebAppLambda/ServiceRole\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1280\\",
-                    \\"name\\": \\"DefaultPolicy\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/WebAppLambda/ServiceRole/DefaultPolicy\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1284\\",
-                    \\"name\\": \\"WebAppLambda\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/WebAppLambda\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1288\\",
-                    \\"name\\": \\"GameApp\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1292\\",
-                    \\"name\\": \\"CloudWatchRole\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/CloudWatchRole\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1296\\",
-                    \\"name\\": \\"Deployment\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Deployment\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1300\\",
-                    \\"name\\": \\"DeploymentStage.prod\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/DeploymentStage.prod\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1304\\",
-                    \\"name\\": \\"GET\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/GET\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1308\\",
-                    \\"name\\": \\"{proxy+}\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/{proxy+}\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1312\\",
-                    \\"name\\": \\"GET\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/{proxy+}/GET\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1316\\",
-                    \\"name\\": \\"api\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/api\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1320\\",
-                    \\"name\\": \\"ANY\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/api/ANY\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1324\\",
-                    \\"name\\": \\"S3IntegrationRole\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/S3IntegrationRole\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1328\\",
-                    \\"name\\": \\"DefaultPolicy\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Default/S3IntegrationRole/DefaultPolicy\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1332\\",
-                    \\"name\\": \\"ServiceRole\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1336\\",
-                    \\"name\\": \\"DefaultPolicy\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1340\\",
-                    \\"name\\": \\"Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"KesselRunStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1344\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1416\\",
                     \\"name\\": \\"Default\\",
                     \\"type\\": \\"CDK Construct\\"
                 },
@@ -2244,7 +2481,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1347\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1419\\",
                     \\"name\\": \\"KesselRunStack\\",
                     \\"type\\": \\"CDK Construct\\"
                 },
@@ -2258,7 +2496,203 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1360\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1426\\",
+                    \\"name\\": \\"KeyPair\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/GameKey/KeyPair\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1429\\",
+                    \\"name\\": \\"GameKey\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/GameKey\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1435\\",
+                    \\"name\\": \\"InstanceSecurityGroup\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/Instance/InstanceSecurityGroup\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1438\\",
+                    \\"name\\": \\"Instance\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/Instance\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1444\\",
+                    \\"name\\": \\"InstanceRole\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/Instance/InstanceRole\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1449\\",
+                    \\"name\\": \\"DefaultPolicy\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/Instance/InstanceRole/DefaultPolicy\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1456\\",
+                    \\"name\\": \\"WebAppBucket\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/WebAppBucket\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1461\\",
+                    \\"name\\": \\"CustomResource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/WebAppDeployment/CustomResource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1464\\",
+                    \\"name\\": \\"WebAppDeployment\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/WebAppDeployment\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1470\\",
+                    \\"name\\": \\"ServiceRole\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/WebAppLambda/ServiceRole\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1473\\",
+                    \\"name\\": \\"WebAppLambda\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/WebAppLambda\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1479\\",
+                    \\"name\\": \\"DefaultPolicy\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/WebAppLambda/ServiceRole/DefaultPolicy\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1485\\",
+                    \\"name\\": \\"GameApp\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1488\\",
                     \\"name\\": \\"S3Gateway\\",
                     \\"type\\": \\"CDK Construct\\"
                 },
@@ -2272,7 +2706,68 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1368\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1494\\",
+                    \\"name\\": \\"CloudWatchRole\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/CloudWatchRole\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1500\\",
+                    \\"name\\": \\"Deployment\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Deployment\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1505\\",
+                    \\"name\\": \\"DeploymentStage.prod\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/DeploymentStage.prod\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1510\\",
+                    \\"name\\": \\"GET\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/GET\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1513\\",
                     \\"name\\": \\"Default\\",
                     \\"type\\": \\"CDK Construct\\"
                 },
@@ -2283,12 +2778,178 @@ exports[`CDK kessel run stack template 1`] = `
                     }
                 },
                 \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1519\\",
+                    \\"name\\": \\"{proxy+}\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/{proxy+}\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1524\\",
+                    \\"name\\": \\"GET\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/{proxy+}/GET\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1529\\",
+                    \\"name\\": \\"api\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/api\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1534\\",
+                    \\"name\\": \\"ANY\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3Gateway/GameApp/Default/api/ANY\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1541\\",
+                    \\"name\\": \\"S3IntegrationRole\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3IntegrationRole\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1546\\",
+                    \\"name\\": \\"DefaultPolicy\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Default/S3IntegrationRole/DefaultPolicy\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1551\\",
+                    \\"name\\": \\"KeyPairProviderCustomResourceProvider\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/KeyPairProviderCustomResourceProvider\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1557\\",
+                    \\"name\\": \\"ServiceRole\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1560\\",
+                    \\"name\\": \\"Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1566\\",
+                    \\"name\\": \\"DefaultPolicy\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"1572\\",
+                    \\"name\\": \\"CDKMetadata\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"KesselRunStack/CDKMetadata\\"
+                    }
+                },
+                \\"incoming\\": {}
             }
         ],
         \\"relationships\\": [
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1182\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1211\\",
                     \\"type\\": \\"Properties.UserName.Ref -> NVidiaUser1BAF4BFB\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2304,7 +2965,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1183\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1212\\",
                     \\"type\\": \\"Properties.ServiceToken.Fn::GetAtt -> KeyPairProviderCustomResourceProviderHandlerBB6F16AF.Arn\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2322,7 +2984,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1184\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1213\\",
                     \\"type\\": \\"Properties.Roles.0.Ref -> InstanceInstanceRoleE9785DE5\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2339,7 +3002,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1185\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1214\\",
                     \\"type\\": \\"Properties.Roles.0.Ref -> InstanceInstanceRoleE9785DE5\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2356,7 +3020,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1186\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1215\\",
                     \\"type\\": \\"Properties.IamInstanceProfile.Ref -> InstanceInstanceProfileAB5AEF02\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2372,7 +3037,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1187\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1216\\",
                     \\"type\\": \\"Properties.ImageId.Ref -> SsmParameterValueawsserviceamiwindowslatestWindowsServer2019EnglishFullBaseC96584B6F00A464EAD1953AFF4B05118Parameter\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2388,7 +3054,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1188\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1217\\",
                     \\"type\\": \\"Properties.KeyName.Fn::GetAtt -> GameKeyKeyPairF8B1B0F0.KeyName\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2406,7 +3073,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1189\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1218\\",
                     \\"type\\": \\"Properties.SecurityGroupIds.0.Fn::GetAtt -> InstanceInstanceSecurityGroupF0E2D5BE.GroupId\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2425,7 +3093,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1190\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1219\\",
                     \\"type\\": \\"Metadata.AWS::CloudFormation::Init.config.commands.000.command.2.Fn::Join.1.1.Ref -> AccessKey\\",
                     \\"sourcePropertyPath\\": [
                         \\"Metadata\\",
@@ -2449,7 +3118,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1191\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1220\\",
                     \\"type\\": \\"Metadata.AWS::CloudFormation::Init.config.commands.000.command.2.Fn::Join.1.3.Fn::GetAtt -> AccessKey.SecretAccessKey\\",
                     \\"sourcePropertyPath\\": [
                         \\"Metadata\\",
@@ -2475,7 +3145,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1192\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1221\\",
                     \\"type\\": \\"Properties.ServiceToken.Fn::GetAtt -> CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536.Arn\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2493,7 +3164,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1193\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1222\\",
                     \\"type\\": \\"Properties.SourceBucketNames.0.Ref -> AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2510,7 +3182,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1194\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1223\\",
                     \\"type\\": \\"Properties.SourceObjectKeys.0.Fn::Join.1.0.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3VersionKeyAC52A7BF\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2534,7 +3207,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1195\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1224\\",
                     \\"type\\": \\"Properties.SourceObjectKeys.0.Fn::Join.1.1.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3VersionKeyAC52A7BF\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2558,7 +3232,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1196\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1225\\",
                     \\"type\\": \\"Properties.DestinationBucketName.Ref -> WebAppBucket8F6FA179\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2574,7 +3249,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1197\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1226\\",
                     \\"type\\": \\"Properties.PolicyDocument.Statement.1.Resource.Fn::Join.1.3.Fn::GetAtt -> InstanceInstanceSecurityGroupF0E2D5BE.GroupId\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2598,7 +3274,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1198\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1227\\",
                     \\"type\\": \\"Properties.PolicyDocument.Statement.2.Resource.Fn::Join.1.3.Ref -> InstanceC1063A87\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2620,7 +3297,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1199\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1228\\",
                     \\"type\\": \\"Properties.PolicyDocument.Statement.3.Resource.Fn::Join.1.3.Fn::GetAtt -> GameKeyKeyPairF8B1B0F0.Parameter\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2644,7 +3322,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1200\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1229\\",
                     \\"type\\": \\"Properties.Roles.0.Ref -> WebAppLambdaServiceRoleB3C5DDDA\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2661,7 +3340,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1201\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1230\\",
                     \\"type\\": \\"Properties.Code.S3Bucket.Ref -> AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3BucketA30C151C\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2678,7 +3358,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1202\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1231\\",
                     \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.0.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3VersionKeyE2D63F25\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2702,7 +3383,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1203\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1232\\",
                     \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.1.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3VersionKeyE2D63F25\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2726,7 +3408,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1204\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1233\\",
                     \\"type\\": \\"Properties.Role.Fn::GetAtt -> WebAppLambdaServiceRoleB3C5DDDA.Arn\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2744,7 +3427,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1205\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1234\\",
                     \\"type\\": \\"Properties.Environment.Variables.INSTANCE_ID.Ref -> InstanceC1063A87\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2762,7 +3446,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1206\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1235\\",
                     \\"type\\": \\"Properties.Environment.Variables.SECURITY_GROUP_ID.Fn::GetAtt -> InstanceInstanceSecurityGroupF0E2D5BE.GroupId\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2782,7 +3467,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1207\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1236\\",
                     \\"type\\": \\"Properties.Environment.Variables.KEY_PARAMETER_NAME.Fn::GetAtt -> GameKeyKeyPairF8B1B0F0.Parameter\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2802,7 +3488,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1208\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1237\\",
                     \\"type\\": \\"Properties.CloudWatchRoleArn.Fn::GetAtt -> S3GatewayGameAppCloudWatchRole3E18F736.Arn\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2820,7 +3507,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1209\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1238\\",
                     \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2836,7 +3524,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1210\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1239\\",
                     \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2852,7 +3541,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1211\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1240\\",
                     \\"type\\": \\"Properties.DeploymentId.Ref -> S3GatewayGameAppDeployment45A40F1C1ea3f370273feac6dc79badcdb1c5090\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2868,7 +3558,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1212\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1241\\",
                     \\"type\\": \\"Properties.ResourceId.Fn::GetAtt -> S3GatewayGameApp7F73230F.RootResourceId\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2886,7 +3577,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1213\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1242\\",
                     \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2902,7 +3594,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1214\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1243\\",
                     \\"type\\": \\"Properties.Integration.Credentials.Fn::GetAtt -> S3IntegrationRoleF31D2F62.Arn\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2921,7 +3614,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1215\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1244\\",
                     \\"type\\": \\"Properties.Integration.Uri.Fn::Join.1.3.Ref -> WebAppBucket8F6FA179\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2941,7 +3635,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1216\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1245\\",
                     \\"type\\": \\"Properties.ParentId.Fn::GetAtt -> S3GatewayGameApp7F73230F.RootResourceId\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2959,7 +3654,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1217\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1246\\",
                     \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2975,7 +3671,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1218\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1247\\",
                     \\"type\\": \\"Properties.ResourceId.Ref -> S3GatewayGameAppproxy2374A00B\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2991,7 +3688,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1219\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1248\\",
                     \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3007,7 +3705,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1220\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1249\\",
                     \\"type\\": \\"Properties.Integration.Credentials.Fn::GetAtt -> S3IntegrationRoleF31D2F62.Arn\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3026,7 +3725,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1221\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1250\\",
                     \\"type\\": \\"Properties.Integration.Uri.Fn::Join.1.3.Ref -> WebAppBucket8F6FA179\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3046,7 +3746,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1222\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1251\\",
                     \\"type\\": \\"Properties.ParentId.Fn::GetAtt -> S3GatewayGameApp7F73230F.RootResourceId\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3064,7 +3765,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1223\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1252\\",
                     \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3080,7 +3782,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1224\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1253\\",
                     \\"type\\": \\"Properties.FunctionName.Fn::GetAtt -> WebAppLambdaE4C4A83F.Arn\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3098,7 +3801,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1225\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1254\\",
                     \\"type\\": \\"Properties.SourceArn.Fn::Join.1.3.Ref -> S3GatewayGameApp7F73230F\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3117,7 +3821,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1226\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1255\\",
                     \\"type\\": \\"Properties.SourceArn.Fn::Join.1.5.Ref -> S3GatewayGameAppDeploymentStageprod501ACE37\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3136,7 +3841,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1227\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1256\\",
                     \\"type\\": \\"Properties.FunctionName.Fn::GetAtt -> WebAppLambdaE4C4A83F.Arn\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3154,7 +3860,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1228\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1257\\",
                     \\"type\\": \\"Properties.SourceArn.Fn::Join.1.3.Ref -> S3GatewayGameApp7F73230F\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3173,7 +3880,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1229\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1258\\",
                     \\"type\\": \\"Properties.ResourceId.Ref -> S3GatewayGameAppapi997B66C0\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3189,7 +3897,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1230\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1259\\",
                     \\"type\\": \\"Properties.RestApiId.Ref -> S3GatewayGameApp7F73230F\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3205,7 +3914,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1231\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1260\\",
                     \\"type\\": \\"Properties.Integration.Uri.Fn::Join.1.3.Fn::GetAtt -> WebAppLambdaE4C4A83F.Arn\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3227,7 +3937,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1232\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1261\\",
                     \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.0.Fn::GetAtt -> WebAppBucket8F6FA179.Arn\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3249,7 +3960,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1233\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1262\\",
                     \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.1.Fn::Join.1.0.Fn::GetAtt -> WebAppBucket8F6FA179.Arn\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3274,7 +3986,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1234\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1263\\",
                     \\"type\\": \\"Properties.Roles.0.Ref -> S3IntegrationRoleF31D2F62\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3291,7 +4004,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1235\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1264\\",
                     \\"type\\": \\"Properties.Code.S3Bucket.Ref -> AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3Bucket69CDE7B7\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3308,7 +4022,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1236\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1265\\",
                     \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.0.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3VersionKey3E23C446\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3332,7 +4047,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1237\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1266\\",
                     \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.1.Fn::Select.1.Fn::Split.1.Ref -> AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3VersionKey3E23C446\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3356,7 +4072,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1238\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1267\\",
                     \\"type\\": \\"Properties.Role.Fn::GetAtt -> KeyPairProviderCustomResourceProviderRoleA32FD897.Arn\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3374,7 +4091,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1239\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1268\\",
                     \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.0.Fn::Join.1.3.Ref -> AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3397,7 +4115,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1240\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1269\\",
                     \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.1.Fn::Join.1.3.Ref -> AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3420,7 +4139,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1241\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1270\\",
                     \\"type\\": \\"Properties.PolicyDocument.Statement.1.Resource.0.Fn::GetAtt -> WebAppBucket8F6FA179.Arn\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3442,7 +4162,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1242\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1271\\",
                     \\"type\\": \\"Properties.PolicyDocument.Statement.1.Resource.1.Fn::Join.1.0.Fn::GetAtt -> WebAppBucket8F6FA179.Arn\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3467,7 +4188,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1243\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1272\\",
                     \\"type\\": \\"Properties.Roles.0.Ref -> CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3484,7 +4206,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1244\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1273\\",
                     \\"type\\": \\"Properties.Code.S3Bucket.Ref -> AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3Bucket77147E20\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3501,7 +4224,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1245\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1274\\",
                     \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.0.Fn::Select.1.Fn::Split.1.Ref -> AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3VersionKey4253216F\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3525,7 +4249,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1246\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1275\\",
                     \\"type\\": \\"Properties.Code.S3Key.Fn::Join.1.1.Fn::Select.1.Fn::Split.1.Ref -> AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3VersionKey4253216F\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3549,7 +4274,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1247\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1276\\",
                     \\"type\\": \\"Properties.Role.Fn::GetAtt -> CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265.Arn\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -3567,7 +4293,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1248\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1277\\",
                     \\"type\\": \\"Value.Fn::Join.1.1.Ref -> S3GatewayGameApp7F73230F\\",
                     \\"sourcePropertyPath\\": [
                         \\"Value\\",
@@ -3585,7 +4312,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1249\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1278\\",
                     \\"type\\": \\"Value.Fn::Join.1.5.Ref -> S3GatewayGameAppDeploymentStageprod501ACE37\\",
                     \\"sourcePropertyPath\\": [
                         \\"Value\\",
@@ -3603,377 +4331,382 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1253\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1282\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]NVidiaUser\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]NVidiaUser1BAF4BFB\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1257\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1286\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]InstanceSecurityGroup\\",
+                    \\"source\\": \\"[dup-ref]AccessKey\\",
+                    \\"target\\": \\"[dup-ref]AccessKey\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1290\\",
+                    \\"type\\": \\"construct-resource\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Default\\",
+                    \\"target\\": \\"[dup-ref]GameKeyKeyPairF8B1B0F0\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1294\\",
+                    \\"type\\": \\"construct-resource\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]InstanceInstanceSecurityGroupF0E2D5BE\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1261\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1298\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]InstanceRole\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]InstanceInstanceRoleE9785DE5\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1352\\",
-                    \\"type\\": \\"construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]InstanceRole\\",
-                    \\"target\\": \\"[dup-ref]DefaultPolicy\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1265\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1302\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]DefaultPolicy\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]InstanceInstanceRoleDefaultPolicy4ACE9290\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1269\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1306\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]Instance\\",
+                    \\"source\\": \\"[dup-ref]InstanceProfile\\",
+                    \\"target\\": \\"[dup-ref]InstanceInstanceProfileAB5AEF02\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1310\\",
+                    \\"type\\": \\"construct-resource\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]InstanceC1063A87\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1350\\",
-                    \\"type\\": \\"construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]Instance\\",
-                    \\"target\\": \\"[dup-ref]InstanceSecurityGroup\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1351\\",
-                    \\"type\\": \\"construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]Instance\\",
-                    \\"target\\": \\"[dup-ref]InstanceRole\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1273\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1314\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]WebAppBucket\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]WebAppBucket8F6FA179\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1277\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1318\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]ServiceRole\\",
+                    \\"source\\": \\"[dup-ref]Default\\",
+                    \\"target\\": \\"[dup-ref]WebAppDeploymentCustomResourceD7DB25D0\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1322\\",
+                    \\"type\\": \\"construct-resource\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]WebAppLambdaServiceRoleB3C5DDDA\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1356\\",
-                    \\"type\\": \\"construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]ServiceRole\\",
-                    \\"target\\": \\"[dup-ref]DefaultPolicy\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1281\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1326\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]DefaultPolicy\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]WebAppLambdaServiceRoleDefaultPolicyB264392B\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1285\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1330\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]WebAppLambda\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]WebAppLambdaE4C4A83F\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1355\\",
-                    \\"type\\": \\"construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]WebAppLambda\\",
-                    \\"target\\": \\"[dup-ref]ServiceRole\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1289\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1334\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]GameApp\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]S3GatewayGameApp7F73230F\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1363\\",
-                    \\"type\\": \\"construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]GameApp\\",
-                    \\"target\\": \\"[dup-ref]CloudWatchRole\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1364\\",
-                    \\"type\\": \\"construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]GameApp\\",
-                    \\"target\\": \\"[dup-ref]Deployment\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1365\\",
-                    \\"type\\": \\"construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]GameApp\\",
-                    \\"target\\": \\"[dup-ref]DeploymentStage.prod\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1369\\",
-                    \\"type\\": \\"construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]GameApp\\",
-                    \\"target\\": \\"[dup-ref]Default\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1293\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1338\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]CloudWatchRole\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]S3GatewayGameAppCloudWatchRole3E18F736\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1297\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1342\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]Deployment\\",
+                    \\"source\\": \\"[dup-ref]Account\\",
+                    \\"target\\": \\"[dup-ref]S3GatewayGameAppAccount244C69A0\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1346\\",
+                    \\"type\\": \\"construct-resource\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]S3GatewayGameAppDeployment45A40F1C1ea3f370273feac6dc79badcdb1c5090\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1301\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1350\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]DeploymentStage.prod\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]S3GatewayGameAppDeploymentStageprod501ACE37\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1305\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1354\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]GET\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]S3GatewayGameAppGET419DC6F4\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1309\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1358\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]{proxy+}\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]S3GatewayGameAppproxy2374A00B\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1372\\",
-                    \\"type\\": \\"construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]{proxy+}\\",
-                    \\"target\\": \\"[dup-ref]GET\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1313\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1362\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]GET\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]S3GatewayGameAppproxyGET2D68D639\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1317\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1366\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]api\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]S3GatewayGameAppapi997B66C0\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1374\\",
-                    \\"type\\": \\"construct\\"
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1370\\",
+                    \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]api\\",
-                    \\"target\\": \\"[dup-ref]ANY\\"
+                    \\"source\\": \\"[dup-ref]ApiPermission.KesselRunStackS3GatewayGameAppDDC26D96.ANY..api\\",
+                    \\"target\\": \\"[dup-ref]S3GatewayGameAppapiANYApiPermissionKesselRunStackS3GatewayGameAppDDC26D96ANYapi5CCFEF3A\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1321\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1374\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]ANY\\",
+                    \\"source\\": \\"[dup-ref]ApiPermission.Test.KesselRunStackS3GatewayGameAppDDC26D96.ANY..api\\",
+                    \\"target\\": \\"[dup-ref]S3GatewayGameAppapiANYApiPermissionTestKesselRunStackS3GatewayGameAppDDC26D96ANYapi11815113\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1378\\",
+                    \\"type\\": \\"construct-resource\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]S3GatewayGameAppapiANY8309A6C9\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1325\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1382\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]S3IntegrationRole\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]S3IntegrationRoleF31D2F62\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1376\\",
-                    \\"type\\": \\"construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]S3IntegrationRole\\",
-                    \\"target\\": \\"[dup-ref]DefaultPolicy\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1329\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1386\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]DefaultPolicy\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]S3IntegrationRoleDefaultPolicy5B77AE07\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1333\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1390\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]ServiceRole\\",
+                    \\"source\\": \\"[dup-ref]Role\\",
+                    \\"target\\": \\"[dup-ref]KeyPairProviderCustomResourceProviderRoleA32FD897\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1394\\",
+                    \\"type\\": \\"construct-resource\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Handler\\",
+                    \\"target\\": \\"[dup-ref]KeyPairProviderCustomResourceProviderHandlerBB6F16AF\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1398\\",
+                    \\"type\\": \\"construct-resource\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1378\\",
-                    \\"type\\": \\"construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]ServiceRole\\",
-                    \\"target\\": \\"[dup-ref]DefaultPolicy\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"1337\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1402\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]DefaultPolicy\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1341\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1406\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1377\\",
-                    \\"type\\": \\"construct\\"
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1410\\",
+                    \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C\\",
-                    \\"target\\": \\"[dup-ref]ServiceRole\\"
+                    \\"source\\": \\"[dup-ref]Default\\",
+                    \\"target\\": \\"[dup-ref]CDKMetadata\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1349\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1422\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]NVidiaUser\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1421\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -3983,7 +4716,30 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1353\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1423\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Default\\",
+                    \\"target\\": \\"[dup-ref]AccessKey\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1430\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Default\\",
+                    \\"target\\": \\"[dup-ref]GameKey\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1439\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -3993,7 +4749,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1354\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1457\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -4003,7 +4760,19 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1357\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1465\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Default\\",
+                    \\"target\\": \\"[dup-ref]WebAppDeployment\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1474\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -4013,7 +4782,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1361\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1489\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -4023,7 +4793,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1375\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1542\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -4033,7 +4804,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1348\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1420\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -4043,7 +4815,19 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1379\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1552\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]KesselRunStack\\",
+                    \\"target\\": \\"[dup-ref]KeyPairProviderCustomResourceProvider\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1561\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -4053,7 +4837,283 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1362\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1573\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]KesselRunStack\\",
+                    \\"target\\": \\"[dup-ref]CDKMetadata\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1432\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]KeyPair\\",
+                    \\"target\\": \\"[dup-ref]Default\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1431\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]GameKey\\",
+                    \\"target\\": \\"[dup-ref]KeyPair\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1441\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]InstanceSecurityGroup\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1440\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Instance\\",
+                    \\"target\\": \\"[dup-ref]InstanceSecurityGroup\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1445\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Instance\\",
+                    \\"target\\": \\"[dup-ref]InstanceRole\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1452\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Instance\\",
+                    \\"target\\": \\"[dup-ref]InstanceProfile\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1453\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Instance\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1446\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]InstanceRole\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1450\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]InstanceRole\\",
+                    \\"target\\": \\"[dup-ref]DefaultPolicy\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1451\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]DefaultPolicy\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1458\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]WebAppBucket\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1467\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]CustomResource\\",
+                    \\"target\\": \\"[dup-ref]Default\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1466\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]WebAppDeployment\\",
+                    \\"target\\": \\"[dup-ref]CustomResource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1476\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]ServiceRole\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1480\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]ServiceRole\\",
+                    \\"target\\": \\"[dup-ref]DefaultPolicy\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1475\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]WebAppLambda\\",
+                    \\"target\\": \\"[dup-ref]ServiceRole\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1482\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]WebAppLambda\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1481\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]DefaultPolicy\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1491\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]GameApp\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1495\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]GameApp\\",
+                    \\"target\\": \\"[dup-ref]CloudWatchRole\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1497\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]GameApp\\",
+                    \\"target\\": \\"[dup-ref]Account\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1501\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]GameApp\\",
+                    \\"target\\": \\"[dup-ref]Deployment\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1506\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]GameApp\\",
+                    \\"target\\": \\"[dup-ref]DeploymentStage.prod\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1514\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]GameApp\\",
+                    \\"target\\": \\"[dup-ref]Default\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1490\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -4063,7 +5123,52 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1370\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1496\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]CloudWatchRole\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1502\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Deployment\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1507\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]DeploymentStage.prod\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1516\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]GET\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1515\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -4073,7 +5178,8 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1371\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1520\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -4083,12 +5189,222 @@ exports[`CDK kessel run stack template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"1373\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1530\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
                     \\"source\\": \\"[dup-ref]Default\\",
                     \\"target\\": \\"[dup-ref]api\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1521\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]{proxy+}\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1525\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]{proxy+}\\",
+                    \\"target\\": \\"[dup-ref]GET\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1526\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]GET\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1531\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]api\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1535\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]api\\",
+                    \\"target\\": \\"[dup-ref]ANY\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1536\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]ANY\\",
+                    \\"target\\": \\"[dup-ref]ApiPermission.KesselRunStackS3GatewayGameAppDDC26D96.ANY..api\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1537\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]ANY\\",
+                    \\"target\\": \\"[dup-ref]ApiPermission.Test.KesselRunStackS3GatewayGameAppDDC26D96.ANY..api\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1538\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]ANY\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1543\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]S3IntegrationRole\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1547\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]S3IntegrationRole\\",
+                    \\"target\\": \\"[dup-ref]DefaultPolicy\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1548\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]DefaultPolicy\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1553\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]KeyPairProviderCustomResourceProvider\\",
+                    \\"target\\": \\"[dup-ref]Role\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1554\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]KeyPairProviderCustomResourceProvider\\",
+                    \\"target\\": \\"[dup-ref]Handler\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1563\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]ServiceRole\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1567\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]ServiceRole\\",
+                    \\"target\\": \\"[dup-ref]DefaultPolicy\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1562\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C\\",
+                    \\"target\\": \\"[dup-ref]ServiceRole\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1569\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1568\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]DefaultPolicy\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"1574\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]CDKMetadata\\",
+                    \\"target\\": \\"[dup-ref]Default\\"
                 }
             }
         ]
@@ -4099,12 +5415,14 @@ exports[`CDK kessel run stack template 1`] = `
 exports[`CDK simple template 1`] = `
 "{
     \\"nodeData\\": {
-        \\"_id\\": \\"145\\"
+        \\"_entityType\\": \\"infrastructureState\\",
+        \\"_id\\": \\"174\\"
     },
     \\"outgoingNodeReferences\\": {
         \\"components\\": [
             {
                 \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
                     \\"_id\\": \\"21\\",
                     \\"name\\": \\"Table1725C6B72\\",
                     \\"type\\": \\"Resource\\",
@@ -4141,6 +5459,7 @@ exports[`CDK simple template 1`] = `
             },
             {
                 \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
                     \\"_id\\": \\"40\\",
                     \\"name\\": \\"ConstructWithTableTable14C141063\\",
                     \\"type\\": \\"Resource\\",
@@ -4177,6 +5496,7 @@ exports[`CDK simple template 1`] = `
             },
             {
                 \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
                     \\"_id\\": \\"57\\",
                     \\"name\\": \\"Table2DBDCD1F7\\",
                     \\"type\\": \\"Resource\\",
@@ -4210,6 +5530,7 @@ exports[`CDK simple template 1`] = `
             },
             {
                 \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
                     \\"_id\\": \\"62\\",
                     \\"name\\": \\"user2C2B57AE\\",
                     \\"type\\": \\"Resource\\",
@@ -4226,6 +5547,7 @@ exports[`CDK simple template 1`] = `
             },
             {
                 \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
                     \\"_id\\": \\"95\\",
                     \\"name\\": \\"userDefaultPolicy083DF682\\",
                     \\"type\\": \\"Resource\\",
@@ -4281,6 +5603,7 @@ exports[`CDK simple template 1`] = `
             },
             {
                 \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
                     \\"_id\\": \\"103\\",
                     \\"name\\": \\"CDKMetadata\\",
                     \\"type\\": \\"Resource\\",
@@ -4301,7 +5624,98 @@ exports[`CDK simple template 1`] = `
             },
             {
                 \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
                     \\"_id\\": \\"115\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"HelloCdkStack/Table1/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"119\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"HelloCdkStack/ConstructWithTable/Table1/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"123\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"HelloCdkStack/Table2/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"127\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"HelloCdkStack/user/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"131\\",
+                    \\"name\\": \\"Resource\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"HelloCdkStack/user/DefaultPolicy/Resource\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"135\\",
+                    \\"name\\": \\"Default\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"HelloCdkStack/CDKMetadata/Default\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"139\\",
                     \\"name\\": \\"Table1\\",
                     \\"type\\": \\"CDK Construct\\"
                 },
@@ -4315,63 +5729,8 @@ exports[`CDK simple template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"119\\",
-                    \\"name\\": \\"Table1\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"HelloCdkStack/ConstructWithTable/Table1\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"123\\",
-                    \\"name\\": \\"Table2\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"HelloCdkStack/Table2\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"127\\",
-                    \\"name\\": \\"user\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"HelloCdkStack/user\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"131\\",
-                    \\"name\\": \\"DefaultPolicy\\",
-                    \\"type\\": \\"CDK Construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"hasRelationship\\": {},
-                    \\"hasProperties\\": {
-                        \\"path\\": \\"HelloCdkStack/user/DefaultPolicy\\"
-                    }
-                },
-                \\"incoming\\": {}
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_id\\": \\"135\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"142\\",
                     \\"name\\": \\"HelloCdkStack\\",
                     \\"type\\": \\"CDK Construct\\"
                 },
@@ -4385,7 +5744,23 @@ exports[`CDK simple template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"139\\",
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"147\\",
+                    \\"name\\": \\"Table1\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"HelloCdkStack/ConstructWithTable/Table1\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"150\\",
                     \\"name\\": \\"ConstructWithTable\\",
                     \\"type\\": \\"CDK Construct\\"
                 },
@@ -4396,11 +5771,72 @@ exports[`CDK simple template 1`] = `
                     }
                 },
                 \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"156\\",
+                    \\"name\\": \\"Table2\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"HelloCdkStack/Table2\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"161\\",
+                    \\"name\\": \\"user\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"HelloCdkStack/user\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"166\\",
+                    \\"name\\": \\"DefaultPolicy\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"HelloCdkStack/user/DefaultPolicy\\"
+                    }
+                },
+                \\"incoming\\": {}
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"component\\",
+                    \\"_id\\": \\"171\\",
+                    \\"name\\": \\"CDKMetadata\\",
+                    \\"type\\": \\"CDK Construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"hasRelationship\\": {},
+                    \\"hasProperties\\": {
+                        \\"path\\": \\"HelloCdkStack/CDKMetadata\\"
+                    }
+                },
+                \\"incoming\\": {}
             }
         ],
         \\"relationships\\": [
             {
                 \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
                     \\"_id\\": \\"111\\",
                     \\"type\\": \\"Properties.PolicyDocument.Statement.0.Resource.0.Fn::GetAtt -> Table2DBDCD1F7.Arn\\",
                     \\"sourcePropertyPath\\": [
@@ -4423,6 +5859,7 @@ exports[`CDK simple template 1`] = `
             },
             {
                 \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
                     \\"_id\\": \\"112\\",
                     \\"type\\": \\"Properties.Users.0.Ref -> user2C2B57AE\\",
                     \\"sourcePropertyPath\\": [
@@ -4440,67 +5877,85 @@ exports[`CDK simple template 1`] = `
             },
             {
                 \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
                     \\"_id\\": \\"116\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]Table1\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]Table1725C6B72\\"
                 }
             },
             {
                 \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
                     \\"_id\\": \\"120\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]Table1\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]ConstructWithTableTable14C141063\\"
                 }
             },
             {
                 \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
                     \\"_id\\": \\"124\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]Table2\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]Table2DBDCD1F7\\"
                 }
             },
             {
                 \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
                     \\"_id\\": \\"128\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]user\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]user2C2B57AE\\"
                 }
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"144\\",
-                    \\"type\\": \\"construct\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]user\\",
-                    \\"target\\": \\"[dup-ref]DefaultPolicy\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
                     \\"_id\\": \\"132\\",
                     \\"type\\": \\"construct-resource\\"
                 },
                 \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]DefaultPolicy\\",
+                    \\"source\\": \\"[dup-ref]Resource\\",
                     \\"target\\": \\"[dup-ref]userDefaultPolicy083DF682\\"
                 }
             },
             {
                 \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
                     \\"_id\\": \\"136\\",
+                    \\"type\\": \\"construct-resource\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Default\\",
+                    \\"target\\": \\"[dup-ref]CDKMetadata\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"144\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Table1\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"143\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -4510,7 +5965,8 @@ exports[`CDK simple template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"140\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"151\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -4520,7 +5976,8 @@ exports[`CDK simple template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"142\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"157\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -4530,7 +5987,8 @@ exports[`CDK simple template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"143\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"162\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -4540,12 +5998,90 @@ exports[`CDK simple template 1`] = `
             },
             {
                 \\"nodeData\\": {
-                    \\"_id\\": \\"141\\",
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"172\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]HelloCdkStack\\",
+                    \\"target\\": \\"[dup-ref]CDKMetadata\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"153\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Table1\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"152\\",
                     \\"type\\": \\"construct\\"
                 },
                 \\"outgoingNodeReferences\\": {
                     \\"source\\": \\"[dup-ref]ConstructWithTable\\",
                     \\"target\\": \\"[dup-ref]Table1\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"158\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]Table2\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"163\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]user\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"167\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]user\\",
+                    \\"target\\": \\"[dup-ref]DefaultPolicy\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"168\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]DefaultPolicy\\",
+                    \\"target\\": \\"[dup-ref]Resource\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"173\\",
+                    \\"type\\": \\"construct\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]CDKMetadata\\",
+                    \\"target\\": \\"[dup-ref]Default\\"
                 }
             }
         ]

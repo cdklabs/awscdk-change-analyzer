@@ -13,5 +13,6 @@ export function changeAnalysisReportDeserializer(obj: Serialized, deserialize: (
         deserialize(serialized.infraModelDiff) as InfraModelDiff,
         serialized.aggregations.map(deserialize) as Aggregation<ComponentOperation>[],
         new Map(Object.entries(serialized.aggregationsPerComponent).map(([k,v]) => [deserialize(parseInt(k)) as Transition<Component>, v.map(deserialize) as Aggregation<ComponentOperation>[]])),
+        new Map(Object.entries(serialized.rulesOutput).map(([id, effect]) => [deserialize(parseInt(id)), effect]))
     );
 }

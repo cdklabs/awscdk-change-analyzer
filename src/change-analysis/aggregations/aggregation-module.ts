@@ -2,7 +2,7 @@ import { groupArrayBy } from "change-cd-iac-models/utils";
 import { Aggregation } from "change-cd-iac-models/aggregations";
 
 /**
- * Defines an Isomorphic Group
+ * Defines an Aggregation
  */
 export abstract class AggModule<T> {
     constructor(
@@ -13,7 +13,7 @@ export abstract class AggModule<T> {
 }
 
 /**
- * Defines an Isomorphic group module that groups entities based on
+ * Defines an Aggregation module that groups entities based on
  * an indexable value (obtained using indexValueGetter)
  */
 export class EqualityAggModule<T> extends AggModule<T> {
@@ -33,7 +33,7 @@ export class EqualityAggModule<T> extends AggModule<T> {
 }
 
 /**
- * Defines an Isomorphic group module that groups entities based on
+ * Defines an Aggregation module that groups entities based on
  * similarity between each pair of entities (obtained using similarityChecker)
  */
 export class SimilarityAggModule<T> extends AggModule<T> {
