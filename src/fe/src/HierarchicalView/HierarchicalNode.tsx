@@ -1,13 +1,13 @@
-import React, { Ref, useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import CollapsableRow from '../reusable-components/CollapsableRow';
-import { Badge, IconButton, List, Tooltip } from '@material-ui/core';
+import { Badge, List } from '@material-ui/core';
 
 import UpdateIcon from '@material-ui/icons/Update';
-import { DoneOutline as DoneOutlineIcon } from '@material-ui/icons';
 import { VisualHierarchyNode } from '../selectors/hierarchy-builder';
 import { AppContext } from '../App';
 import { Transition } from 'change-cd-iac-models/model-diffing';
 import { Component } from 'change-cd-iac-models/infra-model';
+import ApproveChangeBtn from '../reusable-components/ApproveChangeBtn';
 
 interface Props {
     node: VisualHierarchyNode,
@@ -15,7 +15,7 @@ interface Props {
 
 function HierarchicalNode({node}: Props) {
 
-    const {changesCount, compTransition, innerNodes} = node;
+    const {changes, compTransition, innerNodes} = node;
 
     const {selectedCompTransition} = useContext(AppContext);
     const [isExpanded, setExpanded] = useState(false);
@@ -34,9 +34,9 @@ function HierarchicalNode({node}: Props) {
         <AppContext.Consumer>{({setSelectedCompTransition}) =>
             <CollapsableRow
                 ref={ref}
-                icon={<Badge badgeContent={changesCount} color="secondary"><UpdateIcon/></Badge>}
+                icon={<Badge badgeContent={changes.length} color="secondary"><UpdateIcon/></Badge>}
                 title={compTransition.v2?.name || compTransition.v1?.name}
-                rightIcon={<Tooltip title="Approve this change"><IconButton size="small"><DoneOutlineIcon/></IconButton></Tooltip>}
+                rightIcon={<ApproveChangeBtn changes={changes} />}
                 description={`${compTransition.v2?.type || compTransition.v1?.type} ${compTransition.v2?.subtype ?? compTransition.v1?.subtype ?? ''}`}
                 content={innerNodes.length > 0 ?
                     <List disablePadding style={{marginLeft: '2.5em', width: 'calc(100% - 2.5em)'}}>

@@ -14,5 +14,5 @@ export function getComponentStructuralPath(component: Component): string {
     const parentRelationship = [...component.incoming].find(r => r instanceof StructuralRelationship);
     if(!parentRelationship) return component.name;
     const parent = parentRelationship.source;
-    return `${getComponentStructuralPath(parent)}.${component.name}`;
+    return `${getComponentStructuralPath(parent)} / ${component.name}`;
 }

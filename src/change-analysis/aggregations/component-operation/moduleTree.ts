@@ -1,5 +1,6 @@
 import { CompOpAggCharacteristics } from "change-cd-iac-models/aggregations";
 import { ComponentOperation } from "change-cd-iac-models/model-diffing";
+import { RuleEffect } from "change-cd-iac-models/rules";
 import { AggModuleTreeNode } from "../aggregation-module-tree-node";
 import {
     componentTypeAggModule,
@@ -10,6 +11,7 @@ import {
 } from "./aggregation-modules";
 import { dependencyRelationshipSourcePropertyPathV1AggModule, dependencyRelationshipTargetAttributePathV1AggModule, dependencyRelationshipTargetAttributePathV2AggModule } from "./aggregation-modules/dependency-relationship-paths";
 import { entityOperationTypeAggModule } from "./aggregation-modules/entity-operation-type";
+import { riskAggModuleCreator } from "./aggregation-modules/operation-risk";
 import { propertyPathV1AggModule, propertyPathV2AggModule } from "./aggregation-modules/property-path";
 import { propertyValueV1AggModule, propertyValueV2AggModule } from "./aggregation-modules/property-value";
 
@@ -59,4 +61,12 @@ export const componentOperationAggModuleTree: AggModuleTreeNode<ComponentOperati
         module: componentSubtypeAggModule,
         submodules: [componentOperationSpecificAggModuleTree],
     }]
+};
+
+export const compOperationWithRulesAggModuleTree = (rules: Map<ComponentOperation, RuleEffect>): AggModuleTreeNode<ComponentOperation> => {
+    return {
+        module: riskAggModuleCreator(rules),
+        disableSubmoduleCollapse: true,
+        submodules: [componentOperationAggModuleTree]
+    };
 };

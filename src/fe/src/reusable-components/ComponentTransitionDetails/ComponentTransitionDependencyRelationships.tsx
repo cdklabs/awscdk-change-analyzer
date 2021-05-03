@@ -8,6 +8,7 @@ import {
     ArrowForward as ArrowForwardIcon,
     RadioButtonChecked as RadioButtonCheckedIcon
 } from '@material-ui/icons';
+import { getComponentStructuralPath, mostRecentInTransition } from "../../selectors/component-transition-helpers";
 
 interface Props {
     componentTransition: Transition<Component>,
@@ -40,7 +41,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     referenceBtn: {
         flexGrow: 1,
         textAlign: 'center',
-        wordBreak: 'break-word'
+        wordBreak: 'break-word',
+        textTransform: 'none', 
     }
 }));
 
@@ -56,11 +58,11 @@ export const CompTransitionDependencyRelationships = ({ componentTransition }: P
         .flatMap(rels => [...rels].filter(rel => rel instanceof DependencyRelationship).map(rel => getTransitionFromComponent(rel.source))))];
     
         
-        const generateListItem = (compTransition: Transition<Component>, {before, after}: {before?: React.ReactNode, after?: React.ReactNode} = {}) => 
+    const generateListItem = (compTransition: Transition<Component>, {before, after}: {before?: React.ReactNode, after?: React.ReactNode} = {}) => 
         <div className={classes.referenceBtnWrapper}>
             {before ?? ''}
             <Button variant="outlined" color="primary" className={classes.referenceBtn} onClick={() => showComponentInHierarchy(compTransition)}>
-                {compTransition.v2?.name ?? compTransition.v1?.name}
+                {getComponentStructuralPath(mostRecentInTransition(compTransition))}
             </Button>
             {after ?? ''}
         </div>

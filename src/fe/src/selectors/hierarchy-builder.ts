@@ -1,10 +1,10 @@
-import { InfraModelDiff, Transition } from "change-cd-iac-models/model-diffing";
+import { ComponentOperation, InfraModelDiff, Transition } from "change-cd-iac-models/model-diffing";
 
 import { Component, Relationship, StructuralRelationship } from "change-cd-iac-models/infra-model";
 import { isDefined } from "change-cd-iac-models/utils";
 
 export interface VisualHierarchyNode {
-    changesCount: number,
+    changes: ComponentOperation[],
     compTransition: Transition<Component>,
     innerNodes: VisualHierarchyNode[]
 };
@@ -15,7 +15,7 @@ export function buildVisualHierarchy(infraModelDiff: InfraModelDiff): VisualHier
             ![...t.v2?.incoming ?? []].some(r => r instanceof StructuralRelationship)
             || (!t.v2 && ![...t.v1?.incoming ?? []].some(r => r instanceof StructuralRelationship)))
         .map(t => buildVisualHierarchyForComponentTransition(t, infraModelDiff))
-        .sort((r1, r2) => (r1.changesCount < r2.changesCount) ? 1 : -1);
+        .sort((r1, r2) => (r1.changes.length < r2.changes.length) ? 1 : -1);
 }
 
 function buildVisualHierarchyForComponentTransition(
@@ -31,11 +31,11 @@ function buildVisualHierarchyForComponentTransition(
     const innerNodes = [...innerTransitions]
         .map(t => buildVisualHierarchyForComponentTransition(t, modelDiff))
         .filter(isDefined)
-        .sort((r1, r2) => (r1.changesCount < r2.changesCount) ? 1 : -1);
+        .sort((r1, r2) => (r1.changes.length < r2.changes.length) ? 1 : -1);
     
-    const changesCount = innerNodes.reduce((acc, t) => acc + t.changesCount, modelDiff.getTransitionOperations(compTransition).length);
+    const changes = innerNodes.reduce((acc, t) => [...acc, ...t.changes], modelDiff.getTransitionOperations(compTransition));
     return {
-        changesCount,
+        changes,
         compTransition,
         innerNodes
     };

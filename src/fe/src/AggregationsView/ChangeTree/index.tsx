@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CollapsableRow from '../../reusable-components/CollapsableRow';
 import { List, Paper, Typography } from '@material-ui/core';
@@ -11,9 +11,10 @@ import {
 import ChangesGroup from '../../reusable-components/ChangesGroup';
 import { CompOpAggCharacteristics, Aggregation } from 'change-cd-iac-models/aggregations';
 import { ComponentOperation } from 'change-cd-iac-models/model-diffing';
-import { isDefined } from 'change-cd-iac-models/utils';
+import { groupArrayBy, isDefined } from 'change-cd-iac-models/utils';
 import { AppContext } from '../../App';
 import { useIdAssignerHook, ObjIdAssigner } from '../../utils/idCreator';
+import { RuleRisk } from 'change-cd-iac-models/rules';
 
 const useStyles = makeStyles({
   root: {
@@ -28,10 +29,10 @@ function ChangeTree() {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(0);
 
-    const idAssigner = useIdAssignerHook();
+    const { changeReport } = useContext(AppContext);
 
+    const aggsPerRisk = groupArrayBy(changeReport.aggregations, (agg) => agg.characteristics.RISK);
     return (
-      <AppContext.Consumer>{({changeReport}) =>
         <Paper elevation={3} className={classes.root}>
             <CollapsableRow
               icon={<ErrorIcon/>}
@@ -41,7 +42,7 @@ function ChangeTree() {
               title="High Risk Changes"
               content={
                 <List disablePadding style={{width: '100%'}}>{
-                  renderAggs(changeReport.aggregations, idAssigner)
+                  renderAggs((aggsPerRisk.get(RuleRisk.High) ?? [{}])[0].subAggs ?? [])
                 }</List>
               }
               color="#EA9B9A"
@@ -52,7 +53,11 @@ function ChangeTree() {
               stretchOnExpand
               onChange={(e, expand) => expand ? setExpanded(1) : setExpanded(-1)}
               title="Unclassified Risk Changes"
-              content={"asd"}
+              content={
+                <List disablePadding style={{width: '100%'}}>{
+                  renderAggs((aggsPerRisk.get(RuleRisk.Unknown) ?? [{}])[0].subAggs ?? [])
+                }</List>
+              }
               color="#F5E48E"
             />
             <CollapsableRow
@@ -61,15 +66,18 @@ function ChangeTree() {
               stretchOnExpand
               onChange={(e, expand) => expand ? setExpanded(2) : setExpanded(-1)}
               title="Low Risk Changes"
-              content={"asd"}
+              content={
+                <List disablePadding style={{width: '100%'}}>{
+                  renderAggs((aggsPerRisk.get(RuleRisk.Low) ?? [{}])[0].subAggs ?? [])
+                }</List>
+              }
               color="#C1DEEC"
             />
         </Paper>
-      }</AppContext.Consumer>
     );
 }
 
-function renderAggs(aggs: Aggregation<ComponentOperation>[], idAssigner: ObjIdAssigner){
+function renderAggs(aggs: Aggregation<ComponentOperation>[]){
   return aggs.map((agg, i) => <ChangesGroup
       key={i}
       agg={agg}

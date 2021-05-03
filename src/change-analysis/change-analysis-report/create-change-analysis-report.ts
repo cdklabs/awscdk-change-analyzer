@@ -9,9 +9,9 @@ import { applyRules } from "../user-configuration/apply-rules";
 export function createChangeAnalysisReport(infraModelTransition: Transition<InfraModel>, rules: CUserRules): ChangeAnalysisReport{
     const basicDiff = new DiffCreator(infraModelTransition).create();
     const propagatedDiff = propagateChanges(basicDiff);
-    const aggregations = extractComponentOperationsAggs(propagatedDiff);
-    const aggregationsPerComponent = extractComponentOperationsAggsPerComponent(propagatedDiff);
     const ruleOutputs = applyRules(propagatedDiff, rules);
+    const aggregations = extractComponentOperationsAggs(propagatedDiff, ruleOutputs);
+    const aggregationsPerComponent = extractComponentOperationsAggsPerComponent(propagatedDiff);
 
     return new ChangeAnalysisReport(
         propagatedDiff,

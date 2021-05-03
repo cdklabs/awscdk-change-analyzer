@@ -1,4 +1,5 @@
 export enum CompOpAggCharacteristics {
+    RISK = "RISK",
     AFFECTED_ENTITY = 'Affected Entity',
     COMPONENT_TYPE = 'Component Type',
     COMPONENT_SUBTYPE = 'Component Subtype',

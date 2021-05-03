@@ -1,12 +1,14 @@
 import React from 'react';
 import { ComponentOperation } from 'change-cd-iac-models/model-diffing';
 import { Box, IconButton, makeStyles, Theme, Tooltip, Typography } from '@material-ui/core';
-import { Launch as LaunchIcon } from '@material-ui/icons';
+import { Launch as LaunchIcon, Done as DoneIcon } from '@material-ui/icons';
 import { Aggregation, getAllDescriptions } from 'change-cd-iac-models/aggregations';
 import CollapsableRow from '../../reusable-components/CollapsableRow';
 import { useIdAssignerHook } from '../../utils/idCreator';
 import { AppContext } from '../../App';
 import ComponentTransitionDetails from '../../reusable-components/ComponentTransitionDetails';
+import { mostRecentInTransition, getComponentStructuralPath } from '../../selectors/component-transition-helpers';
+import ApproveChangeBtn from '../../reusable-components/ApproveChangeBtn';
 
 interface props {
     agg?: Aggregation<ComponentOperation>,
@@ -85,8 +87,15 @@ function ChangeDetailsPane({agg}: props) {
                             key={idAssigner.get(op)}
                             expanded={agg.entities.size === 1}
                             icon={`${i+1}.`}
-                            rightIcon={<Tooltip title="Open in Hierarchical View"><IconButton size="small" onClick={() => showComponentInHierarchy(op.componentTransition)}><LaunchIcon/></IconButton></Tooltip>}
-                            title={<b>{(op.componentTransition.v2?.name || op.componentTransition.v1?.name)}</b>}
+                            rightIcon={<>
+                                <Tooltip title="Open in Hierarchical View">
+                                    <IconButton size="small" onClick={() => showComponentInHierarchy(op.componentTransition)}>
+                                        <LaunchIcon/>
+                                    </IconButton>
+                                </Tooltip>
+                                <ApproveChangeBtn changes={op}/>
+                            </>}
+                            title={<b>{getComponentStructuralPath(mostRecentInTransition(op.componentTransition))}</b>}
                             content={
                                 <ComponentTransitionDetails componentTransition={op.componentTransition} highlightOperation={op} />
                             }

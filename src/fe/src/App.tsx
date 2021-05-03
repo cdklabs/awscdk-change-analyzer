@@ -4,10 +4,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ChangeAnalysisReport } from 'change-cd-iac-models/change-analysis-report';
 import AggregationsTab from './AggregationsView/AggregationsTab';
 import HierarchicalTab from './HierarchicalView/HierarchicalTab';
-import { Component } from 'change-cd-iac-models/infra-model';
+import { Component, ComponentProperty } from 'change-cd-iac-models/infra-model';
 import { ComponentOperation, Transition } from 'change-cd-iac-models/model-diffing';
 import { Aggregation } from 'change-cd-iac-models/aggregations';
 import { findAggregationWithChange } from './selectors/aggregation-helpers';
+import { RuleAction, RuleEffect } from 'change-cd-iac-models/rules';
 
 
 interface AppState {
@@ -19,6 +20,9 @@ interface AppState {
     setSelectedAgg: Function,
     setSelectedChange: Function,
     showAggregation: Function,
+    setChangesApproval: Function,
+    approvedChanges: Map<ComponentOperation, RuleAction>,
+
 }
 
 export const AppContext = React.createContext({} as AppState);
@@ -50,6 +54,12 @@ const App = ({changeReport}: props) => {
     const [selectedCompTransition, setSelectedCompTransition] = useState(undefined as Transition<Component> | undefined);
     const [selectedAgg, setSelectedAgg] = useState(undefined as Aggregation<ComponentOperation> | undefined);
 
+    const [approvedChanges, setApprovedChanges] = useState<Map<ComponentOperation, RuleAction>>(
+        new Map([...changeReport.rulesOutput]
+            .map(([op, effect]) => [op, effect.action ?? RuleAction.None])
+        )
+    );
+    
     const showComponentInHierarchy = (comp: Transition<Component>) => {
         setSelectedTab(1);
         setSelectedCompTransition(comp);
@@ -66,9 +76,25 @@ const App = ({changeReport}: props) => {
             showAggregation(agg);
     }
 
+    const setChangesApproval = (changes: ComponentOperation[], state: RuleAction) => {
+        console.log(changes);
+        setApprovedChanges(new Map([...approvedChanges, ...changes.map(c => [c, state] as const)]));
+    }
+
     return (
         <AppContext.Provider
-            value={{ changeReport, showComponentInHierarchy, selectedCompTransition, setSelectedCompTransition, selectedAgg, setSelectedAgg, setSelectedChange, showAggregation }}
+            value={{
+                changeReport,
+                showComponentInHierarchy,
+                selectedCompTransition,
+                setSelectedCompTransition,
+                selectedAgg,
+                setSelectedAgg,
+                setSelectedChange,
+                showAggregation,
+                setChangesApproval,
+                approvedChanges
+            }}
         >
             <div className={classes.wrapper}>
                 <AppBar position="static" color="transparent">

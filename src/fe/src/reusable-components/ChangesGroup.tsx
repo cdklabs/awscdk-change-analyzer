@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Done as DoneIcon, DoneAll as DoneAllIcon } from "@material-ui/icons";
 import { useIdAssignerHook } from "../utils/idCreator";
 import { AppContext } from "../App";
+import ApproveChangeBtn from "./ApproveChangeBtn";
 
 const useStyles = makeStyles({
   content: {
@@ -36,7 +37,7 @@ const ChangesGroup = ({agg, title, description}: Props) => {
             ?? agg.descriptions?.filter(d => d).flatMap(d => [(<span key={d}>{d}</span>), (<br/>)]).slice(0, -1)
             ?? Object.entries(agg.characteristics).map(([c, v]) => <span key={c}>{`${c}: `}<b>{v}</b></span>)
         }
-        rightIcon={<Tooltip title={`Approve ${agg.subAggs ? 'these changes' : 'this change'}`}><IconButton size="small">{agg.subAggs ? <DoneAllIcon/> : <DoneIcon/>}</IconButton></Tooltip>}
+        rightIcon={<ApproveChangeBtn changes={[...agg.entities]}/>}
         description={<>{description} {description && '-'} {new Set([...agg.entities].map(e => e.componentTransition)).size} affected</>}
         selected={selectedAgg && selectedAgg === agg}
         onChange={!agg.subAggs ? (() => showAggregation && showAggregation(agg)) : undefined}
