@@ -1,5 +1,5 @@
 import { Component, ComponentProperty, PropertyPath, Relationship } from "../../../../infra-model";
-import { ComponentOperation, OperationCertainty, OpNodeData, OpOutgoingNodeReferences, PropertyComponentOperation, PropOpOutgoingNodeReferences, RelationshipOpOutgoingNodeReferences, Transition, UpdatePropOpOutgoingNodeReferences } from "../../../../model-diffing/";
+import { ComponentOperation, OperationCertainty, OpNodeData, OpOutgoingNodeReferences, PropertyComponentOperation, PropOpOutgoingNodeReferences, Transition, UpdatePropOpOutgoingNodeReferences } from "../../../../model-diffing/";
 import { JSONSerializable } from "../../../json-serializable";
 import { SerializationID } from "../../../json-serializer";
 import { SerializedComponentOperation, SerializedOutgoingRelationshipComponentOperation, SerializedPropertyComponentOperation, SerializedUpdatePropertyComponentOperation } from "../../../serialized-interfaces/infra-model-diff/serialized-component-operation";
@@ -14,15 +14,6 @@ export function deserializeOpOutoingNodeReferences(serialized: SerializedCompone
     return {
         cause: serialized.cause ? deserialize(serialized.cause) as ComponentOperation : undefined,
         componentTransition: deserialize(serialized.componentTransition) as Transition<Component>,
-    };
-}
-
-// OutgoingRelationshipComponentOperations
-
-export function deserializeRelationshipOpOutoingNodeReferences(serialized: SerializedOutgoingRelationshipComponentOperation, deserialize: (obj: SerializationID) => JSONSerializable): RelationshipOpOutgoingNodeReferences {
-    return {
-        ...deserializeOpOutoingNodeReferences(serialized, deserialize),
-        relationshipTransition: deserialize(serialized.relationshipTransition) as Transition<Relationship>,
     };
 }
 

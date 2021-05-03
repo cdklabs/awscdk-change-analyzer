@@ -9,9 +9,6 @@ import {
     RemoveComponentOperation,
     RenameComponentOperation,
     ComponentOperation,
-    RemoveOutgoingRelationshipComponentOperation,
-    InsertOutgoingRelationshipComponentOperation,
-    UpdateOutgoingRelationshipComponentOperation,
     PropertyComponentOperation,
     Transition,
     InfraModelDiff,
@@ -23,7 +20,6 @@ import {
     componentSimilarityEvaluator,
     sameNameComponentSimilarityEvaluator
 } from "./entity-matchers/component-similarity";
-import { relationshipSimilarityEvaluatorCreator } from "./entity-matchers/relationship-similarity";
 
 const similarityThreshold = 0.6;
 
@@ -56,9 +52,6 @@ export class DiffCreator {
                 newComponentsGrouped.get(type) ?? []
             ),
         ));
-        componentOperations.push(...this.componentTransitions.flatMap(
-            ct => this.diffComponentRelationships(ct))
-        );
 
         return new InfraModelDiff(componentOperations, this.componentTransitions, this.modelTransition);
     }
@@ -118,31 +111,6 @@ export class DiffCreator {
         const t = new Transition<Component>(versions);
         this.componentTransitions.push(t);
         return t;
-    }
-
-    /**
-     * Finds matches between relationships of the matched components;
-     * @returns the ComponentOperations that correspond to each relationship change
-     */
-    private diffComponentRelationships(componentTransition: Transition<Component>): ComponentOperation[] {
-        const relationshipMatches = matchEntities(
-            [...componentTransition.v1?.outgoing ?? []],
-            [...componentTransition.v2?.outgoing ?? []],
-            relationshipSimilarityEvaluatorCreator(this.entityVersionToTransitionMap)
-        );
-
-        const removals = relationshipMatches.unmatchedA.map(r =>
-            new RemoveOutgoingRelationshipComponentOperation({}, {componentTransition, relationshipTransition: new Transition({v1: r})}));
-        const insertions = relationshipMatches.unmatchedB.map(r =>
-            new InsertOutgoingRelationshipComponentOperation({}, {componentTransition, relationshipTransition: new Transition({v2: r})}));
-
-        const updates = relationshipMatches.matches
-            .filter(({metadata: updated}) => updated)
-            .map(({transition}) => new UpdateOutgoingRelationshipComponentOperation(
-                {}, {componentTransition, relationshipTransition: transition}
-        ));
-
-        return [...removals, ...insertions, ...updates];
     }
 
     /**

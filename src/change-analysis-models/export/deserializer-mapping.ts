@@ -1,6 +1,5 @@
 import { SerializationClasses } from './serialization-classes';
 import { insertComponentOperationDeserializer, removeComponentOperationDeserializer, renameComponentOperationDeserializer, replaceComponentOperationDeserializer } from './deserializers/infra-model-diff/component-operations/component-operation-deserializers';
-import { insertOutgoingRelationshipComponentOperationDeserializer, removeOutgoingRelationshipComponentOperationDeserializer, updateOutgoingRelationshipComponentOperationDeserializer } from './deserializers/infra-model-diff/component-operations/relationship-component-operation-deserializers';
 import { insertPropertyComponentOperationDeserializer, movePropertyComponentOperationDeserializer, removePropertyComponentOperationDeserializer, updatePropertyComponentOperationDeserializer } from './deserializers/infra-model-diff/component-operations/property-component-operation-deserializer';
 import { componentDeserializer } from './deserializers/infra-model/component-deserializer';
 import { dependencyRelationshipDeserializer } from './deserializers/infra-model/dependency-relationship-deserializer';
@@ -37,9 +36,6 @@ export const classToDeserializer: Record<string, classDeserializer> = Object.fre
     [SerializationClasses.REMOVE_COMPONENT_OPERATION]: removeComponentOperationDeserializer,
     [SerializationClasses.REPLACE_COMPONENT_OPERATION]: replaceComponentOperationDeserializer,
     [SerializationClasses.RENAME_COMPONENT_OPERATION]: renameComponentOperationDeserializer,
-    [SerializationClasses.INSERT_OUTGOING_RELATIONSHIP_COMPONENT_OPERATION]: insertOutgoingRelationshipComponentOperationDeserializer,
-    [SerializationClasses.REMOVE_OUTGOING_RELATIONSHIP_COMPONENT_OPERATION]: removeOutgoingRelationshipComponentOperationDeserializer,
-    [SerializationClasses.UPDATE_OUTGOING_RELATIONSHIP_COMPONENT_OPERATION]: updateOutgoingRelationshipComponentOperationDeserializer,
     [SerializationClasses.INSERT_PROPERTY_COMPONENT_OPERATION]: insertPropertyComponentOperationDeserializer,
     [SerializationClasses.REMOVE_PROPERTY_COMPONENT_OPERATION]: removePropertyComponentOperationDeserializer,
     [SerializationClasses.UPDATE_PROPERTY_COMPONENT_OPERATION]: updatePropertyComponentOperationDeserializer,

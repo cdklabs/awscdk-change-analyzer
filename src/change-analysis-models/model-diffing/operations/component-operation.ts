@@ -39,6 +39,7 @@ export abstract class ComponentOperation<ND extends OpNodeData = any, OR extends
     public get cause(): ComponentOperation | undefined { return this.outgoingNodeReferences.cause; }
     public get componentTransition(): Transition<Component> { return this.outgoingNodeReferences.componentTransition; }
     public get certainty(): OperationCertainty { return this.nodeData.certainty ?? OperationCertainty.ABSOLUTE; }
+    public get operationType(): OperationType { return this.nodeData.type }
 
     constructor(
         nodeData: ND,
@@ -120,75 +121,5 @@ export class RenameComponentOperation extends ComponentOperation {
 
     public getSerializationClass(): string {
         return SerializationClasses.RENAME_COMPONENT_OPERATION;
-    }
-}
-
-export type RelationshipOpOutgoingNodeReferences = OpOutgoingNodeReferences & {
-    readonly relationshipTransition: Transition<Relationship>,
-}
-
-export abstract class OutgoingRelationshipComponentOperation extends ComponentOperation<any, RelationshipOpOutgoingNodeReferences> {
-
-    public get relationshipTransition(): Transition<Relationship> { return this.outgoingNodeReferences.relationshipTransition; }
-
-    constructor(
-        nodeData: OpNodeData,
-        outgoingReferences: RelationshipOpOutgoingNodeReferences,
-        operationType: OperationType,
-    ){super(nodeData, outgoingReferences, operationType);}
-
-    public toSerialized(
-        serialize: (obj: JSONSerializable) => number,
-    ): SerializedOutgoingRelationshipComponentOperation {
-        return {
-            ...super.toSerialized(serialize),
-            relationshipTransition: serialize(this.relationshipTransition)
-        };
-    }
-}
-
-export class InsertOutgoingRelationshipComponentOperation extends OutgoingRelationshipComponentOperation {
-    constructor(
-        nodeData: OpNodeData,
-        outgoingReferences: RelationshipOpOutgoingNodeReferences
-    ){
-        super(nodeData, outgoingReferences, OperationType.INSERT);
-        if(this.relationshipTransition.v1 !== undefined || this.relationshipTransition.v2 === undefined)
-            throw Error("Insert Operation has to have exclusively version 2");
-    }
-
-    public getSerializationClass(): string {
-        return SerializationClasses.INSERT_OUTGOING_RELATIONSHIP_COMPONENT_OPERATION;
-    }
-}
-
-export class RemoveOutgoingRelationshipComponentOperation extends OutgoingRelationshipComponentOperation {
-    constructor(
-        nodeData: OpNodeData,
-        outgoingReferences: RelationshipOpOutgoingNodeReferences
-    ){
-        super(nodeData, outgoingReferences, OperationType.REMOVE);
-        if(this.relationshipTransition.v1 === undefined || this.relationshipTransition.v2 !== undefined)
-            throw Error("Remove Operation has to have exclusively version 1");
-    }
-
-
-    public getSerializationClass(): string {
-        return SerializationClasses.REMOVE_OUTGOING_RELATIONSHIP_COMPONENT_OPERATION;
-    }
-}
-
-export class UpdateOutgoingRelationshipComponentOperation extends OutgoingRelationshipComponentOperation {
-    constructor(
-        nodeData: OpNodeData,
-        outgoingReferences: RelationshipOpOutgoingNodeReferences
-    ){
-        super(nodeData, outgoingReferences, OperationType.UPDATE);
-        if(this.relationshipTransition.v1 === undefined || this.relationshipTransition.v2 === undefined)
-            throw Error("Update Operation has to have both versions");
-    }
-    
-    public getSerializationClass(): string {
-        return SerializationClasses.UPDATE_OUTGOING_RELATIONSHIP_COMPONENT_OPERATION;
     }
 }

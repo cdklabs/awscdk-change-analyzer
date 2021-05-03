@@ -1,7 +1,7 @@
 import { ComponentOperation, InfraModelDiff, Transition, UpdatePropertyComponentOperation } from "change-cd-iac-models/model-diffing";
 import { ModuleTreeAggsExtractor } from "../aggregations-extractor";
 import { Aggregation } from "change-cd-iac-models/aggregations";
-import { componentOperationAggModuleTree, componentOperationSpecificAggModuleTree, compOperationWithRulesAggModuleTree } from "./moduleTree";
+import { componentOperationSpecificAggModuleTree, compOperationWithRulesAggModuleTree } from "./moduleTree";
 import { addAggDescriptions } from "../add-aggregation-descriptions";
 import * as descriptionCreators from "./description-creators";
 import { groupArrayBy } from "change-cd-iac-models/utils";

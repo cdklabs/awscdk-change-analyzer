@@ -20,7 +20,7 @@ const {
 test('Extract Agg of operation type, component type and component subtype', () => {
     
     const diff = diffTestCase1();
-    const groups = extractComponentOperationsAggs(diff);
+    const groups = extractComponentOperationsAggs(diff, new Map());
 });
 
 
@@ -29,5 +29,5 @@ test('Group operations from big template', () => {
     const newModel = new CDKParser(readSampleInput('kessel-run-stack-after.json')).parse();
     
     const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
-    const aggregations = extractComponentOperationsAggs(diff);
+    const aggregations = extractComponentOperationsAggs(diff, new Map());
 });
