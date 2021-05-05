@@ -56,6 +56,13 @@ export abstract class ComponentProperty/* TODO Value*/<ND extends NodeData = any
         return this.value as Array<ComponentProperty>;
     }
 
+    getCollection(): Array<ComponentProperty> | Record<string, ComponentProperty> {
+        if(this.isPrimitive()){
+            throw new ComponentPropertyAccessError("Trying to read component property as a Collection, but it is not one");
+        }
+        return this.value as Array<ComponentProperty> | Record<string, ComponentProperty>;
+    }
+
     getPrimitive(): PropertyPrimitive {
         if(!this.isPrimitive()){
             throw new ComponentPropertyAccessError("Trying to read component property as a primitive, but it is not one"); 

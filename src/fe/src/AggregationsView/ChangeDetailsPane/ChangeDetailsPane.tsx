@@ -64,12 +64,12 @@ function ChangeDetailsPane({agg}: props) {
             ? <Box className={`${classes.fillParent} ${classes.emptyRoot}`}>Select a set of changes to view their details</Box> 
             : <Box className={`${classes.root} ${classes.fillParent}`}>
                 <Box className={classes.header}>
-                    {descriptions && descriptions[0]
+                    {(console.log(descriptions), descriptions) && descriptions[2]
                         ? <> 
                             <Typography variant="h5" className={classes.mainCharacteristicDescription}>
-                                Changes to <b>{descriptions[0]}</b>
+                                Changes to <b>{descriptions[2]}</b>
                             </Typography>
-                            {descriptions && descriptions.slice(1).map(description => 
+                            {descriptions && descriptions.slice(2).map(description => 
                                 <Typography key={description} className={classes.characteristicDescription}>{description}</Typography>
                             )}
                         </>

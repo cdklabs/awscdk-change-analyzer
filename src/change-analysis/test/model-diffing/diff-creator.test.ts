@@ -2,11 +2,8 @@ import { CFParser } from "../../platform-mapping";
 import { DiffCreator } from "../../model-diffing";
 import {
     InsertComponentOperation,
-    InsertOutgoingRelationshipComponentOperation,
-    InsertPropertyComponentOperation,
     MovePropertyComponentOperation,
     RemoveComponentOperation,
-    RemoveOutgoingRelationshipComponentOperation,
     RenameComponentOperation,
     UpdatePropertyComponentOperation,
 } from "change-cd-iac-models//model-diffing";
@@ -134,9 +131,8 @@ test('Remove Component', () => {
 
     const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
 
-    expect(diff.componentOperations.length).toBe(2);
+    expect(diff.componentOperations.length).toBe(1);
     expect(diff.componentOperations.filter(o => o instanceof RemoveComponentOperation).length).toBe(1);
-    expect(diff.componentOperations.filter(o => o instanceof RemoveOutgoingRelationshipComponentOperation).length).toBe(1);
 });
 
 test('Insert Component', () => {
@@ -166,9 +162,8 @@ test('Insert Component', () => {
 
     const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
 
-    expect(diff.componentOperations.length).toBe(2);
+    expect(diff.componentOperations.length).toBe(1);
     expect(diff.componentOperations.filter(o => o instanceof InsertComponentOperation).length).toBe(1);
-    expect(diff.componentOperations.filter(o => o instanceof InsertOutgoingRelationshipComponentOperation).length).toBe(1);
 });
 
 test('Renamed Component', () => {
@@ -196,40 +191,4 @@ test('Renamed Component', () => {
     const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
     expect(diff.componentOperations.length).toBe(1);
     expect(diff.componentOperations[0] instanceof RenameComponentOperation).toBe(true);
-});
-
-test('Insert Relationship', () => {
-    const oldModel = new CFParser({
-        Resources: {
-            "logicalId0": {
-                Type: "AWS::IAM::Policy",
-                Properties: {
-                    property1: "propertyValue",
-                }
-            },
-            "logicalId1": {
-                Type: "AWS::IAM::Policy",
-            }
-        }
-    }).parse();
-    const newModel = new CFParser({
-        Resources: {
-            "logicalId0": {
-                Type: "AWS::IAM::Policy",
-                Properties: {
-                    property1: "propertyValue",
-                    property2: { Ref: "logicalId1" }
-                }
-            },
-            "logicalId1": {
-                Type: "AWS::IAM::Policy",
-            }
-        }
-    }).parse();
-
-    const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
-
-    expect(diff.componentOperations.length).toBe(2);
-    expect(diff.componentOperations.filter(o => o instanceof InsertOutgoingRelationshipComponentOperation).length).toBe(1);
-    expect(diff.componentOperations.filter(o => o instanceof InsertPropertyComponentOperation).length).toBe(1);
 });

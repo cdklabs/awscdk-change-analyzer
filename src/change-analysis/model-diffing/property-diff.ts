@@ -181,15 +181,13 @@ export class PropertyDiffCreator {
         const innerOperations = innerDiffs.map(diff => diff.operation).filter(isDefined);
     
         let operation;
-        if(innerOperations.length > 1){
+        if(innerOperations.length > 0){
             operation = new UpdatePropertyComponentOperation({}, {
                 pathTransition: new Transition({v1: pathP1, v2: pathP2}),
                 propertyTransition: new Transition({v1: p1, v2: p2}),
                 componentTransition: this.componentTransition,
                 innerOperations
             });
-        } else if(innerOperations.length == 1){
-            operation = innerOperations[0];
         }
     
         return {similarity: score, weight: totalWeight, operation};

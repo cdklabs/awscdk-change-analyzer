@@ -40,6 +40,7 @@ const useStyle = makeStyles((theme: Theme) => ({
     tabs: {
         position: 'sticky',
         top: 0,
+        zIndex: theme.zIndex.drawer
     },
     tab: {
         minWidth: 'auto'

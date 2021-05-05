@@ -1,7 +1,8 @@
+import { Serializable } from "node:child_process";
 import { JSONSerializable } from "../../export/json-serializable";
 import { SerializationClasses } from "../../export/serialization-classes";
 import { SerializedComponentOperation, SerializedOutgoingRelationshipComponentOperation } from "../../export/serialized-interfaces/infra-model-diff/serialized-component-operation";
-import { Component, Relationship } from "../../infra-model";
+import { Component, ComponentProperty, Relationship } from "../../infra-model";
 import { ModelEntity } from "../../infra-model/model-entity";
 import { ModelEntityTypes } from "../../infra-model/model-entity-types";
 import { Transition } from "../transition";
@@ -30,10 +31,15 @@ type InternalOpNodeData = {
 export type OpOutgoingNodeReferences = {
     readonly cause?: ComponentOperation,
     readonly componentTransition: Transition<Component>,
+    readonly appliesTo?: Transition<Component | ComponentProperty>[],
+}
+
+type InternalOutgoingNodeReferences = {
+    readonly appliesTo: Transition<Component | ComponentProperty>[],
 }
 
 export abstract class ComponentOperation<ND extends OpNodeData = any, OR extends OpOutgoingNodeReferences = any>
-    extends ModelEntity<ND & InternalOpNodeData, OR>
+    extends ModelEntity<ND & InternalOpNodeData, OR & InternalOutgoingNodeReferences>
     implements JSONSerializable {
 
     public get cause(): ComponentOperation | undefined { return this.outgoingNodeReferences.cause; }
@@ -46,7 +52,11 @@ export abstract class ComponentOperation<ND extends OpNodeData = any, OR extends
         outgoingReferences: OR,
         operationType: OperationType,
     ){
-        super(ModelEntityTypes.change, {...nodeData, type: operationType}, outgoingReferences);
+        super(
+            ModelEntityTypes.change,
+            {...nodeData, type: operationType},
+            {...outgoingReferences, appliesTo: [...(outgoingReferences.appliesTo ?? []), outgoingReferences.componentTransition] }
+        );
     }
 
     public isDirectChange(): boolean{

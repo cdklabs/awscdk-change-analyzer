@@ -1,26 +1,27 @@
 import { RuleEffect } from 'change-cd-iac-models/rules';
 
 export enum RuleConditionOperator {
-    references = '->', // for following dependency relationships
-    isReferencedIn = '<-',
-    contains = '>>', // for following structural relationships
-    isContainedIn = '<<',
+    // references = '->', // for following dependency relationships
+    // isReferencedIn = '<-',
+    // contains = '>>', // for following structural relationships
+    // isContainedIn = '<<',
     appliesTo = 'appliesTo', // for checking a change against an InfraModel entity
-    affects = 'affects', // for checking a change against any directly or indirectly affected InfraModel entity
-    equals = '==',
-    notEquals = '!=',
-    greaterThan = '>',
-    greaterOrEqual = '>=',
-    lessThan = '<',
-    lessOrEqual = '<=',
+    // affects = 'affects', // for checking a change against any directly or indirectly affected InfraModel entity
+    // equals = '==',
+    // notEquals = '!=',
+    // greaterThan = '>',
+    // greaterOrEqual = '>=',
+    // lessThan = '<',
+    // lessOrEqual = '<=',
 }
-
 export type Scalar = number | string | boolean;
 
 export type ConditionInput = {
-    scalar?: Scalar;
-    identifier?: string;
-    propertyPath?: string[];
+    scalar: Scalar;
+} | RuleScopeReference;
+
+export function isInputScalar(i: ConditionInput): i is {scalar: Scalar} {
+    return {}.hasOwnProperty.call(i, 'scalar');
 }
 
 export type RuleCondition = {
@@ -31,9 +32,9 @@ export type RuleCondition = {
 
 export type RuleConditions = RuleCondition[];
 
-export type RulePropertyReference = {
+export type RuleScopeReference = {
     identifier: string,
-    propertyPath: string[]
+    propertyPath?: string[]
 }
 
 export type SelectorFilter = {
@@ -45,22 +46,22 @@ export type SelectorFilter = {
 export type Selector = ({
         filter?: SelectorFilter;
     } | {
-        propertyReference: RulePropertyReference;
+        propertyReference: RuleScopeReference;
 }) & {
     where?: RuleConditions;
 }
 
-export function selectorIsPropertyReference(
+export function selectorIsReference(
     s: Selector
-): s is {propertyReference: RulePropertyReference} & {where?: RuleConditions} {
-    return {}.hasOwnProperty.call(s, 'propertyReference');
+): s is {propertyReference: RuleScopeReference} & {where?: RuleConditions} {
+    return {}.hasOwnProperty.call(s, 'identifier');
 }
 
 export type Bindings = {[identifier: string]: Selector};
 
 export interface UserRule {
     let?: Bindings;
-    where?: RuleConditions;
+    where?: RuleConditions; // TODO argument should be CRuleConditions
     then?: UserRule[];
     effect?: RuleEffectDefinition;
 }

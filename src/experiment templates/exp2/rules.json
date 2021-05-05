@@ -1,20 +1,10 @@
 [{
     "let": {
         "change": { "change": {"type": "UPDATE" } }
-    },
-    "effect": {
-        "target": "change",
-        "risk": "high",
-        "action": "reject"
     }
 },
 {
     "let": {
         "change": { "change": {"type": "INSERT" } }
-    },
-    "effect": {
-        "target": "change",
-        "risk": "low",
-        "action": "approve"
     }
 }]

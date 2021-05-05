@@ -22,7 +22,7 @@ export abstract class PropertyComponentOperation<ND extends OpNodeData = any, OR
         outgoingReferences: OR,
         operationType: OperationType,
     ){
-        super(nodeData, outgoingReferences, operationType);
+        super(nodeData, {appliesTo: [outgoingReferences.propertyTransition], ...outgoingReferences}, operationType);
     }
 
     getUpdateType(): ComponentUpdateType {
@@ -30,7 +30,7 @@ export abstract class PropertyComponentOperation<ND extends OpNodeData = any, OR
             throw Error("Property Operation has no before or after property states");
         }
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        return this.propertyTransition.v2?.componentUpdateType ?? this.propertyTransition.v1!.componentUpdateType;
+        return this.propertyTransition.v1?.componentUpdateType ?? this.propertyTransition.v2!.componentUpdateType;
     }
 
     getV1Path(v2path: PropertyPath): PropertyPath | undefined {

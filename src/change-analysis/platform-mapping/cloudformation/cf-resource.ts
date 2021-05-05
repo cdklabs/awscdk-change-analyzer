@@ -31,7 +31,6 @@ export class CFResource extends CFEntity {
 
     protected generateComponent(name: string, definition:Record<string, any>): Component {
         this.resourceType = definition.Type;
-        // delete definition.Metadata;
         return new Component(name, 'Resource', {subtype: definition.Type, properties: this.cfDefinitionToComponentProperty(definition)});
     }
 
@@ -62,6 +61,7 @@ export class CFResource extends CFEntity {
     private getUpdateTypeFromPropertySpec(property: schema.Property, propertyPath: string[], scopeUpdateType?: ComponentUpdateType): ComponentUpdateType {
         
         const updateType = this.cfUpdateTypeToComponentUpdateType(property.UpdateType ?? 'Mutable', scopeUpdateType);
+        
         if(propertyPath.length === 1 || updateType === ComponentUpdateType.NONE){
             return updateType;
         }

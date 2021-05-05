@@ -88,6 +88,7 @@ export abstract class CFEntity {
     protected cfDefinitionToComponentProperty(definition: CFDefinition): ComponentProperty{
         
         const updateTypeGetter = this.getUpdateTypeForPropertyPath.bind(this);
+
         return factory(definition, []);
         
         function factory (definition: CFDefinition, propertyPath: string[]): ComponentProperty {

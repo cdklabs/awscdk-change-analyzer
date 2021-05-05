@@ -1,6 +1,6 @@
 import { isDefined } from "change-cd-iac-models/utils";
 import { ModelEntityTypes } from "change-cd-iac-models/infra-model";
-import { RuleConditions, Selector, SelectorFilter, UserRule } from "./rule";
+import { ConditionInput, RuleCondition, RuleConditionOperator, RuleConditions, Selector, SelectorFilter, UserRule, RuleScopeReference } from "./rule";
 import { CBindings, CSelector, CUserRule, isComponentCSelector, isPathCSelector, ComponentCFilter, CRuleConditions, isComponentCFilter, GeneralCSelector } from "./rule-config-schema";
 
 
@@ -101,17 +101,60 @@ function parseComponentCFilter(selector: ComponentCFilter): SelectorFilter {
 }
 
 function parseStringSelector(selector: string): Selector {
-    const [ identifier , ...propertyPath] = selector.split('.');
     return {
-        propertyReference: {
-            identifier,
-            propertyPath
-        }
+        propertyReference: parseScopeReference(selector)
     };
 }
+
+function parseScopeReference(s: string): RuleScopeReference {
+    const [ identifier , ...propertyPath] = s.split('.');
+    return {
+        identifier,
+        propertyPath
+    };
+}
+
 
 function parseConditions(
     conditions?: CRuleConditions
 ): { where?: RuleConditions; } {
-    return {};
+    if(conditions === undefined) return {};
+
+    return {
+        where: (typeof conditions === 'string'
+                ? [parseCondition(conditions)]
+                : conditions.map(parseCondition)
+            ).filter(isDefined)
+    };
+}
+
+function parseCondition(condition: string): RuleCondition | undefined {
+    const splitConditions = condition
+        .split(/\s+/g);
+    if(!splitConditions || splitConditions.length !== 3)
+        return;
+    const [leftInput, operator, rightInput] = splitConditions;
+
+    if(!Object.values(RuleConditionOperator).includes(operator as RuleConditionOperator))
+        return;
+
+    const conditionInputFromStr = (s: string): ConditionInput => {
+        const strScalarRegExp = /^["'](.*)["']$/;
+        if(!isNaN(s as unknown as number))
+            return { scalar: parseInt(s) };
+        else {
+            const strScalarREMatch = s.match(strScalarRegExp);
+            if(strScalarREMatch && strScalarREMatch[1] !== undefined){
+                return { scalar: strScalarREMatch[1] };
+            } else {
+                return parseScopeReference(s);
+            }
+        }
+    };
+
+    return {
+        operator: operator as RuleConditionOperator,
+        leftInput: conditionInputFromStr(leftInput),
+        rightInput: conditionInputFromStr(rightInput)
+    };
 }

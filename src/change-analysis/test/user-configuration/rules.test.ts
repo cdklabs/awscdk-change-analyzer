@@ -1,12 +1,8 @@
-/** Categorical Mistake */
-
 import { diffTestCase1 } from "../default-test-cases/infra-model-diff";
 import { CUserRule, parseRules, RuleProcessor, UserRule } from "../../user-configuration";
 import { RuleAction, RuleRisk } from "change-cd-iac-models/rules";
-
-/**
- * Document Component types cannot be ComponentProperty and ComponentOperation
- */
+import { RuleConditionOperator } from "../../user-configuration";
+import { CUserRules, UserRules } from "../../user-configuration";
 
 const diffTestCase1CRules: CUserRule[] = [{
     let: {
@@ -19,7 +15,7 @@ const diffTestCase1CRules: CUserRule[] = [{
             nested: 'instance.nested',
             propComp2_1: 'instance.nested.propComp2',
             propComp2_2: 'nested.propComp2',
-            change: { change: {type: 'UPDATE', _id: '23' } }
+            change: { change: {type: 'UPDATE' } }
         },
         effect: {
             target: 'change',
@@ -40,7 +36,7 @@ const diffTestCase1Rules: UserRule[] = [{
             nested: { propertyReference: {identifier: 'instance', propertyPath: ['nested'] } },
             propComp2_1: { propertyReference: {identifier: 'instance', propertyPath: ['nested', 'propComp2'] } },
             propComp2_2: { propertyReference: {identifier: 'nested', propertyPath: ['propComp2'] } },
-            change: { filter: {_entityType: 'change', type: 'UPDATE', _id: '23' } }
+            change: { filter: {_entityType: 'change', type: 'UPDATE' } }
         },
         effect: {
             target: 'change',
@@ -54,13 +50,66 @@ test('Rules parser', () => {
     expect(parseRules(diffTestCase1CRules)).toEqual(diffTestCase1Rules);
 });
 
-test('Rule processor', () => {
+test('Rules conditions parsing', () => {
+    const cRules: CUserRules = [{
+        let: {
+            role: { resource: 'AWS::IAM::Role' },
+            change: { change: {}, ...{where: ['change appliesTo role']}}
+        }
+    }];
+
+    const expectedRules: UserRules = [{
+        let: {
+            role: { filter: { _entityType: 'component', type: 'resource', subtype: 'AWS::IAM::Role' }},
+            change: {
+                filter: {_entityType: 'change'},
+                where: [{
+                    operator: RuleConditionOperator.appliesTo,
+                    leftInput: {identifier: 'change'},
+                    rightInput: {identifier: 'role'}
+                }]
+            }
+        }
+    }];
+
+    expect(parseRules(cRules)).toMatchObject(expectedRules);
+});
+
+test('Rule processor basic filter', () => {
     
     const diff = diffTestCase1();
 
     const result = new RuleProcessor(diff.generateOutgoingGraph()).processRules(diffTestCase1Rules);
 
+    expect(result.size).toEqual(2);
+    expect([...result][0][0]).toMatchObject({ _entityType: 'change', type: 'UPDATE' });
+    expect([...result][0][1]).toEqual({risk: RuleRisk.High, action: RuleAction.Reject});
+    expect([...result][1][0]).toMatchObject({ _entityType: 'change', type: 'UPDATE' });
+    expect([...result][1][1]).toEqual({risk: RuleRisk.High, action: RuleAction.Reject});
+});
+
+test('Rule processor appliesTo condition', () => {
+    
+    const diff = diffTestCase1();
+
+    const rules = [{
+        let: {
+            role: { filter: { _entityType: 'component', type: 'resource', subtype: 'AWS::IAM::Role' }},
+            change: { filter: {_entityType: 'change' }, where: [{
+                leftInput: {identifier: 'change'},
+                operator: RuleConditionOperator.appliesTo,
+                rightInput: {identifier: 'role'}
+            }] }
+        },
+        effect: {
+            target: 'change',
+            risk: RuleRisk.High,
+            action: RuleAction.Reject
+        }
+    }]; 
+
+    const result = new RuleProcessor(diff.generateOutgoingGraph()).processRules(rules);
     expect(result.size).toEqual(1);
-    expect([...result][0][0]).toMatchObject({ _entityType: 'change', _id: '23', type: 'UPDATE' });
+    expect([...result][0][0]).toMatchObject({ _entityType: 'change', type: 'UPDATE' });
     expect([...result][0][1]).toEqual({risk: RuleRisk.High, action: RuleAction.Reject});
 });

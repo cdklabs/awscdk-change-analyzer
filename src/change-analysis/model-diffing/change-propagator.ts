@@ -13,8 +13,10 @@ import {
     UpdatePropertyComponentOperation,
     Transition,
     InfraModelDiff,
-    TransitionNotFoundError
+    TransitionNotFoundError,
+    PropertyComponentOperation
 } from "change-cd-iac-models/model-diffing";
+import { arraysEqual } from "change-cd-iac-models/utils";
 
 /**
  * Creates the ComponentOperations caused by existing ones
@@ -45,14 +47,31 @@ export function propagateChanges(modelDiff: InfraModelDiff): InfraModelDiff{
  * @param modelDiff the original InfraModelDiff
  */
 function propagatePropertyOperation(
-    compOp: UpdatePropertyComponentOperation,
+    compOp: PropertyComponentOperation,
     modelDiff: InfraModelDiff,
 ): ComponentOperation[] {
     const componentUpdate = compOp.getUpdateType();
+
     if(componentUpdate !== ComponentUpdateType.REPLACEMENT
         && componentUpdate !== ComponentUpdateType.POSSIBLE_REPLACEMENT)
-        return [];
-        
+        return compOp instanceof UpdatePropertyComponentOperation
+            ? (compOp.innerOperations ?? []).flatMap(i => propagatePropertyOperation(i, modelDiff))
+            : [];
+
+    /** if the property is a replacement-inducing collection and
+    /* the keys have changed, it should propagate to a replacement
+    / */
+    if(!compOp.propertyTransition.v1?.isPrimitive()){
+        const {v1, v2} = compOp.propertyTransition;
+        if(v1 !== undefined
+            && v2 !== undefined
+            && arraysEqual(Object.keys(v1.getCollection()), Object.keys(v2.getCollection()))
+            && compOp instanceof UpdatePropertyComponentOperation
+        ){
+            return (compOp.innerOperations ?? []).flatMap(i => propagatePropertyOperation(i, modelDiff));
+        }
+    }
+
     const componentTransition = compOp.componentTransition;
 
     const replacementOp = new ReplaceComponentOperation({

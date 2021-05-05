@@ -1,16 +1,17 @@
 import { RuleEffectDefinition, Scalar } from "./rule";
 
 
-export type CRuleConditions = string | string[];
-
 export type CFilters = Record<string, Scalar>;
+
+export interface BaseSelector {
+    where?: CRuleConditions
+}
 
 export type ComponentCFilter = ({
     type: string,
     subtype?: string,
-} | {
-    [type: string]: string, //shortform for specifying type and subtype
-}) & {
+} | Record<string, string> //shortform for specifying type and subtype
+) & {
     name?: string,
 };
 
@@ -35,18 +36,18 @@ export function isComponentCSelector(s: CSelector): s is ComponentCSelector {
 }
 
 export type GeneralCSelector = {
-    [entityType: string]: CFilters;
+    [type: string]: CFilters,
 }
 
+export type CRuleConditions = string | string[];
+
 export type CSelector = (
-    (
-        PathCSelector | 
-        ComponentCSelector |
+    BaseSelector & (
+        ComponentCFilter |
         GeneralCSelector |
-        ComponentCFilter
-    ) & {
-        where?: CRuleConditions;
-    }
+        PathCSelector | 
+        ComponentCSelector
+    )
 ) | string;
 
 export type CBindings = {[identifier: string]: CSelector};

@@ -2,23 +2,37 @@ import { Serialized } from "change-cd-iac-models/export/json-serializable";
 import { ModelEntity } from "change-cd-iac-models/infra-model/model-entity";
 import { isDefined } from "change-cd-iac-models/utils";
 import * as fn from 'fifinet';
-import { UserRule, Bindings, RuleEffectDefinition, Selector, selectorIsPropertyReference } from "./rule";
+import { UserRule, Bindings, RuleEffectDefinition, Selector, selectorIsReference, RuleConditions, RuleConditionOperator, isInputScalar } from "./rule";
 import { RuleEffect } from 'change-cd-iac-models/rules';
+import { appliesToHandler } from './operator-handlers';
 
 type UserRules = UserRule[];
 
-type RulesScope = Record<string, fn.Vertex<any, any>>;
+type RulesScope = Record<string, ScopeNode>;
 type RuleOutput = Map<fn.Vertex<any, any>, RuleEffect>;
 
 type VertexScopeNode = {
     vertex: fn.Vertex<any, any>;
 }
-function isScopeVertex(n: ScopeNode): n is VertexScopeNode { return {}.hasOwnProperty.call(n, 'vertex'); }
+export function isScopeVertex(n: ScopeNode): n is VertexScopeNode { return {}.hasOwnProperty.call(n, 'vertex'); }
 type ValueScopeNode = {
     value: Serialized
 }
-function isScopeValue(n: ScopeNode): n is ValueScopeNode { return {}.hasOwnProperty.call(n, 'value'); }
-type ScopeNode = VertexScopeNode | ValueScopeNode;
+export function isScopeValue(n: ScopeNode): n is ValueScopeNode { return {}.hasOwnProperty.call(n, 'value'); }
+export type ScopeNode = VertexScopeNode | ValueScopeNode;
+function vertexToScopeNode(vertex: fn.Vertex<any, any>) {
+    return {vertex};
+}
+function scalarToScopeNode(value: fn.Vertex<any, any>) {
+    return {value};
+}
+
+
+export type OperatorHandler = <V, E>(g: fn.Graph<V, E>, t1: ScopeNode, t2: ScopeNode) => boolean;
+
+const operatorToHandler: Record<RuleConditionOperator, OperatorHandler> = {
+    appliesTo: appliesToHandler,
+};
 
 export class RuleProcessor {
 
@@ -49,7 +63,10 @@ export class RuleProcessor {
 
     private extractRuleEffect(scope: RulesScope, effectDefinition: RuleEffectDefinition): RuleOutput {
         const {target, ...effect} = effectDefinition;
-        return new Map([[scope[target].vertex, effect]]);
+        const targetScopeNode = scope[target];
+        if(isScopeValue(targetScopeNode))
+            return new Map();
+        return new Map([[targetScopeNode.vertex, effect]]);
     }
 
     private getScopesFromDeclarations(
@@ -59,33 +76,43 @@ export class RuleProcessor {
         Object.entries(bindings).forEach(
             ([identifier, selector]) => {
                 newScopes = newScopes.flatMap(scope => 
-                    this.processDefinition(selector, scope).map(e => ({...scope, [identifier]: e}))
+                    this.processDefinition(identifier, selector, scope).map(e => ({...scope, [identifier]: e}))
                 );
             }
         );
         return newScopes;
     }
 
-    private processDefinition(selector: Selector, scope: RulesScope): ScopeNode[]{
-        if(selectorIsPropertyReference(selector)){
+    private processDefinition(identifier: string, selector: Selector, scope: RulesScope): ScopeNode[]{
+        let candidates: ScopeNode[] = [];
+        
+        if(selectorIsReference(selector)){
             const identifierModelEntity = scope[selector.propertyReference.identifier];
             if(identifierModelEntity === undefined)
                 return [];
-            return [...this.navigateToPath(identifierModelEntity, selector.propertyReference.propertyPath)].filter(isDefined);
+            candidates = this.navigateToPath(identifierModelEntity, selector.propertyReference.propertyPath).filter(isDefined);
+        } else {
+            candidates = this.graph.v(selector.filter).run().map(vertexToScopeNode);
         }
 
-        return this.graph.v(selector.filter).run().map(vertex => ({vertex}));
+        return candidates.filter(candidate => {
+            const newScope = {...scope, [identifier]: candidate};
+            return this.verifyConditions(
+                selector.where ?? [],
+                newScope
+            );
+        });
     }
 
-    private navigateToPath(entity: ScopeNode, path: string[]): ScopeNode[] {
-        if(path.length === 0) return [entity];
+    private navigateToPath(entity: ScopeNode, path?: string[]): ScopeNode[] {
+        if(!path || path.length === 0) return [entity];
         
         if(isScopeVertex(entity)) {
-            const newPropertyVertices = this.graph.v(entity.vertex).outAny({_label: 'hasProperties'}).run().map(vertex => ({vertex}));
-            const nestedPropertyVertices = this.graph.v(entity.vertex).outAny({_label: 'value', key: path[0]}).run().map(vertex => ({vertex}));
+            const newPropertyScopeNodes = this.graph.v(entity.vertex).outAny({_label: 'hasProperties'}).run().map(vertexToScopeNode);
+            const nestedPropertyScopeNodes = this.graph.v(entity.vertex).outAny({_label: 'value', key: path[0]}).run().map(vertexToScopeNode);
             return [
-                ...newPropertyVertices.flatMap(v => this.navigateToPath(v, path)),
-                ...nestedPropertyVertices.flatMap(v => this.navigateToPath(v, path.slice(1))),
+                ...newPropertyScopeNodes.flatMap(v => this.navigateToPath(v, path)),
+                ...nestedPropertyScopeNodes.flatMap(v => this.navigateToPath(v, path.slice(1))),
                 ...[entity.vertex[path[0]]] ?? [],
             ];
         } else if(isScopeValue(entity)){
@@ -96,5 +123,33 @@ export class RuleProcessor {
             }
         }
         return [];
+    }
+
+    verifyConditions(
+        conditions: RuleConditions,
+        scope: RulesScope
+    ): boolean {
+        for(const c of conditions){
+            const [leftCandidates, rightCandidates] = [c.leftInput, c.rightInput].map((i): ScopeNode[] => {
+                if(isInputScalar(i)) return [{ value: i.scalar }];
+                if(i.identifier === undefined) return [];
+                return this.navigateToPath(scope[i.identifier], i.propertyPath ?? []);
+            });
+            if(leftCandidates.length === 0 || rightCandidates.length === 0){
+                return false;
+            }
+            const approved =
+                leftCandidates.reduce((outterAcc, l) =>
+                    outterAcc || rightCandidates.reduce((innerAcc, r) => {
+                        if(Object.values(RuleConditionOperator).includes(c.operator)){
+                            return innerAcc || operatorToHandler[c.operator](this.graph, l, r);
+                        }
+                        return innerAcc;
+                    }, false
+                ), false
+            );
+            if(!approved) return false;
+        }
+        return true;
     }
 }
