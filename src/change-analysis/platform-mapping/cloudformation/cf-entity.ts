@@ -1,6 +1,6 @@
 import {
     Component,
-    ComponentProperty,
+    ComponentPropertyValue,
     ComponentUpdateType,
     DependencyRelationship,
     InfraModel,
@@ -79,19 +79,19 @@ export abstract class CFEntity {
     }
 
     /**
-     * A ComponentProperty factory that takes a CloudFormation definition (js object)
-     * and recursively creates the respective ComponentProperty for every primitive,
+     * A ComponentPropertyValue factory that takes a CloudFormation definition (js object)
+     * and recursively creates the respective ComponentPropertyValue for every primitive,
      * record or array
      * @param definition the CloudFormation definition (js object as it comes from the template)
      * @param propertyPath the property key path that leads to this definition
      */
-    protected cfDefinitionToComponentProperty(definition: CFDefinition): ComponentProperty{
+    protected cfDefinitionToComponentProperty(definition: CFDefinition): ComponentPropertyValue{
         
         const updateTypeGetter = this.getUpdateTypeForPropertyPath.bind(this);
 
         return factory(definition, []);
         
-        function factory (definition: CFDefinition, propertyPath: string[]): ComponentProperty {
+        function factory (definition: CFDefinition, propertyPath: string[]): ComponentPropertyValue {
             const updateType = updateTypeGetter(propertyPath);
             if (Array.isArray(definition)) {
                 return new ComponentPropertyArray(

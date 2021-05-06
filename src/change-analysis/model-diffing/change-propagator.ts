@@ -2,7 +2,7 @@ import {
     Component,
     ComponentUpdateType,
     DependencyRelationship,
-    ComponentProperty,
+    ComponentPropertyValue,
     PropertyPath,
 } from "change-cd-iac-models/infra-model";
 import { 
@@ -133,7 +133,7 @@ function propagateReplacementOperation(replacementOp: ReplaceComponentOperation,
 
 /**
  * Creates an UpdatePropertyComponentOperation for a given component, current property path and cause
- * by finding the previous property path and ComponentProperty.
+ * by finding the previous property path and ComponentPropertyValue.
  * @param componentTransition 
  * @param v2PropertyPath 
  * @param cause 
@@ -165,17 +165,17 @@ function createUpdateOperationForComponent(
 }
 
 /**
- * Find the previous PropertyPath and ComponentProperty for a current PropertyPath of a ComponentTransition
+ * Find the previous PropertyPath and ComponentPropertyValue for a current PropertyPath of a ComponentTransition
  * @param componentTransition 
  * @param v2PropertyPath 
- * @returns [previous PropertyPath, previous ComponentProperty].
+ * @returns [previous PropertyPath, previous ComponentPropertyValue].
  * They can be undefined if the property was inserted
  */
 function getV1PropertyForComponentTransition(
     modelDiff: InfraModelDiff,
     componentTransition: Transition<Component>,
     v2PropertyPath: PropertyPath
-): [PropertyPath | undefined, ComponentProperty | undefined] {
+): [PropertyPath | undefined, ComponentPropertyValue | undefined] {
 
     const existingUpdateOperation = modelDiff.getTransitionOperations(componentTransition)
         .find(o => o instanceof UpdatePropertyComponentOperation && o.isDirectChange()) as UpdatePropertyComponentOperation | undefined;

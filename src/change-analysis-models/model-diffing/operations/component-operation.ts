@@ -2,7 +2,7 @@ import { Serializable } from "node:child_process";
 import { JSONSerializable } from "../../export/json-serializable";
 import { SerializationClasses } from "../../export/serialization-classes";
 import { SerializedComponentOperation, SerializedOutgoingRelationshipComponentOperation } from "../../export/serialized-interfaces/infra-model-diff/serialized-component-operation";
-import { Component, ComponentProperty, Relationship } from "../../infra-model";
+import { Component, ComponentPropertyValue, Relationship } from "../../infra-model";
 import { ModelEntity } from "../../infra-model/model-entity";
 import { ModelEntityTypes } from "../../infra-model/model-entity-types";
 import { Transition } from "../transition";

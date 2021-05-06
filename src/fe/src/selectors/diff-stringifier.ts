@@ -1,4 +1,4 @@
-import { ComponentProperty } from "change-cd-iac-models/infra-model";
+import { ComponentPropertyValue } from "change-cd-iac-models/infra-model";
 import { arraysEqual, isDefined } from "change-cd-iac-models/utils";
 
 export enum DiffHighlightType {

@@ -83,7 +83,7 @@ export class CFResource extends CFEntity {
 
     /**
      * Defines the componentUpdateType of a property based on its CloudFormation UpdateType and the Component
-     * UpdateType of it's scope (the parent ComponentProperty)
+     * UpdateType of it's scope (the parent ComponentPropertyValue)
      * @param cfUpdateType the CloudFormation UpdateType ('Mutable', 'Immutable', 'Conditional')
      * @param scopeUpdateType the scope's ComponentUpdateType
      */

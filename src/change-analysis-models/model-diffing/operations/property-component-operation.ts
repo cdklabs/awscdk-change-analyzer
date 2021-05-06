@@ -1,13 +1,13 @@
 import { JSONSerializable } from "../../export/json-serializable";
 import { SerializationClasses } from "../../export/serialization-classes";
 import { SerializedPropertyComponentOperation, SerializedUpdatePropertyComponentOperation } from "../../export/serialized-interfaces/infra-model-diff/serialized-component-operation";
-import { ComponentProperty, ComponentUpdateType, PropertyPath } from "../../infra-model";
+import { ComponentPropertyValue, ComponentUpdateType, PropertyPath } from "../../infra-model";
 import { arraysEqual } from "../../utils";
 import { Transition } from "../transition";
 import { ComponentOperation, OperationType, OpNodeData, OpOutgoingNodeReferences } from "./component-operation";
 
 export type PropOpOutgoingNodeReferences = OpOutgoingNodeReferences & {
-    readonly propertyTransition: Transition<ComponentProperty>,
+    readonly propertyTransition: Transition<ComponentPropertyValue>,
     readonly pathTransition: Transition<PropertyPath>,
 }
 
@@ -15,7 +15,7 @@ export abstract class PropertyComponentOperation<ND extends OpNodeData = any, OR
     extends ComponentOperation<ND, OR> {
     
     public get pathTransition(): Transition<PropertyPath> { return this.outgoingNodeReferences.pathTransition; }
-    public get propertyTransition(): Transition<ComponentProperty> { return this.outgoingNodeReferences.propertyTransition; }
+    public get propertyTransition(): Transition<ComponentPropertyValue> { return this.outgoingNodeReferences.propertyTransition; }
     
     constructor(
         nodeData: ND,

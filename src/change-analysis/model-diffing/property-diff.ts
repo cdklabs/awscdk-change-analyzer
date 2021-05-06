@@ -1,6 +1,6 @@
 import {
     Component,
-    ComponentProperty,
+    ComponentPropertyValue,
     ComponentPropertyArray,
     ComponentCollectionProperty,
     ComponentPropertyPrimitive,
@@ -43,7 +43,7 @@ export class PropertyDiffCreator {
             
     }
 
-    public create(p1: ComponentProperty, p2: ComponentProperty, basePathP1: Array<string | number> = [], basePathP2 = basePathP1): PropertyDiff {
+    public create(p1: ComponentPropertyValue, p2: ComponentPropertyValue, basePathP1: Array<string | number> = [], basePathP2 = basePathP1): PropertyDiff {
         if(p1 instanceof ComponentPropertyRecord && p2 instanceof ComponentPropertyRecord){
             return this.fromRecordProperties(p1, p2, basePathP1, basePathP2);
         } else if(p1 instanceof ComponentPropertyArray && p2 instanceof ComponentPropertyArray){
@@ -57,8 +57,8 @@ export class PropertyDiffCreator {
     }
 
     private fromRecordProperties(
-        p1: ComponentProperty,
-        p2: ComponentProperty,
+        p1: ComponentPropertyValue,
+        p2: ComponentPropertyValue,
         pathP1: Array<string | number>,
         pathP2: Array<string | number>,
     ): PropertyDiff {
@@ -117,8 +117,8 @@ export class PropertyDiffCreator {
     }
     
     private fromArrayProperties = (
-        p1: ComponentProperty,
-        p2: ComponentProperty,
+        p1: ComponentPropertyValue,
+        p2: ComponentPropertyValue,
         pathP1: Array<string | number>,
         pathP2: Array<string | number>,
     ) => {
@@ -167,8 +167,8 @@ export class PropertyDiffCreator {
     };
     
     private fromCollectionDiffs (
-        p1: ComponentProperty,
-        p2: ComponentProperty,
+        p1: ComponentPropertyValue,
+        p2: ComponentPropertyValue,
         innerDiffs: PropertyDiff[],
         pathP1: Array<string | number>,
         pathP2: Array<string | number>
@@ -194,8 +194,8 @@ export class PropertyDiffCreator {
     }
     
     private fromPrimitives(
-        p1: ComponentProperty,
-        p2: ComponentProperty,
+        p1: ComponentPropertyValue,
+        p2: ComponentPropertyValue,
         pathP1: Array<string | number>,
         pathP2: Array<string | number>
     ) {
@@ -217,8 +217,8 @@ export class PropertyDiffCreator {
     }
     
     private fromDifferentProperties(
-        p1: ComponentProperty,
-        p2: ComponentProperty,
+        p1: ComponentPropertyValue,
+        p2: ComponentPropertyValue,
         pathP1: Array<string | number>,
         pathP2: Array<string | number>
     ) {
@@ -236,7 +236,7 @@ export class PropertyDiffCreator {
         };
     }
     
-    private calcPropertyWeight (obj: ComponentProperty): number {
+    private calcPropertyWeight (obj: ComponentPropertyValue): number {
         if(obj instanceof ComponentPropertyPrimitive)
             return 1;
         else if(obj instanceof ComponentCollectionProperty && typeof obj.value === 'object'){

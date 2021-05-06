@@ -1,4 +1,4 @@
-import { Component, ComponentProperty } from "../../../infra-model";
+import { Component, ComponentPropertyValue } from "../../../infra-model";
 import { JSONSerializable, Serialized } from "../../json-serializable";
 import { SerializationID } from "../../json-serializer";
 import { SerializedComponent } from "../../serialized-interfaces/infra-model/serialized-component";
@@ -11,7 +11,7 @@ export function componentDeserializer(obj: Serialized, deserialize: (obj: Serial
         serializedComponent.type,
         {
             subtype: serializedComponent?.subtype,
-            properties: deserialize(serializedComponent.properties) as ComponentProperty
+            properties: deserialize(serializedComponent.properties) as ComponentPropertyValue
         }
     );
 

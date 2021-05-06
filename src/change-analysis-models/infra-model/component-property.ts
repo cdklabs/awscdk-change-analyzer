@@ -6,7 +6,7 @@ import { ModelEntity, OutgoingReferences } from "./model-entity";
 import { ModelEntityTypes } from "./model-entity-types";
 
 /**
- * How a change in a ComponentProperty
+ * How a change in a ComponentPropertyValue
  * causes the Component to be updated
  */
 export enum ComponentUpdateType {
@@ -18,8 +18,8 @@ export enum ComponentUpdateType {
 export type PropertyPath = (string | number)[];
 
 export type PropertyPrimitive = string | number;
-export type PropertyCollectionValue = Array<ComponentProperty> | Record<string, ComponentProperty>;
-export type ComponentPropertyValue/* TODO Type*/ = PropertyPrimitive | PropertyCollectionValue;
+export type PropertyCollectionValue = Array<ComponentPropertyValue> | Record<string, ComponentPropertyValue>;
+export type ComponentPropertyValueType = PropertyPrimitive | PropertyCollectionValue;
 
 export class ComponentPropertyAccessError extends Error {}
 
@@ -27,13 +27,13 @@ type NodeData = {
     readonly componentUpdateType?: ComponentUpdateType,
 }
 
-export abstract class ComponentProperty/* TODO Value*/<ND extends NodeData = any, OR extends OutgoingReferences = any>
+export abstract class ComponentPropertyValue/* TODO Value*/<ND extends NodeData = any, OR extends OutgoingReferences = any>
     extends ModelEntity<ND, OR>
     implements JSONSerializable {
     
     public get componentUpdateType(): ComponentUpdateType { return this.nodeData.componentUpdateType ?? ComponentUpdateType.NONE; }
     
-    public abstract get value(): ComponentPropertyValue | undefined;
+    public abstract get value(): ComponentPropertyValueType | undefined;
 
     constructor(
         data: ND,
@@ -42,25 +42,25 @@ export abstract class ComponentProperty/* TODO Value*/<ND extends NodeData = any
         super(ModelEntityTypes.property, data, outgoingReferences);
     }
 
-    getRecord(): Record<string, ComponentProperty> {
+    getRecord(): Record<string, ComponentPropertyValue> {
         if(!this.isRecord()){
             throw new ComponentPropertyAccessError("Trying to read component property as Record, but it is not one");
         }
-        return this.value as Record<string, ComponentProperty>;
+        return this.value as Record<string, ComponentPropertyValue>;
     }
 
-    getArray(): Array<ComponentProperty> {
+    getArray(): Array<ComponentPropertyValue> {
         if(!this.isArray()){
             throw new ComponentPropertyAccessError("Trying to read component property as an Array, but it is not one");
         }
-        return this.value as Array<ComponentProperty>;
+        return this.value as Array<ComponentPropertyValue>;
     }
 
-    getCollection(): Array<ComponentProperty> | Record<string, ComponentProperty> {
+    getCollection(): Array<ComponentPropertyValue> | Record<string, ComponentPropertyValue> {
         if(this.isPrimitive()){
             throw new ComponentPropertyAccessError("Trying to read component property as a Collection, but it is not one");
         }
-        return this.value as Array<ComponentProperty> | Record<string, ComponentProperty>;
+        return this.value as Array<ComponentPropertyValue> | Record<string, ComponentPropertyValue>;
     }
 
     getPrimitive(): PropertyPrimitive {
@@ -82,7 +82,7 @@ export abstract class ComponentProperty/* TODO Value*/<ND extends NodeData = any
         return this instanceof ComponentPropertyPrimitive;
     }
 
-    getPropertyInPath(path: PropertyPath): ComponentProperty {
+    getPropertyInPath(path: PropertyPath): ComponentPropertyValue {
         if(path.length === 0){
             return this;
         } else if(typeof path[0] === 'number') {
@@ -97,7 +97,7 @@ export abstract class ComponentProperty/* TODO Value*/<ND extends NodeData = any
         throw Error(`Path includes non valid value: ${path[0]}`);
     }
 
-    public explode(): ComponentProperty[]{
+    public explode(): ComponentPropertyValue[]{
         if(this.isPrimitive() || this.value === undefined) return [this];
         
         return Object.values(this.value).flatMap(v => v.explode());
@@ -107,7 +107,7 @@ export abstract class ComponentProperty/* TODO Value*/<ND extends NodeData = any
 
     public abstract getSerializationClass(): string;
 
-    public toJSON(): ComponentPropertyValue | undefined{
+    public toJSON(): ComponentPropertyValueType | undefined{
         return this.value;
     }
 }
@@ -120,14 +120,14 @@ type OutgoingCollectionReferences = {
     readonly value: PropertyCollectionValue;
 }
 
-export abstract class ComponentCollectionProperty extends ComponentProperty<NodeData, OutgoingCollectionReferences> {
-    public get value(): ComponentPropertyValue {
+export abstract class ComponentCollectionProperty extends ComponentPropertyValue<NodeData, OutgoingCollectionReferences> {
+    public get value(): ComponentPropertyValueType {
         return this.outgoingNodeReferences.value;
     }
 }
 
 export class ComponentPropertyRecord extends ComponentCollectionProperty  {
-    constructor(value: Record<string, ComponentProperty>, componentUpdateType?: ComponentUpdateType){
+    constructor(value: Record<string, ComponentPropertyValue>, componentUpdateType?: ComponentUpdateType){
         super({componentUpdateType}, {value});
     }
 
@@ -144,7 +144,7 @@ export class ComponentPropertyRecord extends ComponentCollectionProperty  {
 }
 
 export class ComponentPropertyArray extends ComponentCollectionProperty {
-    constructor(value: ComponentProperty[], componentUpdateType?: ComponentUpdateType){
+    constructor(value: ComponentPropertyValue[], componentUpdateType?: ComponentUpdateType){
         super({componentUpdateType}, {value});
     }
 
@@ -160,9 +160,9 @@ export class ComponentPropertyArray extends ComponentCollectionProperty {
     }
 }
 
-export class ComponentPropertyPrimitive extends ComponentProperty<NodeDataPrimitive, Record<string, never>> {
+export class ComponentPropertyPrimitive extends ComponentPropertyValue<NodeDataPrimitive, Record<string, never>> {
 
-    public get value(): ComponentPropertyValue {
+    public get value(): ComponentPropertyValueType {
         return this.nodeData.value;
     }
 
@@ -182,8 +182,8 @@ export class ComponentPropertyPrimitive extends ComponentProperty<NodeDataPrimit
     }
 }
 
-export class EmptyComponentProperty extends ComponentProperty {
-    public get value(): ComponentPropertyValue | undefined { return undefined; }
+export class EmptyComponentProperty extends ComponentPropertyValue {
+    public get value(): ComponentPropertyValueType | undefined { return undefined; }
     
     constructor(){
         super({},{});

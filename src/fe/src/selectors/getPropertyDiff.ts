@@ -1,10 +1,10 @@
-import { ComponentProperty } from "change-cd-iac-models/infra-model"
+import { ComponentPropertyValue } from "change-cd-iac-models/infra-model"
 import { InsertPropertyComponentOperation, PropertyComponentOperation, MovePropertyComponentOperation, RemovePropertyComponentOperation, Transition, UpdatePropertyComponentOperation, TransitionVersions } from "change-cd-iac-models/model-diffing"
 import { groupArrayBy } from "change-cd-iac-models/utils"
 import { DiffHighlightType, DiffStringifier, DiffStringOutput } from "./diff-stringifier";
 
 export function getPropertyDiff(
-    t: TransitionVersions<ComponentProperty>,
+    t: TransitionVersions<ComponentPropertyValue>,
     ops: PropertyComponentOperation[]
 ): DiffStringOutput<PropertyComponentOperation> {
     ops = ops.flatMap(o => (o instanceof UpdatePropertyComponentOperation) ? o.getLeaves() : [o]);
@@ -19,7 +19,7 @@ export function getPropertyDiff(
 }
 
 
-const propertyChangeResolverCreator = (propertyToOperationMap: Map<ComponentProperty | undefined, PropertyComponentOperation[]>) => (obj: any) => {
+const propertyChangeResolverCreator = (propertyToOperationMap: Map<ComponentPropertyValue | undefined, PropertyComponentOperation[]>) => (obj: any) => {
 
     const op = (propertyToOperationMap.get(obj) ?? []).filter(op => op.cause === undefined)[0];
     const indirectUpdates = (propertyToOperationMap.get(obj) || []).filter(op => op instanceof UpdatePropertyComponentOperation && op.cause !== undefined);

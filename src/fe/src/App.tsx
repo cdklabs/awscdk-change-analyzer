@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ChangeAnalysisReport } from 'change-cd-iac-models/change-analysis-report';
 import AggregationsTab from './AggregationsView/AggregationsTab';
 import HierarchicalTab from './HierarchicalView/HierarchicalTab';
-import { Component, ComponentProperty } from 'change-cd-iac-models/infra-model';
+import { Component, ComponentPropertyValue } from 'change-cd-iac-models/infra-model';
 import { ComponentOperation, Transition } from 'change-cd-iac-models/model-diffing';
 import { Aggregation } from 'change-cd-iac-models/aggregations';
 import { findAggregationWithChange } from './selectors/aggregation-helpers';

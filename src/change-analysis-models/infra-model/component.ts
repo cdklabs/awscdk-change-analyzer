@@ -2,7 +2,7 @@ import { JSONSerializable } from "../export/json-serializable";
 import { SerializationID } from "../export/json-serializer";
 import { SerializationClasses } from "../export/serialization-classes";
 import { SerializedComponent } from "../export/serialized-interfaces/infra-model/serialized-component";
-import { ComponentProperty, EmptyComponentProperty } from "./component-property";
+import { ComponentPropertyValue, EmptyComponentProperty } from "./component-property";
 import { ModelEntity } from "./model-entity";
 import { ModelEntityTypes } from "./model-entity-types";
 import { Relationship } from "./relationship";
@@ -15,12 +15,12 @@ type NodeData = {
 
 type OutgoingNodeReferences = {
     readonly hasRelationship: Set<Relationship>;
-    readonly hasProperties: ComponentProperty;
+    readonly hasProperties: ComponentPropertyValue;
 }
 
 interface ComponentOptions {
     readonly subtype?: string;
-    readonly properties: ComponentProperty;
+    readonly properties: ComponentPropertyValue;
 }
 
 /**
@@ -35,7 +35,7 @@ export class Component extends ModelEntity<NodeData, OutgoingNodeReferences> imp
     get outgoing(): Set<Relationship>{ return this.outgoingNodeReferences.hasRelationship; }
     public incoming: Set<Relationship> = new Set();
 
-    get properties(): ComponentProperty { return this.outgoingNodeReferences.hasProperties; }
+    get properties(): ComponentPropertyValue { return this.outgoingNodeReferences.hasProperties; }
 
     /**
      * properties hold any values that should be tracked

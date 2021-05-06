@@ -1,4 +1,4 @@
-import { Component, ComponentProperty, PropertyPath, Relationship } from "../../../../infra-model";
+import { Component, ComponentPropertyValue, PropertyPath, Relationship } from "../../../../infra-model";
 import { ComponentOperation, OperationCertainty, OpNodeData, OpOutgoingNodeReferences, PropertyComponentOperation, PropOpOutgoingNodeReferences, Transition, UpdatePropOpOutgoingNodeReferences } from "../../../../model-diffing/";
 import { JSONSerializable } from "../../../json-serializable";
 import { SerializationID } from "../../../json-serializer";
@@ -23,7 +23,7 @@ export function deserializePropOpOutoingNodeReferences(serialized: SerializedPro
     return {
         ...deserializeOpOutoingNodeReferences(serialized, deserialize),
         pathTransition: deserialize(serialized.pathTransition) as Transition<PropertyPath>,
-        propertyTransition: deserialize(serialized.propertyTransition) as Transition<ComponentProperty>,
+        propertyTransition: deserialize(serialized.propertyTransition) as Transition<ComponentPropertyValue>,
     };
 }
 

@@ -1,9 +1,9 @@
-import { Component, ComponentProperty, PropertyPath } from "change-cd-iac-models/infra-model";
+import { Component, ComponentPropertyValue, PropertyPath } from "change-cd-iac-models/infra-model";
 import { PropertyDiff, PropertyDiffCreator } from "../property-diff";
 import { CompleteTransition, Transition } from "change-cd-iac-models/model-diffing/transition";
 
 /**
- * ComponentProperty similarity evaluator for use with matchEntities.
+ * ComponentPropertyValue similarity evaluator for use with matchEntities.
  * 
  * Matches ComponentProperties based on their similarity.
  * The metadata object in the matcher results will be the PropertyDiff
@@ -12,8 +12,8 @@ import { CompleteTransition, Transition } from "change-cd-iac-models/model-diffi
  */
 export function propertySimilarityEvaluatorCreator<K extends (string | number)>(
     componentTransition: Transition<Component>,
-    keyAToProperty: Record<K, ComponentProperty>,
-    keyBToProperty: Record<K, ComponentProperty>,
+    keyAToProperty: Record<K, ComponentPropertyValue>,
+    keyBToProperty: Record<K, ComponentPropertyValue>,
     basePathA?: PropertyPath,
     basePathB?: PropertyPath,
 ){
