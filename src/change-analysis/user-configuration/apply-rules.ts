@@ -1,6 +1,5 @@
-import { ComponentOperation, InfraModelDiff, PropertyComponentOperation } from "change-cd-iac-models/model-diffing";
+import { ComponentOperation, InfraModelDiff, PropertyComponentOperation, UpdatePropertyComponentOperation } from "change-cd-iac-models/model-diffing";
 import { RuleEffect } from "change-cd-iac-models/rules";
-import { isDefined } from "fifinet/util";
 import { CUserRules } from "./rule-config-schema";
 import { parseRules } from "./rule-parser";
 import { RuleProcessor } from "./rule-processor";
@@ -13,9 +12,10 @@ export function applyRules(diff: InfraModelDiff, cRules: CUserRules): Map<Compon
 
     const verticesMap = new RuleProcessor(diff.generateOutgoingGraph()).processRules(rules);
 
-    return new Map([...verticesMap].map(([vertex, effect]): [ComponentOperation, RuleEffect] | undefined => {
+    return new Map([...verticesMap].flatMap(([vertex, effect]): [ComponentOperation, RuleEffect][] => {
         const op = idToOpMap.get(vertex._id);
-        if(op === undefined) return undefined;
-        return [op, effect];
-    }).filter(isDefined));
+        if(op === undefined) return [];
+        const explodedOps = op instanceof PropertyComponentOperation ? op.explode() : [op];
+        return explodedOps.map((eop):[ComponentOperation, RuleEffect] => [eop, effect]);
+    }));
 }

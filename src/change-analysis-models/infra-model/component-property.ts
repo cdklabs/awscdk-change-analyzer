@@ -97,6 +97,12 @@ export abstract class ComponentProperty/* TODO Value*/<ND extends NodeData = any
         throw Error(`Path includes non valid value: ${path[0]}`);
     }
 
+    public explode(): ComponentProperty[]{
+        if(this.isPrimitive() || this.value === undefined) return [this];
+        
+        return Object.values(this.value).flatMap(v => v.explode());
+    }
+
     public abstract toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedComponentProperty;
 
     public abstract getSerializationClass(): string;

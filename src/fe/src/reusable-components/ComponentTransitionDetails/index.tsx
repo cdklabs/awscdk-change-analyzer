@@ -1,8 +1,8 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react';
-import { ComponentOperation, OutgoingRelationshipComponentOperation, PropertyComponentOperation, Transition } from 'change-cd-iac-models/model-diffing';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import { ComponentOperation, PropertyComponentOperation, Transition } from 'change-cd-iac-models/model-diffing';
 import { Component } from 'change-cd-iac-models/infra-model';
 import ComponentPropertyDiff from '../ComponentPropertyDiff';
-import { AppBar, IconButton, makeStyles, Paper, Tab, Tabs, Tooltip, Typography } from '@material-ui/core';
+import { makeStyles, Paper, Tab, Tabs, Tooltip, Typography } from '@material-ui/core';
 import { Theme } from '@material-ui/core';
 import {
     Code as CodeIcon,
@@ -10,12 +10,9 @@ import {
     Info as InfoIcon,
     DeviceHub as DeviceHubIcon,
     ChangeHistory as ChangeHistoryIcon,
-    SvgIconComponent
 } from '@material-ui/icons';
-import RelationshipOpDetails from '../RelationshipOpDetails';
 import { isDefined } from 'change-cd-iac-models/utils';
 import { CompTransitionDependencyRelationships } from './ComponentTransitionDependencyRelationships';
-import { ComponentOperationsList } from '../ComponentOperationsList';
 import { ComponentOperationCauses } from './ComponentOperationCauses';
 import { ComponentTransitionChanges } from './ComponentTransitionChanges';
 import { GeneralInfo } from './GeneralInfo';

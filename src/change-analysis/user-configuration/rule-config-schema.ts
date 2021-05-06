@@ -1,4 +1,5 @@
-import { RuleEffectDefinition, Scalar } from "./rule";
+import { RuleEffect } from "change-cd-iac-models/rules";
+import { Scalar } from "./rule";
 
 
 export type CFilters = Record<string, Scalar>;
@@ -27,14 +28,6 @@ export function isPathCSelector(s: CSelector): s is PathCSelector {
     return {}.hasOwnProperty.call(s, 'fromPath');
 }
 
-export type ComponentCSelector = {
-    component: ComponentCFilter;
-};
-
-export function isComponentCSelector(s: CSelector): s is ComponentCSelector {
-    return {}.hasOwnProperty.call(s, 'component');
-}
-
 export type GeneralCSelector = {
     [type: string]: CFilters,
 }
@@ -45,18 +38,21 @@ export type CSelector = (
     BaseSelector & (
         ComponentCFilter |
         GeneralCSelector |
-        PathCSelector | 
-        ComponentCSelector
+        PathCSelector
     )
 ) | string;
 
 export type CBindings = {[identifier: string]: CSelector};
 
+export type CRuleEffectDefinition = {
+    target?: string,
+} & RuleEffect;
+
 export interface CUserRule {
     let?: CBindings;
     where?: CRuleConditions;
     then?: CUserRule[];
-    effect?: RuleEffectDefinition;
+    effect?: CRuleEffectDefinition;
 }
 
 export type CUserRules = CUserRule[];

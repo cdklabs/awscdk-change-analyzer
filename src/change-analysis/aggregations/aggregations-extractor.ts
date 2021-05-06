@@ -36,7 +36,7 @@ export class ModuleTreeAggsExtractor {
                 );
 
                 if(gs.length === 1 && !Object.values(gs[0].characteristics).filter(v => v !== undefined).length)
-                    return [];
+                    return [g];
 
                 if(moduleNode.forceSubmoduleCollapse
                     || (!moduleNode.disableSubmoduleCollapse && gs.length === 1 && setsEqual(g.entities, gs[0].entities))){

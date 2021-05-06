@@ -1,3 +1,4 @@
+import { isDefined } from "fifinet/util";
 import { isJSONSerializable, JSONSerializable, Serialized, SerializedRecord } from "../export/json-serializable";
 import { SerializationID } from "../export/json-serializer";
 import { SerializationClasses } from "../export/serialization-classes";
@@ -46,6 +47,10 @@ export class Transition<T extends JSONSerializable | Serialized, V extends Trans
 
     private static isModelEntityTransition(versions: TransitionVersions<any>): versions is TransitionVersions<ModelEntity> {
         return versions.v1 instanceof ModelEntity && versions.v2 instanceof ModelEntity;
+    }
+
+    public explode() {
+        return [this.v1, this.v2].filter(isDefined);
     }
 
     public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedTransition {

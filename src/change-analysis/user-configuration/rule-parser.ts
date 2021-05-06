@@ -1,7 +1,7 @@
 import { isDefined } from "change-cd-iac-models/utils";
 import { ModelEntityTypes } from "change-cd-iac-models/infra-model";
-import { ConditionInput, RuleCondition, RuleConditionOperator, RuleConditions, Selector, SelectorFilter, UserRule, RuleScopeReference } from "./rule";
-import { CBindings, CSelector, CUserRule, isComponentCSelector, isPathCSelector, ComponentCFilter, CRuleConditions, isComponentCFilter, GeneralCSelector } from "./rule-config-schema";
+import { ConditionInput, RuleCondition, RuleConditionOperator, RuleConditions, Selector, SelectorFilter, UserRule, RuleScopeReference, RuleEffectDefinition } from "./rule";
+import { CBindings, CSelector, CUserRule, isPathCSelector, ComponentCFilter, CRuleConditions, isComponentCFilter, GeneralCSelector, CRuleEffectDefinition } from "./rule-config-schema";
 
 
 export function parseRules(rules: CUserRule[]): UserRule[]{
@@ -13,7 +13,7 @@ function parseRule(rule: CUserRule): UserRule {
         let: parseBindings(rule.let),
         ...parseConditions(rule.where),
         ...rule.then ? {then: parseRules(rule.then)} : {},
-        effect: rule.effect
+        effect: parseEffect(rule.effect),
     };
 }
 
@@ -37,15 +37,6 @@ function parseSelector(selector: CSelector): Selector {
             throw Error("'fromPath' selector must be a string");
         return {
             ...parseStringSelector(selector.fromPath),
-            ...parseConditions(selector.where)
-        };
-    }
-
-    if(isComponentCSelector(selector)){
-        if(typeof selector.component !== 'object' || selector.component === null)
-            throw Error("'component' selector must be an object");
-        return {
-            filter: parseComponentCFilter(selector.component),
             ...parseConditions(selector.where)
         };
     }
@@ -157,4 +148,12 @@ function parseCondition(condition: string): RuleCondition | undefined {
         leftInput: conditionInputFromStr(leftInput),
         rightInput: conditionInputFromStr(rightInput)
     };
+}
+
+function parseEffect(effect: CRuleEffectDefinition | undefined): RuleEffectDefinition | undefined {
+    if(effect === undefined) return effect;
+    if(effect.target === undefined) {
+        effect.target = 'change';
+    }
+    return effect as RuleEffectDefinition;
 }

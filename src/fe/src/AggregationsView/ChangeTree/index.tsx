@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CollapsableRow from '../../reusable-components/CollapsableRow';
-import { List, Paper, Typography } from '@material-ui/core';
+import { List, Paper } from '@material-ui/core';
 
 import {
   Error as ErrorIcon,
@@ -13,7 +13,6 @@ import { CompOpAggCharacteristics, Aggregation } from 'change-cd-iac-models/aggr
 import { ComponentOperation } from 'change-cd-iac-models/model-diffing';
 import { groupArrayBy, isDefined } from 'change-cd-iac-models/utils';
 import { AppContext } from '../../App';
-import { useIdAssignerHook, ObjIdAssigner } from '../../utils/idCreator';
 import { RuleRisk } from 'change-cd-iac-models/rules';
 
 const useStyles = makeStyles({
@@ -30,7 +29,7 @@ function ChangeTree() {
     const [expanded, setExpanded] = useState(0);
 
     const { changeReport } = useContext(AppContext);
-
+    
     const aggsPerRisk = groupArrayBy(changeReport.aggregations, (agg) => agg.characteristics.RISK);
     return (
         <Paper elevation={3} className={classes.root}>

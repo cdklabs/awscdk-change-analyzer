@@ -9,6 +9,7 @@ import { ComponentOperation, Transition } from 'change-cd-iac-models/model-diffi
 import { Aggregation } from 'change-cd-iac-models/aggregations';
 import { findAggregationWithChange } from './selectors/aggregation-helpers';
 import { RuleAction, RuleEffect } from 'change-cd-iac-models/rules';
+import ChangesGroup from './reusable-components/ChangesGroup';
 
 
 interface AppState {

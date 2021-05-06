@@ -31,11 +31,11 @@ type InternalOpNodeData = {
 export type OpOutgoingNodeReferences = {
     readonly cause?: ComponentOperation,
     readonly componentTransition: Transition<Component>,
-    readonly appliesTo?: Transition<Component | ComponentProperty>[],
+    readonly appliesTo?: ModelEntity[],
 }
 
 type InternalOutgoingNodeReferences = {
-    readonly appliesTo: Transition<Component | ComponentProperty>[],
+    readonly appliesTo: ModelEntity[],
 }
 
 export abstract class ComponentOperation<ND extends OpNodeData = any, OR extends OpOutgoingNodeReferences = any>
@@ -55,7 +55,7 @@ export abstract class ComponentOperation<ND extends OpNodeData = any, OR extends
         super(
             ModelEntityTypes.change,
             {...nodeData, type: operationType},
-            {...outgoingReferences, appliesTo: [...(outgoingReferences.appliesTo ?? []), outgoingReferences.componentTransition] }
+            {...outgoingReferences, appliesTo: [...(outgoingReferences.appliesTo ?? []), ...outgoingReferences.componentTransition.explode()] }
         );
     }
 

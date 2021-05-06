@@ -16,7 +16,6 @@ export const appliesToHandler: OperatorHandler = <V, E>(
 
     return g
         .v(t2.vertex._id)
-        .inAny(['v1', 'v2'])
         .inAny("appliesTo")
         .run()
         .filter(v => v._id === t1.vertex._id)

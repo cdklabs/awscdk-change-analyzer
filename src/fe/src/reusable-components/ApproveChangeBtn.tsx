@@ -50,7 +50,10 @@ const ApproveChangeBtn = ({changes}: Props) => {
         </Tooltip>
     }
 
-    return <Tooltip title={`Approve ${hasMultiple ? 'these changes' : 'this change'}`}>
+    const approveTooltipTitle = `Approve ${hasMultiple ? 'these changes' : 'this change'}`;
+    const unApproveTooltipTitle = `${hasMultiple ? 'These changes have' : 'This change has'} been approved`;
+
+    return <Tooltip title={state === RuleAction.Approve ? unApproveTooltipTitle : approveTooltipTitle}>
             <IconButton className={state === RuleAction.Approve ? classes.approved : ''} size="small" onClick={onClick} >{
                 hasMultiple
                     ? <DoneAllIcon/>

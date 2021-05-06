@@ -22,7 +22,13 @@ export abstract class PropertyComponentOperation<ND extends OpNodeData = any, OR
         outgoingReferences: OR,
         operationType: OperationType,
     ){
-        super(nodeData, {appliesTo: [outgoingReferences.propertyTransition], ...outgoingReferences}, operationType);
+        super(
+            nodeData,
+            {
+                ...outgoingReferences,
+                appliesTo: [...outgoingReferences.appliesTo ?? [], ...outgoingReferences.propertyTransition.explode()],
+            }, operationType
+        );
     }
 
     getUpdateType(): ComponentUpdateType {
@@ -63,7 +69,10 @@ export class InsertPropertyComponentOperation extends PropertyComponentOperation
         nodeData: OpNodeData,
         outgoingReferences: PropOpOutgoingNodeReferences
     ){
-        super(nodeData, outgoingReferences, OperationType.INSERT);
+        super(nodeData, {
+            ...outgoingReferences,
+            appliesTo: [...outgoingReferences.appliesTo ?? [], ...outgoingReferences.propertyTransition.v2?.explode() ?? []]
+        }, OperationType.INSERT);
     }
 
     public getSerializationClass(): string {
@@ -77,7 +86,10 @@ export class RemovePropertyComponentOperation extends PropertyComponentOperation
         nodeData: OpNodeData,
         outgoingReferences: PropOpOutgoingNodeReferences
     ){
-        super(nodeData, outgoingReferences, OperationType.REMOVE);
+        super(nodeData, {
+            ...outgoingReferences,
+            appliesTo: [...outgoingReferences.appliesTo ?? [], ...outgoingReferences.propertyTransition.v1?.explode() ?? []]
+        }, OperationType.REMOVE);
     }
 
     public getSerializationClass(): string {
