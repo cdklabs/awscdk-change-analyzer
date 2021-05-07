@@ -44,9 +44,10 @@ test('Update Component Property', () => {
     expect(diff.componentOperations.length).toBe(1);
     expect(diff.componentOperations[0] instanceof UpdatePropertyComponentOperation).toBe(true);
     const propertyOperation = diff.componentOperations[0] as UpdatePropertyComponentOperation;
-    expect(propertyOperation.pathTransition.v1).toEqual(['Properties', 'property1']);
-    expect(propertyOperation.pathTransition.v2).toEqual(['Properties', 'property1']);
-    expect((propertyOperation as UpdatePropertyComponentOperation).innerOperations).toBeUndefined();
+    const leafOperation = propertyOperation.getLeaves()[0];
+    expect(leafOperation.pathTransition.v1).toEqual(['Properties', 'property1']);
+    expect(leafOperation.pathTransition.v2).toEqual(['Properties', 'property1']);
+    expect((leafOperation as UpdatePropertyComponentOperation).innerOperations).toBeUndefined();
 });
 
 test('Update Multiple Nested Component Properties', () => {
@@ -93,12 +94,14 @@ test('Update Multiple Nested Component Properties', () => {
     expect(diff.componentOperations.length).toBe(1);
     expect(diff.componentOperations[0] instanceof UpdatePropertyComponentOperation).toBe(true);
 
-    const propertyOperation = diff.componentOperations[0] as UpdatePropertyComponentOperation;
-    expect(propertyOperation instanceof UpdatePropertyComponentOperation).toBe(true);
-    expect(propertyOperation.pathTransition.v2).toEqual(['Properties', 'property1']);
-    expect(propertyOperation.pathTransition.v1).toEqual(['Properties', 'property1']);
+    const topLevelOperation = diff.componentOperations[0] as UpdatePropertyComponentOperation;
+    const propertiesOperation = topLevelOperation.innerOperations[0] as UpdatePropertyComponentOperation;
+    const property1Operation = propertiesOperation.innerOperations[0] as UpdatePropertyComponentOperation;
+    expect(property1Operation instanceof UpdatePropertyComponentOperation).toBe(true);
+    expect(property1Operation.pathTransition.v2).toEqual(['Properties', 'property1']);
+    expect(property1Operation.pathTransition.v1).toEqual(['Properties', 'property1']);
 
-    const innerOperations = (propertyOperation as UpdatePropertyComponentOperation).innerOperations;
+    const innerOperations = (property1Operation as UpdatePropertyComponentOperation).innerOperations;
 
     expect(innerOperations.length).toBe(4);
     expect(innerOperations.filter(o => o instanceof MovePropertyComponentOperation).length).toBe(1);

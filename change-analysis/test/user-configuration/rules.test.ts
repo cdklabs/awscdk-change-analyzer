@@ -6,7 +6,7 @@ import { CUserRules, UserRules } from "../../user-configuration";
 
 const diffTestCase1CRules: CUserRule[] = [{
     let: {
-        role: { component: { resource: 'AWS::IAM::Role' }},
+        role: { component: { 'type': 'resource', 'subtype': 'AWS::IAM::Role' }},
         instance: { resource: 'AWS::EC2::Instance'},
     },
     then: [{
