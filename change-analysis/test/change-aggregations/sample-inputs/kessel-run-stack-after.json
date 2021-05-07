@@ -1,0 +1,1407 @@
+{
+    "Resources": {
+      "NVidiaUser1BAF4BFB": {
+        "Type": "AWS::IAM::User",
+        "Properties": {
+          "ManagedPolicyArns": [
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":iam::aws:policy/AmazonS3ReadOnlyAccess"
+                ]
+              ]
+            }
+          ]
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/NVidiaUser/Resource"
+        }
+      },
+      "AccessKey": {
+        "Type": "AWS::IAM::AccessKey",
+        "Properties": {
+          "UserName": {
+            "Ref": "NVidiaUser1BAF4BFB"
+          }
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/AccessKey"
+        }
+      },
+      "GameKeyKeyPairF8B1B0F0": {
+        "Type": "Custom::KeyPair",
+        "Properties": {
+          "ServiceToken": {
+            "Fn::GetAtt": [
+              "KeyPairProviderCustomResourceProviderHandlerBB6F16AF",
+              "Arn"
+            ]
+          },
+          "KeyNameBase": "KesselRunKey"
+        },
+        "UpdateReplacePolicy": "Delete",
+        "DeletionPolicy": "Delete",
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/GameKey/KeyPair/Default"
+        }
+      },
+      "InstanceInstanceSecurityGroupF0E2D5BE": {
+        "Type": "AWS::EC2::SecurityGroup",
+        "Properties": {
+          "GroupDescription": "KesselRunStack/Default/Instance/InstanceSecurityGroup",
+          "SecurityGroupEgress": [
+            {
+              "CidrIp": "0.0.0.0/0",
+              "Description": "Allow all outbound traffic by default",
+              "IpProtocol": "-1"
+            }
+          ],
+          "SecurityGroupIngress": [
+            {
+              "CidrIp": "1.2.3.4/32",
+              "Description": "Dummy",
+              "IpProtocol": "-1"
+            }
+          ],
+          "Tags": [
+            {
+              "Key": "Name",
+              "Value": "KesselRunStack/Default/Instance"
+            }
+          ],
+          "VpcId": "vpc-12345"
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/Instance/InstanceSecurityGroup/Resource"
+        }
+      },
+      "InstanceInstanceRoleE9785DE5": {
+        "Type": "AWS::IAM::Role",
+        "Properties": {
+          "AssumeRolePolicyDocument": {
+            "Statement": [
+              {
+                "Action": "sts:AssumeRole",
+                "Effect": "Allow",
+                "Principal": {
+                  "Service": "ec2.amazonaws.com"
+                }
+              }
+            ],
+            "Version": "2012-10-17"
+          },
+          "Tags": [
+            {
+              "Key": "Name",
+              "Value": "KesselRunStack/Default/Instance"
+            }
+          ]
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/Instance/InstanceRole/Resource"
+        }
+      },
+      "InstanceInstanceRoleDefaultPolicy4ACE9290": {
+        "Type": "AWS::IAM::Policy",
+        "Properties": {
+          "PolicyDocument": {
+            "Statement": [
+              {
+                "Action": [
+                  "cloudformation:DescribeStackResource",
+                  "cloudformation:SignalResource"
+                ],
+                "Effect": "Allow",
+                "Resource": {
+                  "Ref": "AWS::StackId"
+                }
+              }
+            ],
+            "Version": "2012-10-17"
+          },
+          "PolicyName": "InstanceInstanceRoleDefaultPolicy4ACE9290",
+          "Roles": [
+            {
+              "Ref": "InstanceInstanceRoleE9785DE5"
+            }
+          ]
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/Instance/InstanceRole/DefaultPolicy/Resource"
+        }
+      },
+      "InstanceInstanceProfileAB5AEF02": {
+        "Type": "AWS::IAM::InstanceProfile",
+        "Properties": {
+          "Roles": [
+            {
+              "Ref": "InstanceInstanceRoleE9785DE5"
+            }
+          ]
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/Instance/InstanceProfile"
+        }
+      },
+      "InstanceC1063A87": {
+        "Type": "AWS::EC2::Instance",
+        "Properties": {
+          "AvailabilityZone": "dummy1a",
+          "BlockDeviceMappings": [
+            {
+              "DeviceName": "/dev/sda1",
+              "Ebs": {
+                "DeleteOnTermination": true,
+                "VolumeSize": 50,
+                "VolumeType": "gp3"
+              }
+            }
+          ],
+          "EbsOptimized": true,
+          "IamInstanceProfile": {
+            "Ref": "InstanceInstanceProfileAB5AEF02"
+          },
+          "ImageId": {
+            "Ref": "SsmParameterValueawsserviceamiwindowslatestWindowsServer2019EnglishFullBaseC96584B6F00A464EAD1953AFF4B05118Parameter"
+          },
+          "InstanceType": "g4dn.xlarge",
+          "KeyName": {
+            "Fn::GetAtt": [
+              "GameKeyKeyPairF8B1B0F0",
+              "KeyName"
+            ]
+          },
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "InstanceInstanceSecurityGroupF0E2D5BE",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetId": "p-12345",
+          "Tags": [
+            {
+              "Key": "Name",
+              "Value": "KesselRunStack/Default/Instance"
+            }
+          ],
+          "UserData": {
+            "Fn::Base64": {
+              "Fn::Join": [
+                "",
+                [
+                  "<powershell># fingerprint: 749f8215a096bff1\ncfn-init.exe -v --region ",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  " --stack ",
+                  {
+                    "Ref": "AWS::StackName"
+                  },
+                  " --resource InstanceC1063A87 -c default\ncfn-signal.exe -e $LASTEXITCODE --region ",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  " --stack ",
+                  {
+                    "Ref": "AWS::StackName"
+                  },
+                  " --resource InstanceC1063A87\ntype C:\\cfn\\log\\cfn-init.log</powershell>"
+                ]
+              ]
+            }
+          }
+        },
+        "DependsOn": [
+          "InstanceInstanceRoleDefaultPolicy4ACE9290",
+          "InstanceInstanceRoleE9785DE5"
+        ],
+        "CreationPolicy": {
+          "ResourceSignal": {
+            "Count": 1,
+            "Timeout": "PT5M"
+          }
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/Instance/Resource",
+          "AWS::CloudFormation::Init": {
+            "configSets": {
+              "default": [
+                "config"
+              ]
+            },
+            "config": {
+              "files": {
+                "C:\\Users\\Administrator\\Downloads\\first-run-setup.ps1": {
+                  "content": "[Net.ServicePointManager]::SecurityProtocol = \"tls12, tls11, tls\"\n    $ScriptWebArchive = \"https://github.com/parsec-cloud/Parsec-Cloud-Preparation-Tool/archive/master.zip\"\n    $LocalArchivePath = \"$ENV:UserProfile\\Downloads\\Parsec-Cloud-Preparation-Tool\"\n    (New-Object System.Net.WebClient).DownloadFile($ScriptWebArchive, \"$LocalArchivePath.zip\")\n    Expand-Archive \"$LocalArchivePath.zip\" -DestinationPath $LocalArchivePath -Force\n    CD $LocalArchivePath\\Parsec-Cloud-Preparation-Tool-master\\ | powershell.exe .\\loader.ps1",
+                  "encoding": "plain"
+                },
+                "C:\\Users\\Administrator\\Desktop\\FIRST RUN SETUP.bat": {
+                  "content": "@PowerShell -File %UserProfile%\\Downloads\\first-run-setup.ps1",
+                  "encoding": "plain"
+                }
+              },
+              "commands": {
+                "000": {
+                  "command": [
+                    "PowerShell",
+                    "-Command",
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "Set-AWSCredential -AccessKey ",
+                          {
+                            "Ref": "AccessKey"
+                          },
+                          " -SecretKey ",
+                          {
+                            "Fn::GetAtt": [
+                              "AccessKey",
+                              "SecretAccessKey"
+                            ]
+                          },
+                          " -StoreAs GPUUpdateG4Dn"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "WebAppBucket8F6FA179": {
+        "Type": "AWS::S3::Bucket",
+        "UpdateReplacePolicy": "Delete",
+        "DeletionPolicy": "Delete",
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/WebAppBucket/Resource"
+        }
+      },
+      "WebAppDeploymentCustomResourceD7DB25D0": {
+        "Type": "Custom::CDKBucketDeployment",
+        "Properties": {
+          "ServiceToken": {
+            "Fn::GetAtt": [
+              "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536",
+              "Arn"
+            ]
+          },
+          "SourceBucketNames": [
+            {
+              "Ref": "AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D"
+            }
+          ],
+          "SourceObjectKeys": [
+            {
+              "Fn::Join": [
+                "",
+                [
+                  {
+                    "Fn::Select": [
+                      0,
+                      {
+                        "Fn::Split": [
+                          "||",
+                          {
+                            "Ref": "AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3VersionKeyAC52A7BF"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "Fn::Select": [
+                      1,
+                      {
+                        "Fn::Split": [
+                          "||",
+                          {
+                            "Ref": "AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3VersionKeyAC52A7BF"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          ],
+          "DestinationBucketName": {
+            "Ref": "WebAppBucket8F6FA179"
+          },
+          "Prune": true
+        },
+        "UpdateReplacePolicy": "Delete",
+        "DeletionPolicy": "Delete",
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/WebAppDeployment/CustomResource/Default"
+        }
+      },
+      "WebAppLambdaServiceRoleB3C5DDDA": {
+        "Type": "AWS::IAM::Role",
+        "Properties": {
+          "AssumeRolePolicyDocument": {
+            "Statement": [
+              {
+                "Action": "sts:AssumeRole",
+                "Effect": "Allow",
+                "Principal": {
+                  "Service": "lambda.amazonaws.com"
+                }
+              }
+            ],
+            "Version": "2012-10-17"
+          },
+          "ManagedPolicyArns": [
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                ]
+              ]
+            }
+          ]
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/WebAppLambda/ServiceRole/Resource"
+        }
+      },
+      "WebAppLambdaServiceRoleDefaultPolicyB264392B": {
+        "Type": "AWS::IAM::Policy",
+        "Properties": {
+          "PolicyDocument": {
+            "Statement": [
+              {
+                "Action": [
+                  "ec2:DescribeSecurityGroups",
+                  "ec2:DescribeInstances"
+                ],
+                "Effect": "Allow",
+                "Resource": "*"
+              },
+              {
+                "Action": [
+                  "ec2:AuthorizeSecurityGroupIngress",
+                  "ec2:RevokeSecurityGroupIngress"
+                ],
+                "Effect": "Allow",
+                "Resource": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":ec2:us-east-1:00000000:security-group/",
+                      {
+                        "Fn::GetAtt": [
+                          "InstanceInstanceSecurityGroupF0E2D5BE",
+                          "GroupId"
+                        ]
+                      }
+                    ]
+                  ]
+                }
+              },
+              {
+                "Action": [
+                  "ec2:StartInstances",
+                  "ec2:StopInstances",
+                  "ec2:GetPasswordData"
+                ],
+                "Effect": "Allow",
+                "Resource": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":ec2:us-east-1:00000000:instance/",
+                      {
+                        "Ref": "InstanceC1063A87"
+                      }
+                    ]
+                  ]
+                }
+              },
+              {
+                "Action": "ssm:GetParameter",
+                "Effect": "Allow",
+                "Resource": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":ssm:us-east-1:00000000:parameter",
+                      {
+                        "Fn::GetAtt": [
+                          "GameKeyKeyPairF8B1B0F0",
+                          "Parameter"
+                        ]
+                      }
+                    ]
+                  ]
+                }
+              },
+              {
+                "Action": "kms:Decrypt",
+                "Effect": "Allow",
+                "Resource": "*"
+              }
+            ],
+            "Version": "2012-10-17"
+          },
+          "PolicyName": "WebAppLambdaServiceRoleDefaultPolicyB264392B",
+          "Roles": [
+            {
+              "Ref": "WebAppLambdaServiceRoleB3C5DDDA"
+            }
+          ]
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/WebAppLambda/ServiceRole/DefaultPolicy/Resource"
+        }
+      },
+      "WebAppLambdaE4C4A83F": {
+        "Type": "AWS::Lambda::Function",
+        "Properties": {
+          "Code": {
+            "S3Bucket": {
+              "Ref": "AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3BucketA30C151C"
+            },
+            "S3Key": {
+              "Fn::Join": [
+                "",
+                [
+                  {
+                    "Fn::Select": [
+                      0,
+                      {
+                        "Fn::Split": [
+                          "||",
+                          {
+                            "Ref": "AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3VersionKeyE2D63F25"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "Fn::Select": [
+                      1,
+                      {
+                        "Fn::Split": [
+                          "||",
+                          {
+                            "Ref": "AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3VersionKeyE2D63F25"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          },
+          "Handler": "handler.handler",
+          "Role": {
+            "Fn::GetAtt": [
+              "WebAppLambdaServiceRoleB3C5DDDA",
+              "Arn"
+            ]
+          },
+          "Runtime": "nodejs12.x",
+          "Environment": {
+            "Variables": {
+              "INSTANCE_ID": {
+                "Ref": "InstanceC1063A87"
+              },
+              "SECURITY_GROUP_ID": {
+                "Fn::GetAtt": [
+                  "InstanceInstanceSecurityGroupF0E2D5BE",
+                  "GroupId"
+                ]
+              },
+              "KEY_PARAMETER_NAME": {
+                "Fn::GetAtt": [
+                  "GameKeyKeyPairF8B1B0F0",
+                  "Parameter"
+                ]
+              }
+            }
+          },
+          "Timeout": 60
+        },
+        "DependsOn": [
+          "WebAppLambdaServiceRoleDefaultPolicyB264392B",
+          "WebAppLambdaServiceRoleB3C5DDDA"
+        ],
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/WebAppLambda/Resource",
+          "aws:asset:path": "asset.7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7",
+          "aws:asset:property": "Code"
+        }
+      },
+      "S3GatewayGameApp7F73230F": {
+        "Type": "AWS::ApiGateway::RestApi",
+        "Properties": {
+          "BinaryMediaTypes": [
+            "image/*"
+          ],
+          "Name": "GameApp"
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/S3Gateway/GameApp/Resource"
+        }
+      },
+      "S3GatewayGameAppCloudWatchRole3E18F736": {
+        "Type": "AWS::IAM::Role",
+        "Properties": {
+          "AssumeRolePolicyDocument": {
+            "Statement": [
+              {
+                "Action": "sts:AssumeRole",
+                "Effect": "Allow",
+                "Principal": {
+                  "Service": "apigateway.amazonaws.com"
+                }
+              }
+            ],
+            "Version": "2012-10-17"
+          },
+          "ManagedPolicyArns": [
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+                ]
+              ]
+            }
+          ]
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/S3Gateway/GameApp/CloudWatchRole/Resource"
+        }
+      },
+      "S3GatewayGameAppAccount244C69A0": {
+        "Type": "AWS::ApiGateway::Account",
+        "Properties": {
+          "CloudWatchRoleArn": {
+            "Fn::GetAtt": [
+              "S3GatewayGameAppCloudWatchRole3E18F736",
+              "Arn"
+            ]
+          }
+        },
+        "DependsOn": [
+          "S3GatewayGameApp7F73230F"
+        ],
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/S3Gateway/GameApp/Account"
+        }
+      },
+      "S3GatewayGameAppDeployment45A40F1C1ea3f370273feac6dc79badcdb1c5090": {
+        "Type": "AWS::ApiGateway::Deployment",
+        "Properties": {
+          "RestApiId": {
+            "Ref": "S3GatewayGameApp7F73230F"
+          },
+          "Description": "Automatically created by the RestApi construct"
+        },
+        "DependsOn": [
+          "S3GatewayGameAppproxyGET2D68D639",
+          "S3GatewayGameAppproxy2374A00B",
+          "S3GatewayGameAppapiANY8309A6C9",
+          "S3GatewayGameAppapi997B66C0",
+          "S3GatewayGameAppGET419DC6F4"
+        ],
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/S3Gateway/GameApp/Deployment/Resource"
+        }
+      },
+      "S3GatewayGameAppDeploymentStageprod501ACE37": {
+        "Type": "AWS::ApiGateway::Stage",
+        "Properties": {
+          "RestApiId": {
+            "Ref": "S3GatewayGameApp7F73230F"
+          },
+          "DeploymentId": {
+            "Ref": "S3GatewayGameAppDeployment45A40F1C1ea3f370273feac6dc79badcdb1c5090"
+          },
+          "StageName": "prod"
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/S3Gateway/GameApp/DeploymentStage.prod/Resource"
+        }
+      },
+      "S3GatewayGameAppGET419DC6F4": {
+        "Type": "AWS::ApiGateway::Method",
+        "Properties": {
+          "HttpMethod": "GET",
+          "ResourceId": {
+            "Fn::GetAtt": [
+              "S3GatewayGameApp7F73230F",
+              "RootResourceId"
+            ]
+          },
+          "RestApiId": {
+            "Ref": "S3GatewayGameApp7F73230F"
+          },
+          "AuthorizationType": "NONE",
+          "Integration": {
+            "Credentials": {
+              "Fn::GetAtt": [
+                "S3IntegrationRoleF31D2F62",
+                "Arn"
+              ]
+            },
+            "IntegrationHttpMethod": "GET",
+            "IntegrationResponses": [
+              {
+                "ResponseParameters": {
+                  "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                  "method.response.header.Content-Disposition": "integration.response.header.Content-Disposition"
+                },
+                "StatusCode": "200"
+              },
+              {
+                "SelectionPattern": "^404",
+                "StatusCode": "404"
+              }
+            ],
+            "Type": "AWS",
+            "Uri": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":apigateway:us-east-1:s3:path/",
+                  {
+                    "Ref": "WebAppBucket8F6FA179"
+                  },
+                  "/index.html"
+                ]
+              ]
+            }
+          },
+          "MethodResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Content-Type": false,
+                "method.response.header.Content-Disposition": false
+              },
+              "StatusCode": "200"
+            },
+            {
+              "StatusCode": "404"
+            }
+          ]
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/S3Gateway/GameApp/Default/GET/Resource"
+        }
+      },
+      "S3GatewayGameAppproxy2374A00B": {
+        "Type": "AWS::ApiGateway::Resource",
+        "Properties": {
+          "ParentId": {
+            "Fn::GetAtt": [
+              "S3GatewayGameApp7F73230F",
+              "RootResourceId"
+            ]
+          },
+          "PathPart": "{proxy+}",
+          "RestApiId": {
+            "Ref": "S3GatewayGameApp7F73230F"
+          }
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/S3Gateway/GameApp/Default/{proxy+}/Resource"
+        }
+      },
+      "S3GatewayGameAppproxyGET2D68D639": {
+        "Type": "AWS::ApiGateway::Method",
+        "Properties": {
+          "HttpMethod": "GET",
+          "ResourceId": {
+            "Ref": "S3GatewayGameAppproxy2374A00B"
+          },
+          "RestApiId": {
+            "Ref": "S3GatewayGameApp7F73230F"
+          },
+          "AuthorizationType": "NONE",
+          "Integration": {
+            "Credentials": {
+              "Fn::GetAtt": [
+                "S3IntegrationRoleF31D2F62",
+                "Arn"
+              ]
+            },
+            "IntegrationHttpMethod": "GET",
+            "IntegrationResponses": [
+              {
+                "ResponseParameters": {
+                  "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                  "method.response.header.Content-Disposition": "integration.response.header.Content-Disposition"
+                },
+                "StatusCode": "200"
+              },
+              {
+                "SelectionPattern": "^404",
+                "StatusCode": "404"
+              }
+            ],
+            "RequestParameters": {
+              "integration.request.path.objkey": "method.request.path.proxy"
+            },
+            "Type": "AWS",
+            "Uri": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":apigateway:us-east-1:s3:path/",
+                  {
+                    "Ref": "WebAppBucket8F6FA179"
+                  },
+                  "/{objkey}"
+                ]
+              ]
+            }
+          },
+          "MethodResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Content-Type": false,
+                "method.response.header.Content-Disposition": false
+              },
+              "StatusCode": "200"
+            },
+            {
+              "StatusCode": "404"
+            }
+          ],
+          "RequestParameters": {
+            "method.request.path.proxy": true
+          }
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/S3Gateway/GameApp/Default/{proxy+}/GET/Resource"
+        }
+      },
+      "S3GatewayGameAppapi997B66C0": {
+        "Type": "AWS::ApiGateway::Resource",
+        "Properties": {
+          "ParentId": {
+            "Fn::GetAtt": [
+              "S3GatewayGameApp7F73230F",
+              "RootResourceId"
+            ]
+          },
+          "PathPart": "api",
+          "RestApiId": {
+            "Ref": "S3GatewayGameApp7F73230F"
+          }
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/S3Gateway/GameApp/Default/api/Resource"
+        }
+      },
+      "S3GatewayGameAppapiANYApiPermissionKesselRunStackS3GatewayGameAppDDC26D96ANYapi5CCFEF3A": {
+        "Type": "AWS::Lambda::Permission",
+        "Properties": {
+          "Action": "lambda:InvokeFunction",
+          "FunctionName": {
+            "Fn::GetAtt": [
+              "WebAppLambdaE4C4A83F",
+              "Arn"
+            ]
+          },
+          "Principal": "apigateway.amazonaws.com",
+          "SourceArn": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":execute-api:us-east-1:00000000:",
+                {
+                  "Ref": "S3GatewayGameApp7F73230F"
+                },
+                "/",
+                {
+                  "Ref": "S3GatewayGameAppDeploymentStageprod501ACE37"
+                },
+                "/*/api"
+              ]
+            ]
+          }
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/S3Gateway/GameApp/Default/api/ANY/ApiPermission.KesselRunStackS3GatewayGameAppDDC26D96.ANY..api"
+        }
+      },
+      "S3GatewayGameAppapiANYApiPermissionTestKesselRunStackS3GatewayGameAppDDC26D96ANYapi11815113": {
+        "Type": "AWS::Lambda::Permission",
+        "Properties": {
+          "Action": "lambda:InvokeFunction",
+          "FunctionName": {
+            "Fn::GetAtt": [
+              "WebAppLambdaE4C4A83F",
+              "Arn"
+            ]
+          },
+          "Principal": "apigateway.amazonaws.com",
+          "SourceArn": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":execute-api:us-east-1:00000000:",
+                {
+                  "Ref": "S3GatewayGameApp7F73230F"
+                },
+                "/test-invoke-stage/*/api"
+              ]
+            ]
+          }
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/S3Gateway/GameApp/Default/api/ANY/ApiPermission.Test.KesselRunStackS3GatewayGameAppDDC26D96.ANY..api"
+        }
+      },
+      "S3GatewayGameAppapiANY8309A6C9": {
+        "Type": "AWS::ApiGateway::Method",
+        "Properties": {
+          "HttpMethod": "ANY",
+          "ResourceId": {
+            "Ref": "S3GatewayGameAppapi997B66C0"
+          },
+          "RestApiId": {
+            "Ref": "S3GatewayGameApp7F73230F"
+          },
+          "AuthorizationType": "NONE",
+          "Integration": {
+            "IntegrationHttpMethod": "POST",
+            "Type": "AWS_PROXY",
+            "Uri": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                  {
+                    "Fn::GetAtt": [
+                      "WebAppLambdaE4C4A83F",
+                      "Arn"
+                    ]
+                  },
+                  "/invocations"
+                ]
+              ]
+            }
+          },
+          "MethodResponses": [
+            {
+              "StatusCode": "200"
+            },
+            {
+              "StatusCode": "500"
+            }
+          ]
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/S3Gateway/GameApp/Default/api/ANY/Resource"
+        }
+      },
+      "S3IntegrationRoleF31D2F62": {
+        "Type": "AWS::IAM::Role",
+        "Properties": {
+          "AssumeRolePolicyDocument": {
+            "Statement": [
+              {
+                "Action": "sts:AssumeRole",
+                "Effect": "Allow",
+                "Principal": {
+                  "Service": "apigateway.amazonaws.com"
+                }
+              }
+            ],
+            "Version": "2012-10-17"
+          }
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/S3IntegrationRole/Resource"
+        }
+      },
+      "S3IntegrationRoleDefaultPolicy5B77AE07": {
+        "Type": "AWS::IAM::Policy",
+        "Properties": {
+          "PolicyDocument": {
+            "Statement": [
+              {
+                "Action": [
+                  "s3:GetObject*",
+                  "s3:GetBucket*",
+                  "s3:List*"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  {
+                    "Fn::GetAtt": [
+                      "WebAppBucket8F6FA179",
+                      "Arn"
+                    ]
+                  },
+                  {
+                    "Fn::Join": [
+                      "",
+                      [
+                        {
+                          "Fn::GetAtt": [
+                            "WebAppBucket8F6FA179",
+                            "Arn"
+                          ]
+                        },
+                        "/*"
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ],
+            "Version": "2012-10-17"
+          },
+          "PolicyName": "S3IntegrationRoleDefaultPolicy5B77AE07",
+          "Roles": [
+            {
+              "Ref": "S3IntegrationRoleF31D2F62"
+            }
+          ]
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Default/S3IntegrationRole/DefaultPolicy/Resource"
+        }
+      },
+      "KeyPairProviderCustomResourceProviderRoleA32FD897": {
+        "Type": "AWS::IAM::Role",
+        "Properties": {
+          "AssumeRolePolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Action": "sts:AssumeRole",
+                "Effect": "Allow",
+                "Principal": {
+                  "Service": "lambda.amazonaws.com"
+                }
+              }
+            ]
+          },
+          "ManagedPolicyArns": [
+            {
+              "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+            }
+          ],
+          "Policies": [
+            {
+              "PolicyName": "Inline",
+              "PolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Action": [
+                      "ec2:CreateKeyPair",
+                      "ec2:DeleteKeyPair",
+                      "ssm:PutParameter",
+                      "ssm:DeleteParameter"
+                    ],
+                    "Resource": [
+                      "*"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/KeyPairProviderCustomResourceProvider/Role"
+        }
+      },
+      "KeyPairProviderCustomResourceProviderHandlerBB6F16AF": {
+        "Type": "AWS::Lambda::Function",
+        "Properties": {
+          "Code": {
+            "S3Bucket": {
+              "Ref": "AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3Bucket69CDE7B7"
+            },
+            "S3Key": {
+              "Fn::Join": [
+                "",
+                [
+                  {
+                    "Fn::Select": [
+                      0,
+                      {
+                        "Fn::Split": [
+                          "||",
+                          {
+                            "Ref": "AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3VersionKey3E23C446"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "Fn::Select": [
+                      1,
+                      {
+                        "Fn::Split": [
+                          "||",
+                          {
+                            "Ref": "AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3VersionKey3E23C446"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          },
+          "Timeout": 900,
+          "MemorySize": 128,
+          "Handler": "__entrypoint__.handler",
+          "Role": {
+            "Fn::GetAtt": [
+              "KeyPairProviderCustomResourceProviderRoleA32FD897",
+              "Arn"
+            ]
+          },
+          "Runtime": "nodejs12.x"
+        },
+        "DependsOn": [
+          "KeyPairProviderCustomResourceProviderRoleA32FD897"
+        ],
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/KeyPairProviderCustomResourceProvider/Handler"
+        }
+      },
+      "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265": {
+        "Type": "AWS::IAM::Role",
+        "Properties": {
+          "AssumeRolePolicyDocument": {
+            "Statement": [
+              {
+                "Action": "sts:AssumeRole",
+                "Effect": "Allow",
+                "Principal": {
+                  "Service": "lambda.amazonaws.com"
+                }
+              }
+            ],
+            "Version": "2012-10-17"
+          },
+          "ManagedPolicyArns": [
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                ]
+              ]
+            }
+          ]
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource"
+        }
+      },
+      "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF": {
+        "Type": "AWS::IAM::Policy",
+        "Properties": {
+          "PolicyDocument": {
+            "Statement": [
+              {
+                "Action": [
+                  "s3:GetObject*",
+                  "s3:GetBucket*",
+                  "s3:List*"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":s3:::",
+                        {
+                          "Ref": "AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D"
+                        }
+                      ]
+                    ]
+                  },
+                  {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":s3:::",
+                        {
+                          "Ref": "AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D"
+                        },
+                        "/*"
+                      ]
+                    ]
+                  }
+                ]
+              },
+              {
+                "Action": [
+                  "s3:GetObject*",
+                  "s3:GetBucket*",
+                  "s3:List*",
+                  "s3:DeleteObject*",
+                  "s3:PutObject*",
+                  "s3:Abort*"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  {
+                    "Fn::GetAtt": [
+                      "WebAppBucket8F6FA179",
+                      "Arn"
+                    ]
+                  },
+                  {
+                    "Fn::Join": [
+                      "",
+                      [
+                        {
+                          "Fn::GetAtt": [
+                            "WebAppBucket8F6FA179",
+                            "Arn"
+                          ]
+                        },
+                        "/*"
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ],
+            "Version": "2012-10-17"
+          },
+          "PolicyName": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
+          "Roles": [
+            {
+              "Ref": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265"
+            }
+          ]
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource"
+        }
+      },
+      "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536": {
+        "Type": "AWS::Lambda::Function",
+        "Properties": {
+          "Code": {
+            "S3Bucket": {
+              "Ref": "AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3Bucket77147E20"
+            },
+            "S3Key": {
+              "Fn::Join": [
+                "",
+                [
+                  {
+                    "Fn::Select": [
+                      0,
+                      {
+                        "Fn::Split": [
+                          "||",
+                          {
+                            "Ref": "AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3VersionKey4253216F"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "Fn::Select": [
+                      1,
+                      {
+                        "Fn::Split": [
+                          "||",
+                          {
+                            "Ref": "AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3VersionKey4253216F"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
+          },
+          "Handler": "index.handler",
+          "Role": {
+            "Fn::GetAtt": [
+              "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+              "Arn"
+            ]
+          },
+          "Runtime": "python3.6",
+          "Timeout": 900
+        },
+        "DependsOn": [
+          "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
+          "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265"
+        ],
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource",
+          "aws:asset:path": "asset.c9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176.zip",
+          "aws:asset:property": "Code"
+        }
+      },
+      "CDKMetadata": {
+        "Type": "AWS::CDK::Metadata",
+        "Properties": {
+          "Modules": "aws-cdk=1.71.0,@aws-cdk/assets=1.80.0,@aws-cdk/aws-apigateway=1.80.0,@aws-cdk/aws-applicationautoscaling=1.80.0,@aws-cdk/aws-autoscaling-common=1.80.0,@aws-cdk/aws-cloudwatch=1.80.0,@aws-cdk/aws-codeguruprofiler=1.80.0,@aws-cdk/aws-ec2=1.80.0,@aws-cdk/aws-ecr=1.80.0,@aws-cdk/aws-ecr-assets=1.80.0,@aws-cdk/aws-events=1.80.0,@aws-cdk/aws-iam=1.80.0,@aws-cdk/aws-kms=1.80.0,@aws-cdk/aws-lambda=1.80.0,@aws-cdk/aws-logs=1.80.0,@aws-cdk/aws-s3=1.80.0,@aws-cdk/aws-s3-assets=1.80.0,@aws-cdk/aws-s3-deployment=1.80.0,@aws-cdk/aws-sqs=1.80.0,@aws-cdk/aws-ssm=1.80.0,@aws-cdk/cloud-assembly-schema=1.80.0,@aws-cdk/core=1.80.0,@aws-cdk/cx-api=1.80.0,@aws-cdk/region-info=1.80.0,jsii-runtime=node.js/v12.18.2"
+        },
+        "Metadata": {
+          "aws:cdk:path": "KesselRunStack/CDKMetadata/Default"
+        }
+      }
+    },
+    "Outputs": {
+      "S3GatewayGameAppEndpoint960301A3": {
+        "Value": {
+          "Fn::Join": [
+            "",
+            [
+              "https://",
+              {
+                "Ref": "S3GatewayGameApp7F73230F"
+              },
+              ".execute-api.us-east-1.",
+              {
+                "Ref": "AWS::URLSuffix"
+              },
+              "/",
+              {
+                "Ref": "S3GatewayGameAppDeploymentStageprod501ACE37"
+              },
+              "/"
+            ]
+          ]
+        }
+      }
+    },
+    "Parameters": {
+      "AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3Bucket69CDE7B7": {
+        "Type": "String",
+        "Description": "S3 bucket for asset \"0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047\""
+      },
+      "AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047S3VersionKey3E23C446": {
+        "Type": "String",
+        "Description": "S3 key for asset version \"0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047\""
+      },
+      "AssetParameters0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047ArtifactHashDD30B458": {
+        "Type": "String",
+        "Description": "Artifact hash for asset \"0ea6850d4748eaa29d5c7ef4a6311b0f76f9b676df76117567fdd928264ed047\""
+      },
+      "AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3Bucket77147E20": {
+        "Type": "String",
+        "Description": "S3 bucket for asset \"c9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176\""
+      },
+      "AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3VersionKey4253216F": {
+        "Type": "String",
+        "Description": "S3 key for asset version \"c9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176\""
+      },
+      "AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176ArtifactHash4E343C6C": {
+        "Type": "String",
+        "Description": "Artifact hash for asset \"c9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176\""
+      },
+      "AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3Bucket8F15CD9D": {
+        "Type": "String",
+        "Description": "S3 bucket for asset \"522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381f\""
+      },
+      "AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fS3VersionKeyAC52A7BF": {
+        "Type": "String",
+        "Description": "S3 key for asset version \"522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381f\""
+      },
+      "AssetParameters522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381fArtifactHashE5AC1E7E": {
+        "Type": "String",
+        "Description": "Artifact hash for asset \"522e3faafd5b22898326f128416f06eda8c003192b4bba70e122fb98addd381f\""
+      },
+      "AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3BucketA30C151C": {
+        "Type": "String",
+        "Description": "S3 bucket for asset \"7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7\""
+      },
+      "AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7S3VersionKeyE2D63F25": {
+        "Type": "String",
+        "Description": "S3 key for asset version \"7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7\""
+      },
+      "AssetParameters7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7ArtifactHash6C4D52FA": {
+        "Type": "String",
+        "Description": "Artifact hash for asset \"7280837bdc5fccdc07d3a2149d0a19128d434b49fb2f1d2f3618d49fc8ccb8b7\""
+      },
+      "SsmParameterValueawsserviceamiwindowslatestWindowsServer2019EnglishFullBaseC96584B6F00A464EAD1953AFF4B05118Parameter": {
+        "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+        "Default": "/aws/service/ami-windows-latest/Windows_Server-2019-English-Full-Base"
+      }
+    }
+  }

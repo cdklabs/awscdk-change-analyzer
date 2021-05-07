@@ -1,0 +1,7 @@
+*.js
+!jest.config.js
+!babel.config.js
+*.d.ts
+node_modules
+out
+test/**/sample-outputs
