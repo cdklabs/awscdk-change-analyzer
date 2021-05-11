@@ -1,4 +1,4 @@
-import { ComponentOperation, InfraModelDiff, PropertyComponentOperation, UpdatePropertyComponentOperation } from "change-cd-iac-models/model-diffing";
+import { ComponentOperation, InfraModelDiff, PropertyComponentOperation } from "change-cd-iac-models/model-diffing";
 import { RuleEffect } from "change-cd-iac-models/rules";
 import { CUserRules } from "./rule-config-schema";
 import { parseRules } from "./rule-parser";

@@ -52,6 +52,6 @@ test('Group operations from big template', () => {
     const aggs = extractComponentOperationsAggs(diff, new Map());
 
     expect(aggs.length).toBe(1);
-    expect(aggs[0].subAggs.length).toBe(10)
-    expect(aggs[0].entities.size).toBe(86)
+    expect(aggs[0].subAggs.length).toBe(10);
+    expect(aggs[0].entities.size).toBe(86);
 });

@@ -78,10 +78,9 @@ const App = ({changeReport}: props) => {
     }
 
     const setChangesApproval = (changes: ComponentOperation[], state: RuleAction) => {
-        console.log(changes);
         setApprovedChanges(new Map([...approvedChanges, ...changes.map(c => [c, state] as const)]));
     }
-
+    
     return (
         <AppContext.Provider
             value={{

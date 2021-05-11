@@ -227,8 +227,14 @@ export class PropertyDiffCreator {
             operation = new InsertPropertyComponentOperation({}, {pathTransition: new Transition({v2: pathP2}), propertyTransition: new Transition({v2: p2}), componentTransition: this.componentTransition});
         } else if (p1 !== undefined && p2 === undefined){
             operation = new RemovePropertyComponentOperation({}, {pathTransition: new Transition({v1: pathP1}), propertyTransition: new Transition({v1: p1}), componentTransition: this.componentTransition});
+        } else {
+            operation = new UpdatePropertyComponentOperation({}, {
+                pathTransition: new Transition({v1: pathP1, v2: pathP2}),
+                propertyTransition: new Transition({v1: p1, v2: p2}),
+                componentTransition: this.componentTransition
+            });
         }
-    
+        
         return {
             similarity: 0,
             weight: (this.calcPropertyWeight(p1) + this.calcPropertyWeight(p2)),
