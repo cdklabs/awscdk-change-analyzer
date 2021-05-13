@@ -1,5 +1,6 @@
 import * as fn from 'fifinet';
 import { Serialized } from '../export/json-serializable';
+import { isDefined } from '../utils';
 
 export type OutgoingReferences = Record<
     string,
@@ -29,7 +30,7 @@ export class ModelEntity<
             key
         });
         
-        return this.explodeDirectReferences().map(({refName, ref, key}) => createModelEntityEdge(refName, ref, key));
+        return this.explodeDirectReferences().filter(({ref}) => isDefined(ref)).map(({refName, ref, key}) => createModelEntityEdge(refName, ref, key));
     }
 
     private explodeDirectReferences(): {refName: string, ref: ModelEntity, key?: string}[] {

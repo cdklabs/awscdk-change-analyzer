@@ -59,7 +59,7 @@ export class DiffStringifier<T> {
             ];
             return this.buildObject(entries, activeHighlights, currentIndentation);
         } else if(typeof content === 'string') {
-            return [{str: `"${content}"`, highlights: activeHighlights}];
+            return [{str: `"${content.split('"').join('\\"')}"`, highlights: activeHighlights}];
         } else {
             return [{str: `${content}`, highlights: activeHighlights}];
         }

@@ -1,8 +1,9 @@
 import React from 'react';
 import { ComponentOperation } from 'change-cd-iac-models/model-diffing';
+import { CompOpAggCharacteristics } from 'change-cd-iac-models/aggregations';
 import { Box, IconButton, makeStyles, Theme, Tooltip, Typography } from '@material-ui/core';
-import { Launch as LaunchIcon, Done as DoneIcon } from '@material-ui/icons';
-import { Aggregation, getAllDescriptions } from 'change-cd-iac-models/aggregations';
+import { Launch as LaunchIcon } from '@material-ui/icons';
+import { Aggregation, getAllDescriptions, getAllCharacteristics } from 'change-cd-iac-models/aggregations';
 import CollapsableRow from '../../reusable-components/CollapsableRow';
 import { useIdAssignerHook } from '../../utils/idCreator';
 import { AppContext } from '../../App';
@@ -55,7 +56,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 function ChangeDetailsPane({agg}: props) {
     const classes = useStyles();
 
-    const descriptions = agg && getAllDescriptions(agg);
+    const descriptions = agg && agg.descriptions;
+    const characteristics = agg && getAllCharacteristics(agg);
 
     const idAssigner = useIdAssignerHook();
 
@@ -64,14 +66,15 @@ function ChangeDetailsPane({agg}: props) {
             ? <Box className={`${classes.fillParent} ${classes.emptyRoot}`}>Select a set of changes to view their details</Box> 
             : <Box className={`${classes.root} ${classes.fillParent}`}>
                 <Box className={classes.header}>
-                    {descriptions && descriptions[2]
+                    {characteristics !== undefined
                         ? <> 
                             <Typography variant="h5" className={classes.mainCharacteristicDescription}>
-                                Changes to <b>{descriptions[2]}</b>
+                                {(characteristics && characteristics[CompOpAggCharacteristics.OPERATION_TYPE]) ?? 'Changes'}
+                                <b>{characteristics && ` ${characteristics[CompOpAggCharacteristics.COMPONENT_TYPE]} ${characteristics[CompOpAggCharacteristics.COMPONENT_SUBTYPE] ?? ''}`}</b>
                             </Typography>
-                            {descriptions && descriptions.slice(2).map((description, i) => 
-                                <Typography key={i} className={classes.characteristicDescription}>{description}</Typography>
-                            )}
+                            {descriptions && descriptions.length &&
+                                <Typography className={classes.characteristicDescription}>{descriptions[descriptions.length - 1]}</Typography>
+                            }
                         </>
                         : <Typography variant="h5" className={classes.mainCharacteristicDescription}>
                             Changes
@@ -97,7 +100,7 @@ function ChangeDetailsPane({agg}: props) {
                             </>}
                             title={<b>{getComponentStructuralPath(mostRecentInTransition(op.componentTransition))}</b>}
                             content={
-                                <ComponentTransitionDetails componentTransition={op.componentTransition} highlightOperation={op} />
+                                <ComponentTransitionDetails componentTransition={op.componentTransition} highlightOperation={op} showReferences/>
                             }
                         />
                     )}

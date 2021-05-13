@@ -6,28 +6,37 @@ import { arraysEqual } from "../../utils";
 import { Transition } from "../transition";
 import { ComponentOperation, OperationType, OpNodeData, OpOutgoingNodeReferences } from "./component-operation";
 
+type InternalOpNodeData = {
+    propertyOperationType: OperationType,
+}
+
 export type PropOpOutgoingNodeReferences = OpOutgoingNodeReferences & {
     readonly propertyTransition: Transition<ComponentPropertyValue>,
     readonly pathTransition: Transition<PropertyPath>,
 }
 
 export abstract class PropertyComponentOperation<ND extends OpNodeData = any, OR extends PropOpOutgoingNodeReferences = any>
-    extends ComponentOperation<ND, OR> {
+    extends ComponentOperation<ND & InternalOpNodeData, OR> {
     
     public get pathTransition(): Transition<PropertyPath> { return this.outgoingNodeReferences.pathTransition; }
     public get propertyTransition(): Transition<ComponentPropertyValue> { return this.outgoingNodeReferences.propertyTransition; }
-    
+    public get propertyOperationType(): OperationType { return this.nodeData.propertyOperationType; }
+
     constructor(
         nodeData: ND,
         outgoingReferences: OR,
-        operationType: OperationType,
+        propertyOperationType: OperationType,
     ){
         super(
-            nodeData,
+            { ...nodeData, propertyOperationType },
             {
+                exposesValues: {
+                    old: outgoingReferences.propertyTransition.v1,
+                    new: outgoingReferences.propertyTransition.v2,
+                },
                 ...outgoingReferences,
                 appliesTo: [...outgoingReferences.appliesTo ?? [], ...outgoingReferences.propertyTransition.explode()],
-            }, operationType
+            }, OperationType.UPDATE
         );
     }
 

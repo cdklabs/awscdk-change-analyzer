@@ -24,3 +24,10 @@ export const stringSimilarity = (a: string, b: string): number => {
     return 2 * intersectionSize / (a.length + b.length - 2);
 
 };
+
+export const capitalizeString = (s: string) => {
+    const lowerCase = s.toLocaleLowerCase();
+    if(lowerCase.length)
+        return `${lowerCase.charAt(0).toUpperCase()}${lowerCase.slice(1)}`;
+    return lowerCase;
+} 

@@ -30,8 +30,9 @@ function ChangesDiff<T>({stringifierOutput, flashObj}: Props<T>) {
     const opRef = useCallback(node => {
         if(node?.scrollIntoView){
             node.scrollIntoView({block: 'end', behavior: 'smooth'});
-            node.style.backgroundColor = 'transparent';
-            node.style.boxShadow = '0 0 0.5em 0.5em transparent';
+            //uncomment to make the diff highlighting slowly disappear
+            //node.style.backgroundColor = 'transparent';
+            //node.style.boxShadow = '0 0 0.5em 0.5em transparent';
         }
     },[]);
 

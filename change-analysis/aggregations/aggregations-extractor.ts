@@ -35,9 +35,6 @@ export class ModuleTreeAggsExtractor {
                     ) ?? []
                 );
 
-                if(gs.length === 1 && !Object.values(gs[0].characteristics).filter(v => v !== undefined).length)
-                    return [g];
-
                 if(moduleNode.forceSubmoduleCollapse
                     || (!moduleNode.disableSubmoduleCollapse && gs.length === 1 && setsEqual(g.entities, gs[0].entities))){
                     return gs.map(gSubGroup => ({...gSubGroup, characteristics: {...g.characteristics, ...gSubGroup.characteristics} }));
@@ -45,6 +42,7 @@ export class ModuleTreeAggsExtractor {
                     g.subAggs = gs;
                     gs.forEach(gSubGroup => gSubGroup.parentAgg = g);
                 }
+                
                 return [g];
             }
         );

@@ -5,6 +5,7 @@ import * as fn from 'fifinet';
 import { UserRule, Bindings, RuleEffectDefinition, Selector, selectorIsReference, RuleConditions, RuleConditionOperator, isInputScalar } from "./rule";
 import { RuleEffect } from 'change-cd-iac-models/rules';
 import { appliesToHandler } from './operator-handlers';
+import { equalsHandler } from "./operator-handlers/equals";
 
 type UserRules = UserRule[];
 
@@ -31,7 +32,8 @@ function scalarToScopeNode(value: fn.Vertex<any, any>) {
 export type OperatorHandler = <V, E>(g: fn.Graph<V, E>, t1: ScopeNode, t2: ScopeNode) => boolean;
 
 const operatorToHandler: Record<RuleConditionOperator, OperatorHandler> = {
-    appliesTo: appliesToHandler,
+    [RuleConditionOperator.appliesTo]: appliesToHandler,
+    [RuleConditionOperator.equals]: equalsHandler,
 };
 
 const propertyPathWildcard = "*";
@@ -80,7 +82,7 @@ export class RuleProcessor {
                 newScopes = newScopes.flatMap((scope): RulesScope[] => {
                     const newScopeNodes = this.processDefinition(identifier, selector, scope);
                     if(!newScopeNodes.length)
-                        return [scope];
+                        return [];
                     return newScopeNodes.map(e => ({...scope, [identifier]: e}));
                 });
             }
@@ -116,10 +118,13 @@ export class RuleProcessor {
         if(isScopeVertex(entity)) {
             const newPropertyScopeNodes = this.graph.v(entity.vertex).outAny({_label: 'hasProperties'}).run().map(vertexToScopeNode);
             const nestedPropertyScopeNodes = this.graph.v(entity.vertex).outAny({_label: 'value', ...path[0] === propertyPathWildcard ? {} : {key: path[0]}}).run().map(vertexToScopeNode);
+            const exposesValuesScopeNodes = this.graph.v(entity.vertex).outAny({_label: 'exposesValues', key: path[0]}).run().map(vertexToScopeNode);
+            
             return [
                 ...newPropertyScopeNodes.flatMap(v => this.navigateToPath(v, path)),
                 ...nestedPropertyScopeNodes.flatMap(v => this.navigateToPath(v, path.slice(1))),
-                ...[entity.vertex[path[0]]] ?? [],
+                ...exposesValuesScopeNodes.flatMap(v => this.navigateToPath(v, path.slice(1))),
+                ...[entity.vertex[path[0]]].filter(isDefined).map(scalarToScopeNode) ?? [],
             ];
         } else if(isScopeValue(entity)){
             const value = entity.value;
@@ -135,6 +140,7 @@ export class RuleProcessor {
         conditions: RuleConditions,
         scope: RulesScope
     ): boolean {
+
         for(const c of conditions){
             const [leftCandidates, rightCandidates] = [c.leftInput, c.rightInput].map((i): ScopeNode[] => {
                 if(isInputScalar(i)) return [{ value: i.scalar }];
@@ -144,6 +150,7 @@ export class RuleProcessor {
             if(leftCandidates.length === 0 || rightCandidates.length === 0){
                 return false;
             }
+
             const approved =
                 leftCandidates.reduce((outterAcc, l) =>
                     outterAcc || rightCandidates.reduce((innerAcc, r) => {

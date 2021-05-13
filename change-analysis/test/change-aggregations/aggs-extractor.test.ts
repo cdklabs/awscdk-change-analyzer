@@ -31,16 +31,13 @@ test('Extract Agg of operation type, component type and component subtype', () =
     expect(subAggs1[0].characteristics).toMatchObject({
         "Component Subtype": "AWS::IAM::Role",
         "Component Type": "resource",
-        "Operation Type": "UPDATE"
+        "Operation Type": "Update"
     });
-    expect(subAggs1[0].subAggs.length).toBe(1);
     expect(subAggs1[1].characteristics).toMatchObject({
         "Component Subtype": "AWS::EC2::Instance",
         "Component Type": "resource",
-        "Operation Type": "UPDATE"
-    });
-    expect(subAggs1[1].subAggs.length).toBe(1);
-    
+        "Operation Type": "Update"
+    });    
 });
 
 

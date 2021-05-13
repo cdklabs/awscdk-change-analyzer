@@ -39,3 +39,15 @@ export const getAllDescriptions = <T>(agg: Aggregation<T>): string[] => {
 
     return result;
 };
+
+export const getAllCharacteristics = <T>(agg: Aggregation<T>): Record<string, AggCharacteristicValue> => {
+    let result: Record<string, AggCharacteristicValue> = {};
+    
+    let a: Aggregation<T> | undefined = agg;
+    while(a){
+        result = {...result, ...a.characteristics};
+        a = a.parentAgg;
+    }
+
+    return result;
+};

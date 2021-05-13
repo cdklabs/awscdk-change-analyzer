@@ -50,7 +50,7 @@ const ChangesGroup = ({agg, title, description}: Props) => {
         }
         rightIcon={<ApproveChangeBtn changes={[...agg.entities]}/>}
         description={<>
-          {description} {description && '-'} {new Set([...agg.entities].map(e => <React.Fragment key={e.nodeData._id}>{e.componentTransition}</React.Fragment>)).size} affected</>}
+          {description}{description && ' - '}{new Set([...agg.entities].map(e => <React.Fragment key={e.nodeData._id}>{e.componentTransition}</React.Fragment>)).size} affected</>}
         selected={selectedAgg && selectedAgg === agg}
         onChange={!agg.subAggs ? (() => showAggregation && showAggregation(agg)) : undefined}
         content={agg.subAggs && <Box className={classes.content}>{

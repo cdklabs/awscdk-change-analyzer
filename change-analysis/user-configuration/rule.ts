@@ -7,7 +7,7 @@ export enum RuleConditionOperator {
     // isContainedIn = '<<',
     appliesTo = 'appliesTo', // for checking a change against an InfraModel entity
     // affects = 'affects', // for checking a change against any directly or indirectly affected InfraModel entity
-    // equals = '==',
+    equals = '==',
     // notEquals = '!=',
     // greaterThan = '>',
     // greaterOrEqual = '>=',

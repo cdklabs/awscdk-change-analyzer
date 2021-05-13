@@ -11,8 +11,4 @@ export enum CompOpAggCharacteristics {
     PROPERTY_PATH_AFTER = 'Property Path',
     PROPERTY_VALUE_BEFORE = 'Previous Property Value',
     PROPERTY_VALUE_AFTER = 'Property Value',
-    DEPENDENCY_RELATIONSHIP_SOURCE_PROPERTY_PATH_BEFORE = "Previous Source Property Path",
-    DEPENDENCY_RELATIONSHIP_SOURCE_PROPERTY_PATH_AFTER = "Source Property Path",
-    DEPENDENCY_RELATIONSHIP_TARGET_ATTRIBUTE_PATH_BEFORE = "Previous Target Attribute Path",
-    DEPENDENCY_RELATIONSHIP_TARGET_ATTRIBUTE_PATH_AFTER = "Target Attribute Path",
 }

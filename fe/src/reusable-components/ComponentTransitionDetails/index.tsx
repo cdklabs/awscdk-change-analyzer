@@ -62,7 +62,6 @@ function ComponentTransitionDetails({componentTransition, highlightOperation, sh
             content: <ComponentPropertyDiff
                 componentTransition={componentTransition}
                 propertyOp={highlightOperation instanceof PropertyComponentOperation ? highlightOperation : undefined} />,
-            condition: !highlightOperation || highlightOperation instanceof PropertyComponentOperation
         },
         "General Info": {
             icon: <InfoIcon/>,

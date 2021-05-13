@@ -25,7 +25,7 @@ export type OpNodeData = {
 }
 
 type InternalOpNodeData = {
-    readonly type: OperationType
+    readonly type: OperationType,
 }
 
 export type OpOutgoingNodeReferences = {
@@ -36,6 +36,10 @@ export type OpOutgoingNodeReferences = {
 
 type InternalOutgoingNodeReferences = {
     readonly appliesTo: ModelEntity[],
+    readonly exposesValues: {
+        readonly old?: Component | ComponentPropertyValue,
+        readonly new?: Component | ComponentPropertyValue
+    }
 }
 
 export abstract class ComponentOperation<ND extends OpNodeData = any, OR extends OpOutgoingNodeReferences = any>
@@ -55,7 +59,17 @@ export abstract class ComponentOperation<ND extends OpNodeData = any, OR extends
         super(
             ModelEntityTypes.change,
             {...nodeData, type: operationType},
-            {...outgoingReferences, appliesTo: [...(outgoingReferences.appliesTo ?? []), ...outgoingReferences.componentTransition.explode()] }
+            {
+                exposesValues: {
+                    old: outgoingReferences.componentTransition.v1,
+                    new: outgoingReferences.componentTransition.v2,
+                },
+                ...outgoingReferences,
+                appliesTo: [
+                    ...(outgoingReferences.appliesTo ?? []),
+                    ...outgoingReferences.componentTransition.explode()
+                ]
+            }
         );
     }
 
