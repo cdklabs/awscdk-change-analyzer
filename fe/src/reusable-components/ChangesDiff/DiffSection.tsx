@@ -5,10 +5,12 @@ import { DiffHighlightType, DiffStringOutput, Highlights } from '../../selectors
 interface Props<T> {
     stringifierOutput: DiffStringOutput<T>,
     flashObj?: T,
-    flashRef?: (n: any) => void
+    flashRef?: (n: any) => void,
+    onClick?: (path: (string | number)[]) => void
 }
 
 import { makeStyles } from '@material-ui/core/styles';
+import { isDefined } from 'change-cd-iac-models/utils';
 
 const useStyles = makeStyles({
   pre: {
@@ -33,7 +35,7 @@ const flashStyle = {
     transition: 'background-color 2s ease-in-out, box-shadow 2s ease-in-out'
 };
 
-function DiffSection<T>({stringifierOutput, flashObj, flashRef}: Props<T>) {
+function DiffSection<T>({stringifierOutput, flashObj, flashRef, onClick}: Props<T>) {
     const classes = useStyles();
 
     return <>{stringifierOutput.map((chunk, i) => {
@@ -44,17 +46,19 @@ function DiffSection<T>({stringifierOutput, flashObj, flashRef}: Props<T>) {
                 className={classes.pre}
                 ref={hasFlashObj ? flashRef : undefined}
                 style={{...hasFlashObj ? flashStyle : {}}}>
-                    {<DiffSection stringifierOutput={chunk} flashObj={flashObj} flashRef={flashRef} />}
+                    {<DiffSection stringifierOutput={chunk} flashObj={flashObj} flashRef={flashRef} onClick={onClick} />}
             </div>
         } else {
             const {str, highlights} = chunk;
             return Object.entries(highlights).length
                 ? <Tooltip key={i} title={makeHighlightDescriptions(highlights)} placement="top" arrow TransitionComponent={Fade}>
-                        <span style={Object.assign({}, ...(Object.keys(highlights) as DiffHighlightType[]).map(h => diffTypeToStyle[h]))}>
+                        <span
+                        onClick={() => onClick && onClick(chunk.path)}
+                            style={Object.assign({}, ...(Object.keys(highlights) as DiffHighlightType[]).map(h => diffTypeToStyle[h]))}>
                                 {str}
                         </span>
                 </Tooltip> 
-                : str
+                : <span onClick={() => onClick && onClick(chunk.path)}>{str}</span>
         }
     })}</>;  
 };

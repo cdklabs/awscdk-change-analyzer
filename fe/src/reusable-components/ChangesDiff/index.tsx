@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
-import { Typography } from '@material-ui/core';
 import { DiffStringOutput } from '../../selectors/diff-stringifier';
 
 interface Props<T> {
     stringifierOutput: DiffStringOutput<T>,
     flashObj?: T,
+    onClick?: (path: (string | number)[]) => void
 }
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ChangesDiff<T>({stringifierOutput, flashObj}: Props<T>) {
+function ChangesDiff<T>({stringifierOutput, flashObj, onClick}: Props<T>) {
     const classes = useStyles();
 
     const opRef = useCallback(node => {
@@ -38,7 +38,7 @@ function ChangesDiff<T>({stringifierOutput, flashObj}: Props<T>) {
 
     return (
         <div className={classes.pre}>
-                <DiffSection stringifierOutput={stringifierOutput} flashRef={(r) => opRef(r)} flashObj={flashObj}/>
+                <DiffSection stringifierOutput={stringifierOutput} flashRef={(r) => opRef(r)} flashObj={flashObj} onClick={onClick}/>
         </div>
     );
 }
