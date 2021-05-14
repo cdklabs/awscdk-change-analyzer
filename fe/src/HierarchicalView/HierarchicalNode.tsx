@@ -8,13 +8,13 @@ import { AppContext } from '../App';
 import { Transition } from 'change-cd-iac-models/model-diffing';
 import { Component } from 'change-cd-iac-models/infra-model';
 import ApproveChangeBtn from '../reusable-components/ApproveChangeBtn';
-import { mostRecentInTransition } from '../selectors/component-transition-helpers';
 
 interface Props {
     node: VisualHierarchyNode,
+    expandedByDefault?: boolean
 }
 
-function HierarchicalNode({node}: Props) {
+function HierarchicalNode({node, expandedByDefault}: Props) {
 
     const {changes, compTransition, innerNodes} = node;
 
@@ -24,7 +24,7 @@ function HierarchicalNode({node}: Props) {
     const ref = useRef<HTMLDivElement>(null);
     
     useEffect(() => {
-        setExpanded(isNodeExpanded(selectedCompTransition, node));
+        setExpanded(isNodeExpanded(selectedCompTransition, node, expandedByDefault));
         if(node.compTransition === selectedCompTransition && ref.current?.scrollIntoView){
             ref.current?.scrollIntoView({block: 'end', behavior: 'smooth'});
         }
@@ -41,7 +41,7 @@ function HierarchicalNode({node}: Props) {
                 description={`${compTransition.v2?.type || compTransition.v1?.type} ${compTransition.v2?.subtype ?? compTransition.v1?.subtype ?? ''}`}
                 content={innerNodes.length > 0 ?
                     <List disablePadding style={{marginLeft: '2.5em', width: 'calc(100% - 2.5em)'}}>
-                        {innerNodes.map(n => <HierarchicalNode key={n.compTransition.nodeData._id} node={n}/>)}
+                        {innerNodes.map(n => <HierarchicalNode key={n.compTransition.nodeData._id} node={n} expandedByDefault={innerNodes.length === 1}/>)}
                     </List>
                     : undefined}
                 selected={selectedCompTransition === compTransition}
@@ -52,7 +52,8 @@ function HierarchicalNode({node}: Props) {
     );
 }
 
-function isNodeExpanded(selectedCompTransition?: Transition<Component>, node?: VisualHierarchyNode){
+function isNodeExpanded(selectedCompTransition?: Transition<Component>, node?: VisualHierarchyNode, expandedByDefault: boolean = false){
+    if(expandedByDefault) return true;
     if(!selectedCompTransition || !node) return false;
     if(node.compTransition === selectedCompTransition) return true;
     

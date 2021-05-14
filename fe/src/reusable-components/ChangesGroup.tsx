@@ -21,10 +21,11 @@ const useStyles = makeStyles({
 interface Props {
     agg: Aggregation<ComponentOperation>,
     title?: React.ReactNode,
-    description?: React.ReactNode
+    description?: React.ReactNode,
+    expandedByDefault?: boolean
 }
 
-const ChangesGroup = ({agg, title, description}: Props) => {
+const ChangesGroup = ({agg, title, description, expandedByDefault}: Props) => {
     const classes = useStyles();
 
     const { selectedAgg } = useContext(AppContext);
@@ -33,7 +34,7 @@ const ChangesGroup = ({agg, title, description}: Props) => {
     const ref = useRef<HTMLDivElement>(null);
     
     useEffect(() => {
-        setExpanded(isAggExpanded(selectedAgg, agg));
+        setExpanded(isAggExpanded(selectedAgg, agg, expandedByDefault));
         if(agg === selectedAgg && ref.current?.scrollIntoView){
             ref.current?.scrollIntoView({block: 'end', behavior: 'smooth'});
         }
@@ -54,7 +55,7 @@ const ChangesGroup = ({agg, title, description}: Props) => {
         selected={selectedAgg && selectedAgg === agg}
         onChange={!agg.subAggs ? (() => showAggregation && showAggregation(agg)) : undefined}
         content={agg.subAggs && <Box className={classes.content}>{
-          agg.subAggs.map(sg => <ChangesGroup key={idAssigner.get(sg)} agg={sg}/>)
+          agg.subAggs.map(sg => <ChangesGroup key={idAssigner.get(sg)} agg={sg} expandedByDefault={agg.subAggs?.length === 1}/>)
           }</Box>
         }
         expanded={isExpanded}
@@ -62,7 +63,8 @@ const ChangesGroup = ({agg, title, description}: Props) => {
       }</AppContext.Consumer>
 }
 
-function isAggExpanded(selectedAgg?: Aggregation<ComponentOperation>, agg?: Aggregation<ComponentOperation>){
+function isAggExpanded(selectedAgg?: Aggregation<ComponentOperation>, agg?: Aggregation<ComponentOperation>, expandedByDefault: boolean = false){
+  if(expandedByDefault) return true;
   if(!selectedAgg || !agg) return false;
   if(agg === selectedAgg) return true;
   
