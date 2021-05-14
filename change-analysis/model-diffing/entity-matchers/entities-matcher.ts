@@ -27,7 +27,7 @@ export function matchEntities<T extends ValidEntity, K = undefined>(
     entitiesA: T[],
     entitiesB: T[],
     similarityEvaluator: SimilarityEvaluator<T, K>,
-    similarityThreshold = 0.6,
+    similarityThreshold = 0.5,
 ): EntitiesMatcherResults<T, K> {
     
     const matchesBySimilarity = findMatchesDecreasingSimilarity(
@@ -96,5 +96,5 @@ function findMatchesDecreasingSimilarity<T extends ValidEntity, K>(
             })
         ).filter(isDefined);
 
-    return matches.sort((m1, m2) => m1[0] > m2[0] ? 0 : 1).map(([, entityMatch]) => entityMatch);
+    return matches.sort((m1, m2) => m1[0] > m2[0] ? -1 : 1).map(([, entityMatch]) => entityMatch);
 }

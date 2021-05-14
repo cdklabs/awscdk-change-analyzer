@@ -46,7 +46,7 @@ export class Transition<T extends JSONSerializable | Serialized, V extends Trans
     }
 
     private static isModelEntityTransition(versions: TransitionVersions<any>): versions is TransitionVersions<ModelEntity> {
-        return versions.v1 instanceof ModelEntity && versions.v2 instanceof ModelEntity;
+        return versions.v1 instanceof ModelEntity || versions.v2 instanceof ModelEntity;
     }
 
     public explode() {

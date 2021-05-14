@@ -1,4 +1,4 @@
-import { InfraModel } from "change-cd-iac-models/infra-model";
+import { InfraModel, StructuralRelationship } from "change-cd-iac-models/infra-model";
 import { ChangeAnalysisReport } from "change-cd-iac-models/change-analysis-report";
 import { extractComponentOperationsAggs, extractComponentOperationsAggsPerComponent } from "../aggregations";
 import { DiffCreator, propagateChanges } from "../model-diffing";

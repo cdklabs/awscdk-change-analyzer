@@ -31,13 +31,14 @@ export const dcEntityOperation: AggDescriptionCreator = ({
         [CompOpAggCharacteristics.PROPERTY_PATH_BEFORE]: pathV1,
         [CompOpAggCharacteristics.PROPERTY_PATH_AFTER]: pathV2,
     }: Record<string, AggCharacteristicValue>) => {
-    if(!entityOp && !entity) return {};
 
     if(pathV1 || pathV2) {
         return {
-            descriptions: dcV1vsV2(`${entityOp} property`, pathV1, pathV2),
+            descriptions: dcV1vsV2(entityOp ? `${entityOp} property` : 'Path', pathV1, pathV2),
             describedCharacteristics: [CompOpAggCharacteristics.AFFECTED_ENTITY, CompOpAggCharacteristics.ENTITY_OPERATION_TYPE, CompOpAggCharacteristics.PROPERTY_PATH_BEFORE, CompOpAggCharacteristics.PROPERTY_PATH_AFTER, CompOpAggCharacteristics.OPERATION_TYPE],
         };
+    } else if(!entityOp && !entity){
+        return {};
     } else if(entityOp && entity){
         return {
             descriptions: [`${entity} ${entityOp}`],

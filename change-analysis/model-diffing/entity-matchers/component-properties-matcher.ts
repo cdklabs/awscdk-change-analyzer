@@ -1,6 +1,7 @@
 import { Component, ComponentPropertyValue, PropertyPath } from "change-cd-iac-models/infra-model";
 import { PropertyDiff, PropertyDiffCreator } from "../property-diff";
 import { CompleteTransition, Transition } from "change-cd-iac-models/model-diffing/transition";
+import { arraysEqual } from "change-cd-iac-models/utils";
 
 /**
  * ComponentPropertyValue similarity evaluator for use with matchEntities.

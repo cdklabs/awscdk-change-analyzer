@@ -12,7 +12,7 @@ export interface VisualHierarchyNode {
 export function buildVisualHierarchy(infraModelDiff: InfraModelDiff): VisualHierarchyNode[] {
     return infraModelDiff.componentTransitions
         .filter(t =>
-            ![...t.v2?.incoming ?? []].some(r => r instanceof StructuralRelationship)
+            (t.v2 && ![...t.v2?.incoming].some(r => r instanceof StructuralRelationship))
             || (!t.v2 && ![...t.v1?.incoming ?? []].some(r => r instanceof StructuralRelationship)))
         .map(t => buildVisualHierarchyForComponentTransition(t, infraModelDiff))
         .sort((r1, r2) => (r1.changes.length < r2.changes.length) ? 1 : -1);

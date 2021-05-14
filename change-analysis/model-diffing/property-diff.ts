@@ -7,7 +7,7 @@ import {
     ComponentPropertyRecord,
     EmptyComponentProperty,
 } from "change-cd-iac-models/infra-model";
-import { arrayIntersection, isDefined, stringSimilarity } from 'change-cd-iac-models/utils';
+import { arrayIntersection, arraysEqual, isDefined, stringSimilarity } from 'change-cd-iac-models/utils';
 import { propertySimilarityEvaluatorCreator } from "./entity-matchers/component-properties-matcher";
 import { matchEntities } from "./entity-matchers/entities-matcher";
 import {
@@ -28,7 +28,7 @@ export interface PropertyDiff {
     readonly operation?: PropertyComponentOperation,
 }
 
-const propertySimilarityThreshold = 0.6;
+const propertySimilarityThreshold = 0.5;
 
 /**
  * Creates the PropertyDiff between two properties of a given Transition<Component>.
@@ -123,7 +123,7 @@ export class PropertyDiffCreator {
         pathP2: Array<string | number>,
     ) => {
         const [p1Array, p2Array] = [p1,p2].map(p => p.getArray());
-        
+
         const matcherResults = matchEntities(
             p1Array.map((_,i) => i),
             p2Array.map((_,i) => i),
