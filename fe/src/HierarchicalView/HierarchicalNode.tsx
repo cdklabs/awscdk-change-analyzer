@@ -8,6 +8,7 @@ import { AppContext } from '../App';
 import { Transition } from 'change-cd-iac-models/model-diffing';
 import { Component } from 'change-cd-iac-models/infra-model';
 import ApproveChangeBtn from '../reusable-components/ApproveChangeBtn';
+import { mostRecentInTransition } from '../selectors/component-transition-helpers';
 
 interface Props {
     node: VisualHierarchyNode,

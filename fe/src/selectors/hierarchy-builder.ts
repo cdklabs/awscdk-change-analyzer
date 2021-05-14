@@ -1,4 +1,4 @@
-import { ComponentOperation, InfraModelDiff, Transition } from "change-cd-iac-models/model-diffing";
+import { ComponentOperation, InfraModelDiff, PropertyComponentOperation, Transition, UpdatePropertyComponentOperation } from "change-cd-iac-models/model-diffing";
 
 import { Component, Relationship, StructuralRelationship } from "change-cd-iac-models/infra-model";
 import { isDefined } from "change-cd-iac-models/utils";
@@ -33,7 +33,7 @@ function buildVisualHierarchyForComponentTransition(
         .filter(isDefined)
         .sort((r1, r2) => (r1.changes.length < r2.changes.length) ? 1 : -1);
     
-    const changes = innerNodes.reduce((acc, t) => [...acc, ...t.changes], modelDiff.getTransitionOperations(compTransition));
+    const changes = innerNodes.reduce((acc, t) => [...acc, ...t.changes], modelDiff.getTransitionOperations(compTransition).flatMap(op => op instanceof UpdatePropertyComponentOperation ? op.getLeaves() : op));
     return {
         changes,
         compTransition,
