@@ -7,6 +7,8 @@ import { CFParserArgs } from './cf-parser-args';
 import { specification } from '@aws-cdk/cfnspec/lib';
 import { schema } from '@aws-cdk/cfnspec/lib';
 import { isListProperty, isRecordType } from '@aws-cdk/cfnspec/lib/schema';
+import { CFRef } from './cf-ref';
+import { isDefined } from 'fifinet/util';
 
 const cfSpec = specification();
 
@@ -27,6 +29,7 @@ export class CFResource extends CFEntity {
 
     constructor(name: string, definition: Record<string, any>, args: CFParserArgs){
         super(name, definition, args);
+        this.dependencyRefs.push(...definition.DependsOn?.map((lId: string) => typeof lId === 'string' ? new CFRef(['DependsOn'], lId) : undefined).filter(isDefined) ?? []);
     }
 
     protected generateComponent(name: string, definition:Record<string, any>): Component {

@@ -26,7 +26,7 @@ const propertyChangeResolverCreator = (propertyToOperationMap: Map<ComponentProp
     const highlights = indirectUpdates.length ? {[DiffHighlightType.Update]: indirectUpdates} : {};
 
     if(op instanceof UpdatePropertyComponentOperation){
-        if(op.propertyTransition.v1 && op.propertyTransition.v2 && op.propertyTransition.v1 !== op.propertyTransition.v2){
+        if(op.propertyTransition.v1 && op.propertyTransition.v2 && op.propertyTransition.v1.value !== op.propertyTransition.v2.value){
             return {structures: [
                 {content: op.propertyTransition.v1, highlights: {[DiffHighlightType.Remove]: [op]}},
                 {content: obj, highlights: {...highlights, [DiffHighlightType.Insert]: [op]}}

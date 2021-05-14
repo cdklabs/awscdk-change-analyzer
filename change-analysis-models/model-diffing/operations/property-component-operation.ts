@@ -168,6 +168,12 @@ export class UpdatePropertyComponentOperation extends PropertyComponentOperation
 
 export class MovePropertyComponentOperation extends UpdatePropertyComponentOperation {
 
+    constructor(
+        nodeData: OpNodeData,
+        outgoingReferences: UpdatePropOpOutgoingNodeReferences,
+        operationType: OperationType = OperationType.RENAME
+    ){super(nodeData, outgoingReferences, operationType);}
+
     public getSerializationClass(): string {
         return SerializationClasses.MOVE_PROPERTY_COMPONENT_OPERATION;
     }

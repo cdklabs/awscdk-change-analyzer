@@ -4,7 +4,7 @@ import { arraysEqual, isDefined } from "change-cd-iac-models/utils";
 export enum DiffHighlightType {
     Insert = 'Insert',
     Remove = 'Remove',
-    Update = 'Update',
+    Update = 'Update / Move',
 };
 
 export type Highlights<T> = {
