@@ -7,6 +7,7 @@ interface Props<T> {
     flashObj?: T,
     flashRef?: (n: any) => void,
     onClick?: (path: (string | number)[]) => void
+    isClickable?: (path: (string | number)[]) => boolean
 }
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -35,7 +36,14 @@ const flashStyle = {
     transition: 'background-color 2s ease-in-out, box-shadow 2s ease-in-out'
 };
 
-function DiffSection<T>({stringifierOutput, flashObj, flashRef, onClick}: Props<T>) {
+const clickableStyle = {
+    color: '#0066CC',
+    cursor: 'pointer',
+    textDecoration: 'underline',
+    textDecorationSkip: 'spaces', 
+}
+
+function DiffSection<T>({stringifierOutput, flashObj, flashRef, onClick, isClickable}: Props<T>) {
     const classes = useStyles();
 
     return <>{stringifierOutput.map((chunk, i) => {
@@ -46,15 +54,19 @@ function DiffSection<T>({stringifierOutput, flashObj, flashRef, onClick}: Props<
                 className={classes.pre}
                 ref={hasFlashObj ? flashRef : undefined}
                 style={{...hasFlashObj ? flashStyle : {}}}>
-                    {<DiffSection stringifierOutput={chunk} flashObj={flashObj} flashRef={flashRef} onClick={onClick} />}
+                    {<DiffSection stringifierOutput={chunk} flashObj={flashObj} flashRef={flashRef} onClick={onClick} isClickable={isClickable} />}
             </div>
         } else {
             const {str, highlights} = chunk;
             return Object.entries(highlights).length
                 ? <Tooltip key={i} title={makeHighlightDescriptions(highlights)} placement="top" arrow TransitionComponent={Fade}>
                         <span
-                        onClick={() => onClick && onClick(chunk.path)}
-                            style={Object.assign({}, ...(Object.keys(highlights) as DiffHighlightType[]).map(h => diffTypeToStyle[h]))}>
+                            onClick={() => onClick && onClick(chunk.path)}
+                            style={Object.assign(
+                                    {},
+                                    ...(Object.keys(highlights) as DiffHighlightType[]).map(h => diffTypeToStyle[h]),
+                                    (isClickable && isClickable(chunk.path)) ? clickableStyle : {}
+                                    )}>
                                 {str}
                         </span>
                 </Tooltip> 
