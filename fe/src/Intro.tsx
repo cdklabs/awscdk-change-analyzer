@@ -4,7 +4,7 @@ import { Steps } from 'intro.js-react';
 export const Intro = () => {
     const steps = [
         {
-            intro: 'Welcome to the Change Analysis Tool. Here\'s a quick UI introduction',
+            intro: 'Welcome to the CDK Change Analysis Tool. Here\'s a quick UI introduction',
         },
         {
           element: '#all-changes-tab',
@@ -28,7 +28,7 @@ export const Intro = () => {
           intro: 'Finally, in the Hierarchical tab you can also navigate the CDK constructs and view their children and changes',
         },
         {
-          intro: 'You can get to reviewing now, good luck!',
+            intro: 'You can now close this modal and get to reviewing. Good luck!',
         },
       ];
 

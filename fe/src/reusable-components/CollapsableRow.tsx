@@ -1,5 +1,5 @@
 import React, { Ref, useEffect, useRef, useState } from 'react';
-import { Accordion as MuiAccordion, AccordionDetails, AccordionSummary, Box, Theme, Typography } from "@material-ui/core";
+import { Accordion as MuiAccordion, AccordionDetails, AccordionSummary, Box, Hidden, Theme, Typography } from "@material-ui/core";
 import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -95,6 +95,7 @@ interface Props {
     stretchOnExpand?: boolean,
     stickySummary?: boolean,
     rightIcon?: React.ReactNode,
+    disableAnimation?: boolean
 }
 
 const CollapsableRow = React.forwardRef((props: Props, ref?: Ref<HTMLDivElement>) => {
@@ -110,7 +111,7 @@ const CollapsableRow = React.forwardRef((props: Props, ref?: Ref<HTMLDivElement>
 
     return (
         <div ref={ref} className={classes.wrapper}>
-            <Accordion className={classes.root} onChange={onChange} expanded={content ? expanded : false} TransitionProps={{ unmountOnExit: true }}>
+            <Accordion className={classes.root} onChange={onChange} expanded={content ? expanded : false} TransitionProps={{ unmountOnExit: true, ...props.disableAnimation ? {timeout: 0} : {} }}>
                 <AccordionSummary className={classes.head} expandIcon={content ? <ExpandMoreIcon /> : <React.Fragment/>}>
                     <Typography className={classes.headIcon}>{icon}</Typography>
                     <div className={classes.headText}>
