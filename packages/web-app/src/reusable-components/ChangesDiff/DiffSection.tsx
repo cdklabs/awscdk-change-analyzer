@@ -10,7 +10,7 @@ interface Props<T> {
 }
 
 import { makeStyles } from '@material-ui/core/styles';
-import { isDefined } from 'change-cd-iac-models/utils';
+import { isDefined } from 'change-analysis-models/utils';
 
 const useStyles = makeStyles({
   pre: {

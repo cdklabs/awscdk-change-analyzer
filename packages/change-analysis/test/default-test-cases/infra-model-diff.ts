@@ -2,7 +2,7 @@ import {
     UpdatePropertyComponentOperation,
     InfraModelDiff,
     Transition,
-} from "change-cd-iac-models/model-diffing";
+} from "change-analysis-models";
 import {
     Component,
     ComponentPropertyPrimitive,
@@ -10,7 +10,7 @@ import {
     ComponentUpdateType,
     DependencyRelationship,
     InfraModel
-} from "change-cd-iac-models/infra-model";
+} from "change-analysis-models";
 
 export function diffTestCase1(): InfraModelDiff {
     const component1v1 = new Component('component1', 'resource', {

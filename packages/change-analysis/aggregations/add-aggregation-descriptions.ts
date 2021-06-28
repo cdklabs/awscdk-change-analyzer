@@ -1,4 +1,4 @@
-import { AggCharacteristicValue, Aggregation, getAllCharacteristics } from "change-cd-iac-models/aggregations";
+import { AggCharacteristicValue, Aggregation, getAllCharacteristics } from "change-analysis-models";
 
 export type AggDescriptionCreator = 
     (characteristics: Record<string, AggCharacteristicValue>) => {

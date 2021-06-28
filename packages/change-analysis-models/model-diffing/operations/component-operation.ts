@@ -1,4 +1,3 @@
-import { Serializable } from "node:child_process";
 import { JSONSerializable } from "../../export/json-serializable";
 import { SerializationClasses } from "../../export/serialization-classes";
 import { SerializedComponentOperation, SerializedOutgoingRelationshipComponentOperation } from "../../export/serialized-interfaces/infra-model-diff/serialized-component-operation";
@@ -49,7 +48,7 @@ export abstract class ComponentOperation<ND extends OpNodeData = any, OR extends
     public get cause(): ComponentOperation | undefined { return this.outgoingNodeReferences.cause; }
     public get componentTransition(): Transition<Component> { return this.outgoingNodeReferences.componentTransition; }
     public get certainty(): OperationCertainty { return this.nodeData.certainty ?? OperationCertainty.ABSOLUTE; }
-    public get operationType(): OperationType { return this.nodeData.type }
+    public get operationType(): OperationType { return this.nodeData.type; }
 
     constructor(
         nodeData: ND,

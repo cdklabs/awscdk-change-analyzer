@@ -1,7 +1,7 @@
-import { Component } from "change-cd-iac-models/infra-model";
+import { Component } from "change-analysis-models";
 import { PropertyDiffCreator } from "../property-diff";
-import { PropertyComponentOperation } from "change-cd-iac-models/model-diffing/operations";
-import { CompleteTransition } from "change-cd-iac-models/model-diffing/transition";
+import { PropertyComponentOperation } from "change-analysis-models";
+import { CompleteTransition } from "change-analysis-models";
 
 /**
  * Component similarity evaluator for use with matchEntities.

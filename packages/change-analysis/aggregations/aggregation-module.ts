@@ -1,5 +1,5 @@
-import { groupArrayBy } from "change-cd-iac-models/utils";
-import { Aggregation } from "change-cd-iac-models/aggregations";
+import { groupArrayBy } from "change-analysis-models";
+import { Aggregation } from "change-analysis-models";
 
 /**
  * Defines an Aggregation

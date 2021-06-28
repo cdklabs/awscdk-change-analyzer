@@ -1,7 +1,7 @@
-import { Component, ComponentPropertyValue, PropertyPath } from "change-cd-iac-models/infra-model";
+import { Component, ComponentPropertyValue, PropertyPath } from "change-analysis-models";
 import { PropertyDiff, PropertyDiffCreator } from "../property-diff";
-import { CompleteTransition, Transition } from "change-cd-iac-models/model-diffing/transition";
-import { arraysEqual } from "change-cd-iac-models/utils";
+import { CompleteTransition, Transition } from "change-analysis-models";
+import { arraysEqual } from "change-analysis-models";
 
 /**
  * ComponentPropertyValue similarity evaluator for use with matchEntities.

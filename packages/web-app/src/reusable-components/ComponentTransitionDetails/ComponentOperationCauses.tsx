@@ -1,5 +1,5 @@
 import { List, ListItem, Typography } from "@material-ui/core";
-import { ComponentOperation } from "change-cd-iac-models/model-diffing";
+import { ComponentOperation } from "change-analysis-models/model-diffing";
 import React from "react";
 import { useContext } from "react";
 import { AppContext } from "../../App";

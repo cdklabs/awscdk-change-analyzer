@@ -24,7 +24,7 @@ export class ChangeAnalysisReport implements JSONSerializable {
             aggregations: this.aggregations.map(agg => this.serializeAgg(agg, serialize, serializeCustom)),
             aggregationsPerComponent: Object.fromEntries(
                 [...this.aggregationsPerComponent].map(([compTransition, aggArr]) => {
-                    return [serialize(compTransition), aggArr.map(agg => this.serializeAgg(agg, serialize, serializeCustom))]
+                    return [serialize(compTransition), aggArr.map(agg => this.serializeAgg(agg, serialize, serializeCustom))];
                 })
             ),
             rulesOutput: Object.fromEntries(
@@ -40,7 +40,7 @@ export class ChangeAnalysisReport implements JSONSerializable {
             agg,
             SerializationClasses.AGGREGATION,
             aggregationSerializer(agg, serialize, serializeCustom)
-        )
+        );
     }
 
     getSerializationClass(): string {

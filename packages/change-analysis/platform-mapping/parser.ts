@@ -1,4 +1,4 @@
-import { InfraModel } from "change-cd-iac-models/infra-model/infra-model";
+import { InfraModel } from "change-analysis-models";
 
 export interface Parser {
     parse(args: Record<any, any>):InfraModel

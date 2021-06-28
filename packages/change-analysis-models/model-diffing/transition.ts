@@ -1,4 +1,4 @@
-import { isDefined } from "fifinet/util";
+import { isDefined } from "fifinet";
 import { isJSONSerializable, JSONSerializable, Serialized, SerializedRecord } from "../export/json-serializable";
 import { SerializationID } from "../export/json-serializer";
 import { SerializationClasses } from "../export/serialization-classes";

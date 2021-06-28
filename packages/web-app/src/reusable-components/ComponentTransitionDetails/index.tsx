@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
-import { ComponentOperation, PropertyComponentOperation, Transition } from 'change-cd-iac-models/model-diffing';
-import { Component } from 'change-cd-iac-models/infra-model';
+import { ComponentOperation, PropertyComponentOperation, Transition } from 'change-analysis-models/model-diffing';
+import { Component } from 'change-analysis-models/infra-model';
 import ComponentPropertyDiff from '../ComponentPropertyDiff';
 import { makeStyles, Paper, Tab, Tabs, Tooltip, Typography } from '@material-ui/core';
 import { Theme } from '@material-ui/core';
@@ -11,7 +11,7 @@ import {
     DeviceHub as DeviceHubIcon,
     ChangeHistory as ChangeHistoryIcon,
 } from '@material-ui/icons';
-import { isDefined } from 'change-cd-iac-models/utils';
+import { isDefined } from 'change-analysis-models/utils';
 import { CompTransitionDependencyRelationships } from './ComponentTransitionDependencyRelationships';
 import { ComponentOperationCauses } from './ComponentOperationCauses';
 import { ComponentTransitionChanges } from './ComponentTransitionChanges';

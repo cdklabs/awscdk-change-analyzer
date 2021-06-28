@@ -1,6 +1,6 @@
 import { Box, IconButton, Tooltip } from "@material-ui/core";
-import { Aggregation } from "change-cd-iac-models/aggregations"
-import { ComponentOperation } from "change-cd-iac-models/model-diffing"
+import { Aggregation } from "change-analysis-models/aggregations"
+import { ComponentOperation } from "change-analysis-models/model-diffing"
 import React, { useContext, useEffect, useRef, useState } from "react";
 import CollapsableRow from "./CollapsableRow"
 

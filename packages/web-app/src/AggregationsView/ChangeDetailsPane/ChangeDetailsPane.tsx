@@ -1,9 +1,9 @@
 import React from 'react';
-import { ComponentOperation } from 'change-cd-iac-models/model-diffing';
-import { CompOpAggCharacteristics } from 'change-cd-iac-models/aggregations';
+import { ComponentOperation } from 'change-analysis-models/model-diffing';
+import { CompOpAggCharacteristics } from 'change-analysis-models/aggregations';
 import { Box, IconButton, makeStyles, Theme, Tooltip, Typography } from '@material-ui/core';
 import { Launch as LaunchIcon } from '@material-ui/icons';
-import { Aggregation, getAllDescriptions, getAllCharacteristics } from 'change-cd-iac-models/aggregations';
+import { Aggregation, getAllDescriptions, getAllCharacteristics } from 'change-analysis-models/aggregations';
 import CollapsableRow from '../../reusable-components/CollapsableRow';
 import { useIdAssignerHook } from '../../utils/idCreator';
 import { AppContext } from '../../App';

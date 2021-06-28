@@ -1,4 +1,4 @@
-import { InfraModel, Component, StructuralRelationship } from 'change-cd-iac-models/infra-model';
+import { InfraModel, Component, StructuralRelationship } from 'change-analysis-models';
 import { Parser } from '../parser';
 import { CFEntity } from './cf-entity';
 import { CFParameter } from './cf-parameter';

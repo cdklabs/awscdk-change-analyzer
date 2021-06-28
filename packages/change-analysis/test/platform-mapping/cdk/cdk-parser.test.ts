@@ -1,4 +1,4 @@
-import { DependencyRelationship, StructuralRelationship } from 'change-cd-iac-models/infra-model';
+import { DependencyRelationship, StructuralRelationship } from 'change-analysis-models';
 import { CDKParser } from '../../../platform-mapping';
 import { ParserUtilsCreator } from '../../utils';
 

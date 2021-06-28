@@ -1,5 +1,5 @@
-import { ComponentPropertyValue } from "change-cd-iac-models/infra-model";
-import { arraysEqual, isDefined } from "change-cd-iac-models/utils";
+import { ComponentPropertyValue } from "change-analysis-models/infra-model";
+import { arraysEqual, isDefined } from "change-analysis-models/utils";
 
 export enum DiffHighlightType {
     Insert = 'Insert',

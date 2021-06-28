@@ -6,8 +6,8 @@ import {
     ComponentPropertyPrimitive,
     ComponentPropertyRecord,
     EmptyComponentProperty,
-} from "change-cd-iac-models/infra-model";
-import { arrayIntersection, arraysEqual, isDefined, stringSimilarity } from 'change-cd-iac-models/utils';
+} from "change-analysis-models";
+import { arrayIntersection, arraysEqual, isDefined, stringSimilarity } from 'change-analysis-models';
 import { propertySimilarityEvaluatorCreator } from "./entity-matchers/component-properties-matcher";
 import { matchEntities } from "./entity-matchers/entities-matcher";
 import {
@@ -17,7 +17,7 @@ import {
     RemovePropertyComponentOperation,
     UpdatePropertyComponentOperation,
     MovePropertyComponentOperation
-} from "change-cd-iac-models/model-diffing";
+} from "change-analysis-models";
 
 /**
  * Describes how two ComponentProperties differ

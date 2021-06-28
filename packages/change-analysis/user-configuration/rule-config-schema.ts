@@ -1,4 +1,4 @@
-import { RuleEffect } from "change-cd-iac-models/rules";
+import { RuleEffect } from "change-analysis-models";
 import { Scalar } from "./rule";
 
 

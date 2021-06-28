@@ -1,4 +1,4 @@
-import { Component, ComponentPropertyPrimitive, InfraModel } from "change-cd-iac-models/infra-model";
+import { Component, ComponentPropertyPrimitive, InfraModel } from "change-analysis-models";
 import { CFEntity } from "./cf-entity";
 
 export class CFParameter extends CFEntity {

@@ -6,8 +6,8 @@ import {
     RemoveComponentOperation,
     RenameComponentOperation,
     UpdatePropertyComponentOperation,
-} from "change-cd-iac-models//model-diffing";
-import { Transition } from "change-cd-iac-models/model-diffing/transition";
+} from "change-analysis-modelsiffing";
+import { Transition } from "change-analysis-models";
 
 test('Update Component Property', () => {
     const oldModel = new CFParser({

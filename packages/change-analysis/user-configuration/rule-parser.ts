@@ -1,5 +1,5 @@
-import { isDefined } from "change-cd-iac-models/utils";
-import { ModelEntityTypes } from "change-cd-iac-models/infra-model";
+import { isDefined } from "change-analysis-models";
+import { ModelEntityTypes } from "change-analysis-models";
 import { ConditionInput, RuleCondition, RuleConditionOperator, RuleConditions, Selector, SelectorFilter, UserRule, RuleScopeReference, RuleEffectDefinition } from "./rule";
 import { CBindings, CSelector, CUserRule, isPathCSelector, ComponentCFilter, CRuleConditions, isComponentCFilter, GeneralCSelector, CRuleEffectDefinition } from "./rule-config-schema";
 

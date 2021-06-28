@@ -1,4 +1,4 @@
-import { Component, InfraModel, Relationship } from "change-cd-iac-models/infra-model";
+import { Component, InfraModel, Relationship } from "change-analysis-models";
 import {
     EntitiesMatcherResults,
     matchEntities,
@@ -13,9 +13,9 @@ import {
     Transition,
     InfraModelDiff,
     TransitionVersions
-} from "change-cd-iac-models/model-diffing";
-import { groupArrayBy } from "change-cd-iac-models/utils/arrayUtils";
-import { isDefined } from "change-cd-iac-models/utils";
+} from "change-analysis-models";
+import { groupArrayBy } from "change-analysis-models";
+import { isDefined } from "change-analysis-models";
 import {
     componentSimilarityEvaluator,
     sameNameComponentSimilarityEvaluator

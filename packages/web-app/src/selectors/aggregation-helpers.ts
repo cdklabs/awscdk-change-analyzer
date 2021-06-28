@@ -1,5 +1,5 @@
-import { Aggregation } from "change-cd-iac-models/aggregations";
-import { ComponentOperation } from "change-cd-iac-models/model-diffing";
+import { Aggregation } from "change-analysis-models/aggregations";
+import { ComponentOperation } from "change-analysis-models/model-diffing";
 
 export function findAggregationWithChange(
     op: ComponentOperation, aggs: Aggregation<ComponentOperation>[]

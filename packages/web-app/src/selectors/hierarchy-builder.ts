@@ -1,7 +1,7 @@
-import { ComponentOperation, InfraModelDiff, PropertyComponentOperation, Transition, UpdatePropertyComponentOperation } from "change-cd-iac-models/model-diffing";
+import { ComponentOperation, InfraModelDiff, PropertyComponentOperation, Transition, UpdatePropertyComponentOperation } from "change-analysis-models/model-diffing";
 
-import { Component, Relationship, StructuralRelationship } from "change-cd-iac-models/infra-model";
-import { isDefined } from "change-cd-iac-models/utils";
+import { Component, Relationship, StructuralRelationship } from "change-analysis-models/infra-model";
+import { isDefined } from "change-analysis-models/utils";
 
 export interface VisualHierarchyNode {
     changes: ComponentOperation[],

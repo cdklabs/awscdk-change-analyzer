@@ -1,7 +1,7 @@
 import {
     ComponentOperation,
     Transition,
-} from "change-cd-iac-models/model-diffing";
+} from "change-analysis-models";
 import {
     extractComponentOperationsAggs,
 } from "../../aggregations";
@@ -11,7 +11,7 @@ import {
     DiffCreator,
 } from "../../model-diffing";
 import { diffTestCase1 } from "../default-test-cases/infra-model-diff";
-import { Aggregation } from "change-cd-iac-models/aggregations";
+import { Aggregation } from "change-analysis-models";
 
 const dir = `test/change-aggregations`;
 

@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, IconButton, Tooltip, Typography } from "@material-ui/core";
-import { ComponentOperation } from "change-cd-iac-models/model-diffing"
+import { ComponentOperation } from "change-analysis-models/model-diffing"
 import React from "react";
 import CollapsableRow from "./CollapsableRow"
 

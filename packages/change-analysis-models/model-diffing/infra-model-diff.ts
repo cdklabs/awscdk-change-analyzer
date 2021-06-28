@@ -13,15 +13,15 @@ type OutgoingNodeReferences = {
     readonly componentTransitions: Transition<Component>[],
     readonly infraModelTransition: Transition<InfraModel>,
 }
-
+// eslint-disable-next-line @typescript-eslint/ban-types
 export class InfraModelDiff extends ModelEntity<{}, OutgoingNodeReferences> implements JSONSerializable {
 
     private readonly componentToTransitionMap: Map<Component, Transition<Component>>;
     private readonly componentTransitionToOperationsMap: Map<Transition<Component>, ComponentOperation[]>;
 
-    public get componentOperations() { return this.outgoingNodeReferences.componentOperations; };
-    public get componentTransitions() { return this.outgoingNodeReferences.componentTransitions; };
-    public get infraModelTransition() { return this.outgoingNodeReferences.infraModelTransition; };
+    public get componentOperations() { return this.outgoingNodeReferences.componentOperations; }
+    public get componentTransitions() { return this.outgoingNodeReferences.componentTransitions; }
+    public get infraModelTransition() { return this.outgoingNodeReferences.infraModelTransition; }
 
     constructor(
         componentOperations: ComponentOperation[],

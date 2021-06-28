@@ -1,6 +1,6 @@
-import { isDefined } from "change-cd-iac-models/utils";
-import { CompleteTransition, Transition } from "change-cd-iac-models/model-diffing/transition";
-import { JSONSerializable, Serialized } from "change-cd-iac-models/export/json-serializable";
+import { isDefined } from "change-analysis-models";
+import { CompleteTransition, Transition } from "change-analysis-models";
+import { JSONSerializable, Serialized } from "change-analysis-models";
 
 type ValidEntity = JSONSerializable | Serialized;
 

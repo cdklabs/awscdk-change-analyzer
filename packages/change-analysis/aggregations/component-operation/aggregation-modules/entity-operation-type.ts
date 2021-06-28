@@ -1,8 +1,8 @@
-import { CompOpAggCharacteristics } from "change-cd-iac-models/aggregations";
-import { capitalizeString } from "change-cd-iac-models/utils";
+import { CompOpAggCharacteristics } from "change-analysis-models";
+import { capitalizeString } from "change-analysis-models";
 import {
     ComponentOperation, PropertyComponentOperation,
-} from "change-cd-iac-models/model-diffing";
+} from "change-analysis-models";
 import { EqualityAggModule } from "../../aggregation-module";
 
 export const entityOperationTypeAggModule = new EqualityAggModule(

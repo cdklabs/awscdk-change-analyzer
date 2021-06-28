@@ -1,6 +1,6 @@
-import { JSONSerializable, Serialized } from "change-cd-iac-models/export/json-serializable";
-import { Component, InfraModel, StructuralRelationship } from "change-cd-iac-models/infra-model";
-import { Transition } from "change-cd-iac-models/model-diffing";
+import { JSONSerializable, Serialized } from "change-analysis-models/export/json-serializable";
+import { Component, InfraModel, StructuralRelationship } from "change-analysis-models/infra-model";
+import { Transition } from "change-analysis-models/model-diffing";
 
 export function mostRecentInTransition<T extends JSONSerializable | Serialized>(t: Transition<T>): T{
     const mostRecent = t.v2 ?? t.v1;

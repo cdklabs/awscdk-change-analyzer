@@ -1,9 +1,9 @@
-import { CompOpAggCharacteristics } from "change-cd-iac-models/aggregations";
+import { CompOpAggCharacteristics } from "change-analysis-models";
 import {
     ComponentOperation,
     PropertyComponentOperation,
-} from "change-cd-iac-models/model-diffing";
-import { arraysEqual } from "change-cd-iac-models/utils";
+} from "change-analysis-models";
+import { arraysEqual } from "change-analysis-models";
 import { EqualityAggModule } from "../../aggregation-module";
 import { stringifyPath } from "./utils";
 

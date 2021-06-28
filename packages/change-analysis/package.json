@@ -1,12 +1,14 @@
 {
-  "name": "changes-cd-iac",
-  "version": "1.0.0",
+  "name": "change-analysis",
+  "version": "0.0.0",
   "description": "Proof-of-concept for dissertation \"Change Interpretation Techniques for Continuous Deployment in IaC\"",
-  "main": "index.js",
+  "main": "out/index.js",
   "scripts": {
-    "start": "npm run lint && npm run compile && node out/index.js",
+    "start": "node out/index.js",
+    "build": "npm run lint && npm run compile",
     "compile": "tsc",
     "lint": "eslint . --ext .ts",
+    "postinstall": "npm --prefix node_modules/fifinet run build && mv node_modules/fifinet/dist/* node_modules/fifinet",
     "test": "jest"
   },
   "repository": {
@@ -23,8 +25,8 @@
     "@aws-cdk/cfnspec": "^1.90.0",
     "@types/graphviz": "0.0.32",
     "@types/string-similarity": "^4.0.0",
-    "change-cd-iac-models": "file:../change-analysis-models/out",
-    "fifinet": "file:../change-analysis-models/node_modules/fifinet",
+    "change-analysis-models": "0.0.0",
+    "fifinet": "github:rix0rrr/fifinet",
     "graphviz": "0.0.9"
   },
   "devDependencies": {

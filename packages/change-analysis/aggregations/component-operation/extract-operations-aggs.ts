@@ -1,12 +1,12 @@
-import { ComponentOperation, InfraModelDiff, Transition, UpdatePropertyComponentOperation } from "change-cd-iac-models/model-diffing";
+import { ComponentOperation, InfraModelDiff, Transition, UpdatePropertyComponentOperation } from "change-analysis-models";
 import { ModuleTreeAggsExtractor } from "../aggregations-extractor";
-import { Aggregation } from "change-cd-iac-models/aggregations";
+import { Aggregation } from "change-analysis-models";
 import { componentOperationSpecificAggModuleTree, compOperationWithRulesAggModuleTree } from "./moduleTree";
 import { addAggDescriptions } from "../add-aggregation-descriptions";
 import * as descriptionCreators from "./description-creators";
-import { groupArrayBy } from "change-cd-iac-models/utils";
-import { Component } from "change-cd-iac-models/infra-model";
-import { RuleEffect } from "change-cd-iac-models/rules";
+import { groupArrayBy } from "change-analysis-models";
+import { Component } from "change-analysis-models";
+import { RuleEffect } from "change-analysis-models";
 
 export const extractComponentOperationsAggs = (diff: InfraModelDiff, rules: Map<ComponentOperation, RuleEffect>): Aggregation<ComponentOperation>[] => {
 

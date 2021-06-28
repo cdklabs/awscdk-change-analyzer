@@ -1,7 +1,7 @@
 import {
     ReplaceComponentOperation,
     UpdatePropertyComponentOperation,
-} from "change-cd-iac-models/model-diffing";
+} from "change-analysis-models";
 import { propagateChanges } from '../../model-diffing/';
 import { diffTestCase1 } from "../default-test-cases/infra-model-diff";
 

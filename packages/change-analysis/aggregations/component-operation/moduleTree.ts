@@ -1,6 +1,6 @@
-import { CompOpAggCharacteristics } from "change-cd-iac-models/aggregations";
-import { ComponentOperation } from "change-cd-iac-models/model-diffing";
-import { RuleEffect } from "change-cd-iac-models/rules";
+import { CompOpAggCharacteristics } from "change-analysis-models";
+import { ComponentOperation } from "change-analysis-models";
+import { RuleEffect } from "change-analysis-models";
 import { AggModuleTreeNode } from "../aggregation-module-tree-node";
 import {
     componentTypeAggModule,

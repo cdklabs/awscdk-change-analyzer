@@ -1,6 +1,6 @@
-import { ChangeAnalysisReport } from "change-cd-iac-models/change-analysis-report";
-import { Component } from "change-cd-iac-models/infra-model";
-import { ComponentOperation, InsertComponentOperation, RemoveComponentOperation, RenameComponentOperation, Transition } from "change-cd-iac-models/model-diffing";
+import { ChangeAnalysisReport } from "change-analysis-models/change-analysis-report";
+import { Component } from "change-analysis-models/infra-model";
+import { ComponentOperation, InsertComponentOperation, RemoveComponentOperation, RenameComponentOperation, Transition } from "change-analysis-models/model-diffing";
 
 export function getComponentOperationsDescription(compTransition: Transition<Component>, changeReport: ChangeAnalysisReport) {
     const ops = changeReport.infraModelDiff.getTransitionOperations(compTransition);

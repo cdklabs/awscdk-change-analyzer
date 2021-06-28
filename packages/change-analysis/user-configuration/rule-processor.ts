@@ -1,9 +1,9 @@
-import { Serialized } from "change-cd-iac-models/export/json-serializable";
-import { ModelEntity } from "change-cd-iac-models/infra-model/model-entity";
-import { isDefined } from "change-cd-iac-models/utils";
+import { Serialized } from "change-analysis-models";
+import { ModelEntity } from "change-analysis-models";
+import { isDefined } from "change-analysis-models";
 import * as fn from 'fifinet';
 import { UserRule, Bindings, RuleEffectDefinition, Selector, selectorIsReference, RuleConditions, RuleConditionOperator, isInputScalar } from "./rule";
-import { RuleEffect } from 'change-cd-iac-models/rules';
+import { RuleEffect } from 'change-analysis-models';
 import { appliesToHandler } from './operator-handlers';
 import { equalsHandler } from "./operator-handlers/equals";
 

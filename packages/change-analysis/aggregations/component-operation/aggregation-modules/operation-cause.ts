@@ -1,5 +1,5 @@
-import { CompOpAggCharacteristics } from "change-cd-iac-models/aggregations";
-import { ComponentOperation } from "change-cd-iac-models/model-diffing";
+import { CompOpAggCharacteristics } from "change-analysis-models";
+import { ComponentOperation } from "change-analysis-models";
 import { EqualityAggModule } from "../../aggregation-module";
 import { componentSubtypeAggModule } from "./component-subtype";
 import { componentTypeAggModule } from "./component-type";

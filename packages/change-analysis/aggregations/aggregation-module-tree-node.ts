@@ -1,4 +1,4 @@
-import { CompOpAggCharacteristics, AggCharacteristicValue } from "change-cd-iac-models/aggregations";
+import { CompOpAggCharacteristics, AggCharacteristicValue } from "change-analysis-models";
 import { AggModule } from "./aggregation-module";
 
 type CharacteristicRequirements = { [c in CompOpAggCharacteristics]?: AggCharacteristicValue };

@@ -30,4 +30,4 @@ export const capitalizeString = (s: string) => {
     if(lowerCase.length)
         return `${lowerCase.charAt(0).toUpperCase()}${lowerCase.slice(1)}`;
     return lowerCase;
-} 
+}; 

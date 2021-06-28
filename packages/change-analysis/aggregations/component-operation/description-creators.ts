@@ -1,5 +1,5 @@
-import { CompOpAggCharacteristics, AggCharacteristicValue } from "change-cd-iac-models/aggregations";
-import { isDefined } from "change-cd-iac-models/utils";
+import { CompOpAggCharacteristics, AggCharacteristicValue } from "change-analysis-models";
+import { isDefined } from "change-analysis-models";
 import { AggDescriptionCreator } from "../add-aggregation-descriptions";
 
 /**

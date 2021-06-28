@@ -1,10 +1,10 @@
 import React from 'react';
-import { ComponentOperation, PropertyComponentOperation, Transition } from 'change-cd-iac-models/model-diffing';
+import { ComponentOperation, PropertyComponentOperation, Transition } from 'change-analysis-models/model-diffing';
 import { AppContext } from '../App';
 import { getPropertyDiff } from '../selectors/getPropertyDiff';
-import { Component, DependencyRelationship } from 'change-cd-iac-models/infra-model';
+import { Component, DependencyRelationship } from 'change-analysis-models/infra-model';
 import ChangesDiff from './ChangesDiff';
-import { arraysEqual, isDefined } from 'change-cd-iac-models/utils';
+import { arraysEqual, isDefined } from 'change-analysis-models/utils';
 
 interface Props {
     componentTransition: Transition<Component>,

@@ -9,11 +9,11 @@ import {
   Info as InfoIcon,
 } from '@material-ui/icons';
 import ChangesGroup from '../../reusable-components/ChangesGroup';
-import { CompOpAggCharacteristics, Aggregation } from 'change-cd-iac-models/aggregations';
-import { ComponentOperation } from 'change-cd-iac-models/model-diffing';
-import { groupArrayBy, isDefined } from 'change-cd-iac-models/utils';
+import { CompOpAggCharacteristics, Aggregation } from 'change-analysis-models/aggregations';
+import { ComponentOperation } from 'change-analysis-models/model-diffing';
+import { groupArrayBy, isDefined } from 'change-analysis-models/utils';
 import { AppContext } from '../../App';
-import { RuleRisk } from 'change-cd-iac-models/rules';
+import { RuleRisk } from 'change-analysis-models/rules';
 
 const useStyles = makeStyles({
   root: {

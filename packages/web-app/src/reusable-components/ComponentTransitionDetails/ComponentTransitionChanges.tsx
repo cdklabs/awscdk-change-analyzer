@@ -1,6 +1,6 @@
 import { List, Typography } from "@material-ui/core";
-import { Component } from "change-cd-iac-models/infra-model";
-import { Transition } from "change-cd-iac-models/model-diffing";
+import { Component } from "change-analysis-models/infra-model";
+import { Transition } from "change-analysis-models/model-diffing";
 import React from "react";
 import { useContext } from "react";
 import ChangesGroup from "../ChangesGroup";

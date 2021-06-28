@@ -5,8 +5,8 @@ import { Badge, List } from '@material-ui/core';
 import UpdateIcon from '@material-ui/icons/Update';
 import { VisualHierarchyNode } from '../selectors/hierarchy-builder';
 import { AppContext } from '../App';
-import { Transition } from 'change-cd-iac-models/model-diffing';
-import { Component } from 'change-cd-iac-models/infra-model';
+import { Transition } from 'change-analysis-models/model-diffing';
+import { Component } from 'change-analysis-models/infra-model';
 import ApproveChangeBtn from '../reusable-components/ApproveChangeBtn';
 
 interface Props {

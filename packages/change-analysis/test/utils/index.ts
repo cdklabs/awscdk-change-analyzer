@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { Component, InfraModel } from 'change-cd-iac-models/infra-model';
+import { Component, InfraModel } from 'change-analysis-models';
 import { generateGraph } from '../../visualization/graph-generator';
 
 export const ParserUtilsCreator =

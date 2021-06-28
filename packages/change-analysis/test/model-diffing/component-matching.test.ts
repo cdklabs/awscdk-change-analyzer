@@ -3,7 +3,7 @@ import { ParserUtilsCreator } from "../utils";
 import {
     DiffCreator,
 } from "../../model-diffing";
-import { Transition } from "change-cd-iac-models/model-diffing";
+import { Transition } from "change-analysis-models";
 
 const dir = `test/model-diffing`;
 

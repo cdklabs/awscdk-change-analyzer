@@ -1,7 +1,7 @@
 import { CFParser } from "../../../platform-mapping";
 import {
     DependencyRelationship,
-} from "change-cd-iac-models/infra-model";
+} from "change-analysis-models";
 import { ParserUtilsCreator } from "../../utils";
 
 

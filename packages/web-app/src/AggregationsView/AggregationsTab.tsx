@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { ComponentOperation } from 'change-cd-iac-models/model-diffing';
+import { ComponentOperation } from 'change-analysis-models/model-diffing';
 import ChangeTree from './ChangeTree';
 import ChangeDetailsPane from './ChangeDetailsPane/ChangeDetailsPane';
 import { Grid } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Aggregation } from 'change-cd-iac-models/aggregations';
+import { Aggregation } from 'change-analysis-models/aggregations';
 import { useIdAssignerHook } from '../utils/idCreator';
 import { AppContext } from '../App';
 

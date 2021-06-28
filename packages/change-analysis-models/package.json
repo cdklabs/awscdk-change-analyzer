@@ -1,10 +1,10 @@
 {
-  "name": "change-cd-iac-models",
-  "version": "1.0.0",
+  "name": "change-analysis-models",
+  "version": "0.0.0",
   "description": "Proof-of-concept for dissertation \"Change Interpretation Techniques for Continuous Deployment in IaC\"",
-  "main": "index.js",
+  "main": "out/index.js",
   "scripts": {
-    "start": "npm run lint && npm run compile && node out/index.js",
+    "build": "npm run lint && npm run compile",
     "compile": "npx tsc",
     "lint": "eslint . --ext .ts",
     "test": "jest",

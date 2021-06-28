@@ -1,6 +1,6 @@
 import { List, ListItem, Typography } from "@material-ui/core";
-import { Component } from "change-cd-iac-models/infra-model";
-import { ComponentOperation, Transition } from "change-cd-iac-models/model-diffing";
+import { Component } from "change-analysis-models/infra-model";
+import { ComponentOperation, Transition } from "change-analysis-models/model-diffing";
 import React, { useContext } from "react";
 import { AppContext } from "../App";
 import { getComponentOperationDescription } from "../selectors/description-generators";

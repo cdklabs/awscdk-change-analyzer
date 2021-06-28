@@ -1,6 +1,6 @@
-import { ComponentPropertyValue } from "change-cd-iac-models/infra-model"
-import { InsertPropertyComponentOperation, PropertyComponentOperation, MovePropertyComponentOperation, RemovePropertyComponentOperation, Transition, UpdatePropertyComponentOperation, TransitionVersions } from "change-cd-iac-models/model-diffing"
-import { groupArrayBy } from "change-cd-iac-models/utils"
+import { ComponentPropertyValue } from "change-analysis-models/infra-model"
+import { InsertPropertyComponentOperation, PropertyComponentOperation, MovePropertyComponentOperation, RemovePropertyComponentOperation, Transition, UpdatePropertyComponentOperation, TransitionVersions } from "change-analysis-models/model-diffing"
+import { groupArrayBy } from "change-analysis-models/utils"
 import { DiffHighlightType, DiffStringifier, DiffStringOutput } from "./diff-stringifier";
 
 export function getPropertyDiff(

@@ -1,8 +1,8 @@
-import { InfraModel, StructuralRelationship } from "change-cd-iac-models/infra-model";
-import { ChangeAnalysisReport } from "change-cd-iac-models/change-analysis-report";
+import { InfraModel, StructuralRelationship } from "change-analysis-models";
+import { ChangeAnalysisReport } from "change-analysis-models";
 import { extractComponentOperationsAggs, extractComponentOperationsAggsPerComponent } from "../aggregations";
 import { DiffCreator, propagateChanges } from "../model-diffing";
-import { Transition } from "change-cd-iac-models/model-diffing";
+import { Transition } from "change-analysis-models";
 import { CUserRules } from "../user-configuration";
 import { applyRules } from "../user-configuration/apply-rules";
 

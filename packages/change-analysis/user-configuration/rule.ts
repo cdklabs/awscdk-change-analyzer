@@ -1,4 +1,4 @@
-import { RuleEffect } from 'change-cd-iac-models/rules';
+import { RuleEffect } from 'change-analysis-models';
 
 export enum RuleConditionOperator {
     // references = '->', // for following dependency relationships

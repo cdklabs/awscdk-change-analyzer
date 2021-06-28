@@ -1,6 +1,6 @@
-import { setsEqual } from "change-cd-iac-models/utils";
+import { setsEqual } from "change-analysis-models";
 import { AggModuleTreeNode } from "./aggregation-module-tree-node";
-import { AggCharacteristicValue, Aggregation } from "change-cd-iac-models/aggregations";
+import { AggCharacteristicValue, Aggregation } from "change-analysis-models";
 
 export class ModuleTreeAggsExtractor {
 

@@ -1,4 +1,4 @@
-import { PropertyPath } from "change-cd-iac-models/infra-model";
+import { PropertyPath } from "change-analysis-models";
 
 export class CFRefInitError extends Error {}
 

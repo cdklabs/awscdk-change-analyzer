@@ -1,6 +1,6 @@
 import { Button, List, ListItem, makeStyles, Theme, Typography } from "@material-ui/core";
-import { Component, DependencyRelationship } from "change-cd-iac-models/infra-model";
-import { Transition } from "change-cd-iac-models/model-diffing";
+import { Component, DependencyRelationship } from "change-analysis-models/infra-model";
+import { Transition } from "change-analysis-models/model-diffing";
 import React from "react";
 import { useContext } from "react";
 import { AppContext } from "../../App";

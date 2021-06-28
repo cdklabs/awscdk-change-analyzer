@@ -9,7 +9,7 @@ import {
     ComponentPropertyArray,
     DependencyRelationshipOptions,
     PropertyPath
-} from "change-cd-iac-models/infra-model";
+} from "change-analysis-models";
 import { CFParserArgs } from "./cf-parser-args";
 import { CFRef } from "./cf-ref";
 

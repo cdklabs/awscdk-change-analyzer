@@ -1,5 +1,5 @@
-import { ComponentOperation, InfraModelDiff, PropertyComponentOperation } from "change-cd-iac-models/model-diffing";
-import { RuleEffect } from "change-cd-iac-models/rules";
+import { ComponentOperation, InfraModelDiff, PropertyComponentOperation } from "change-analysis-models";
+import { RuleEffect } from "change-analysis-models";
 import { CUserRules } from "./rule-config-schema";
 import { parseRules } from "./rule-parser";
 import { RuleProcessor } from "./rule-processor";

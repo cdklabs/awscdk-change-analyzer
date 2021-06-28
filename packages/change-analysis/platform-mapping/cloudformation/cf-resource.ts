@@ -1,14 +1,14 @@
 import {
     Component,
     ComponentUpdateType
-} from 'change-cd-iac-models/infra-model';
+} from 'change-analysis-models';
 import { CFEntity } from './cf-entity';
 import { CFParserArgs } from './cf-parser-args';
 import { specification } from '@aws-cdk/cfnspec/lib';
 import { schema } from '@aws-cdk/cfnspec/lib';
 import { isListProperty, isRecordType } from '@aws-cdk/cfnspec/lib/schema';
 import { CFRef } from './cf-ref';
-import { isDefined } from 'fifinet/util';
+import { isDefined } from 'fifinet';
 
 const cfSpec = specification();
 

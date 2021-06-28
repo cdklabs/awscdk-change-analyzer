@@ -4,7 +4,7 @@ import {
     DependencyRelationship,
     ComponentPropertyValue,
     PropertyPath,
-} from "change-cd-iac-models/infra-model";
+} from "change-analysis-models";
 import { 
     ComponentOperation,
     OperationCertainty,
@@ -15,8 +15,8 @@ import {
     InfraModelDiff,
     TransitionNotFoundError,
     PropertyComponentOperation
-} from "change-cd-iac-models/model-diffing";
-import { arraysEqual } from "change-cd-iac-models/utils";
+} from "change-analysis-models";
+import { arraysEqual } from "change-analysis-models";
 
 /**
  * Creates the ComponentOperations caused by existing ones
