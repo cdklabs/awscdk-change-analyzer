@@ -4,7 +4,7 @@
   "description": "Proof-of-concept for dissertation \"Change Interpretation Techniques for Continuous Deployment in IaC\"",
   "main": "out/index.js",
   "scripts": {
-    "start": "node out/index.js",
+    "start": "sh output-analysis-to-fe.sh",
     "build": "npm run lint && npm run compile",
     "compile": "tsc",
     "lint": "eslint . --ext .ts",
@@ -26,7 +26,7 @@
     "@types/graphviz": "0.0.32",
     "@types/string-similarity": "^4.0.0",
     "change-analysis-models": "0.0.0",
-    "fifinet": "github:rix0rrr/fifinet",
+    "fifinet": "0.1.4",
     "graphviz": "0.0.9"
   },
   "devDependencies": {
