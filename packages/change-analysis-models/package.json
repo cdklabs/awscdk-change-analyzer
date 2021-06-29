@@ -22,7 +22,7 @@
   "homepage": "https://github.com/S-R-MSc/2021_henriquelima#readme",
   "dependencies": {
     "@aws-cdk/cfnspec": "^1.90.0",
-    "fifinet": "github:rix0rrr/fifinet"
+    "fifinet": "0.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.13",
