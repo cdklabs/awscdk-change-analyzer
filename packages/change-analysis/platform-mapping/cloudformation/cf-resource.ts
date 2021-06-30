@@ -8,7 +8,7 @@ import { specification } from '@aws-cdk/cfnspec/lib';
 import { schema } from '@aws-cdk/cfnspec/lib';
 import { isListProperty, isRecordType } from '@aws-cdk/cfnspec/lib/schema';
 import { CFRef } from './cf-ref';
-import { isDefined } from 'fifinet';
+import { isDefined } from 'change-analysis-models';
 
 const cfSpec = specification();
 

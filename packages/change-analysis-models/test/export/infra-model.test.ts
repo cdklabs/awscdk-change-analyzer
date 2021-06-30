@@ -4,7 +4,7 @@ import {
     InfraModel
 } from "../../infra-model";
 import { InfraModelDiff } from "../../model-diffing";
-import { buildModelV1 } from "./example-model";
+import { buildDiff, buildModelV1 } from "./example-model";
 
 test('InfraModel toSerialized', () => {
     const model = buildModelV1();

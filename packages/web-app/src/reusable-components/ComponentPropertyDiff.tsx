@@ -4,7 +4,7 @@ import { AppContext } from '../App';
 import { getPropertyDiff } from '../selectors/getPropertyDiff';
 import { Component, DependencyRelationship } from 'change-analysis-models/infra-model';
 import ChangesDiff from './ChangesDiff';
-import { arraysEqual, isDefined } from 'change-analysis-models/utils';
+import { arraysEqual } from 'change-analysis-models';
 
 interface Props {
     componentTransition: Transition<Component>,

@@ -2376,9 +2376,10 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "2.1.1"
 
-"fifinet@github:rix0rrr/fifinet":
+fifinet@0.1.4:
   version "0.1.4"
-  resolved "https://codeload.github.com/rix0rrr/fifinet/tar.gz/07193b91954e2e07fc62d92fad7ecc71bf5b2062"
+  resolved "https://registry.yarnpkg.com/fifinet/-/fifinet-0.1.4.tgz#e60084f922d0f59ea0cfe9611d623b12325bbe02"
+  integrity sha512-Lc5avfyp5//WdsiTGR6FaM1RZJtKa5Sea5UTXO9UzWM9738E89H+W9PIZzqYMPbww7WABZ0aPdM9lLE3alL22g==
 
 file-entry-cache@^6.0.1:
   version "6.0.1"

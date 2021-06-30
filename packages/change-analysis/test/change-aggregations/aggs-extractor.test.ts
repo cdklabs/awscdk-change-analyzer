@@ -11,7 +11,6 @@ import {
     DiffCreator,
 } from "../../model-diffing";
 import { diffTestCase1 } from "../default-test-cases/infra-model-diff";
-import { Aggregation } from "change-analysis-models";
 
 const dir = `test/change-aggregations`;
 

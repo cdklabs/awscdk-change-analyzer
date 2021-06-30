@@ -11,7 +11,7 @@ import {
 import ChangesGroup from '../../reusable-components/ChangesGroup';
 import { CompOpAggCharacteristics, Aggregation } from 'change-analysis-models/aggregations';
 import { ComponentOperation } from 'change-analysis-models/model-diffing';
-import { groupArrayBy, isDefined } from 'change-analysis-models/utils';
+import { groupArrayBy, isDefined } from 'change-analysis-models';
 import { AppContext } from '../../App';
 import { RuleRisk } from 'change-analysis-models/rules';
 
