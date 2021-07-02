@@ -62,11 +62,10 @@ function DiffSection<T>({stringifierOutput, flashObj, flashRef, onClick, isClick
                 ? <Tooltip key={i} title={makeHighlightDescriptions(highlights)} placement="top" arrow TransitionComponent={Fade}>
                         <span
                             onClick={() => onClick && onClick(chunk.path)}
-                            style={Object.assign(
-                                    {},
-                                    ...(Object.keys(highlights) as DiffHighlightType[]).map(h => diffTypeToStyle[h]),
-                                    (isClickable && isClickable(chunk.path)) ? clickableStyle : {}
-                                    )}>
+                            style={{
+                                ...makeHighlightStyles(Object.keys(highlights) as DiffHighlightType[]),
+                                ...(isClickable && isClickable(chunk.path)) ? clickableStyle : {}
+                                }}>
                                 {str}
                         </span>
                 </Tooltip> 
@@ -82,6 +81,10 @@ function highlightsIncludeObj<T>(highlights: Highlights<T>, op?: T){
 
 function makeHighlightDescriptions<T>(highlights: Highlights<T>): string {
     return Object.keys(highlights).join(', ');
+}
+
+function makeHighlightStyles(types: DiffHighlightType[]) {
+    return Object.assign({}, ...types.map(h => diffTypeToStyle[h]));
 }
 
 export default DiffSection;
