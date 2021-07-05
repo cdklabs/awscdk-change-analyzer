@@ -35,8 +35,8 @@ test('CloudFormation complex template', () => {
 
     expect(stringifyComponents(model)).toMatchSnapshot();
     expect(model.components.length).toBe(40);
-    expect(model.relationships.length).toBe(90);
-    expect(model.relationships.filter(r => r instanceof DependencyRelationship).length).toBe(51);
+    expect(model.relationships.length).toBe(95);
+    expect(model.relationships.filter(r => r instanceof DependencyRelationship).length).toBe(56);
 });
 
 test('CloudFormation nested template', () => {

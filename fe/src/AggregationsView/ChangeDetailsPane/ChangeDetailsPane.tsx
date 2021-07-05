@@ -90,6 +90,7 @@ function ChangeDetailsPane({agg}: props) {
                             key={idAssigner.get(op)}
                             expanded={agg.entities.size === 1}
                             icon={`${i+1}.`}
+                            disableAnimation
                             rightIcon={<>
                                 <Tooltip title="Open in Hierarchical View">
                                     <IconButton size="small" onClick={() => showComponentInHierarchy(op.componentTransition)}>

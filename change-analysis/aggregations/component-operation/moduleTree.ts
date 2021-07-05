@@ -18,6 +18,7 @@ const propertyValueSubModules = [{module: propertyValueV1AggModule, disableOnNoE
 
 export const componentOperationSpecificAggModuleTree: AggModuleTreeNode<ComponentOperation> = {
     module: operationTypeAggModule,
+    forceSubmoduleCollapse: true,
     submodules: [{
         module: operationEntityAggModule,
         forceSubmoduleCollapse: true,
@@ -45,6 +46,7 @@ export const componentOperationAggModuleTree: AggModuleTreeNode<ComponentOperati
     forceSubmoduleCollapse: true,
     submodules: [{
         module: componentSubtypeAggModule,
+        disableSubmoduleCollapse: true,
         submodules: [componentOperationSpecificAggModuleTree],
     }]
 };

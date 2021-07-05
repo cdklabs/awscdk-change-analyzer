@@ -1714,6 +1714,21 @@ exports[`CloudFormation complex template 1`] = `
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
                     \\"_id\\": \\"860\\",
+                    \\"type\\": \\"DependsOn -> VPCVPCGW99B986DC\\",
+                    \\"sourcePropertyPath\\": [
+                        \\"DependsOn\\"
+                    ],
+                    \\"targetAttributePath\\": []
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]VPCPublicSubnet1DefaultRoute91CEF279\\",
+                    \\"target\\": \\"[dup-ref]VPCVPCGW99B986DC\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"861\\",
                     \\"type\\": \\"Properties.AllocationId.Fn::GetAtt -> VPCPublicSubnet1EIP6AD938E8.AllocationId\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1732,7 +1747,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"861\\",
+                    \\"_id\\": \\"862\\",
                     \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet1SubnetB4246D30\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1749,7 +1764,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"862\\",
+                    \\"_id\\": \\"863\\",
                     \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1766,7 +1781,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"863\\",
+                    \\"_id\\": \\"864\\",
                     \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1783,7 +1798,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"864\\",
+                    \\"_id\\": \\"865\\",
                     \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet2RouteTable6F1A15F1\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1800,7 +1815,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"865\\",
+                    \\"_id\\": \\"866\\",
                     \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet2Subnet74179F39\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1817,7 +1832,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"866\\",
+                    \\"_id\\": \\"867\\",
                     \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet2RouteTable6F1A15F1\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1834,7 +1849,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"867\\",
+                    \\"_id\\": \\"868\\",
                     \\"type\\": \\"Properties.GatewayId.Ref -> VPCIGWB7E252D3\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1851,7 +1866,22 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"868\\",
+                    \\"_id\\": \\"869\\",
+                    \\"type\\": \\"DependsOn -> VPCVPCGW99B986DC\\",
+                    \\"sourcePropertyPath\\": [
+                        \\"DependsOn\\"
+                    ],
+                    \\"targetAttributePath\\": []
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]VPCPublicSubnet2DefaultRouteB7481BBA\\",
+                    \\"target\\": \\"[dup-ref]VPCVPCGW99B986DC\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"870\\",
                     \\"type\\": \\"Properties.AllocationId.Fn::GetAtt -> VPCPublicSubnet2EIP4947BC00.AllocationId\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1870,7 +1900,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"869\\",
+                    \\"_id\\": \\"871\\",
                     \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet2Subnet74179F39\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1887,7 +1917,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"870\\",
+                    \\"_id\\": \\"872\\",
                     \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1904,7 +1934,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"871\\",
+                    \\"_id\\": \\"873\\",
                     \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1921,7 +1951,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"872\\",
+                    \\"_id\\": \\"874\\",
                     \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet3RouteTable98AE0E14\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1938,7 +1968,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"873\\",
+                    \\"_id\\": \\"875\\",
                     \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet3Subnet631C5E25\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1955,7 +1985,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"874\\",
+                    \\"_id\\": \\"876\\",
                     \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPublicSubnet3RouteTable98AE0E14\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1972,7 +2002,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"875\\",
+                    \\"_id\\": \\"877\\",
                     \\"type\\": \\"Properties.GatewayId.Ref -> VPCIGWB7E252D3\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -1989,7 +2019,22 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"876\\",
+                    \\"_id\\": \\"878\\",
+                    \\"type\\": \\"DependsOn -> VPCVPCGW99B986DC\\",
+                    \\"sourcePropertyPath\\": [
+                        \\"DependsOn\\"
+                    ],
+                    \\"targetAttributePath\\": []
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]VPCPublicSubnet3DefaultRouteA0D29D46\\",
+                    \\"target\\": \\"[dup-ref]VPCVPCGW99B986DC\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"879\\",
                     \\"type\\": \\"Properties.AllocationId.Fn::GetAtt -> VPCPublicSubnet3EIPAD4BC883.AllocationId\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2008,7 +2053,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"877\\",
+                    \\"_id\\": \\"880\\",
                     \\"type\\": \\"Properties.SubnetId.Ref -> VPCPublicSubnet3Subnet631C5E25\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2025,7 +2070,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"878\\",
+                    \\"_id\\": \\"881\\",
                     \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2042,7 +2087,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"879\\",
+                    \\"_id\\": \\"882\\",
                     \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2059,7 +2104,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"880\\",
+                    \\"_id\\": \\"883\\",
                     \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet1RouteTableBE8A6027\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2076,7 +2121,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"881\\",
+                    \\"_id\\": \\"884\\",
                     \\"type\\": \\"Properties.SubnetId.Ref -> VPCPrivateSubnet1Subnet8BCA10E0\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2093,7 +2138,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"882\\",
+                    \\"_id\\": \\"885\\",
                     \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet1RouteTableBE8A6027\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2110,7 +2155,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"883\\",
+                    \\"_id\\": \\"886\\",
                     \\"type\\": \\"Properties.NatGatewayId.Ref -> VPCPublicSubnet1NATGatewayE0556630\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2127,7 +2172,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"884\\",
+                    \\"_id\\": \\"887\\",
                     \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2144,7 +2189,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"885\\",
+                    \\"_id\\": \\"888\\",
                     \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2161,7 +2206,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"886\\",
+                    \\"_id\\": \\"889\\",
                     \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet2RouteTable0A19E10E\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2178,7 +2223,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"887\\",
+                    \\"_id\\": \\"890\\",
                     \\"type\\": \\"Properties.SubnetId.Ref -> VPCPrivateSubnet2SubnetCFCDAA7A\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2195,7 +2240,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"888\\",
+                    \\"_id\\": \\"891\\",
                     \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet2RouteTable0A19E10E\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2212,7 +2257,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"889\\",
+                    \\"_id\\": \\"892\\",
                     \\"type\\": \\"Properties.NatGatewayId.Ref -> VPCPublicSubnet2NATGateway3C070193\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2229,7 +2274,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"890\\",
+                    \\"_id\\": \\"893\\",
                     \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2246,7 +2291,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"891\\",
+                    \\"_id\\": \\"894\\",
                     \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2263,7 +2308,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"892\\",
+                    \\"_id\\": \\"895\\",
                     \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet3RouteTable192186F8\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2280,7 +2325,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"893\\",
+                    \\"_id\\": \\"896\\",
                     \\"type\\": \\"Properties.SubnetId.Ref -> VPCPrivateSubnet3Subnet3EDCD457\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2297,7 +2342,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"894\\",
+                    \\"_id\\": \\"897\\",
                     \\"type\\": \\"Properties.RouteTableId.Ref -> VPCPrivateSubnet3RouteTable192186F8\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2314,7 +2359,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"895\\",
+                    \\"_id\\": \\"898\\",
                     \\"type\\": \\"Properties.NatGatewayId.Ref -> VPCPublicSubnet3NATGatewayD3048F5C\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2331,7 +2376,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"896\\",
+                    \\"_id\\": \\"899\\",
                     \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2348,7 +2393,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"897\\",
+                    \\"_id\\": \\"900\\",
                     \\"type\\": \\"Properties.InternetGatewayId.Ref -> VPCIGWB7E252D3\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2365,7 +2410,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"898\\",
+                    \\"_id\\": \\"901\\",
                     \\"type\\": \\"Properties.VpcId.Ref -> VPCB9E5F0B4\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2382,7 +2427,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"899\\",
+                    \\"_id\\": \\"902\\",
                     \\"type\\": \\"Properties.Roles.0.Ref -> InstanceInstanceRoleE9785DE5\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2400,7 +2445,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"900\\",
+                    \\"_id\\": \\"903\\",
                     \\"type\\": \\"Properties.Roles.0.Ref -> InstanceInstanceRoleE9785DE5\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2418,7 +2463,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"901\\",
+                    \\"_id\\": \\"904\\",
                     \\"type\\": \\"Properties.IamInstanceProfile.Ref -> InstanceInstanceProfileAB5AEF02\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2435,7 +2480,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"902\\",
+                    \\"_id\\": \\"905\\",
                     \\"type\\": \\"Properties.ImageId.Ref -> SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2452,7 +2497,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"903\\",
+                    \\"_id\\": \\"906\\",
                     \\"type\\": \\"Properties.SecurityGroupIds.0.Fn::GetAtt -> InstanceInstanceSecurityGroupF0E2D5BE.GroupId\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2472,7 +2517,7 @@ exports[`CloudFormation complex template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"904\\",
+                    \\"_id\\": \\"907\\",
                     \\"type\\": \\"Properties.SubnetId.Ref -> VPCPrivateSubnet1Subnet8BCA10E0\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2485,6 +2530,36 @@ exports[`CloudFormation complex template 1`] = `
                     \\"source\\": \\"[dup-ref]InstanceC1063A87\\",
                     \\"target\\": \\"[dup-ref]VPCPrivateSubnet1Subnet8BCA10E0\\"
                 }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"908\\",
+                    \\"type\\": \\"DependsOn -> InstanceInstanceRoleDefaultPolicy4ACE9290\\",
+                    \\"sourcePropertyPath\\": [
+                        \\"DependsOn\\"
+                    ],
+                    \\"targetAttributePath\\": []
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]InstanceC1063A87\\",
+                    \\"target\\": \\"[dup-ref]InstanceInstanceRoleDefaultPolicy4ACE9290\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"909\\",
+                    \\"type\\": \\"DependsOn -> InstanceInstanceRoleE9785DE5\\",
+                    \\"sourcePropertyPath\\": [
+                        \\"DependsOn\\"
+                    ],
+                    \\"targetAttributePath\\": []
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]InstanceC1063A87\\",
+                    \\"target\\": \\"[dup-ref]InstanceInstanceRoleE9785DE5\\"
+                }
             }
         ]
     }
@@ -2495,14 +2570,14 @@ exports[`CloudFormation nested template 1`] = `
 "{
     \\"nodeData\\": {
         \\"_entityType\\": \\"infrastructureState\\",
-        \\"_id\\": \\"973\\"
+        \\"_id\\": \\"978\\"
     },
     \\"outgoingNodeReferences\\": {
         \\"components\\": [
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"component\\",
-                    \\"_id\\": \\"906\\",
+                    \\"_id\\": \\"911\\",
                     \\"name\\": \\"root\\",
                     \\"type\\": \\"root\\"
                 },
@@ -2514,7 +2589,7 @@ exports[`CloudFormation nested template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"component\\",
-                    \\"_id\\": \\"921\\",
+                    \\"_id\\": \\"926\\",
                     \\"name\\": \\"SomeVPC\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::EC2::VPC\\"
@@ -2547,7 +2622,7 @@ exports[`CloudFormation nested template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"component\\",
-                    \\"_id\\": \\"929\\",
+                    \\"_id\\": \\"934\\",
                     \\"name\\": \\"NestedStack\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::CloudFormation::Stack\\"
@@ -2571,7 +2646,7 @@ exports[`CloudFormation nested template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"component\\",
-                    \\"_id\\": \\"941\\",
+                    \\"_id\\": \\"946\\",
                     \\"name\\": \\"SomeVPC\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::EC2::VPC\\"
@@ -2599,7 +2674,7 @@ exports[`CloudFormation nested template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"component\\",
-                    \\"_id\\": \\"949\\",
+                    \\"_id\\": \\"954\\",
                     \\"name\\": \\"User00B015A1\\",
                     \\"type\\": \\"Resource\\",
                     \\"subtype\\": \\"AWS::IAM::User\\"
@@ -2623,7 +2698,7 @@ exports[`CloudFormation nested template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"component\\",
-                    \\"_id\\": \\"953\\",
+                    \\"_id\\": \\"958\\",
                     \\"name\\": \\"InnerStackParameter\\",
                     \\"type\\": \\"Parameter\\",
                     \\"subtype\\": \\"String\\"
@@ -2640,7 +2715,7 @@ exports[`CloudFormation nested template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"component\\",
-                    \\"_id\\": \\"961\\",
+                    \\"_id\\": \\"966\\",
                     \\"name\\": \\"InnerOutput\\",
                     \\"type\\": \\"Output\\"
                 },
@@ -2664,7 +2739,7 @@ exports[`CloudFormation nested template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"component\\",
-                    \\"_id\\": \\"969\\",
+                    \\"_id\\": \\"974\\",
                     \\"name\\": \\"OuterStackParameter\\",
                     \\"type\\": \\"Parameter\\",
                     \\"subtype\\": \\"String\\"
@@ -2683,7 +2758,7 @@ exports[`CloudFormation nested template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"970\\",
+                    \\"_id\\": \\"975\\",
                     \\"type\\": \\"root\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -2694,7 +2769,7 @@ exports[`CloudFormation nested template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"971\\",
+                    \\"_id\\": \\"976\\",
                     \\"type\\": \\"root\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -2705,7 +2780,7 @@ exports[`CloudFormation nested template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"972\\",
+                    \\"_id\\": \\"977\\",
                     \\"type\\": \\"root\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -2716,7 +2791,7 @@ exports[`CloudFormation nested template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"974\\",
+                    \\"_id\\": \\"979\\",
                     \\"type\\": \\"Properties.Tags.0.Value.Fn::GetAtt -> NestedStack.Outputs.InnerOutput\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2738,95 +2813,95 @@ exports[`CloudFormation nested template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"980\\",
+                    \\"_id\\": \\"985\\",
                     \\"type\\": \\"nested-stack-component\\"
                 },
                 \\"outgoingNodeReferences\\": {
                     \\"source\\": \\"[dup-ref]NestedStack\\",
                     \\"target\\": \\"[dup-ref]SomeVPC\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"986\\",
+                    \\"type\\": \\"nested-stack-component\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]NestedStack\\",
+                    \\"target\\": \\"[dup-ref]User00B015A1\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"987\\",
+                    \\"type\\": \\"nested-stack-component\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]NestedStack\\",
+                    \\"target\\": \\"[dup-ref]InnerStackParameter\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"988\\",
+                    \\"type\\": \\"nested-stack-component\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]NestedStack\\",
+                    \\"target\\": \\"[dup-ref]InnerOutput\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"967\\",
+                    \\"type\\": \\"root\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]NestedStack\\",
+                    \\"target\\": \\"[dup-ref]SomeVPC\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"968\\",
+                    \\"type\\": \\"root\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]NestedStack\\",
+                    \\"target\\": \\"[dup-ref]User00B015A1\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"969\\",
+                    \\"type\\": \\"root\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]NestedStack\\",
+                    \\"target\\": \\"[dup-ref]InnerStackParameter\\"
+                }
+            },
+            {
+                \\"nodeData\\": {
+                    \\"_entityType\\": \\"relationship\\",
+                    \\"_id\\": \\"970\\",
+                    \\"type\\": \\"root\\"
+                },
+                \\"outgoingNodeReferences\\": {
+                    \\"source\\": \\"[dup-ref]NestedStack\\",
+                    \\"target\\": \\"[dup-ref]InnerOutput\\"
                 }
             },
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
                     \\"_id\\": \\"981\\",
-                    \\"type\\": \\"nested-stack-component\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]NestedStack\\",
-                    \\"target\\": \\"[dup-ref]User00B015A1\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"982\\",
-                    \\"type\\": \\"nested-stack-component\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]NestedStack\\",
-                    \\"target\\": \\"[dup-ref]InnerStackParameter\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"983\\",
-                    \\"type\\": \\"nested-stack-component\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]NestedStack\\",
-                    \\"target\\": \\"[dup-ref]InnerOutput\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"962\\",
-                    \\"type\\": \\"root\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]NestedStack\\",
-                    \\"target\\": \\"[dup-ref]SomeVPC\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"963\\",
-                    \\"type\\": \\"root\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]NestedStack\\",
-                    \\"target\\": \\"[dup-ref]User00B015A1\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"964\\",
-                    \\"type\\": \\"root\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]NestedStack\\",
-                    \\"target\\": \\"[dup-ref]InnerStackParameter\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"965\\",
-                    \\"type\\": \\"root\\"
-                },
-                \\"outgoingNodeReferences\\": {
-                    \\"source\\": \\"[dup-ref]NestedStack\\",
-                    \\"target\\": \\"[dup-ref]InnerOutput\\"
-                }
-            },
-            {
-                \\"nodeData\\": {
-                    \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"976\\",
                     \\"type\\": \\"Properties.SomeProperty.Fn::GetAtt -> InnerStackParameter.Type\\",
                     \\"sourcePropertyPath\\": [
                         \\"Properties\\",
@@ -2845,7 +2920,7 @@ exports[`CloudFormation nested template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"977\\",
+                    \\"_id\\": \\"982\\",
                     \\"type\\": \\"nested-parameter\\"
                 },
                 \\"outgoingNodeReferences\\": {
@@ -2856,7 +2931,7 @@ exports[`CloudFormation nested template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"978\\",
+                    \\"_id\\": \\"983\\",
                     \\"type\\": \\"Value.Fn::Sub -> InnerStackParameter\\",
                     \\"sourcePropertyPath\\": [
                         \\"Value\\",
@@ -2872,7 +2947,7 @@ exports[`CloudFormation nested template 1`] = `
             {
                 \\"nodeData\\": {
                     \\"_entityType\\": \\"relationship\\",
-                    \\"_id\\": \\"979\\",
+                    \\"_id\\": \\"984\\",
                     \\"type\\": \\"Value.Fn::Sub.1.withAnArgument.Ref -> User00B015A1\\",
                     \\"sourcePropertyPath\\": [
                         \\"Value\\",
