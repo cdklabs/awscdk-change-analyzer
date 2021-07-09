@@ -16,6 +16,9 @@ import { propertyValueV1AggModule, propertyValueV2AggModule } from "./aggregatio
 
 const propertyValueSubModules = [{module: propertyValueV1AggModule, disableOnNoExtraInfo: true}, {module: propertyValueV2AggModule, disableOnNoExtraInfo: true}];
 
+/**
+ * Defines the modules used to build the aggregations for operations of a component
+ */
 export const componentOperationSpecificAggModuleTree: AggModuleTreeNode<ComponentOperation> = {
     module: operationTypeAggModule,
     submodules: [{
@@ -40,6 +43,9 @@ export const componentOperationSpecificAggModuleTree: AggModuleTreeNode<Componen
     }],
 };
 
+/**
+ * Defines the modules used to build the aggregations for all operations
+ */
 export const componentOperationAggModuleTree: AggModuleTreeNode<ComponentOperation> = {
     module: componentTypeAggModule,
     forceSubmoduleCollapse: true,
@@ -49,6 +55,10 @@ export const componentOperationAggModuleTree: AggModuleTreeNode<ComponentOperati
     }]
 };
 
+/**
+ * Defines the modules used to build the aggregations for all operations,
+ * including risk calculated from rule effects
+ */
 export const compOperationWithRulesAggModuleTree = (rules: Map<ComponentOperation, RuleEffect>): AggModuleTreeNode<ComponentOperation> => {
     return {
         module: riskAggModuleCreator(rules),

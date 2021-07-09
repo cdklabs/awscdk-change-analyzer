@@ -1,5 +1,9 @@
 import { RuleEffect } from 'change-analysis-models';
 
+/**
+ * Internal representation of the user defined rules (after parsing)
+ */
+
 export enum RuleConditionOperator {
     // references = '->', // for following dependency relationships
     // isReferencedIn = '<-',

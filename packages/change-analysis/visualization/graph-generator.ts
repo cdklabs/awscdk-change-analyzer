@@ -3,6 +3,14 @@ import { InfraModel, Component, DependencyRelationship, StructuralRelationship }
 import * as fs from 'fs';
 import * as path from 'path';
 
+/**
+ * Generate a graphviz image from an InfraModel (useful when debugging)
+ * @param graph 
+ * @param component 
+ * @param nodes 
+ * @param clusterIds 
+ */
+
 const generateClusterChildren = (
     graph: graphviz.Graph,
     component: Component,

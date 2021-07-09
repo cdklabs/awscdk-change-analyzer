@@ -15,6 +15,7 @@ export function applyRules(diff: InfraModelDiff, cRules: CUserRules): Map<Compon
     return new Map([...verticesMap].flatMap(([vertex, effect]): [ComponentOperation, RuleEffect][] => {
         const op = idToOpMap.get(vertex._id);
         if(op === undefined) return [];
+        // exploding property operations - effects on property operations also affects the operations of inner properties
         const explodedOps = op instanceof PropertyComponentOperation ? op.explode() : [op];
         return explodedOps.map((eop):[ComponentOperation, RuleEffect] => [eop, effect]);
     }));

@@ -22,6 +22,9 @@ export class CFRef {
         `${this.sourcePath.join('.')} -> ${[this.logicalId, ...this.destPath].join('.')}`
 
 
+    /**
+     * Maps cloudformation intrinsic function identifiers to the appropriate function that extracts their references
+     */
     public static readRefsInPropertyMapping: Record<string, (path:PropertyPath, value:any) => CFRef[]> = Object.freeze({
         'Ref': (path:PropertyPath, value: any) => [new CFRef(path, value)],
         'Fn::GetAtt': (path:PropertyPath, value: any) => {
@@ -45,6 +48,12 @@ export class CFRef {
         }
     })
 
+    /**
+     * Extracts references of intrinsic functions inside the 'expression' object
+     * @param expression the definition of a cloudformation entity
+     * @param refPath base path of the definition provided
+     * @returns extracted references
+     */
     public static readRefsInExpression = (expression: any, refPath?: PropertyPath): CFRef[] => {
         if(typeof(expression) !== 'object' || expression == null)
             return [];

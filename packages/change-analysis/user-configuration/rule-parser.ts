@@ -3,7 +3,11 @@ import { ModelEntityTypes } from "change-analysis-models";
 import { ConditionInput, RuleCondition, RuleConditionOperator, RuleConditions, Selector, SelectorFilter, UserRule, RuleScopeReference, RuleEffectDefinition } from "./rule";
 import { CBindings, CSelector, CUserRule, isPathCSelector, ComponentCFilter, CRuleConditions, isComponentCFilter, GeneralCSelector, CRuleEffectDefinition } from "./rule-config-schema";
 
-
+/**
+ * Transform CUserRules (user configuration) into UserRules (internal rules representation)
+ * @param rules
+ * @returns user rules
+ */
 export function parseRules(rules: CUserRule[]): UserRule[]{
     return rules.map(r => parseRule(r));
 }

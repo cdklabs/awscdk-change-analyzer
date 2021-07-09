@@ -27,6 +27,10 @@ export class CDKConstruct {
         return this.path.slice(0, -1).join('/');
     }
 
+    /**
+     * Adds the construct paths of ancestor constructs to constructPaths if they don't yet exist
+     * @param constructPaths existing construct paths
+     */
     public populateAncestors(constructPaths: Map<string, CDKConstruct>): void{
         const parentPath = this.getParentPath();
         if(parentPath){
