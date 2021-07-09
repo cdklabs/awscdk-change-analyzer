@@ -99,8 +99,8 @@ const App = ({changeReport}: props) => {
             <div className={classes.wrapper}>
                 <AppBar position="static" color="transparent">
                     <Tabs value={selectedTab} onChange={(e, v) => setSelectedTab(v)} aria-label="simple tabs example">
-                        <Tab label="All Changes" />
-                        <Tab label="Hierarchical View" />
+                        <Tab label="All Changes" id="all-changes-tab" />
+                        <Tab label="Hierarchical View" id="hierarchical-view-tab" />
                     </Tabs>
                 </AppBar>
                 <div className={classes.panel} hidden={selectedTab !== 0}>

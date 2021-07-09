@@ -5,6 +5,7 @@ interface Props<T> {
     stringifierOutput: DiffStringOutput<T>,
     flashObj?: T,
     onClick?: (path: (string | number)[]) => void
+    isClickable?: (path: (string | number)[]) => boolean
 }
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ChangesDiff<T>({stringifierOutput, flashObj, onClick}: Props<T>) {
+function ChangesDiff<T>({stringifierOutput, flashObj, onClick, isClickable}: Props<T>) {
     const classes = useStyles();
 
     const opRef = useCallback(node => {
@@ -38,7 +39,7 @@ function ChangesDiff<T>({stringifierOutput, flashObj, onClick}: Props<T>) {
 
     return (
         <div className={classes.pre}>
-                <DiffSection stringifierOutput={stringifierOutput} flashRef={(r) => opRef(r)} flashObj={flashObj} onClick={onClick}/>
+                <DiffSection stringifierOutput={stringifierOutput} flashRef={(r) => opRef(r)} flashObj={flashObj} onClick={onClick} isClickable={isClickable}/>
         </div>
     );
 }

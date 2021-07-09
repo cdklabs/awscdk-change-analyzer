@@ -32,7 +32,7 @@ function ChangeTree() {
     
     const aggsPerRisk = groupArrayBy(changeReport.aggregations, (agg) => agg.characteristics.RISK);
     return (
-        <Paper elevation={3} className={classes.root}>
+        <Paper elevation={3} className={classes.root} id="aggs-tree-container">
             <CollapsableRow
               icon={<ErrorIcon/>}
               expanded={expanded === 0}
