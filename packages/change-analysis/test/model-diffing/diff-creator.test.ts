@@ -6,7 +6,7 @@ import {
     RemoveComponentOperation,
     RenameComponentOperation,
     UpdatePropertyComponentOperation,
-} from "change-analysis-models/model-diffing";
+} from "change-analysis-models";
 import { Transition } from "change-analysis-models";
 
 test('Update Component Property', () => {
