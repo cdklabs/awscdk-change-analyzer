@@ -193,5 +193,6 @@ test('Renamed Component', () => {
 
     const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
     expect(diff.componentOperations.length).toBe(1);
+    console.log(diff.componentOperations[0]);
     expect(diff.componentOperations[0] instanceof RenameComponentOperation).toBe(true);
 });

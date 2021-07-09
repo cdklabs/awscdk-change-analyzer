@@ -6,6 +6,8 @@ import { UserRule, Bindings, RuleEffectDefinition, Selector, selectorIsReference
 import { RuleEffect } from 'change-analysis-models';
 import { appliesToHandler } from './operator-handlers';
 import { equalsHandler } from "./operator-handlers/equals";
+import { isReferencedInHandler, referencesHandler } from "./operator-handlers/references";
+import { containsHandler, isContainedInHandler } from "./operator-handlers/contains";
 
 type UserRules = UserRule[];
 
@@ -33,6 +35,10 @@ export type OperatorHandler = <V, E>(g: fn.Graph<V, E>, t1: ScopeNode, t2: Scope
 
 const operatorToHandler: Record<RuleConditionOperator, OperatorHandler> = {
     [RuleConditionOperator.appliesTo]: appliesToHandler,
+    [RuleConditionOperator.references]: referencesHandler,
+    [RuleConditionOperator.isReferencedIn]: isReferencedInHandler,
+    [RuleConditionOperator.contains]: containsHandler,
+    [RuleConditionOperator.isContainedIn]: isContainedInHandler,
     [RuleConditionOperator.equals]: equalsHandler,
 };
 

@@ -5,8 +5,14 @@ import { Component } from "./component";
 import { ModelEntity } from "./model-entity";
 import { ModelEntityTypes } from "./model-entity-types";
 
+export enum RelationshipType {
+    Dependency = 'dependency',
+    Structural = 'structural'
+}
+
 export type RelationshipData = {
     readonly type: string;
+    readonly relationshipType: RelationshipType;
 }
 
 export type RelationshipEdges = {
