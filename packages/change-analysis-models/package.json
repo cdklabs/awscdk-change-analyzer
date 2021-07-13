@@ -1,28 +1,28 @@
 {
-  "name": "change-analysis-models",
+  "name": "cdk-change-analyzer-models",
   "version": "0.0.0",
-  "description": "Proof-of-concept for dissertation \"Change Interpretation Techniques for Continuous Deployment in IaC\"",
+  "description": "The models package for CDK Change Analyzer: a tool that enables detecting dangerous changes within CDK projects.",
   "main": "out/index.js",
   "scripts": {
     "build": "npm run lint && npm run compile",
     "compile": "npx tsc",
     "lint": "eslint . --ext .ts",
-    "test": "jest",
-    "postinstall": "npm --prefix node_modules/fifinet run build && mv node_modules/fifinet/dist/* node_modules/fifinet"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/S-R-MSc/2021_henriquelima.git"
+    "url": "https://github.com/cdklabs/awscdk-change-analyzer.git",
+    "directory": "packages/change-analysis-models"
   },
-  "author": "Henrique Lima",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/S-R-MSc/2021_henriquelima/issues"
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "organization": true
   },
-  "homepage": "https://github.com/S-R-MSc/2021_henriquelima#readme",
+  "license": "Apache-2.0",
   "dependencies": {
     "@aws-cdk/cfnspec": "^1.90.0",
-    "fifinet": "0.1.4"
+    "fifinet": "0.1.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.13",
