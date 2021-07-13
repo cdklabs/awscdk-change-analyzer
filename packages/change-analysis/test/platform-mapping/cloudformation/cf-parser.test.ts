@@ -1,7 +1,7 @@
 import { CFParser } from "../../../platform-mapping";
 import {
     DependencyRelationship,
-} from "change-analysis-models";
+} from "cdk-change-analyzer-models";
 import { ParserUtilsCreator } from "../../utils";
 
 

@@ -1,5 +1,5 @@
-import { groupArrayBy } from "change-analysis-models";
-import { Aggregation } from "change-analysis-models";
+import { groupArrayBy } from "cdk-change-analyzer-models";
+import { Aggregation } from "cdk-change-analyzer-models";
 
 /**
  * Defines an Aggregation

@@ -1,4 +1,4 @@
-import { Component, InfraModel, Relationship } from "change-analysis-models";
+import { Component, InfraModel, Relationship } from "cdk-change-analyzer-models";
 import {
     EntitiesMatcherResults,
     matchEntities,
@@ -13,9 +13,9 @@ import {
     Transition,
     InfraModelDiff,
     TransitionVersions
-} from "change-analysis-models";
-import { groupArrayBy } from "change-analysis-models";
-import { isDefined } from "change-analysis-models";
+} from "cdk-change-analyzer-models";
+import { groupArrayBy } from "cdk-change-analyzer-models";
+import { isDefined } from "cdk-change-analyzer-models";
 import {
     componentSimilarityEvaluator,
     sameNameComponentSimilarityEvaluator

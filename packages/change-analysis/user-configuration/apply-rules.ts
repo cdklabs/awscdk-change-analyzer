@@ -1,5 +1,5 @@
-import { ComponentOperation, InfraModelDiff, PropertyComponentOperation } from "change-analysis-models";
-import { RuleEffect } from "change-analysis-models";
+import { ComponentOperation, InfraModelDiff, PropertyComponentOperation } from "cdk-change-analyzer-models";
+import { RuleEffect } from "cdk-change-analyzer-models";
 import { CUserRules } from "./rule-config-schema";
 import { parseRules } from "./rule-parser";
 import { RuleProcessor } from "./rule-processor";

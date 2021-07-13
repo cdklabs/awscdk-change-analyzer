@@ -6,8 +6,8 @@ import {
     RemoveComponentOperation,
     RenameComponentOperation,
     UpdatePropertyComponentOperation,
-} from "change-analysis-models";
-import { Transition } from "change-analysis-models";
+} from "cdk-change-analyzer-models";
+import { Transition } from "cdk-change-analyzer-models";
 
 test('Update Component Property', () => {
     const oldModel = new CFParser({

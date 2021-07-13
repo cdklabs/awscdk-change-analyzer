@@ -1,4 +1,4 @@
-import { CompOpAggCharacteristics, AggCharacteristicValue } from "change-analysis-models";
+import { CompOpAggCharacteristics, AggCharacteristicValue } from "cdk-change-analyzer-models";
 import { AggModule } from "./aggregation-module";
 
 type CharacteristicRequirements = { [c in CompOpAggCharacteristics]?: AggCharacteristicValue };

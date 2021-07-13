@@ -6,8 +6,8 @@ import {
     ComponentPropertyPrimitive,
     ComponentPropertyRecord,
     EmptyComponentProperty,
-} from "change-analysis-models";
-import { arrayIntersection, arraysEqual, isDefined, stringSimilarity } from 'change-analysis-models';
+} from "cdk-change-analyzer-models";
+import { arrayIntersection, arraysEqual, isDefined, stringSimilarity } from 'cdk-change-analyzer-models';
 import { propertySimilarityEvaluatorCreator } from "./entity-matchers/component-properties-matcher";
 import { matchEntities } from "./entity-matchers/entities-matcher";
 import {
@@ -17,7 +17,7 @@ import {
     RemovePropertyComponentOperation,
     UpdatePropertyComponentOperation,
     MovePropertyComponentOperation
-} from "change-analysis-models";
+} from "cdk-change-analyzer-models";
 
 /**
  * Describes how two ComponentProperties differ

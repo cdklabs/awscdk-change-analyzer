@@ -1,6 +1,6 @@
-import { setsEqual } from "change-analysis-models";
+import { setsEqual } from "cdk-change-analyzer-models";
 import { AggModuleTreeNode } from "./aggregation-module-tree-node";
-import { AggCharacteristicValue, Aggregation } from "change-analysis-models";
+import { AggCharacteristicValue, Aggregation } from "cdk-change-analyzer-models";
 
 export class ModuleTreeAggsExtractor {
 

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { ComponentOperation, PropertyComponentOperation, Transition } from 'change-analysis-models/model-diffing';
+import { ComponentOperation, PropertyComponentOperation, Transition } from 'cdk-change-analyzer-models/model-diffing';
 import { AppContext } from '../App';
 import { getPropertyDiff } from '../selectors/getPropertyDiff';
-import { Component, DependencyRelationship } from 'change-analysis-models/infra-model';
+import { Component, DependencyRelationship } from 'cdk-change-analyzer-models/infra-model';
 import ChangesDiff from './ChangesDiff';
-import { arraysEqual } from 'change-analysis-models';
+import { arraysEqual } from 'cdk-change-analyzer-models';
 
 interface Props {
     componentTransition: Transition<Component>,

@@ -1,14 +1,14 @@
 import {
     Component,
     ComponentUpdateType
-} from 'change-analysis-models';
+} from 'cdk-change-analyzer-models';
 import { CFEntity } from './cf-entity';
 import { CFParserArgs } from './cf-parser-args';
 import { specification } from '@aws-cdk/cfnspec/lib';
 import { schema } from '@aws-cdk/cfnspec/lib';
 import { isListProperty, isRecordType } from '@aws-cdk/cfnspec/lib/schema';
 import { CFRef } from './cf-ref';
-import { isDefined } from 'change-analysis-models';
+import { isDefined } from 'cdk-change-analyzer-models';
 
 const cfSpec = specification();
 

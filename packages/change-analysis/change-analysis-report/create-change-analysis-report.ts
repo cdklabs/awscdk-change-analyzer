@@ -1,8 +1,8 @@
-import { InfraModel, StructuralRelationship } from "change-analysis-models";
-import { ChangeAnalysisReport } from "change-analysis-models";
+import { InfraModel, StructuralRelationship } from "cdk-change-analyzer-models";
+import { ChangeAnalysisReport } from "cdk-change-analyzer-models";
 import { extractComponentOperationsAggs, extractComponentOperationsAggsPerComponent } from "../aggregations";
 import { DiffCreator, propagateChanges } from "../model-diffing";
-import { Transition } from "change-analysis-models";
+import { Transition } from "cdk-change-analyzer-models";
 import { CUserRules } from "../user-configuration";
 import { applyRules } from "../user-configuration/apply-rules";
 

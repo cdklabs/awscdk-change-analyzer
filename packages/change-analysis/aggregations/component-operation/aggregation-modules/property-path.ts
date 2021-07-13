@@ -1,9 +1,9 @@
-import { CompOpAggCharacteristics } from "change-analysis-models";
+import { CompOpAggCharacteristics } from "cdk-change-analyzer-models";
 import {
     ComponentOperation,
     PropertyComponentOperation,
-} from "change-analysis-models";
-import { arraysEqual } from "change-analysis-models";
+} from "cdk-change-analyzer-models";
+import { arraysEqual } from "cdk-change-analyzer-models";
 import { EqualityAggModule } from "../../aggregation-module";
 import { stringifyPath } from "./utils";
 

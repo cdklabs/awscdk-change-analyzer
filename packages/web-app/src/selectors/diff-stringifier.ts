@@ -1,5 +1,5 @@
-import { ComponentPropertyValue } from "change-analysis-models/infra-model";
-import { arraysEqual, isDefined } from "change-analysis-models/utils";
+import { ComponentPropertyValue } from "cdk-change-analyzer-models/infra-model";
+import { arraysEqual, isDefined } from "cdk-change-analyzer-models/utils";
 
 export enum DiffHighlightType {
     Insert = 'Insert',

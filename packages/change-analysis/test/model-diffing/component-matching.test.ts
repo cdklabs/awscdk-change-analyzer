@@ -3,7 +3,7 @@ import { ParserUtilsCreator } from "../utils";
 import {
     DiffCreator,
 } from "../../model-diffing";
-import { Transition } from "change-analysis-models";
+import { Transition } from "cdk-change-analyzer-models";
 
 const dir = `test/model-diffing`;
 

@@ -1,6 +1,6 @@
-import { JSONSerializable, Serialized } from "change-analysis-models/export/json-serializable";
-import { Component, InfraModel, StructuralRelationship } from "change-analysis-models/infra-model";
-import { Transition } from "change-analysis-models/model-diffing";
+import { JSONSerializable, Serialized } from "cdk-change-analyzer-models/export/json-serializable";
+import { Component, InfraModel, StructuralRelationship } from "cdk-change-analyzer-models/infra-model";
+import { Transition } from "cdk-change-analyzer-models/model-diffing";
 
 export function mostRecentInTransition<T extends JSONSerializable | Serialized>(t: Transition<T>): T{
     const mostRecent = t.v2 ?? t.v1;

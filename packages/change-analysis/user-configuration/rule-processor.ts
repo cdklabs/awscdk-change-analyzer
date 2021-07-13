@@ -1,9 +1,9 @@
-import { Serialized } from "change-analysis-models";
-import { ModelEntity } from "change-analysis-models";
-import { isDefined } from "change-analysis-models";
+import { Serialized } from "cdk-change-analyzer-models";
+import { ModelEntity } from "cdk-change-analyzer-models";
+import { isDefined } from "cdk-change-analyzer-models";
 import * as fn from 'fifinet';
 import { UserRule, Bindings, RuleEffectDefinition, Selector, selectorIsReference, RuleConditions, RuleConditionOperator, isInputScalar } from "./rule";
-import { RuleEffect } from 'change-analysis-models';
+import { RuleEffect } from 'cdk-change-analyzer-models';
 import { appliesToHandler } from './operator-handlers';
 import { equalsHandler } from "./operator-handlers/equals";
 

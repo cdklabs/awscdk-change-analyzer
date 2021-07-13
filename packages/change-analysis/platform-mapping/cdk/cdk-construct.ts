@@ -1,4 +1,4 @@
-import { Component, ComponentPropertyPrimitive, ComponentPropertyRecord, StructuralRelationship } from "change-analysis-models";
+import { Component, ComponentPropertyPrimitive, ComponentPropertyRecord, StructuralRelationship } from "cdk-change-analyzer-models";
 
 export class CDKConstructInitError extends Error {}
 

@@ -1,4 +1,4 @@
-import { RuleEffect } from 'change-analysis-models';
+import { RuleEffect } from 'cdk-change-analyzer-models';
 
 export enum RuleConditionOperator {
     // references = '->', // for following dependency relationships

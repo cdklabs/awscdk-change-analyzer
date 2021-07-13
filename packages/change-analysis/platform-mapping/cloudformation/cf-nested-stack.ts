@@ -1,11 +1,11 @@
-import { Component, InfraModel, PropertyPath, Relationship } from 'change-analysis-models';
+import { Component, InfraModel, PropertyPath, Relationship } from 'cdk-change-analyzer-models';
 import { CFEntity } from './cf-entity';
 import { CFParserArgs } from './cf-parser-args';
 import { CFResource } from './cf-resource';
 import { CFParser } from './cf-parser';
 import { CFOutput } from './cf-output';
 import { CFRef } from './cf-ref';
-import { partitionArray } from 'change-analysis-models';
+import { partitionArray } from 'cdk-change-analyzer-models';
 
 
 export class CFNestedStack extends CFResource {

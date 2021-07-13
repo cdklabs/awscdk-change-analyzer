@@ -1,5 +1,5 @@
-import { CompOpAggCharacteristics } from "change-analysis-models";
-import { ComponentOperation } from "change-analysis-models";
+import { CompOpAggCharacteristics } from "cdk-change-analyzer-models";
+import { ComponentOperation } from "cdk-change-analyzer-models";
 import { EqualityAggModule } from "../../aggregation-module";
 import { componentSubtypeAggModule } from "./component-subtype";
 import { componentTypeAggModule } from "./component-type";

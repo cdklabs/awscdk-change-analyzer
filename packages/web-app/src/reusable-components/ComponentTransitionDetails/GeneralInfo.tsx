@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
-import { Component } from "change-analysis-models/infra-model";
-import { ComponentOperation, Transition } from "change-analysis-models/model-diffing";
+import { Component } from "cdk-change-analyzer-models/infra-model";
+import { ComponentOperation, Transition } from "cdk-change-analyzer-models/model-diffing";
 import React from "react";
 import { mostRecentInTransition } from "../../selectors/component-transition-helpers";
 import { ComponentDetails } from "./ComponentDetails";

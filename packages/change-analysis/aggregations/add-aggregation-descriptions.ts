@@ -1,4 +1,4 @@
-import { AggCharacteristicValue, Aggregation, getAllCharacteristics } from "change-analysis-models";
+import { AggCharacteristicValue, Aggregation, getAllCharacteristics } from "cdk-change-analyzer-models";
 
 export type AggDescriptionCreator = 
     (characteristics: Record<string, AggCharacteristicValue>) => {

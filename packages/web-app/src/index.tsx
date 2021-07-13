@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { JSONDeserializer } from 'change-analysis-models/export/json-deserializer';
+import { JSONDeserializer } from 'cdk-change-analyzer-models/export/json-deserializer';
 import serializedChangeReport from '../model-diff-example.json';
 import App from './App';
-import { ChangeAnalysisReport } from 'change-analysis-models/change-analysis-report';
+import { ChangeAnalysisReport } from 'cdk-change-analyzer-models/change-analysis-report';
 import { Intro } from './Intro';
 import 'intro.js/introjs.css';
 

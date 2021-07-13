@@ -1,12 +1,12 @@
-import { ComponentOperation, InfraModelDiff, Transition, UpdatePropertyComponentOperation } from "change-analysis-models";
+import { ComponentOperation, InfraModelDiff, Transition, UpdatePropertyComponentOperation } from "cdk-change-analyzer-models";
 import { ModuleTreeAggsExtractor } from "../aggregations-extractor";
-import { Aggregation } from "change-analysis-models";
+import { Aggregation } from "cdk-change-analyzer-models";
 import { componentOperationSpecificAggModuleTree, compOperationWithRulesAggModuleTree } from "./moduleTree";
 import { addAggDescriptions } from "../add-aggregation-descriptions";
 import * as descriptionCreators from "./description-creators";
-import { groupArrayBy } from "change-analysis-models";
-import { Component } from "change-analysis-models";
-import { RuleEffect } from "change-analysis-models";
+import { groupArrayBy } from "cdk-change-analyzer-models";
+import { Component } from "cdk-change-analyzer-models";
+import { RuleEffect } from "cdk-change-analyzer-models";
 
 export const extractComponentOperationsAggs = (diff: InfraModelDiff, rules: Map<ComponentOperation, RuleEffect>): Aggregation<ComponentOperation>[] => {
 

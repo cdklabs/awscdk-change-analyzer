@@ -1,7 +1,7 @@
-import { Component, ComponentPropertyValue, PropertyPath } from "change-analysis-models";
+import { Component, ComponentPropertyValue, PropertyPath } from "cdk-change-analyzer-models";
 import { PropertyDiff, PropertyDiffCreator } from "../property-diff";
-import { CompleteTransition, Transition } from "change-analysis-models";
-import { arraysEqual } from "change-analysis-models";
+import { CompleteTransition, Transition } from "cdk-change-analyzer-models";
+import { arraysEqual } from "cdk-change-analyzer-models";
 
 /**
  * ComponentPropertyValue similarity evaluator for use with matchEntities.

@@ -1,7 +1,7 @@
 import {
     ComponentOperation,
     Transition,
-} from "change-analysis-models";
+} from "cdk-change-analyzer-models";
 import {
     extractComponentOperationsAggs,
 } from "../../aggregations";

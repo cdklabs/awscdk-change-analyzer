@@ -1,4 +1,4 @@
-import { Component } from "change-analysis-models";
+import { Component } from "cdk-change-analyzer-models";
 
 export interface CFParserArgs {
     readonly parameterValues?: Record<string, string>;

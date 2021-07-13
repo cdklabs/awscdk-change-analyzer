@@ -1,10 +1,10 @@
 import { IconButton, makeStyles, Tooltip } from "@material-ui/core";
-import { ComponentOperation } from "change-analysis-models/model-diffing"
+import { ComponentOperation } from "cdk-change-analyzer-models/model-diffing"
 import React, { ReactEventHandler, useContext } from "react";
 
 import { Done as DoneIcon, DoneAll as DoneAllIcon, Clear as ClearIcon } from "@material-ui/icons";
 import { AppContext } from "../App";
-import { RuleAction } from "change-analysis-models/rules";
+import { RuleAction } from "cdk-change-analyzer-models/rules";
 
 const useStyles = makeStyles({
     rejected: {

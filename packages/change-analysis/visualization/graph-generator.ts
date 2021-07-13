@@ -1,5 +1,5 @@
 import * as graphviz from 'graphviz';
-import { InfraModel, Component, DependencyRelationship, StructuralRelationship } from 'change-analysis-models';
+import { InfraModel, Component, DependencyRelationship, StructuralRelationship } from 'cdk-change-analyzer-models';
 import * as fs from 'fs';
 import * as path from 'path';
 

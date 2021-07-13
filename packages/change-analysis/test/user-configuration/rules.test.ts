@@ -1,6 +1,6 @@
 import { diffTestCase1 } from "../default-test-cases/infra-model-diff";
 import { CUserRule, parseRules, RuleProcessor, UserRule } from "../../user-configuration";
-import { RuleAction, RuleRisk } from "change-analysis-models";
+import { RuleAction, RuleRisk } from "cdk-change-analyzer-models";
 import { RuleConditionOperator } from "../../user-configuration";
 import { CUserRules, UserRules } from "../../user-configuration";
 

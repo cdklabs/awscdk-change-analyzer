@@ -1,5 +1,5 @@
-import { CompOpAggCharacteristics } from "change-analysis-models";
-import { ComponentOperation, PropertyComponentOperation } from "change-analysis-models";
+import { CompOpAggCharacteristics } from "cdk-change-analyzer-models";
+import { ComponentOperation, PropertyComponentOperation } from "cdk-change-analyzer-models";
 import { EqualityAggModule } from "../../aggregation-module";
 
 export const operationEntityAggModule = new EqualityAggModule(

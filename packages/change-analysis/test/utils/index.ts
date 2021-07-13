@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { Component, InfraModel } from 'change-analysis-models';
+import { Component, InfraModel } from 'cdk-change-analyzer-models';
 import { generateGraph } from '../../visualization/graph-generator';
 
 export const ParserUtilsCreator =

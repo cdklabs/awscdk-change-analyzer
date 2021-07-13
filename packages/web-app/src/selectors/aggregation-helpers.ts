@@ -1,5 +1,5 @@
-import { Aggregation } from "change-analysis-models/aggregations";
-import { ComponentOperation } from "change-analysis-models/model-diffing";
+import { Aggregation } from "cdk-change-analyzer-models/aggregations";
+import { ComponentOperation } from "cdk-change-analyzer-models/model-diffing";
 
 export function findAggregationWithChange(
     op: ComponentOperation, aggs: Aggregation<ComponentOperation>[]

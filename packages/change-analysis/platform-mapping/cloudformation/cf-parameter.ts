@@ -1,4 +1,4 @@
-import { Component, ComponentPropertyPrimitive, InfraModel } from "change-analysis-models";
+import { Component, ComponentPropertyPrimitive, InfraModel } from "cdk-change-analyzer-models";
 import { CFEntity } from "./cf-entity";
 
 export class CFParameter extends CFEntity {

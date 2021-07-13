@@ -1,8 +1,8 @@
-import { CompOpAggCharacteristics } from "change-analysis-models";
+import { CompOpAggCharacteristics } from "cdk-change-analyzer-models";
 import {
     ComponentOperation
-} from "change-analysis-models";
-import { capitalizeString } from "change-analysis-models";
+} from "cdk-change-analyzer-models";
+import { capitalizeString } from "cdk-change-analyzer-models";
 import { EqualityAggModule } from "../../aggregation-module";
 
 export const operationTypeAggModule = new EqualityAggModule(

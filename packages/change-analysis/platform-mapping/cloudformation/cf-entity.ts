@@ -9,7 +9,7 @@ import {
     ComponentPropertyArray,
     DependencyRelationshipOptions,
     PropertyPath
-} from "change-analysis-models";
+} from "cdk-change-analyzer-models";
 import { CFParserArgs } from "./cf-parser-args";
 import { CFRef } from "./cf-ref";
 

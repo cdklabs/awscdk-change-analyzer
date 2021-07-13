@@ -1,6 +1,6 @@
-import { isDefined } from "change-analysis-models";
-import { CompleteTransition, Transition } from "change-analysis-models";
-import { JSONSerializable, Serialized } from "change-analysis-models";
+import { isDefined } from "cdk-change-analyzer-models";
+import { CompleteTransition, Transition } from "cdk-change-analyzer-models";
+import { JSONSerializable, Serialized } from "cdk-change-analyzer-models";
 
 type ValidEntity = JSONSerializable | Serialized;
 

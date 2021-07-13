@@ -1,8 +1,8 @@
 import * as fs from 'fs';
-import { JSONSerializer } from 'change-analysis-models';
+import { JSONSerializer } from 'cdk-change-analyzer-models';
 import { createChangeAnalysisReport } from './change-analysis-report/create-change-analysis-report';
 import { CDKParser } from './platform-mapping';
-import { Transition } from 'change-analysis-models';
+import { Transition } from 'cdk-change-analyzer-models';
 
 const readJSONFile = (sampleInputFilename: string) => JSON.parse(fs.readFileSync(sampleInputFilename, 'utf8'));
 

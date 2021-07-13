@@ -1,7 +1,7 @@
 import React from 'react';
-import { ComponentOperation, Transition } from 'change-analysis-models/model-diffing';
+import { ComponentOperation, Transition } from 'cdk-change-analyzer-models/model-diffing';
 import { Box, makeStyles, Theme, Typography } from '@material-ui/core';
-import { Component } from 'change-analysis-models/infra-model';
+import { Component } from 'cdk-change-analyzer-models/infra-model';
 import { getComponentOperationsDescription } from '../selectors/description-generators';
 import { AppContext } from '../App';
 import ComponentTransitionDetails from '../reusable-components/ComponentTransitionDetails';

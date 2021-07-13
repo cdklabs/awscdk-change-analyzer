@@ -1,5 +1,5 @@
-import { CompOpAggCharacteristics, AggCharacteristicValue } from "change-analysis-models";
-import { isDefined } from "change-analysis-models";
+import { CompOpAggCharacteristics, AggCharacteristicValue } from "cdk-change-analyzer-models";
+import { isDefined } from "cdk-change-analyzer-models";
 import { AggDescriptionCreator } from "../add-aggregation-descriptions";
 
 /**

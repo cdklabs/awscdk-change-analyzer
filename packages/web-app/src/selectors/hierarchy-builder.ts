@@ -1,7 +1,7 @@
-import { ComponentOperation, InfraModelDiff, PropertyComponentOperation, Transition, UpdatePropertyComponentOperation } from "change-analysis-models/model-diffing";
+import { ComponentOperation, InfraModelDiff, PropertyComponentOperation, Transition, UpdatePropertyComponentOperation } from "cdk-change-analyzer-models/model-diffing";
 
-import { Component, Relationship, StructuralRelationship } from "change-analysis-models/infra-model";
-import { isDefined } from "change-analysis-models/utils";
+import { Component, Relationship, StructuralRelationship } from "cdk-change-analyzer-models/infra-model";
+import { isDefined } from "cdk-change-analyzer-models/utils";
 
 export interface VisualHierarchyNode {
     changes: ComponentOperation[],

@@ -2,7 +2,7 @@ import { CFParser } from "../../../platform-mapping";
 import {
     DependencyRelationship,
     StructuralRelationship
-} from "change-analysis-models";
+} from "cdk-change-analyzer-models";
 import { ParserUtilsCreator } from "../../utils";
 
 const cloudformationDir = `test/platform-mapping/cloudformation`;

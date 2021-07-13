@@ -1,7 +1,7 @@
 import {
     ReplaceComponentOperation,
     UpdatePropertyComponentOperation,
-} from "change-analysis-models";
+} from "cdk-change-analyzer-models";
 import { propagateChanges } from '../../model-diffing/';
 import { diffTestCase1 } from "../default-test-cases/infra-model-diff";
 

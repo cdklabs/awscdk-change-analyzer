@@ -1,7 +1,7 @@
-import { CompOpAggCharacteristics } from "change-analysis-models";
-import { ComponentOperation } from "change-analysis-models";
+import { CompOpAggCharacteristics } from "cdk-change-analyzer-models";
+import { ComponentOperation } from "cdk-change-analyzer-models";
 import { EqualityAggModule } from "../../aggregation-module";
-import { RuleEffect, RuleRisk } from "change-analysis-models";
+import { RuleEffect, RuleRisk } from "cdk-change-analyzer-models";
 
 export const riskAggModuleCreator = (rules: Map<ComponentOperation, RuleEffect>) => new EqualityAggModule(
     CompOpAggCharacteristics.RISK,

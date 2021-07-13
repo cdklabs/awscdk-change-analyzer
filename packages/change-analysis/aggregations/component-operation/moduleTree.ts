@@ -1,6 +1,6 @@
-import { CompOpAggCharacteristics } from "change-analysis-models";
-import { ComponentOperation } from "change-analysis-models";
-import { RuleEffect } from "change-analysis-models";
+import { CompOpAggCharacteristics } from "cdk-change-analyzer-models";
+import { ComponentOperation } from "cdk-change-analyzer-models";
+import { RuleEffect } from "cdk-change-analyzer-models";
 import { AggModuleTreeNode } from "../aggregation-module-tree-node";
 import {
     componentTypeAggModule,

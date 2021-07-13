@@ -1,9 +1,9 @@
 import React from 'react';
-import { Transition } from 'change-analysis-models/model-diffing';
+import { Transition } from 'cdk-change-analyzer-models/model-diffing';
 import { Grid } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import HierarchicalTree from './HierarchicalTree';
-import { Component } from 'change-analysis-models/infra-model';
+import { Component } from 'cdk-change-analyzer-models/infra-model';
 import HierarchicalDetailsPane from './HieralchicalDetailsPane';
 import { AppContext } from '../App';
 

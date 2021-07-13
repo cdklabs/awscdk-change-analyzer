@@ -1,4 +1,4 @@
-import { Component } from "change-analysis-models";
+import { Component } from "cdk-change-analyzer-models";
 import { CFEntity } from "./cf-entity";
 
 export class CFOutput extends CFEntity {

@@ -4,7 +4,7 @@ import {
     DependencyRelationship,
     ComponentPropertyValue,
     PropertyPath,
-} from "change-analysis-models";
+} from "cdk-change-analyzer-models";
 import { 
     ComponentOperation,
     OperationCertainty,
@@ -15,8 +15,8 @@ import {
     InfraModelDiff,
     TransitionNotFoundError,
     PropertyComponentOperation
-} from "change-analysis-models";
-import { arraysEqual } from "change-analysis-models";
+} from "cdk-change-analyzer-models";
+import { arraysEqual } from "cdk-change-analyzer-models";
 
 /**
  * Creates the ComponentOperations caused by existing ones

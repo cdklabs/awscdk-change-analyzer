@@ -1,4 +1,4 @@
-import { PropertyPath } from "change-analysis-models";
+import { PropertyPath } from "cdk-change-analyzer-models";
 
 export class CFRefInitError extends Error {}
 

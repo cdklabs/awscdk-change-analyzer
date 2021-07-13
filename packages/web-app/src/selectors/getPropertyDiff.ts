@@ -1,6 +1,6 @@
-import { ComponentPropertyValue } from "change-analysis-models/infra-model"
-import { InsertPropertyComponentOperation, PropertyComponentOperation, MovePropertyComponentOperation, RemovePropertyComponentOperation, Transition, UpdatePropertyComponentOperation, TransitionVersions } from "change-analysis-models/model-diffing"
-import { groupArrayBy } from "change-analysis-models/utils"
+import { ComponentPropertyValue } from "cdk-change-analyzer-models/infra-model"
+import { InsertPropertyComponentOperation, PropertyComponentOperation, MovePropertyComponentOperation, RemovePropertyComponentOperation, Transition, UpdatePropertyComponentOperation, TransitionVersions } from "cdk-change-analyzer-models/model-diffing"
+import { groupArrayBy } from "cdk-change-analyzer-models/utils"
 import { DiffHighlightType, DiffStringifier, DiffStringOutput } from "./diff-stringifier";
 
 export function getPropertyDiff(

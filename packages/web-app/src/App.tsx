@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Tab, Tabs, AppBar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { ChangeAnalysisReport } from 'change-analysis-models/change-analysis-report';
+import { ChangeAnalysisReport } from 'cdk-change-analyzer-models/change-analysis-report';
 import AggregationsTab from './AggregationsView/AggregationsTab';
 import HierarchicalTab from './HierarchicalView/HierarchicalTab';
-import { Component, ComponentPropertyValue } from 'change-analysis-models/infra-model';
-import { ComponentOperation, Transition } from 'change-analysis-models/model-diffing';
-import { Aggregation } from 'change-analysis-models/aggregations';
+import { Component, ComponentPropertyValue } from 'cdk-change-analyzer-models/infra-model';
+import { ComponentOperation, Transition } from 'cdk-change-analyzer-models/model-diffing';
+import { Aggregation } from 'cdk-change-analyzer-models/aggregations';
 import { findAggregationWithChange } from './selectors/aggregation-helpers';
-import { RuleAction, RuleEffect } from 'change-analysis-models/rules';
+import { RuleAction, RuleEffect } from 'cdk-change-analyzer-models/rules';
 import ChangesGroup from './reusable-components/ChangesGroup';
 
 

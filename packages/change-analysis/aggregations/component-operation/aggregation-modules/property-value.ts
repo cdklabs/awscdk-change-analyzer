@@ -1,11 +1,11 @@
-import { PropertyPrimitive } from "change-analysis-models";
-import { CompOpAggCharacteristics } from "change-analysis-models";
+import { PropertyPrimitive } from "cdk-change-analyzer-models";
+import { CompOpAggCharacteristics } from "cdk-change-analyzer-models";
 import {
     ComponentOperation,
     InsertPropertyComponentOperation,
     PropertyComponentOperation,
     RemovePropertyComponentOperation,
-} from "change-analysis-models";
+} from "cdk-change-analyzer-models";
 import { EqualityAggModule } from "../../aggregation-module";
 
 export const propertyValueV1AggModule = new EqualityAggModule(
