@@ -57,6 +57,7 @@ export class Transition<T extends JSONSerializable | Serialized, V extends Trans
         const serializeVersion = (version: T) => isJSONSerializable(version) ? serialize(version) : {value: version as Serialized};
         
         return {
+            _id: this.nodeData._id,
             v1: this.v1 ? serializeVersion(this.v1) : undefined,
             v2: this.v2 ? serializeVersion(this.v2) : undefined,
         };

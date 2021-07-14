@@ -32,6 +32,7 @@ export abstract class Relationship<T extends RelationshipData = RelationshipData
 
     public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedRelationship {
         return {
+            _id: this.nodeData._id,
             target: serialize(this.target),
             source: serialize(this.source),
             type: this.type,

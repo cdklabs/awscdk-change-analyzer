@@ -1,6 +1,7 @@
 import { JSONSerializable, Serialized } from './json-serializable';
 import { SerializationID } from './json-serializer';
 import { classToDeserializer } from './deserializer-mapping';
+import { ModelEntity } from '../infra-model';
 
 
 export class JSONDeserializer<T extends JSONSerializable> {
@@ -9,6 +10,7 @@ export class JSONDeserializer<T extends JSONSerializable> {
     private objects: {class: string, content: Serialized}[];
 
     public deserialize(str: string): T {
+        //const promise = ModelEntity.resetIdCounter();
         const obj = JSON.parse(str);
         if(typeof obj !== 'object' || obj === null || Array.isArray(obj)){
             throw Error("Cannot deserialize string as it does not represent an object");
@@ -16,7 +18,9 @@ export class JSONDeserializer<T extends JSONSerializable> {
             throw Error("Cannot deserialize: entry point id not found");
         }
         this.objects = obj.objects;
-        return this.deserializeObject(obj.entryPointId) as T;
+        const output = this.deserializeObject(obj.entryPointId) as T;
+        //promise.resolve();
+        return output;
     }
 
     private deserializeObject(id: SerializationID): JSONSerializable {

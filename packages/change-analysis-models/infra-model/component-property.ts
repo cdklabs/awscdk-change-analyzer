@@ -133,6 +133,7 @@ export class ComponentPropertyRecord extends ComponentCollectionProperty  {
 
     public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedComponentPropertyRecord {
         return {
+            _id: this.nodeData._id,
             value: Object.fromEntries(Object.entries(this.getRecord()).map(([k, v]) => [k, serialize(v)])),
             componentUpdateType: this.componentUpdateType,
         };
@@ -150,6 +151,7 @@ export class ComponentPropertyArray extends ComponentCollectionProperty {
 
     public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedComponentPropertyArray {
         return {
+            _id: this.nodeData._id,
             value: this.getArray().map(v => serialize(v)),
             componentUpdateType: this.componentUpdateType,
         };
@@ -172,6 +174,7 @@ export class ComponentPropertyPrimitive extends ComponentPropertyValue<NodeDataP
 
     public toSerialized(): SerializedComponentPropertyPrimitive {
         return {
+            _id: this.nodeData._id,
             value: this.getPrimitive(),
             componentUpdateType: this.componentUpdateType,
         };
@@ -191,6 +194,7 @@ export class EmptyComponentProperty extends ComponentPropertyValue {
 
     public toSerialized(): SerializedComponentPropertyEmpty {
         return {
+            _id: this.nodeData._id,
             value: undefined,
             componentUpdateType: this.componentUpdateType
         };

@@ -23,6 +23,7 @@ export class InfraModel extends ModelEntity<any, OutgoingNodeReferences> impleme
 
     public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedInfraModel {
         return {
+            _id: this.nodeData._id,
             components: this.components.map(c => serialize(c)),
             relationships: this.relationships.map(r => serialize(r))
         };

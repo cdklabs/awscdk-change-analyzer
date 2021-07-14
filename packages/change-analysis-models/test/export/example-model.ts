@@ -27,7 +27,7 @@ export const buildModelV1 = () => {
             }, ComponentUpdateType.REPLACEMENT
         )
     });
-    const relationship1v1 = new DependencyRelationship(component2v1, component1v1, 'relationship1', {sourcePropertyPath: ["nested", "propComp2"]});
+    const relationship1v1 = new DependencyRelationship(component2v1, component1v1, 'relationship1', {sourcePropertyPath: ["nested", "propComp2"], targetAttributePath: []});
     component1v1.addIncoming(relationship1v1);
     component2v1.addOutgoing(relationship1v1);
     const infraModelv1 = new InfraModel([component1v1, component2v1], [relationship1v1]);
@@ -53,7 +53,14 @@ const buildModelV2 = () => {
         }, ComponentUpdateType.REPLACEMENT
         )
     });
-    const relationship1v2 = new DependencyRelationship(component2v2, component1v2, 'relationship1', {sourcePropertyPath: ["nestedNameChanged", "propComp2NameChanged"]});
+    const relationship1v2 = new DependencyRelationship(
+        component2v2, 
+        component1v2, 
+        'relationship1', 
+        {
+            sourcePropertyPath: ["nestedNameChanged", "propComp2NameChanged"], 
+            targetAttributePath: []
+        });
     component1v2.addIncoming(relationship1v2);
     component2v2.addOutgoing(relationship1v2);
     const infraModelv2 = new InfraModel([component1v2, component2v2], [relationship1v2]);
@@ -76,20 +83,24 @@ export const buildDiff = (): InfraModelDiff => {
 
     const directChangeComponent1 = new UpdatePropertyComponentOperation({}, {
         pathTransition: new Transition({v1: ["someKey"], v2: ["someKey"]}),
+        innerOperations: undefined,
         propertyTransition: new Transition({
             v1: component1v1.properties.getRecord()["someKey"], 
             v2: component1v2.properties.getRecord()["someKey"], 
         }),
         componentTransition: component1Transition,
+        cause: undefined,
     });
 
     const directChangeComponent2 = new UpdatePropertyComponentOperation({}, {
         pathTransition: new Transition({v1: ["nested", "propComp2"], v2: ["nestedNameChanged", "propComp2NameChanged"]}),
+        innerOperations: undefined,
         propertyTransition: new Transition({
             v1: component2v1.properties.getRecord()["nested"].getRecord()["propComp2"], 
             v2: component2v2.properties.getRecord()["nestedNameChanged"].getRecord()["propComp2NameChanged"], 
         }),
-        componentTransition: component2Transition
+        componentTransition: component2Transition,
+        cause: undefined,
     });
 
     const infraModelTransition =  new Transition<InfraModel>({v1: infraModelv1, v2: infraModelv2});

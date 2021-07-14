@@ -80,6 +80,7 @@ export abstract class ComponentOperation<ND extends OpNodeData = any, OR extends
         serialize: (obj: JSONSerializable) => number,
     ): SerializedComponentOperation {
         return {
+            _id: this.nodeData._id,
             cause: this.cause ? serialize(this.cause) : undefined,
             certainty: this.certainty,
             componentTransition: serialize(this.componentTransition),

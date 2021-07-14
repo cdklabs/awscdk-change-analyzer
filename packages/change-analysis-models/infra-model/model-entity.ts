@@ -17,8 +17,17 @@ export class ModelEntity<
     public readonly nodeData: fn.VertexProps<ND>;
     protected readonly outgoingNodeReferences: OR;
 
+    public static resetIdCounter() {
+        const _idCounter = ModelEntity.idCounter;
+        ModelEntity.idCounter = 0;
+        return {
+            resolve: () => ModelEntity.idCounter = _idCounter,
+        };
+    }
+
     constructor(entityType: string, nodeData: fn.InVertex<ND>, outgoingNodeReferences: OR){
-        this.nodeData = {_entityType: entityType, _id: `${++ModelEntity.idCounter}`, ...nodeData};
+        if (entityType == 'diff') console.log(nodeData);
+        this.nodeData = {_entityType: entityType, _id: nodeData._id ?? `${++ModelEntity.idCounter}`, ...nodeData};
         this.outgoingNodeReferences = outgoingNodeReferences; 
     }
 

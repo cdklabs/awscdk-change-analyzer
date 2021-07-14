@@ -11,7 +11,8 @@ export function componentDeserializer(obj: Serialized, deserialize: (obj: Serial
         serializedComponent.type,
         {
             subtype: serializedComponent?.subtype,
-            properties: deserialize(serializedComponent.properties) as ComponentPropertyValue
+            properties: deserialize(serializedComponent.properties) as ComponentPropertyValue,
+            // _id: serializedComponent._id
         }
     );
 

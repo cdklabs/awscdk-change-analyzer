@@ -61,6 +61,7 @@ export class InfraModelDiff extends ModelEntity<{}, OutgoingNodeReferences> impl
         serialize: (obj: JSONSerializable) => SerializationID,
     ): Serialized {
         return {
+            _id: this.nodeData._id,
             componentOperations: this.componentOperations.map(serialize),
             componentTransitions: this.componentTransitions.map(t => serialize(t)),
             infraModelTransition: serialize(this.infraModelTransition)

@@ -5,5 +5,6 @@ export interface SerializedComponent extends SerializedRecord {
     properties: SerializationID,
     type: string,
     subtype?: string,
-    name: string
+    name: string,
+    _id: string,
 }

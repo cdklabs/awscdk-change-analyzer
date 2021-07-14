@@ -19,6 +19,7 @@ type OutgoingNodeReferences = {
 }
 
 interface ComponentOptions {
+    readonly _id?: string;
     readonly subtype?: string;
     readonly properties: ComponentPropertyValue;
 }
@@ -52,6 +53,7 @@ export class Component extends ModelEntity<NodeData, OutgoingNodeReferences> imp
                 name,
                 type,
                 subtype: options?.subtype,
+                _id: options?._id,
             }, {
                 hasRelationship: new Set(),
                 hasProperties: options?.properties ?? new EmptyComponentProperty()
@@ -89,6 +91,7 @@ export class Component extends ModelEntity<NodeData, OutgoingNodeReferences> imp
 
     public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedComponent {
         return {
+            _id: this.nodeData._id,
             properties: serialize(this.properties),
             type: this.type,
             subtype: this.subtype,
