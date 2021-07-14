@@ -1,38 +1,48 @@
-import { ComponentOperation, InfraModelDiff, Transition, UpdatePropertyComponentOperation } from "cdk-change-analyzer-models";
-import { ModuleTreeAggsExtractor } from "../aggregations-extractor";
-import { Aggregation } from "cdk-change-analyzer-models";
-import { componentOperationSpecificAggModuleTree, compOperationWithRulesAggModuleTree } from "./moduleTree";
-import { addAggDescriptions } from "../add-aggregation-descriptions";
-import * as descriptionCreators from "./description-creators";
-import { groupArrayBy } from "cdk-change-analyzer-models";
-import { Component } from "cdk-change-analyzer-models";
-import { RuleEffect } from "cdk-change-analyzer-models";
+import {
+  ComponentOperation,
+  InfraModelDiff,
+  Transition,
+  UpdatePropertyComponentOperation,
+  Aggregation,
+  groupArrayBy,
+  Component,
+  RuleEffect,
+} from 'cdk-change-analyzer-models';
+import { addAggDescriptions } from '../add-aggregation-descriptions';
+import { ModuleTreeAggsExtractor } from '../aggregations-extractor';
+import * as descriptionCreators from './description-creators';
+import { componentOperationSpecificAggModuleTree, compOperationWithRulesAggModuleTree } from './moduleTree';
 
-export const extractComponentOperationsAggs = (diff: InfraModelDiff, rules: Map<ComponentOperation, RuleEffect>): Aggregation<ComponentOperation>[] => {
+export function extractComponentOperationsAggs(
+  diff: InfraModelDiff,
+  rules: Map<ComponentOperation, RuleEffect>,
+): Aggregation<ComponentOperation>[] {
 
-    const explodedOperation = explodeOperations(diff.componentOperations);
-    return addAggDescriptions(
-        ModuleTreeAggsExtractor.extract(compOperationWithRulesAggModuleTree(rules), explodedOperation),
-        Object.values(descriptionCreators)
-    );
-};
+  const explodedOperation = explodeOperations(diff.componentOperations);
+  return addAggDescriptions(
+    ModuleTreeAggsExtractor.extract(compOperationWithRulesAggModuleTree(rules), explodedOperation),
+    Object.values(descriptionCreators),
+  );
+}
 
-export const extractComponentOperationsAggsPerComponent = (diff: InfraModelDiff): Map<Transition<Component>, Aggregation<ComponentOperation>[]> => {
-    
-    const opsPerComponent = groupArrayBy(diff.componentOperations, (op) => op.componentTransition);
+export function extractComponentOperationsAggsPerComponent(
+  diff: InfraModelDiff,
+): Map<Transition<Component>, Aggregation<ComponentOperation>[]>{
 
-    return new Map(diff.componentTransitions.map(t => {
-        const componentOps = opsPerComponent.get(t);
-        if(!componentOps) return [t, []];
+  const opsPerComponent = groupArrayBy(diff.componentOperations, (op) => op.componentTransition);
 
-        const explodedOperation = explodeOperations(componentOps);
-        return [t, addAggDescriptions(
-            ModuleTreeAggsExtractor.extract(componentOperationSpecificAggModuleTree, explodedOperation),
-            Object.values(descriptionCreators)
-        )];
-    }));
-};
+  return new Map(diff.componentTransitions.map(t => {
+    const componentOps = opsPerComponent.get(t);
+    if(!componentOps) return [t, []];
+
+    const explodedOperation = explodeOperations(componentOps);
+    return [t, addAggDescriptions(
+      ModuleTreeAggsExtractor.extract(componentOperationSpecificAggModuleTree, explodedOperation),
+      Object.values(descriptionCreators),
+    )];
+  }));
+}
 
 const explodeOperations = (ops: ComponentOperation[]) => {
-    return ops.flatMap(o => (o instanceof UpdatePropertyComponentOperation) ? o.getLeaves() : [o]);
+  return ops.flatMap(o => (o instanceof UpdatePropertyComponentOperation) ? o.getLeaves() : [o]);
 };

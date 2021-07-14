@@ -1,15 +1,14 @@
-import { groupArrayBy } from "cdk-change-analyzer-models";
-import { Aggregation } from "cdk-change-analyzer-models";
+import { Aggregation, groupArrayBy } from 'cdk-change-analyzer-models';
 
 /**
  * Defines an Aggregation
  */
 export abstract class AggModule<T> {
-    constructor(
-        public readonly label: string
-    ){}
+  constructor(
+    public readonly label: string,
+  ){}
 
-    public abstract extractGroups(entities: Set<T>): Aggregation<T>[];
+  public abstract extractGroups(entities: Set<T>): Aggregation<T>[];
 }
 
 /**
@@ -17,19 +16,19 @@ export abstract class AggModule<T> {
  * an indexable value (obtained using indexValueGetter)
  */
 export class EqualityAggModule<T> extends AggModule<T> {
-    constructor(
-        label: string,
-        public readonly indexValueGetter: (e: T) => string | number | boolean | undefined
-    ){super(label);}
+  constructor(
+    label: string,
+    public readonly indexValueGetter: (e: T) => string | number | boolean | undefined,
+  ){super(label);}
 
-    extractGroups(entities: Set<T>): Aggregation<T>[] {
-        return [...groupArrayBy([...entities], this.indexValueGetter)].map(([key, ops]) => ({
-            entities: new Set(ops),
-            characteristics: {
-                [this.label]: key
-            }
-        }));
-    }
+  extractGroups(entities: Set<T>): Aggregation<T>[] {
+    return [...groupArrayBy([...entities], this.indexValueGetter)].map(([key, ops]) => ({
+      entities: new Set(ops),
+      characteristics: {
+        [this.label]: key,
+      },
+    }));
+  }
 }
 
 /**
@@ -37,12 +36,12 @@ export class EqualityAggModule<T> extends AggModule<T> {
  * similarity between each pair of entities (obtained using similarityChecker)
  */
 export class SimilarityAggModule<T> extends AggModule<T> {
-    constructor(
-        label: string,
-        public readonly similarityChecker: (e: T) => boolean
-    ){super(label);}
+  constructor(
+    label: string,
+    public readonly similarityChecker: (e: T) => boolean,
+  ){super(label);}
 
-    extractGroups(): Aggregation<T>[] {
-        throw Error("Similarity Agg Module does not have an implementation yet");
-    }
+  extractGroups(): Aggregation<T>[] {
+    throw Error('Similarity Agg Module does not have an implementation yet');
+  }
 }

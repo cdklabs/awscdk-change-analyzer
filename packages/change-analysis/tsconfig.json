@@ -20,5 +20,5 @@
     "strictPropertyInitialization": false,
     "typeRoots": ["./node_modules/@types"]
   },
-  "exclude": ["test", "out"]
+  "exclude": ["out"]
 }

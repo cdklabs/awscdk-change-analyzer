@@ -1,8 +1,7 @@
 import * as fs from 'fs';
-import { JSONSerializer } from 'cdk-change-analyzer-models';
+import { JSONSerializer, Transition } from 'cdk-change-analyzer-models';
 import { createChangeAnalysisReport } from './change-analysis-report/create-change-analysis-report';
 import { CDKParser } from './platform-mapping';
-import { Transition } from 'cdk-change-analyzer-models';
 
 const readJSONFile = (sampleInputFilename: string) => JSON.parse(fs.readFileSync(sampleInputFilename, 'utf8'));
 
@@ -10,8 +9,9 @@ const readJSONFile = (sampleInputFilename: string) => JSON.parse(fs.readFileSync
 const args = process.argv.slice(2);
 
 if(args.length !== 4){
-    console.log('Usage: npm start -- <JSON Template 1 Path> <JSON Template 2 Path> <Rules Path> <Output Path>');
-    process.exit();
+  // eslint-disable-next-line no-console
+  console.log('Usage: npm start -- <JSON Template 1 Path> <JSON Template 2 Path> <Rules Path> <Output Path>');
+  process.exit();
 }
 
 const [v1Path, v2Path, rulesPath, outputPath] = args;
@@ -25,4 +25,5 @@ const changeReport = createChangeAnalysisReport(new Transition({v1: oldModel, v2
 
 fs.writeFileSync(outputPath, new JSONSerializer().serialize(changeReport));
 
-console.log("Done!");
+// eslint-disable-next-line no-console
+console.log('Done!');
