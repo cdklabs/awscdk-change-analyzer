@@ -1,41 +1,39 @@
 import {
-    Component,
-    ComponentUpdateType,
-    DependencyRelationship,
-    ComponentPropertyValue,
-    PropertyPath,
-} from "cdk-change-analyzer-models";
-import { 
-    ComponentOperation,
-    OperationCertainty,
-    RenameComponentOperation,
-    ReplaceComponentOperation,
-    UpdatePropertyComponentOperation,
-    Transition,
-    InfraModelDiff,
-    TransitionNotFoundError,
-    PropertyComponentOperation
-} from "cdk-change-analyzer-models";
-import { arraysEqual } from "cdk-change-analyzer-models";
+  Component,
+  ComponentUpdateType,
+  DependencyRelationship,
+  ComponentPropertyValue,
+  PropertyPath,
+  ComponentOperation,
+  OperationCertainty,
+  RenameComponentOperation,
+  ReplaceComponentOperation,
+  UpdatePropertyComponentOperation,
+  Transition,
+  InfraModelDiff,
+  TransitionNotFoundError,
+  PropertyComponentOperation,
+  arraysEqual,
+} from 'cdk-change-analyzer-models';
 
 /**
  * Creates the ComponentOperations caused by existing ones
  * @returns the new InfraModelDiff
  */
 export function propagateChanges(modelDiff: InfraModelDiff): InfraModelDiff{
-    const propagatedOperations: ComponentOperation[] = modelDiff.componentOperations.flatMap(o => {
-            if(o instanceof UpdatePropertyComponentOperation){   
-                return propagatePropertyOperation(o, modelDiff);
-            } else if(o instanceof RenameComponentOperation){
-                return propagateRenameOperation(o, modelDiff);
-            }
-            return [];
-    });
-    return new InfraModelDiff(
-        [...modelDiff.componentOperations, ...propagatedOperations],
-        modelDiff.componentTransitions,
-        modelDiff.infraModelTransition
-    );
+  const propagatedOperations: ComponentOperation[] = modelDiff.componentOperations.flatMap(o => {
+    if(o instanceof UpdatePropertyComponentOperation){
+      return propagatePropertyOperation(o, modelDiff);
+    } else if(o instanceof RenameComponentOperation){
+      return propagateRenameOperation(o, modelDiff);
+    }
+    return [];
+  });
+  return new InfraModelDiff(
+    [...modelDiff.componentOperations, ...propagatedOperations],
+    modelDiff.componentTransitions,
+    modelDiff.infraModelTransition,
+  );
 }
 
 /**
@@ -47,146 +45,159 @@ export function propagateChanges(modelDiff: InfraModelDiff): InfraModelDiff{
  * @param modelDiff the original InfraModelDiff
  */
 function propagatePropertyOperation(
-    compOp: PropertyComponentOperation,
-    modelDiff: InfraModelDiff,
+  compOp: PropertyComponentOperation,
+  modelDiff: InfraModelDiff,
 ): ComponentOperation[] {
-    const componentUpdate = compOp.getUpdateType();
+  const componentUpdate = compOp.getUpdateType();
 
-    if(componentUpdate !== ComponentUpdateType.REPLACEMENT
+  if(componentUpdate !== ComponentUpdateType.REPLACEMENT
         && componentUpdate !== ComponentUpdateType.POSSIBLE_REPLACEMENT)
-        return compOp instanceof UpdatePropertyComponentOperation
-            ? (compOp.innerOperations ?? []).flatMap(i => propagatePropertyOperation(i, modelDiff))
-            : [];
+    return compOp instanceof UpdatePropertyComponentOperation
+      ? (compOp.innerOperations ?? []).flatMap(i => propagatePropertyOperation(i, modelDiff))
+      : [];
 
-    /** if the property is a replacement-inducing collection and
+  /** if the property is a replacement-inducing collection and
     /* the keys have changed, it should propagate to a replacement
     / */
-    if(!compOp.propertyTransition.v1?.isPrimitive()){
-        const {v1, v2} = compOp.propertyTransition;
-        if(v1 !== undefined
+  if(!compOp.propertyTransition.v1?.isPrimitive()){
+    const {v1, v2} = compOp.propertyTransition;
+    if(v1 !== undefined
             && v2 !== undefined
             && arraysEqual(Object.keys(v1.getCollection()), Object.keys(v2.getCollection()))
             && compOp instanceof UpdatePropertyComponentOperation
-        ){
-            return (compOp.innerOperations ?? []).flatMap(i => propagatePropertyOperation(i, modelDiff));
-        }
+    ){
+      return (compOp.innerOperations ?? []).flatMap(i => propagatePropertyOperation(i, modelDiff));
     }
+  }
 
-    const componentTransition = compOp.componentTransition;
+  const componentTransition = compOp.componentTransition;
 
-    const replacementOp = new ReplaceComponentOperation({
-            certainty: componentUpdate === ComponentUpdateType.POSSIBLE_REPLACEMENT
-                ? OperationCertainty.PARTIAL : OperationCertainty.ABSOLUTE,
-        }, {
-            cause: compOp,
-            componentTransition, 
-        }
-    );
-    
-    return [replacementOp, ...propagateReplacementOperation(replacementOp, modelDiff)];
+  const replacementOp = new ReplaceComponentOperation({
+    certainty: componentUpdate === ComponentUpdateType.POSSIBLE_REPLACEMENT
+      ? OperationCertainty.PARTIAL : OperationCertainty.ABSOLUTE,
+  }, {
+    cause: compOp,
+    componentTransition,
+  },
+  );
+
+  return [replacementOp, ...propagateReplacementOperation(replacementOp, modelDiff)];
 }
 
 function propagateRenameOperation(
-    compOp: RenameComponentOperation,
-    modelDiff: InfraModelDiff,
+  compOp: RenameComponentOperation,
+  modelDiff: InfraModelDiff,
 ): ComponentOperation[] {
-    const replacementOp = new ReplaceComponentOperation(
-        {certainty: OperationCertainty.ABSOLUTE},
-        {
-            cause: compOp,
-            componentTransition: compOp.componentTransition,
-        }
-    );
-    
-    return [replacementOp, ...propagateReplacementOperation(replacementOp, modelDiff)];
+  const replacementOp = new ReplaceComponentOperation(
+    {certainty: OperationCertainty.ABSOLUTE},
+    {
+      cause: compOp,
+      componentTransition: compOp.componentTransition,
+    },
+  );
+
+  return [replacementOp, ...propagateReplacementOperation(replacementOp, modelDiff)];
 }
 
 function propagateReplacementOperation(replacementOp: ReplaceComponentOperation, modelDiff: InfraModelDiff){
 
-    const newComponent = replacementOp.componentTransition.v2;
-    if(!newComponent)
-        throw Error("ReplaceComponentOperation has no new Component version");
-    
-    const dependentRelationships = [...newComponent.incoming]
-        .filter(r => r instanceof DependencyRelationship) as DependencyRelationship[];
+  const newComponent = replacementOp.componentTransition.v2;
+  if(!newComponent)
+    throw Error('ReplaceComponentOperation has no new Component version');
 
-        
-    const replacementPropagations = dependentRelationships.flatMap((rel: DependencyRelationship) => {
-        try{
-            const sourceComponentTransition = modelDiff.getComponentTransition(rel.source);
+  const dependentRelationships = [...newComponent.incoming]
+    .filter(r => r instanceof DependencyRelationship) as DependencyRelationship[];
 
-            const consequentPropertyUpdateOp = createUpdateOperationForComponent(modelDiff, sourceComponentTransition, rel.sourcePropertyPath, replacementOp);
-        
-            let propagatedPropertyUpdateOp: ComponentOperation[] = [];
-            if(consequentPropertyUpdateOp)
-                propagatedPropertyUpdateOp = [consequentPropertyUpdateOp, ...propagatePropertyOperation(consequentPropertyUpdateOp, modelDiff)];
-            
-            return propagatedPropertyUpdateOp;
-        } catch(e) {
-            if(!(e instanceof TransitionNotFoundError)) throw e;
-            return [];
-        }
-    });
 
-    return [...replacementPropagations];
+  const replacementPropagations = dependentRelationships.flatMap((rel: DependencyRelationship) => {
+    try{
+      const sourceComponentTransition = modelDiff.getComponentTransition(rel.source);
+
+      const consequentPropertyUpdateOp = createUpdateOperationForComponent(
+        modelDiff,
+        sourceComponentTransition,
+        rel.sourcePropertyPath,
+        replacementOp,
+      );
+
+      let propagatedPropertyUpdateOp: ComponentOperation[] = [];
+      if(consequentPropertyUpdateOp)
+        propagatedPropertyUpdateOp = [
+          consequentPropertyUpdateOp,
+          ...propagatePropertyOperation(consequentPropertyUpdateOp, modelDiff),
+        ];
+
+      return propagatedPropertyUpdateOp;
+    } catch(e) {
+      if(!(e instanceof TransitionNotFoundError)) throw e;
+      return [];
+    }
+  });
+
+  return [...replacementPropagations];
 }
 
 /**
  * Creates an UpdatePropertyComponentOperation for a given component, current property path and cause
  * by finding the previous property path and ComponentPropertyValue.
- * @param componentTransition 
- * @param v2PropertyPath 
- * @param cause 
- * @returns 
+ * @param componentTransition
+ * @param v2PropertyPath
+ * @param cause
+ * @returns
  */
 function createUpdateOperationForComponent(
-    modelDiff: InfraModelDiff,
-    componentTransition: Transition<Component>,
-    v2PropertyPath: PropertyPath,
-    cause: ComponentOperation
+  modelDiff: InfraModelDiff,
+  componentTransition: Transition<Component>,
+  v2PropertyPath: PropertyPath,
+  cause: ComponentOperation,
 ){
-    const [v1PropertyPath, v1Property] = getV1PropertyForComponentTransition(modelDiff, componentTransition, v2PropertyPath);
+  const [v1PropertyPath, v1Property] = getV1PropertyForComponentTransition(
+    modelDiff,
+    componentTransition,
+    v2PropertyPath,
+  );
 
-    //If there was no previous path, it means this value was inserted. No update will be done
-    if(!v1PropertyPath) return;
+  //If there was no previous path, it means this value was inserted. No update will be done
+  if(!v1PropertyPath) return;
 
-    return new UpdatePropertyComponentOperation(
-        {certainty: cause.certainty},
-        {
-            pathTransition: new Transition({v1: v1PropertyPath, v2: v2PropertyPath}),
-            propertyTransition: new Transition({
-                v1: v1Property,
-                v2: componentTransition.v2?.properties.getPropertyInPath(v2PropertyPath)
-            }),
-            componentTransition,
-            cause
-        }
-    );
+  return new UpdatePropertyComponentOperation(
+    {certainty: cause.certainty},
+    {
+      pathTransition: new Transition({v1: v1PropertyPath, v2: v2PropertyPath}),
+      propertyTransition: new Transition({
+        v1: v1Property,
+        v2: componentTransition.v2?.properties.getPropertyInPath(v2PropertyPath),
+      }),
+      componentTransition,
+      cause,
+    },
+  );
 }
 
 /**
  * Find the previous PropertyPath and ComponentPropertyValue for a current PropertyPath of a ComponentTransition
- * @param componentTransition 
- * @param v2PropertyPath 
+ * @param componentTransition
+ * @param v2PropertyPath
  * @returns [previous PropertyPath, previous ComponentPropertyValue].
  * They can be undefined if the property was inserted
  */
 function getV1PropertyForComponentTransition(
-    modelDiff: InfraModelDiff,
-    componentTransition: Transition<Component>,
-    v2PropertyPath: PropertyPath
+  modelDiff: InfraModelDiff,
+  componentTransition: Transition<Component>,
+  v2PropertyPath: PropertyPath,
 ): [PropertyPath | undefined, ComponentPropertyValue | undefined] {
 
-    const existingUpdateOperation = modelDiff.getTransitionOperations(componentTransition)
-        .find(o => o instanceof UpdatePropertyComponentOperation && o.isDirectChange()) as UpdatePropertyComponentOperation | undefined;
-    
-    const v1PropertyPath = existingUpdateOperation
-        ? existingUpdateOperation.getV1Path(v2PropertyPath)
-        : undefined;
-    
-    const v1Property = v1PropertyPath
-        ? componentTransition.v1?.properties.getPropertyInPath(v1PropertyPath)
-        : undefined;
-    
-    return [v1PropertyPath, v1Property];
+  const existingUpdateOperation = modelDiff.getTransitionOperations(componentTransition)
+    .find(o => o instanceof UpdatePropertyComponentOperation
+      && o.isDirectChange()) as UpdatePropertyComponentOperation | undefined;
+
+  const v1PropertyPath = existingUpdateOperation
+    ? existingUpdateOperation.getV1Path(v2PropertyPath)
+    : undefined;
+
+  const v1Property = v1PropertyPath
+    ? componentTransition.v1?.properties.getPropertyInPath(v1PropertyPath)
+    : undefined;
+
+  return [v1PropertyPath, v1Property];
 }

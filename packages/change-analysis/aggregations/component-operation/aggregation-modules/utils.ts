@@ -1,5 +1,8 @@
-import { PropertyPath } from "cdk-change-analyzer-models";
-
+import { PropertyPath } from 'cdk-change-analyzer-models';
+/**
+ * Used to stringify a property's path
+ */
 export function stringifyPath(path: PropertyPath): string{
-    return path.filter(n => typeof n !== 'number').join('.');
+  //Array indexes (numbers in path) are not relevant for aggregating properties
+  return path.filter(n => typeof n !== 'number').join('.');
 }

@@ -1,33 +1,33 @@
-import { CDKParser } from "../../platform-mapping";
-import { ParserUtilsCreator } from "../utils";
+import { Transition } from 'cdk-change-analyzer-models';
 import {
-    DiffCreator,
-} from "../../model-diffing";
-import { Transition } from "cdk-change-analyzer-models";
+  DiffCreator,
+} from '../../model-diffing';
+import { CDKParser } from '../../platform-mapping';
+import { ParserUtilsCreator } from '../utils';
 
-const dir = `test/model-diffing`;
+const dir = 'test/model-diffing';
 
 const {
-    readSampleInput,
-    genGraphOnEnvFlag,
-    stringifyComponents
+  readSampleInput,
+  genGraphOnEnvFlag,
+  stringifyComponents,
 } = ParserUtilsCreator(dir);
 
 test('Matching basic template', () => {
-    const oldModel = new CDKParser(readSampleInput('simple-template-before.json')).parse();
-    const newModel = new CDKParser(readSampleInput('simple-template-after.json')).parse();
+  const oldModel = new CDKParser(readSampleInput('simple-template-before.json')).parse();
+  const newModel = new CDKParser(readSampleInput('simple-template-after.json')).parse();
 
-    genGraphOnEnvFlag(oldModel, 'simple-template-before');
-    genGraphOnEnvFlag(newModel, 'simple-template-after');
+  genGraphOnEnvFlag(oldModel, 'simple-template-before');
+  genGraphOnEnvFlag(newModel, 'simple-template-after');
 
-    const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
-    expect(stringifyComponents(diff)).toMatchSnapshot();
+  const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
+  expect(stringifyComponents(diff)).toMatchSnapshot();
 });
 
 test('Matching big template', () => {
-    const oldModel = new CDKParser(readSampleInput('kessel-run-stack-before.json')).parse();
-    const newModel = new CDKParser(readSampleInput('kessel-run-stack-after.json')).parse();
-    
-    const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
-    expect(stringifyComponents(diff)).toMatchSnapshot();
+  const oldModel = new CDKParser(readSampleInput('kessel-run-stack-before.json')).parse();
+  const newModel = new CDKParser(readSampleInput('kessel-run-stack-after.json')).parse();
+
+  const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
+  expect(stringifyComponents(diff)).toMatchSnapshot();
 });
