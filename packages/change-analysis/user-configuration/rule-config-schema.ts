@@ -1,7 +1,9 @@
 import { RuleEffect } from "cdk-change-analyzer-models";
 import { Scalar } from "./rule";
 
-
+/**
+ * Accepted rules from the user. Parser transforms CRules into Rules
+ */
 export type CFilters = Record<string, Scalar>;
 
 export interface BaseSelector {

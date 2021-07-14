@@ -1,5 +1,8 @@
 import { RuleEffect } from 'cdk-change-analyzer-models';
 
+/**
+ * Internal representation of the user defined rules (after parsing)
+ */
 export enum RuleConditionOperator {
     // references = '->', // for following dependency relationships
     // isReferencedIn = '<-',

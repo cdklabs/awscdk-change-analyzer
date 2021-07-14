@@ -37,7 +37,7 @@ export class DiffCreator {
         if(!this.modelTransition.v1 || !this.modelTransition.v2)
             throw Error("Cannot diff model transition with undefined model version");
 
-        // Grouping components by their type and subtype for performance reasons, since their matching will test them n*n.
+        // Grouping components by their type and subtype for performance reasons, since their matching will test them in O(n*n).
         // We are reducing the amount of candidates that will be explored for each component
         const oldComponentsGrouped = this.groupComponentsByType(this.modelTransition.v1.components);
         const newComponentsGrouped = this.groupComponentsByType(this.modelTransition.v2.components);

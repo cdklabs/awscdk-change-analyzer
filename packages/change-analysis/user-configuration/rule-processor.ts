@@ -7,6 +7,9 @@ import { RuleEffect } from 'cdk-change-analyzer-models';
 import { appliesToHandler } from './operator-handlers';
 import { equalsHandler } from "./operator-handlers/equals";
 
+/**
+ * Process user rules and assign rule effects to the respective vertices in the graph
+ */
 type UserRules = UserRule[];
 
 type RulesScope = Record<string, ScopeNode>;
@@ -44,6 +47,9 @@ export class RuleProcessor {
         private readonly graph: fn.Graph<any, any & {_label: string, _in:string, _out:string}>,
     ){}
 
+    /**
+     * Assigns rule effects to specific vertices in the graph, based on the provided user rules
+     */
     public processRules(rules: UserRules): RuleOutput {
         return this.processRulesWithScope(rules, {});
     }

@@ -70,9 +70,9 @@ export class PropertyDiffCreator {
             .map((k): [string, PropertyDiff] => [k, this.create(p1Record[k], p2Record[k], [...pathP1, k], [...pathP2, k])])
             .map(([k, pd]): [string, PropertyDiff] => [k, {
                 ...pd,
-                similarity: pd.similarity + (1 - pd.similarity)*(1/(pd.weight+1)),
+                similarity: pd.similarity + (1 - pd.similarity)*(1/(pd.weight+1)), // keys impact similiarity as much as string values
                 weight: pd.weight + 1
-            }]); // keys impact similiarity as much as string values
+            }]);
 
         const pickedSameNameKeys = new Set(pickedSameNames.map(([k]) => k));
         const sameNameDiffs = pickedSameNames.map(([, pd]) => pd);
