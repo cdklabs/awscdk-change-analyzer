@@ -13,12 +13,6 @@ jobs:
     - name: Checkout Git repo
       uses: actions/checkout@v2
     
-    - name: Set up Node.js
-      uses: actions/setup-node@master
-      with:
-        node-version: 10.0.0
-        registry-url: https://registry.npmjs.com/
-    
     - name: Cache node_modules
       uses: actions/cache@v2
       with:
