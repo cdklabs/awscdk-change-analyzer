@@ -1,4 +1,5 @@
 !jest.config.js
+!.eslintrc.js
 !babel.config.js
 node_modules
 out

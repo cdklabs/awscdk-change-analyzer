@@ -1,12 +1,22 @@
 {
   "name": "root",
-  "private": true,
-  "devDependencies": {
-    "lerna": "^4.0.0"
+  "version": "0.0.0",
+  "private": true, 
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cdklabs/awscdk-change-analyzer.git"
+  },
+  "scripts": {
+    "build": "npx lerna run build",
+    "lint": "npx lerna run lint",
+    "test": "npx lerna run test"
   },
   "workspaces": {
     "packages": [
-        "packages/*"
+      "packages/*"
     ]
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
   }
 }

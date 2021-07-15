@@ -1,5 +1,4 @@
 name: Build and test
-
 on:
   push:
     branches: [ main ]
@@ -8,21 +7,26 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Node.js
-      uses: actions/setup-node@master
+    - name: Checkout Git repo
+      uses: actions/checkout@v2
+    
+    - name: Cache node_modules
+      uses: actions/cache@v2
       with:
-        node-version: 10.0.0
-        registry-url: https://registry.npmjs.com/
+        path: '**/node_modules'
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+    
     - name: Install dependencies
-      run: |
-        npm install -g yarn
-        yarn install --frozen-lockfile
+      run: yarn install --frozen-lockfile
+
+    - name: Lint
+      run: yarn lint
+  
     - name: Build
-      run: npx lerna run build
+      run: yarn build
+    
     - name: Test
-      run: npx lerna run test
+      run: yarn test

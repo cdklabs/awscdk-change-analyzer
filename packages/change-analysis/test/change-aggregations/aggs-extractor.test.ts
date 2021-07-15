@@ -23,12 +23,12 @@ test('Extract Agg of operation type, component type and component subtype', () =
   expect(aggs.length).toBe(1);
   expect(aggs[0].characteristics).toMatchObject({RISK: 'unknown'});
   const subAggs1 = aggs[0].subAggs;
-  expect(subAggs1.length).toBe(2);
-  expect(subAggs1[0].characteristics).toMatchObject({
+  expect(subAggs1?.length).toBe(2);
+  expect(subAggs1?.[0].characteristics).toMatchObject({
     'Component Subtype': 'AWS::IAM::Role',
     'Component Type': 'resource',
   });
-  expect(subAggs1[1].characteristics).toMatchObject({
+  expect(subAggs1?.[1].characteristics).toMatchObject({
     'Component Subtype': 'AWS::EC2::Instance',
     'Component Type': 'resource',
   });
@@ -43,6 +43,6 @@ test('Group operations from big template', () => {
   const aggs = extractComponentOperationsAggs(diff, new Map());
 
   expect(aggs.length).toBe(1);
-  expect(aggs[0].subAggs.length).toBe(10);
+  expect(aggs[0].subAggs?.length).toBe(10);
   expect(aggs[0].entities.size).toBe(81);
 });

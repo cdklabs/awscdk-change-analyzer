@@ -4821,10 +4821,10 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "2.1.1"
 
-fifinet@0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/fifinet/-/fifinet-0.1.6.tgz#92617743c518c698217f48b8d0a5e0d8183ad95c"
-  integrity sha512-ndtrOA17maV/tr5hpFtFYL1LHsDi5CS29sJDXtcwZSjKpPg6SGtQT267nxkEo2hionZqqs+Wd1Jx6kAfLNMe8Q==
+fifinet@0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/fifinet/-/fifinet-0.1.7.tgz#812872ecfa9d64798362c0b30ba7b65db7a9b0a0"
+  integrity sha512-0h2NfL10G9UfYSyK9bmHgp58oSH8dA4OCy7pDi/etV3bP+DNtORrUEs/AcJjL5TrVgith1fhWb4OCt89T+48kQ==
 
 figures@^3.0.0:
   version "3.2.0"

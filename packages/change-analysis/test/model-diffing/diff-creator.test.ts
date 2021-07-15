@@ -95,16 +95,16 @@ test('Update Multiple Nested Component Properties', () => {
   expect(diff.componentOperations[0] instanceof UpdatePropertyComponentOperation).toBe(true);
 
   const topLevelOperation = diff.componentOperations[0] as UpdatePropertyComponentOperation;
-  const propertiesOperation = topLevelOperation.innerOperations[0] as UpdatePropertyComponentOperation;
-  const property1Operation = propertiesOperation.innerOperations[0] as UpdatePropertyComponentOperation;
+  const propertiesOperation = topLevelOperation.innerOperations?.[0] as UpdatePropertyComponentOperation;
+  const property1Operation = propertiesOperation.innerOperations?.[0] as UpdatePropertyComponentOperation;
   expect(property1Operation instanceof UpdatePropertyComponentOperation).toBe(true);
   expect(property1Operation.pathTransition.v2).toEqual(['Properties', 'property1']);
   expect(property1Operation.pathTransition.v1).toEqual(['Properties', 'property1']);
 
   const innerOperations = (property1Operation as UpdatePropertyComponentOperation).innerOperations;
 
-  expect(innerOperations.length).toBe(4);
-  expect(innerOperations.filter(o => o instanceof MovePropertyComponentOperation).length).toBe(1);
+  expect(innerOperations?.length).toBe(4);
+  expect(innerOperations?.filter(o => o instanceof MovePropertyComponentOperation).length).toBe(1);
 });
 
 test('Remove Component', () => {

@@ -56,7 +56,9 @@ test('Rules conditions parsing', () => {
   const cRules: CUserRules = [{
     let: {
       role: { resource: 'AWS::IAM::Role' },
-      change: { change: {}, ...{where: ['change appliesTo role']}},
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      change: { where: ['change appliesTo role'], change: {}},
     },
   }];
 

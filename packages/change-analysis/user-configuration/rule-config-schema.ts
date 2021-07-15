@@ -36,6 +36,7 @@ export type GeneralCSelector = {
 
 export type CRuleConditions = string | string[];
 
+//TODO: Fix this sus code.. BaseSelector and GeneralCSelector cannot be combined like this
 export type CSelector = (
   BaseSelector & (
     ComponentCFilter |

@@ -1,5 +1,18 @@
-.DS_Store
-experiment\ templates
+# Never commit build specific files
 *.js
 *.d.ts
 node_modules
+
+# Never commit individual sessions
+.vscode/
+.DS_Store
+
+# Never commit temporary storage
+*.swp
+
+# Never commit logs
+*.log
+*.err
+
+# Overrides
+!jest.config.js

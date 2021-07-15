@@ -1,0 +1,289 @@
+[{
+    "description": "Replacements are low risk by default. Exceptions should be made after this rule",
+    "let": {
+        "change": { "change": {"type": "REPLACE" } }
+    },
+    "effect": {
+        "risk": "low",
+        "action": "approve"
+    }
+},
+{
+    "description": "Renames have no impact on functionality or security (although they can create replacements, but that is handled by changes of type REPLACE)",
+    "let": {
+        "change": { "change": {"type": "RENAME" } }
+    },
+    "effect": {
+        "risk": "low",
+        "action": "approve"
+    }
+},
+{
+    "description": "POLICY DOCUMENTS",
+    "let": { "r": { "component": {"type": "Resource" } } },
+    "then": [{
+        "description": "Any Policy Document changes are highrisk",
+        "let": {
+            "change": { "change": {}, "where": ["change appliesTo r.Properties.PolicyDocument"] }
+        },
+        "effect": {
+            "risk": "high"
+        }
+    }, {
+        "description": "More specific resource definitions in Policy Documents are low risk",
+        "let": {
+            "change": { "change": {"type": "UPDATE"}, "where": [
+                "change appliesTo r.Properties.PolicyDocument.Statement.*.Resource",
+                "change.old == '*'"
+            ]}
+        },
+        "effect": {
+            "risk": "low",
+            "action": "approve"
+        }
+    }, {
+        "description": "Moving entries in policy statement resource or actions doesn't affect behavior",
+        "let": {
+            "change": { "change": { "propertyOperationType": "RENAME" }, "where": [
+                "change appliesTo r.Properties.PolicyDocument.Statement.*.*.*"
+            ]}
+        },
+        "effect": {
+            "risk": "low",
+            "action": "approve"
+        }
+    }]
+},
+{
+    "description": "CLOUDFRONT",
+    "let": {"cf": { "Resource": "AWS::CloudFront::Distribution" } },
+    "then": [{
+            "description": "Cloudfront Distributions origin changes are risky",
+            "let": {
+                "change": { "change": {}, "where": "change appliesTo cf.Properties.DistributionConfig.Origins" }
+            },
+            "effect": {
+                "risk": "high"
+            }
+        }, {
+            "description": "Cloudfront Distributions origin protocol security can increase",
+            "let": {
+                "change": { "change": {}, "where": [
+                    "change appliesTo cf.Properties.DistributionConfig.Origins.*.OriginProtocolPolicy",
+                    "change.old == 'http-only'",
+                    "change.new == 'https-only'"
+                    ]
+                }
+            },
+            "effect": {
+                "risk": "low",
+                "action": "approve"
+            }
+    }]
+},
+{
+    "description": "DYNAMO DB",
+    "let": {"table": { "Resource": "AWS::DynamoDB::Table" }},
+    "then": [{
+        "description": "KeySchema changes to DynamoDB Table",
+        "let": {
+            "change": { "change": {}, "where": ["change appliesTo table.Properties.KeySchema"] }
+        },
+        "effect": {
+            "risk": "high"
+        }
+    }, {
+        "description": "AttributeDefinitions.AttributeType changes to DynamoDB Table",
+        "let": {
+            "change": { "change": {}, "where": ["change appliesTo table.Properties.AttributeDefinitions.*.AttributeType"] }
+        },
+        "effect": {
+            "risk": "high"
+        }
+    }]
+},
+{
+    "description": "Refs to renamed components",
+    "let": {
+        "r": { "component": {} },
+        "componentRenameChange": { "change": {"type": "RENAME"}, "where": ["componentRenameChange appliesTo r"] }
+    },
+    "then": [{
+            "description": "DependsOn to renamed components",
+            "let": {"c": { "component": {} } },
+            "then": [{
+                "let": {
+                    "change": { "change": {"type": "UPDATE"}, "where": [
+                        "change appliesTo c.DependsOn.*",
+                        "change.old == componentRenameChange.old.name",
+                        "change.new == componentRenameChange.new.name"
+                        ]
+                    }
+                },
+                "effect": {
+                    "risk": "low",
+                    "action": "approve"
+                }
+            }, {
+                "description": "DependsOn to renamed components (remove/insert)",
+                "let": {
+                    "removeChange": { "change": {"propertyOperationType": "REMOVE"}, "where": [
+                        "removeChange appliesTo c.DependsOn.*",
+                        "removeChange.old == componentRenameChange.old.name"
+                        ]
+                    },
+                    "insertChange": { "change": {"propertyOperationType": "INSERT"}, "where": [
+                        "insertChange appliesTo c.DependsOn.*",
+                        "insertChange.new == componentRenameChange.new.name"
+                        ]
+                    }
+                },
+                "then": [{
+                    "effect": {
+                        "target": "insertChange",
+                        "risk": "low",
+                        "action": "approve"
+                    }
+                },{
+                    "effect": {
+                        "target": "removeChange",
+                        "risk": "low",
+                        "action": "approve"
+                    }
+                }]
+            }]
+        }, {
+            "let": {"p": { "property": {} } },
+            "then": [{
+                "let": {
+                    "change": { "change": {}, "where": [
+                        "change appliesTo p.Ref",
+                        "change.old == componentRenameChange.old.name",
+                        "change.new == componentRenameChange.new.name"
+                        ]
+                    }
+                },
+                "effect": {
+                    "risk": "low",
+                    "action": "approve"
+                }
+            }, {
+                "description": "Fn::GetAtt to renamed components",
+                "let": {
+                    "change": { "change": {}, "where": [
+                        "change appliesTo p.Fn::GetAtt.0",
+                        "change.old == componentRenameChange.old.name",
+                        "change.new == componentRenameChange.new.name"
+                        ]
+                    }
+                },
+                "effect": {
+                    "risk": "low",
+                    "action": "approve"
+                }
+            }, {
+                "description": "Fn::GetAtt to renamed components (remove/insert)",
+                "let": {
+                    "removeChange": { "change": { "propertyOperationType": "REMOVE" }, "where": [
+                        "removeChange appliesTo p.Fn::GetAtt.0",
+                        "removeChange.old == componentRenameChange.old.name"
+                        ]
+                    },
+                    "insertChange": { "change": { "propertyOperationType": "INSERT" }, "where": [
+                        "insertChange appliesTo p.Fn::GetAtt.0",
+                        "insertChange.new == componentRenameChange.new.name"
+                        ]
+                    }
+                },
+                "then": [{
+                    "effect": {
+                        "target": "removeChange",
+                        "risk": "low",
+                        "action": "approve"
+                    }
+                }, {
+                    "effect": {
+                        "target": "insertChange",
+                        "risk": "low",
+                        "action": "approve"
+                    } 
+                }]
+        }]
+    }]
+},
+{
+    "description": "Tags property changes",
+    "let": {
+        "r": { "component": { "type": "Resource" } },
+        "change": { "change": {}, "where": ["change appliesTo r.Properties.Tags"] }
+    },
+    "effect": {
+        "risk": "low",
+        "action":"approve"
+    }
+},
+{
+    "description": "EC2 SECURITY GROUP",
+    "let": {"s": { "Resource": "AWS::EC2::SecurityGroup" }},
+    "then": [{
+        "description": "GroupDescription changes to Security Groups",
+        "let": {
+            "change": { "change": {}, "where": ["change appliesTo s.Properties.GroupDescription"] }
+        },
+        "effect": {
+            "risk": "low",
+            "action":"approve"
+        }
+    }, {
+        "description": "SecurityGroupIngress changes to Security Groups",
+        "let": {
+            "change": { "change": {}, "where": ["change appliesTo s.Properties.SecurityGroupIngress.*.Description"] }
+        },
+        "effect": {
+            "risk": "low",
+            "action":"approve"
+        }
+    }]
+},
+{
+    "description": "Stateful resource replacements are high risk",
+    "then": [
+        {"let": {"r": {"Resource": "AWS::CloudFormation::Stack" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::Backup::BackupVault" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::Cognito::UserPool" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::DocDB::DBCluster" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::DocDB::DBInstance" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::DynamoDB::Table" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::EC2::Volume" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::EFS::FileSystem" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::EMR::Cluster" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::ElastiCache::CacheCluster" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::ElastiCache::ReplicationGroup" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::Elasticsearch::Domain" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::FSx::FileSystem" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::Logs::LogGroup" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::Neptune::DBCluster" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::Neptune::DBInstance" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::QLDB::Ledger" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::RDS::DBCluster" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::RDS::DBInstance" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::Redshift::Cluster" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::SDB::Domain" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::SQS::Queue" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} },
+        {"let": {"r": {"Resource": "AWS::S3::Bucket" }, "change": {"change": {"type": "REPLACE"}, "where": "change appliesTo r" } }, "effect": {"risk": "high"} }
+    ]
+}, {
+    "description": "CDK Construct changes are low risk",
+    "let": {
+        "construct": {"component": {"type": "CDK Construct"} },
+        "change": {"change": {}, "where": "change appliesTo construct" }
+    },
+    "effect": {"risk": "low", "action": "approve"}
+}, {
+    "description": "CDK Metadata changes are low risk",
+    "let": {
+        "r": {"Resource": "AWS::CDK::Metadata" },
+        "change": {"change": {}, "where": "change appliesTo r" }
+    },
+    "effect": {"risk": "low", "action": "approve"}
+}]

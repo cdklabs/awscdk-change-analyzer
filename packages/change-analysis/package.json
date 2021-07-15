@@ -5,8 +5,9 @@
   "main": "out/index.js",
   "scripts": {
     "start": "sh output-analysis-to-fe.sh",
-    "build": "npm run lint && npm run compile",
-    "compile": "tsc",
+    "build": "yarn clean && yarn compile",
+    "compile": "npx tsc --build",
+    "clean": "npx rimraf out",
     "lint": "eslint . --ext .ts",
     "test": "jest"
   },
@@ -26,7 +27,7 @@
     "@types/graphviz": "0.0.32",
     "@types/string-similarity": "^4.0.0",
     "cdk-change-analyzer-models": "0.0.0",
-    "fifinet": "0.1.6",
+    "fifinet": "0.1.7",
     "graphviz": "0.0.9"
   },
   "devDependencies": {
@@ -42,6 +43,7 @@
     "eslint": "^7.19.0",
     "eslint-plugin-import": "^2.23.4",
     "jest": "^26.5.0",
+    "rimraf": "^3.0.2",
     "ts-jest": "^26.5.0",
     "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.9.0",

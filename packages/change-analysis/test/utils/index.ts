@@ -20,7 +20,7 @@ export const ParserUtilsCreator =
       readSampleInput: (filename: string): any =>
         JSON.parse(fs.readFileSync(`${parserDir}/sample-inputs/${filename}`, 'utf8')),
 
-      genGraphOnEnvFlag: (model: InfraModel, filename) =>
+      genGraphOnEnvFlag: (model: InfraModel, filename: string) =>
         process.env.RENDER_GRAPHS === 'true' && generateGraph(model, `${parserDir}/sample-outputs/${filename}`),
 
     });
