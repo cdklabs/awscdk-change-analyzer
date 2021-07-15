@@ -1,5 +1,5 @@
 
-name: npm-publish
+name: yarn-publish
 on:
   # Release using 'npm version minor'
   create:
@@ -7,7 +7,7 @@ on:
       - v*
 jobs:
   npm-publish:
-    name: npm-publish
+    name: yarn-publish
     runs-on: ubuntu-latest
     steps:
     
@@ -22,6 +22,6 @@ jobs:
     
     - run: yarn ci && yarn build && yarn test
     
-    - run: yarn npm publish
+    - run: yarn publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} # You need to set this in your repo settings
