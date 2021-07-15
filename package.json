@@ -7,9 +7,12 @@
     "url": "https://github.com/cdklabs/awscdk-change-analyzer.git"
   },
   "scripts": {
+    "preci": "rm -rf node_modules",
+    "ci": "yarn install --frozen-lockfile",
     "build": "npx lerna run build",
     "lint": "npx lerna run lint",
-    "test": "npx lerna run test"
+    "test": "npx lerna run test",
+    "postversion": "git push --atomic --follow-tags"
   },
   "workspaces": {
     "packages": [
