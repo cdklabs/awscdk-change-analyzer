@@ -1,2 +1,5 @@
 .DS_Store
 experiment\ templates
+*.js
+*.d.ts
+node_modules
