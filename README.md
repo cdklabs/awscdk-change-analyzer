@@ -9,9 +9,7 @@ This tool generates a comprehensive list of modifications between two CloudForma
 ```bash
 yarn install --frozen-lockfile
 yarn build
-
-cd packages/change-analysis
-yarn start scenario1
+yarn workspace cdk-change-analyzer run start scenario1
 ```
 
 ## Repository Structure

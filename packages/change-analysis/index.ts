@@ -23,7 +23,7 @@ const rules = readJSONFile(rulesPath);
 
 const changeReport = createChangeAnalysisReport(new Transition({v1: oldModel, v2: newModel}), rules);
 
-fs.writeFileSync(outputPath, new JSONSerializer().serialize(changeReport));
+fs.writeFileSync(outputPath, JSON.stringify(JSON.parse(new JSONSerializer().serialize(changeReport)), undefined, 2));
 
 // eslint-disable-next-line no-console
 console.log('Done!');
