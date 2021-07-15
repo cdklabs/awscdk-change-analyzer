@@ -12,21 +12,21 @@ test('Basic Replacement from Property Change', () => {
   const operations = propagatedDiff.componentOperations;
 
   const originalUpdateComponent1 = operations.find(o => o instanceof UpdatePropertyComponentOperation
-        && o.componentTransition.v1.name === 'component1'
+        && o.componentTransition.v1?.name === 'component1'
         && !o.cause);
   const originalUpdateComponent2 = operations.find(o => o instanceof UpdatePropertyComponentOperation
-        && o.componentTransition.v1.name === 'component2'
+        && o.componentTransition.v1?.name === 'component2'
         && !o.cause);
 
   expect(originalUpdateComponent1).toBeDefined();
   expect(originalUpdateComponent2).toBeDefined();
 
   const replacementComp1CausedByOriginalUpdate = operations.find(o => o instanceof ReplaceComponentOperation
-        && o.componentTransition.v1.name === 'component1'
+        && o.componentTransition.v1?.name === 'component1'
         && o.cause === originalUpdateComponent1,
   );
   const replacementComp2CausedByOriginalUpdate = operations.find(o => o instanceof ReplaceComponentOperation
-        && o.componentTransition.v1.name === 'component2'
+        && o.componentTransition.v1?.name === 'component2'
         && o.cause === originalUpdateComponent2,
   );
 
@@ -34,12 +34,12 @@ test('Basic Replacement from Property Change', () => {
   expect(replacementComp2CausedByOriginalUpdate).toBeDefined();
 
   const updateComp2CausedByReplacementComp1 = operations.find(o => o instanceof UpdatePropertyComponentOperation
-        && o.componentTransition.v1.name === 'component2'
+        && o.componentTransition.v1?.name === 'component2'
         && o.cause === replacementComp1CausedByOriginalUpdate,
   );
   const replacementComp2CausedByUpdateComp2CausedByReplacementComp1 =
     operations.find(o => o instanceof ReplaceComponentOperation
-      && o.componentTransition.v1.name === 'component2'
+      && o.componentTransition.v1?.name === 'component2'
       && o.cause === updateComp2CausedByReplacementComp1,
     );
 

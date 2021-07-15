@@ -2,7 +2,7 @@ import { RuleAction, RuleRisk } from 'cdk-change-analyzer-models';
 import {
   CUserRule, CUserRules,
   parseRules, RuleProcessor, RuleConditionOperator,
-  UserRule, UserRules,
+  UserRule, UserRules, CFilters, BaseSelector, CSelector, CRuleConditions, GeneralCSelector,
 } from '../../user-configuration';
 import { diffTestCase1 } from '../default-test-cases/infra-model-diff';
 
@@ -56,7 +56,8 @@ test('Rules conditions parsing', () => {
   const cRules: CUserRules = [{
     let: {
       role: { resource: 'AWS::IAM::Role' },
-      change: { change: {}, ...{where: ['change appliesTo role']}},
+      // @ts-ignore
+      change: { where: ['change appliesTo role'], change: {}}, 
     },
   }];
 

@@ -3,6 +3,7 @@
   "packages": [
     "packages/*"
   ],
-  "rejectCycles": "true",
-  "version": "0.0.0"
+  "rejectCycles": true,
+  "version": "4.0.0",
+  "useWorkspaces": true
 }
