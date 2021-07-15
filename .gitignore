@@ -13,3 +13,6 @@ node_modules
 # Never commit logs
 *.log
 *.err
+
+# Overrides
+!jest.config.js
