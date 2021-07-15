@@ -12,20 +12,11 @@
     "test": "npx lerna run test"
   },
   "workspaces": {
-    "packages": ["packages/*"],
-    "nohoist": [
-      "**/jest",
-      "**/jest/**",
-      "**/@types/jest",
-      "**/@types/jest/**"
+    "packages": [
+      "packages/*"
     ]
   },
   "devDependencies": {
     "lerna": "^4.0.0"
-  },
-  "workspaces": {
-    "packages": [
-        "packages/*"
-    ]
   }
 }
