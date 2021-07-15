@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "out",
-    "target": "ES2020",
+    "target": "es2020",
     "module": "commonjs",
     "lib": ["es2020"],
     "declaration": true,
@@ -17,6 +16,6 @@
     "inlineSourceMap": true,
     "inlineSources": true,
     "experimentalDecorators": true,
-    "strictPropertyInitialization": false,
+    "strictPropertyInitialization": false
   }
 }

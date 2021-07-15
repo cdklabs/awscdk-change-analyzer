@@ -1,6 +1,15 @@
-.DS_Store
-experiment\ templates
-**/node_modules/
+# Never commit build specific files
+*.js
+*.d.ts
+node_modules
 
+# Never commit individual sessions
+.vscode/
+.DS_Store
+
+# Never commit temporary storage
+*.swp
+
+# Never commit logs
 *.log
 *.err

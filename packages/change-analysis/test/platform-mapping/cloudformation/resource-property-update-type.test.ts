@@ -29,7 +29,8 @@ test('Update type on first level resource property', () => {
   expect(model.components.length).toBe(3);
   expect(model.relationships.length).toBe(3);
   expect(model.relationships.filter(r => r instanceof DependencyRelationship).length).toBe(1);
-  const ec2InstanceProperties = model.components.find(r =>r.subtype === 'AWS::EC2::Instance')?.properties.getRecord().Properties.getRecord();
+  const ec2InstanceProperties = model.components.find(r =>
+    r.subtype === 'AWS::EC2::Instance')?.properties.getRecord().Properties.getRecord();
   expect(ec2InstanceProperties?.NetworkInterfaces.componentUpdateType)
     .toBe(ComponentUpdateType.REPLACEMENT);
   expect(ec2InstanceProperties?.NetworkInterfaces.getArray()[0].componentUpdateType)
@@ -98,10 +99,11 @@ test('Unknown type on second level resource property', () => {
   expect(model.relationships.length).toBe(3);
   expect(model.relationships.filter(r => r instanceof DependencyRelationship).length).toBe(1);
   const ec2InstanceProperties = model.components.find(r =>r.subtype === 'AWS::EC2::Instance')?.properties.getRecord().Properties.getRecord();
-  expect(ec2InstanceProperties?.SomeUnknownProperty.componentUpdateType)
+  const unknownProperty = ec2InstanceProperties?.SomeUnknownProperty;
+  expect(unknownProperty?.componentUpdateType)
     .toBe(ComponentUpdateType.NONE);
-  expect(ec2InstanceProperties?.SomeUnknownProperty.getArray()[0].componentUpdateType)
+  expect(unknownProperty?.getArray()[0].componentUpdateType)
     .toBe(ComponentUpdateType.NONE);
-  expect(ec2InstanceProperties?.SomeUnknownProperty.getArray()[0].getRecord().AnotherUnknownProperty.componentUpdateType)
+  expect(unknownProperty?.getArray()[0].getRecord().AnotherUnknownProperty.componentUpdateType)
     .toBe(ComponentUpdateType.NONE);
 });

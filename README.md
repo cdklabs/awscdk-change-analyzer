@@ -7,13 +7,11 @@ This tool generates a comprehensive list of modifications between two CloudForma
 ## How to run
 
 ```bash
-yarn install                                                                    # Installs Lerna
-lerna bootstrap                                                            # Links packages together
-cd packages/change-analysis-models
-yarn build                                                                      # Build the models 
-cd ../change-analysis
-yarn build                                                                      # Build the engine
-yarn start scenario1                                                     # Run Engine on scenario 1
+yarn install --frozen-lockfile
+yarn build
+
+cd packages/change-analysis
+yarn start scenario1
 ```
 
 ## Repository Structure
