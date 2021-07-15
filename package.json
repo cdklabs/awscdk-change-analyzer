@@ -12,7 +12,8 @@
     "build": "npx lerna run build",
     "lint": "npx lerna run lint",
     "test": "npx lerna run test",
-    "postversion": "git push --atomic --follow-tags"
+    "postversion": "git push --atomic --follow-tags",
+    "publish": "npx lerna run publish"
   },
   "workspaces": {
     "packages": [

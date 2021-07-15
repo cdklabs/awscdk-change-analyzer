@@ -1,6 +1,6 @@
 {
   "name": "cdk-change-analyzer-models",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "The models package for CDK Change Analyzer: a tool that enables detecting dangerous changes within CDK projects.",
   "main": "out/index.js",
   "scripts": {

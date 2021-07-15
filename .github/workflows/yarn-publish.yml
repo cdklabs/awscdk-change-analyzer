@@ -22,6 +22,6 @@ jobs:
     
     - run: yarn ci && yarn build && yarn test
     
-    - run: yarn publish
+    - run: npx lerna publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} # You need to set this in your repo settings
