@@ -6,8 +6,8 @@ import {
   RenameComponentOperation,
   UpdatePropertyComponentOperation,
 } from 'cdk-change-analyzer-models';
-import { DiffCreator } from '../../model-diffing';
-import { CFParser } from '../../platform-mapping';
+import { DiffCreator } from '../../lib/model-diffing';
+import { CFParser } from '../../lib/platform-mapping';
 
 test('Update Component Property', () => {
   const oldModel = new CFParser({

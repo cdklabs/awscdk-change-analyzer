@@ -1,11 +1,11 @@
 import { Transition } from 'cdk-change-analyzer-models';
 import {
   extractComponentOperationsAggs,
-} from '../../aggregations';
+} from '../../lib/aggregations';
 import {
   DiffCreator,
-} from '../../model-diffing';
-import { CDKParser } from '../../platform-mapping';
+} from '../../lib/model-diffing';
+import { CDKParser } from '../../lib/platform-mapping';
 import { diffTestCase1 } from '../default-test-cases/infra-model-diff';
 import { ParserUtilsCreator } from '../utils';
 

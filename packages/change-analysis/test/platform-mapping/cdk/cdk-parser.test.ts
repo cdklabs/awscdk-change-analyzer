@@ -1,5 +1,5 @@
 import { DependencyRelationship, StructuralRelationship } from 'cdk-change-analyzer-models';
-import { CDKParser } from '../../../platform-mapping';
+import { CDKParser } from '../../../lib/platform-mapping';
 import { ParserUtilsCreator } from '../../utils';
 
 const cdkParserDir = 'test/platform-mapping/cdk';
