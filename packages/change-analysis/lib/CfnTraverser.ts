@@ -1,62 +1,64 @@
-
+import { KeyObject } from "crypto";
 import { IC2AHost, TemplateTree } from "./toolkit";
 
 export interface traverseStackOptions {
   readonly stackName: string;
   getTemplate: (s: string) => Promise<any>;
-  recurse: (s: string, host: IC2AHost) => Promise<TemplateTree>;
+  recurse: (s: string) => Promise<TemplateTree>;
+}
+const delayName = ([name, promise]: any[]) => 'then' in promise
+  ? promise.then((result: any) => [name, result])
+  : [name, promise];
+
+export function promiseObject(obj: {[key: string]: Promise<any>}) {
+  const promiseList = Object.entries(obj).map(delayName);
+  return Promise.all(promiseList).then(Object.fromEntries);
 }
 
-async function traverseStack(options: traverseStackOptions, host: IC2AHost): Promise<TemplateTree> {
-  const {stackName, getTemplate, recurse} = options;
-  const template = await getTemplate(stackName);
-  return {
-    rootTemplate: template,
-    nestedTemplates: await findNestedTemplates(template).reduce(async (templates, nested: string) => {
-      return {...(await templates), [nested]: await recurse(nested, host)};
-    }, {})
-  };
-}
+export class CfnTraverser {
+  private _host: IC2AHost;
 
-export async function traverseS3(stackName: string, host: IC2AHost): Promise<TemplateTree> {
-  return traverseStack({
-    stackName,
-    getTemplate: host.getS3Object,
-    recurse: traverseS3,
-  }, host);
-}
+  constructor (host: IC2AHost) {
+    this._host = host;
+  }
 
-export async function traverseCfn(stackName: string, host: IC2AHost): Promise<TemplateTree> {
-  return traverseStack({
-    stackName,
-    getTemplate: host.getStackTemplate,
-    recurse: traverseS3,
-  }, host);
-}
+  public async traverseStack(options: traverseStackOptions): Promise<TemplateTree> {
+    const {stackName, getTemplate, recurse} = options;
+    const template = await getTemplate(stackName);
+    const _nestedTemplates = await this.findNestedTemplates(template).reduce(async (templates, nested: string) => {
+      return {...(await templates), [nested]: await recurse(nested)};
+    }, {});
+    return {
+      rootTemplate: template,
+      nestedTemplates: await promiseObject(_nestedTemplates),
+    };
+  }
 
-export async function traverseLocal(stackName: string, host: IC2AHost): Promise<TemplateTree> {
-  return traverseStack({
-    stackName,
-    getTemplate: host.getLocalTemplate,
-    recurse: traverseLocal,
-  }, host);
-}
+  public async traverseS3(stackName: string): Promise<TemplateTree> {
+    return this.traverseStack({
+      stackName,
+      getTemplate: this._host.getS3Object,
+      recurse: this.traverseS3,
+    });
+  }
 
-export function findNestedTemplates(template: string): string[] {
-  return MockTemplates[template] ?? [];
-}
+  public async traverseCfn(stackName: string): Promise<TemplateTree> {
+    return this.traverseStack({
+      stackName,
+      getTemplate: this._host.getStackTemplate,
+      recurse: this.traverseS3,
+    });
+  }
 
-const MockTemplates: {[stackName: string]: string[]} = {
-  'root': [
-    'nested1',
-    'nested2',
-  ],
-  'nested1': [
-    'nested3',
-  ],
-  'nested2': [],
-  'nested3': [
-    'nested4',
-  ],
-  'nested4': [],
-};
+  public async traverseLocal(stackName: string): Promise<TemplateTree> {
+    return this.traverseStack({
+      stackName,
+      getTemplate: this._host.getLocalTemplate,
+      recurse: this.traverseLocal,
+    });
+  }
+
+  public findNestedTemplates(template: string): string[] {
+    return [];
+  }
+}
