@@ -1,4 +1,4 @@
-import { CfnTraverser, DefaultC2AHost, IC2AHost, TemplateTree } from '../lib';
+import { DefaultC2AHost, IC2AHost, TemplateTree, traverseCfn, traverseLocal, traverseS3 } from '../lib';
 
 function promise(input: string): Promise<any> {
   return new Promise((resolve) => {
@@ -24,22 +24,11 @@ class MockHost implements IC2AHost {
   }
 }
 
-let host = new MockHost();
-let traverser = new CfnTraverser(host);
-traverser.findNestedTemplates = (stackName: string): string[] => {
-  return MockTemplates[stackName] ?? [];
-}
-
 describe('Cfn Traverser on mock host', () => {
   // GIVEN
-  let traverser: CfnTraverser;
   let host: MockHost;
   beforeAll(() => {
     host = new MockHost();
-    traverser = new CfnTraverser(host);
-    traverser.findNestedTemplates = (stackName: string): string[] => {
-      return MockTemplates[stackName] ?? [];
-    }
   });
 
   const expectation = (output: TemplateTree) => {
@@ -49,9 +38,14 @@ describe('Cfn Traverser on mock host', () => {
         nested1: {
           rootTemplate: 'nested1',
           nestedTemplates: {
-            nested2: {
+            nested3: {
               rootTemplate: 'nested3',
-              nestedTemplates: {}
+              nestedTemplates: {
+                nested4: {
+                  rootTemplate: 'nested4',
+                  nestedTemplates: {},
+                }
+              }
             },
           }
         },
@@ -65,31 +59,39 @@ describe('Cfn Traverser on mock host', () => {
 
   test('successfully runs on cfn template', async () => {
     // WHEN
-    const output = await traverser.traverseCfn('root');
-    console.log(output);
+    const output = await traverseCfn('root', host);
+  
     // THEN
     expectation(output);
   });
 
   test('successfully runs on s3 template', async () => {
     // WHEN
-    const output = await traverser.traverseS3('root');
+    const output = await traverseS3('root', host);
 
     // THEN
     expectation(output);
   });
 
+  test('successfully runs on s3 template', async () => {
+    // WHEN
+    const output = await traverseLocal('root', host);
 
+    // THEN
+    expectation(output);
+  });
 });
 
-const MockTemplates: {[stackName: string]: string[]} = {
-  'root': [
-    'nested1',
-    'nested2',
-  ],
-  'nested1': [
-    'nested3',
-  ],
-  'nested2': [],
-  'nested3': [],
-};
+describe('Traverse on real data', () => {
+  // GIVEN
+  let host: DefaultC2AHost;
+  beforeAll(() => {
+    host = new DefaultC2AHost();
+  });
+
+  test('runs on cloudformation', async () => {
+    const output = await traverseCfn('NestedStackApp', host);
+
+    console.log(output);
+  });
+});

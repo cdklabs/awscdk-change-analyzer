@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('./cdk.js');
+require('../out/bin/aws-c2a.js');
