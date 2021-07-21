@@ -37,24 +37,24 @@ export class CfnTraverser {
   public async traverseS3(stackName: string): Promise<TemplateTree> {
     return this.traverseStack({
       stackName,
-      getTemplate: this._host.getS3Object,
-      recurse: this.traverseS3,
+      getTemplate: this._host.getS3Object.bind(this._host),
+      recurse: this.traverseS3.bind(this),
     });
   }
 
   public async traverseCfn(stackName: string): Promise<TemplateTree> {
     return this.traverseStack({
       stackName,
-      getTemplate: this._host.getStackTemplate,
-      recurse: this.traverseS3,
+      getTemplate: this._host.getCfnTemplate.bind(this._host),
+      recurse: this.traverseS3.bind(this),
     });
   }
 
   public async traverseLocal(stackName: string): Promise<TemplateTree> {
     return this.traverseStack({
       stackName,
-      getTemplate: this._host.getLocalTemplate,
-      recurse: this.traverseLocal,
+      getTemplate: this._host.getLocalTemplate.bind(this._host),
+      recurse: this.traverseLocal.bind(this),
     });
   }
 

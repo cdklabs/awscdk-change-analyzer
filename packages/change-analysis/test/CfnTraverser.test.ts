@@ -1,4 +1,4 @@
-import { CfnTraverser, DefaultC2AHost, IC2AHost, TemplateTree } from '../lib';
+import { CfnTraverser, IC2AHost, TemplateTree } from '../lib';
 
 function promise(input: string): Promise<any> {
   return new Promise((resolve) => {
@@ -11,7 +11,7 @@ function promise(input: string): Promise<any> {
 
 class MockHost implements IC2AHost {
 
-  public async getStackTemplate(stackName: string): Promise<any> {
+  public async getCfnTemplate(stackName: string): Promise<any> {
     return promise(stackName);
   }
 
@@ -49,9 +49,14 @@ describe('Cfn Traverser on mock host', () => {
         nested1: {
           rootTemplate: 'nested1',
           nestedTemplates: {
-            nested2: {
+            nested3: {
               rootTemplate: 'nested3',
-              nestedTemplates: {}
+              nestedTemplates: {
+                nested4: {
+                  rootTemplate: 'nested4',
+                  nestedTemplates: {}
+                }
+              }
             },
           }
         },
@@ -66,7 +71,7 @@ describe('Cfn Traverser on mock host', () => {
   test('successfully runs on cfn template', async () => {
     // WHEN
     const output = await traverser.traverseCfn('root');
-    console.log(output);
+
     // THEN
     expectation(output);
   });
@@ -91,5 +96,8 @@ const MockTemplates: {[stackName: string]: string[]} = {
     'nested3',
   ],
   'nested2': [],
-  'nested3': [],
+  'nested3': [
+    'nested4',
+  ],
+  'nested4': [],
 };

@@ -1,0 +1,1160 @@
+{
+  "version": "12.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "NestedStackApp": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "NestedStackApp.template.json",
+        "validateOnSynth": false
+      },
+      "metadata": {
+        "/NestedStackApp": [
+          {
+            "type": "aws:cdk:asset",
+            "data": {
+              "path": "NestedStackAppBaseResources0B42631E.nested.template.json",
+              "id": "4889259bac3a669d590dcaa84e0d6bc4f5c2ced809d7e66ceba14860a0370c16",
+              "packaging": "file",
+              "sourceHash": "4889259bac3a669d590dcaa84e0d6bc4f5c2ced809d7e66ceba14860a0370c16",
+              "s3BucketParameter": "AssetParameters4889259bac3a669d590dcaa84e0d6bc4f5c2ced809d7e66ceba14860a0370c16S3BucketED79FF1E",
+              "s3KeyParameter": "AssetParameters4889259bac3a669d590dcaa84e0d6bc4f5c2ced809d7e66ceba14860a0370c16S3VersionKey0D985600",
+              "artifactHashParameter": "AssetParameters4889259bac3a669d590dcaa84e0d6bc4f5c2ced809d7e66ceba14860a0370c16ArtifactHashE3B01DE3"
+            },
+            "trace": [
+              "ConstructNode.addMetadata (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/construct-compat.ts:252:92)",
+              "LegacyStackSynthesizer.doAddFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:161:23)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:66:19)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:70:25)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "BaseResources._prepareTemplateAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/nested-stack.ts:132:48)",
+              "defineNestedStackAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:69:10)",
+              "Object.prepareApp (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:43:7)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:24:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          },
+          {
+            "type": "aws:cdk:asset",
+            "data": {
+              "path": "NestedStackAppAppResources1DF6BCBB.nested.template.json",
+              "id": "023671247a41d2a1be62be1feaca01ed4c00b99f9461df4b29d2dea30b08244d",
+              "packaging": "file",
+              "sourceHash": "023671247a41d2a1be62be1feaca01ed4c00b99f9461df4b29d2dea30b08244d",
+              "s3BucketParameter": "AssetParameters023671247a41d2a1be62be1feaca01ed4c00b99f9461df4b29d2dea30b08244dS3Bucket22B87A48",
+              "s3KeyParameter": "AssetParameters023671247a41d2a1be62be1feaca01ed4c00b99f9461df4b29d2dea30b08244dS3VersionKeyAEC32F16",
+              "artifactHashParameter": "AssetParameters023671247a41d2a1be62be1feaca01ed4c00b99f9461df4b29d2dea30b08244dArtifactHash4F7B9758"
+            },
+            "trace": [
+              "ConstructNode.addMetadata (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/construct-compat.ts:252:92)",
+              "LegacyStackSynthesizer.doAddFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:161:23)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:66:19)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:70:25)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "AppResources._prepareTemplateAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/nested-stack.ts:132:48)",
+              "defineNestedStackAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:69:10)",
+              "Object.prepareApp (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:43:7)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:24:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpc4A7F91FE",
+            "trace": [
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:710:21)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/publicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcpublicSubnet1Subnet91BA4ADD",
+            "trace": [
+              "new Subnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:997:20)",
+              "new PublicSubnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1153:5)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:882:32",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:864:28)",
+              "Vpc.createSubnets (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:853:12)",
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:739:10)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/publicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcpublicSubnet1RouteTable94E77E93",
+            "trace": [
+              "new Subnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1015:19)",
+              "new PublicSubnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1153:5)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:882:32",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:864:28)",
+              "Vpc.createSubnets (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:853:12)",
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:739:10)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/publicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcpublicSubnet1RouteTableAssociation41ECB4BA",
+            "trace": [
+              "new Subnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1021:5)",
+              "new PublicSubnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1153:5)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:882:32",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:864:28)",
+              "Vpc.createSubnets (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:853:12)",
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:739:10)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/publicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcpublicSubnet1DefaultRouteE705E9CF",
+            "trace": [
+              "PublicSubnet.addDefaultInternetRoute (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1031:19)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:758:22",
+              "Array.forEach (<anonymous>)",
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:757:46)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/publicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcpublicSubnet2Subnet17639C4A",
+            "trace": [
+              "new Subnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:997:20)",
+              "new PublicSubnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1153:5)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:882:32",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:864:28)",
+              "Vpc.createSubnets (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:853:12)",
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:739:10)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/publicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcpublicSubnet2RouteTable1F8ED537",
+            "trace": [
+              "new Subnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1015:19)",
+              "new PublicSubnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1153:5)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:882:32",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:864:28)",
+              "Vpc.createSubnets (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:853:12)",
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:739:10)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/publicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcpublicSubnet2RouteTableAssociation0AC1C792",
+            "trace": [
+              "new Subnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1021:5)",
+              "new PublicSubnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1153:5)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:882:32",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:864:28)",
+              "Vpc.createSubnets (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:853:12)",
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:739:10)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/publicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcpublicSubnet2DefaultRoute5031E4D1",
+            "trace": [
+              "PublicSubnet.addDefaultInternetRoute (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1031:19)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:758:22",
+              "Array.forEach (<anonymous>)",
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:757:46)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/privateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcprivateSubnet1Subnet14C22439",
+            "trace": [
+              "new Subnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:997:20)",
+              "new PrivateSubnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1185:5)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:892:34",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:864:28)",
+              "Vpc.createSubnets (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:853:12)",
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:739:10)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/privateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcprivateSubnet1RouteTable1F2C83E8",
+            "trace": [
+              "new Subnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1015:19)",
+              "new PrivateSubnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1185:5)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:892:34",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:864:28)",
+              "Vpc.createSubnets (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:853:12)",
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:739:10)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/privateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcprivateSubnet1RouteTableAssociationA7337CF1",
+            "trace": [
+              "new Subnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1021:5)",
+              "new PrivateSubnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1185:5)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:892:34",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:864:28)",
+              "Vpc.createSubnets (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:853:12)",
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:739:10)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/privateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcprivateSubnet2Subnet351990FE",
+            "trace": [
+              "new Subnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:997:20)",
+              "new PrivateSubnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1185:5)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:892:34",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:864:28)",
+              "Vpc.createSubnets (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:853:12)",
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:739:10)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/privateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcprivateSubnet2RouteTable0565A6B2",
+            "trace": [
+              "new Subnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1015:19)",
+              "new PrivateSubnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1185:5)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:892:34",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:864:28)",
+              "Vpc.createSubnets (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:853:12)",
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:739:10)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/privateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcprivateSubnet2RouteTableAssociation301E9117",
+            "trace": [
+              "new Subnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1021:5)",
+              "new PrivateSubnet (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1185:5)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:892:34",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:864:28)",
+              "Vpc.createSubnets (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:853:12)",
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:739:10)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcIGW87384845",
+            "trace": [
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:746:19)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppVpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppVpcVPCGW07851A58",
+            "trace": [
+              "new Vpc (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:752:19)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:12:16)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/MyAppSecuritygroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyAppSecuritygroup0D8E3CA8",
+            "trace": [
+              "new SecurityGroup (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:289:26)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:30:29)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata",
+            "trace": [
+              "new MetadataResource (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:22:24)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:166:5",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "injectMetadataResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:3)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable",
+            "trace": [
+              "new MetadataResource (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:31:27)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:166:5",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "injectMetadataResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:3)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/NestedStackAppBaseResourcesMyAppSecuritygroupAAD8A718GroupId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "NestedStackAppBaseResourcesMyAppSecuritygroupAAD8A718GroupId",
+            "trace": [
+              "createNestedStackOutput (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/refs.ts:206:14)",
+              "resolveValue (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/refs.ts:86:25)",
+              "Object.resolveReferences (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/refs.ts:30:24)",
+              "Object.prepareApp (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:31:3)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:24:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources/NestedStackAppBaseResourcesMyAppVpcpublicSubnet1SubnetE42E0F6ERef": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "NestedStackAppBaseResourcesMyAppVpcpublicSubnet1SubnetE42E0F6ERef",
+            "trace": [
+              "createNestedStackOutput (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/refs.ts:206:14)",
+              "resolveValue (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/refs.ts:86:25)",
+              "Object.resolveReferences (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/refs.ts:30:24)",
+              "Object.prepareApp (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:31:3)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:24:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/BaseResources.NestedStack/BaseResources.NestedStackResource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BaseResourcesNestedStackBaseResourcesNestedStackResource55418C30",
+            "trace": [
+              "new NestedStack (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/nested-stack.ts:76:21)",
+              "new BaseResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:10:5)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:82:17)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/AppResources/MyServer/InstanceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyServerInstanceRoleFDAEF5F5",
+            "trace": [
+              "new Role (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new Instance (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/instance.ts:155:31)",
+              "new AppResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:48:22)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:85:16)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/AppResources/MyServer/InstanceProfile": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyServerInstanceProfile662C02D1",
+            "trace": [
+              "new Instance (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/instance.ts:160:24)",
+              "new AppResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:48:22)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:85:16)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/AppResources/MyServer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyServerBEDB35FD",
+            "trace": [
+              "new Instance (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/instance.ts:195:21)",
+              "new AppResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:48:22)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:85:16)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/AppResources/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn2-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter",
+            "trace": [
+              "Function.fromStringParameterAttributes (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:182:9)",
+              "Function.valueForTypedStringParameter (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:233:17)",
+              "AmazonLinuxImage.getImage (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/machine-image.ts:71:37)",
+              "new Instance (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/aws-ec2/lib/instance.ts:165:44)",
+              "new AppResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:48:22)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:85:16)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/AppResources/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata",
+            "trace": [
+              "new MetadataResource (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:22:24)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:166:5",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "injectMetadataResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:3)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/AppResources/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable",
+            "trace": [
+              "new MetadataResource (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:31:27)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:166:5",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "injectMetadataResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:3)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/AppResources/reference-to-NestedStackAppBaseResourcesNestedStackBaseResourcesNestedStackResource0110B7B6Outputs.NestedStackAppBaseResourcesMyAppSecuritygroupAAD8A718GroupId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "referencetoNestedStackAppBaseResourcesNestedStackBaseResourcesNestedStackResource0110B7B6OutputsNestedStackAppBaseResourcesMyAppSecuritygroupAAD8A718GroupId",
+            "trace": [
+              "createNestedStackParameter (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/refs.ts:185:13)",
+              "resolveValue (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/refs.ts:68:12)",
+              "resolveValue (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/refs.ts:87:12)",
+              "Object.resolveReferences (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/refs.ts:30:24)",
+              "Object.prepareApp (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:31:3)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:24:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/AppResources/reference-to-NestedStackAppBaseResourcesNestedStackBaseResourcesNestedStackResource0110B7B6Outputs.NestedStackAppBaseResourcesMyAppVpcpublicSubnet1SubnetE42E0F6ERef": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "referencetoNestedStackAppBaseResourcesNestedStackBaseResourcesNestedStackResource0110B7B6OutputsNestedStackAppBaseResourcesMyAppVpcpublicSubnet1SubnetE42E0F6ERef",
+            "trace": [
+              "createNestedStackParameter (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/refs.ts:185:13)",
+              "resolveValue (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/refs.ts:68:12)",
+              "resolveValue (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/refs.ts:87:12)",
+              "Object.resolveReferences (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/refs.ts:30:24)",
+              "Object.prepareApp (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:31:3)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:24:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/AppResources.NestedStack/AppResources.NestedStackResource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AppResourcesNestedStackAppResourcesNestedStackResourceB2F1EC6D",
+            "trace": [
+              "new NestedStack (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/nested-stack.ts:76:21)",
+              "new AppResources (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:46:5)",
+              "new App (/Users/panbrya/projects/cdk-nested-stacks/lib/cdk-nested-stacks-stack.ts:85:16)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/bin/cdk-nested-stacks.ts:7:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Module.m._compile (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "main (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "/Users/panbrya/.nvm/versions/node/v14.17.1/lib/node_modules/npm/node_modules/libnpx/index.js:268:14"
+            ]
+          }
+        ],
+        "/NestedStackApp/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata",
+            "trace": [
+              "new MetadataResource (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:22:24)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:166:5",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "injectMetadataResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:3)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable",
+            "trace": [
+              "new MetadataResource (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:31:27)",
+              "/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:166:5",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "injectMetadataResources (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:3)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/AssetParameters/4889259bac3a669d590dcaa84e0d6bc4f5c2ced809d7e66ceba14860a0370c16/S3Bucket": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssetParameters4889259bac3a669d590dcaa84e0d6bc4f5c2ced809d7e66ceba14860a0370c16S3BucketED79FF1E",
+            "trace": [
+              "new FileAssetParameters (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/asset-parameters.ts:16:32)",
+              "LegacyStackSynthesizer.doAddFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:144:16)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:66:19)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:70:25)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "BaseResources._prepareTemplateAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/nested-stack.ts:132:48)",
+              "defineNestedStackAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:69:10)",
+              "Object.prepareApp (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:43:7)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:24:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/AssetParameters/4889259bac3a669d590dcaa84e0d6bc4f5c2ced809d7e66ceba14860a0370c16/S3VersionKey": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssetParameters4889259bac3a669d590dcaa84e0d6bc4f5c2ced809d7e66ceba14860a0370c16S3VersionKey0D985600",
+            "trace": [
+              "new FileAssetParameters (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/asset-parameters.ts:21:31)",
+              "LegacyStackSynthesizer.doAddFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:144:16)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:66:19)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:70:25)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "BaseResources._prepareTemplateAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/nested-stack.ts:132:48)",
+              "defineNestedStackAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:69:10)",
+              "Object.prepareApp (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:43:7)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:24:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/AssetParameters/4889259bac3a669d590dcaa84e0d6bc4f5c2ced809d7e66ceba14860a0370c16/ArtifactHash": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssetParameters4889259bac3a669d590dcaa84e0d6bc4f5c2ced809d7e66ceba14860a0370c16ArtifactHashE3B01DE3",
+            "trace": [
+              "new FileAssetParameters (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/asset-parameters.ts:26:34)",
+              "LegacyStackSynthesizer.doAddFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:144:16)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:66:19)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:70:25)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "BaseResources._prepareTemplateAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/nested-stack.ts:132:48)",
+              "defineNestedStackAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:69:10)",
+              "Object.prepareApp (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:43:7)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:24:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/AssetParameters/023671247a41d2a1be62be1feaca01ed4c00b99f9461df4b29d2dea30b08244d/S3Bucket": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssetParameters023671247a41d2a1be62be1feaca01ed4c00b99f9461df4b29d2dea30b08244dS3Bucket22B87A48",
+            "trace": [
+              "new FileAssetParameters (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/asset-parameters.ts:16:32)",
+              "LegacyStackSynthesizer.doAddFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:144:16)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:66:19)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:70:25)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "AppResources._prepareTemplateAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/nested-stack.ts:132:48)",
+              "defineNestedStackAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:69:10)",
+              "Object.prepareApp (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:43:7)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:24:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/AssetParameters/023671247a41d2a1be62be1feaca01ed4c00b99f9461df4b29d2dea30b08244d/S3VersionKey": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssetParameters023671247a41d2a1be62be1feaca01ed4c00b99f9461df4b29d2dea30b08244dS3VersionKeyAEC32F16",
+            "trace": [
+              "new FileAssetParameters (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/asset-parameters.ts:21:31)",
+              "LegacyStackSynthesizer.doAddFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:144:16)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:66:19)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:70:25)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "AppResources._prepareTemplateAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/nested-stack.ts:132:48)",
+              "defineNestedStackAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:69:10)",
+              "Object.prepareApp (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:43:7)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:24:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/NestedStackApp/AssetParameters/023671247a41d2a1be62be1feaca01ed4c00b99f9461df4b29d2dea30b08244d/ArtifactHash": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssetParameters023671247a41d2a1be62be1feaca01ed4c00b99f9461df4b29d2dea30b08244dArtifactHash4F7B9758",
+            "trace": [
+              "new FileAssetParameters (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/asset-parameters.ts:26:34)",
+              "LegacyStackSynthesizer.doAddFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:144:16)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:66:19)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "LegacyStackSynthesizer.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack-synthesizers/legacy.ts:70:25)",
+              "App.addFileAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stack.ts:355:29)",
+              "AppResources._prepareTemplateAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/nested-stack.ts:132:48)",
+              "defineNestedStackAsset (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:69:10)",
+              "Object.prepareApp (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/prepare-app.ts:43:7)",
+              "Object.synthesize (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/private/synthesis.ts:24:3)",
+              "App.synth (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/panbrya/projects/cdk-nested-stacks/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (events.js:482:26)",
+              "process.emit (events.js:375:28)",
+              "process.emit (domain.js:470:12)",
+              "process.emit (/Users/panbrya/projects/cdk-nested-stacks/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ]
+      },
+      "displayName": "NestedStackApp"
+    }
+  }
+}

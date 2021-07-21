@@ -1,0 +1,326 @@
+{
+  "Resources": {
+    "MyServerInstanceRoleFDAEF5F5": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "ec2.",
+                      {
+                        "Ref": "AWS::URLSuffix"
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/AmazonSSMManagedInstanceCore"
+              ]
+            ]
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyServer"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "NestedStackApp/AppResources/MyServer/InstanceRole/Resource"
+      }
+    },
+    "MyServerInstanceProfile662C02D1": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "MyServerInstanceRoleFDAEF5F5"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "NestedStackApp/AppResources/MyServer/InstanceProfile"
+      }
+    },
+    "MyServerBEDB35FD": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "IamInstanceProfile": {
+          "Ref": "MyServerInstanceProfile662C02D1"
+        },
+        "ImageId": {
+          "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+        },
+        "InstanceType": "t2.micro",
+        "SecurityGroupIds": [
+          {
+            "Ref": "referencetoNestedStackAppBaseResourcesNestedStackBaseResourcesNestedStackResource0110B7B6OutputsNestedStackAppBaseResourcesMyAppSecuritygroupAAD8A718GroupId"
+          }
+        ],
+        "SubnetId": {
+          "Ref": "referencetoNestedStackAppBaseResourcesNestedStackBaseResourcesNestedStackResource0110B7B6OutputsNestedStackAppBaseResourcesMyAppVpcpublicSubnet1SubnetE42E0F6ERef"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyServer"
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": "#!/bin/bash\nyum install -y httpd\nsystemctl start httpd\nsystemctl enable httpd\necho \"<h1>Hello World from $(hostname -f)</h1>\" > /var/www/html/index.html"
+        }
+      },
+      "DependsOn": [
+        "MyServerInstanceRoleFDAEF5F5"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "NestedStackApp/AppResources/MyServer/Resource"
+      }
+    },
+    "CDKMetadata": {
+      "Type": "AWS::CDK::Metadata",
+      "Properties": {
+        "Analytics": "v2:deflate64:H4sIAAAAAAAAE0WOzQrCMBCEn6X3uDUieBV68iKlPkFItrD92YVkq4eQd7e1FE8zzDcMY8HaK5yru/ukkw9jnb1EhPzEpBhe6vxomp5bF92MitF0mGSJHk0jnDQuXjf+T3teQSAl4WK20Yz+Avmxlh3vhcMXQ26G3Mn0iw89cBulpwlLKYYlIAypfq9f7Q1sNSSiU1xYaUbodv0CqYavT8sAAAA="
+      },
+      "Metadata": {
+        "aws:cdk:path": "NestedStackApp/AppResources/CDKMetadata/Default"
+      },
+      "Condition": "CDKMetadataAvailable"
+    }
+  },
+  "Parameters": {
+    "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter": {
+      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+      "Default": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+    },
+    "referencetoNestedStackAppBaseResourcesNestedStackBaseResourcesNestedStackResource0110B7B6OutputsNestedStackAppBaseResourcesMyAppSecuritygroupAAD8A718GroupId": {
+      "Type": "String"
+    },
+    "referencetoNestedStackAppBaseResourcesNestedStackBaseResourcesNestedStackResource0110B7B6OutputsNestedStackAppBaseResourcesMyAppVpcpublicSubnet1SubnetE42E0F6ERef": {
+      "Type": "String"
+    }
+  },
+  "Conditions": {
+    "CDKMetadataAvailable": {
+      "Fn::Or": [
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "af-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-northeast-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-northeast-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-southeast-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-southeast-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ca-central-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "cn-north-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "cn-northwest-1"
+              ]
+            }
+          ]
+        },
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-central-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-north-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-3"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "me-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "sa-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-east-2"
+              ]
+            }
+          ]
+        },
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-west-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-west-2"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
