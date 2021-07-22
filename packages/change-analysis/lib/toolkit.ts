@@ -15,19 +15,15 @@ export interface diffOptions {
   outputPath?: string;
 }
 
-export interface ICfnHost {
+export interface IC2AHost {
+  readonly describeStackResources: (stackName: string) => Promise<AWS.CloudFormation.StackResources | undefined>;
+  readonly describeCfnStack: (stackName: string) => Promise<AWS.CloudFormation.Stack | undefined>;
   readonly getCfnTemplate: (stackName: string) => Promise<any>;
-}
-
-export interface IS3Host {
   readonly getS3Object: (url: string) => Promise<any>;
-}
-
-export interface IC2AHost extends ICfnHost, IS3Host {
   readonly getLocalTemplate: (filePath: string) => Promise<any>;
 }
 
-export async function c2aDiff(options: diffOptions, host: IC2AHost) {
+export async function c2aDiff(options: diffOptions) {
   const oldStack = Object.values(options.before)[0];
   const newStack = Object.values(options.after)[0];
 
