@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import * as yargs from 'yargs';
-import { versionNumber } from '../lib/helpers/version';
+import { versionNumber } from '../lib/private/version';
 
 async function parseArguments() {
   //

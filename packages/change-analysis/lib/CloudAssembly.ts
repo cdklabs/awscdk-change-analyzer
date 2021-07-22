@@ -3,7 +3,7 @@ import * as cxapi from '@aws-cdk/cx-api';
 import { ArtifactType, AssetManifest, AssetManifestProperties } from '@aws-cdk/cloud-assembly-schema';
 import * as minimatch from 'minimatch';
 import * as semver from 'semver';
-import { versionNumber } from './helpers/version';
+import { versionNumber } from './private/version';
 import * as fs from 'fs';
 import path = require('path');
 

@@ -1,5 +1,5 @@
-import { resolveCfnProperty } from "./helpers/cfn";
-import { deserializeStructure } from "./helpers/yml";
+import { resolveCfnProperty } from "./private/cfn";
+import { deserializeStructure } from "./private/yml";
 import { IC2AHost, TemplateTree } from './toolkit';
 import * as path from 'path';
 import { CloudAssembly } from "./CloudAssembly";
