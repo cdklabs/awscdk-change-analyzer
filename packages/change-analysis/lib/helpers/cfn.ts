@@ -47,20 +47,13 @@ export function resolveCfnProperty(property: any, references: AWS.CloudFormation
       const substitutes: {[key: string]: string} = Object.entries(unresolvedSubstitutes ?? {}).reduce(
         (acc, [key, value]) => ({...acc, [key]: resolveCfnProperty(value, references) ?? value }), {});
   
-      const search = (ref: string): string | undefined => {
-        return substitutes[ref] ?? searchReferences(ref) ?? ref;
+      const search = (ref: string): string => {
+        return substitutes[ref] ?? searchReferences(ref) ?? `\${${ref}}`;
       }
 
-      let resolvingString: string = unresolvedString;
-      while(/\${.*}/g.test(resolvingString)) {
-        const startIdx = resolvingString.indexOf('${');
-        const endIdx = resolvingString.indexOf('}', startIdx + 1);
-        const substring = resolvingString.substring(startIdx, endIdx + 1);
-        const replacement = search(substring.slice(2, -1));
-        const regex = new RegExp(`\\${substring}`, 'g');
-        resolvingString = resolvingString.replace(regex, `${replacement}`);
-      }
-      return resolvingString;
+      return (unresolvedString as string).replace(/\$\{([^}]*)\}/g, (_, m) => {
+        return search(m);
+      });
     default:
       throw new Error(`Unsupported CloudFormation Intrinsic Function: ${key}`);
   }
