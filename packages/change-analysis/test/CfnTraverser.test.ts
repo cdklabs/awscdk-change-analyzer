@@ -1,5 +1,8 @@
 import * as AWS from 'aws-sdk';
-import { CfnTraverser, DefaultC2AHost, IC2AHost, TemplateTree } from '../lib';
+import { CfnTraverser, DefaultC2AHost } from '../lib';
+import * as cxapi from '@aws-cdk/cx-api';
+import { CloudAssembly, DefaultSelection, ExtendedStackSelection } from '../lib/CloudAssembly';
+import path = require('path');
 
 // function promise(input: string): Promise<any> {
 //   return new Promise((resolve) => {
@@ -112,14 +115,22 @@ import { CfnTraverser, DefaultC2AHost, IC2AHost, TemplateTree } from '../lib';
 describe('Traverse on real data', () => {
   // GIVEN
   let host: DefaultC2AHost;
-  let traverser: CfnTraverser;
   beforeAll(() => {
     host = new DefaultC2AHost();
-    traverser = new CfnTraverser(host);
-    AWS.config.update({region: 'us-west-2'});
   });
 
   test('runs on cloudformation', async () => {
-    const output = await traverser.traverseCfn('NestedStackApp');
+    const rawAsm = new cxapi.CloudAssembly(path.resolve(__dirname, 'cdk.out'));
+    const asm = new CloudAssembly(rawAsm);
+    const stacks = await asm.selectStacks({allTopLevel: true, patterns: []},{
+      extend: ExtendedStackSelection.Upstream,
+      defaultBehavior: DefaultSelection.MainAssembly,
+    });
+    const traverser = new CfnTraverser(host, asm);
+  
+    const localOutput = await traverser.traverseLocal(stacks.stackArtifacts[0].templateFile);
+    const cfnOutput = await traverser.traverseCfn(stacks.stackArtifacts[0].stackName);
+
+    expect(localOutput).toEqual(cfnOutput);
   });
 });

@@ -7,8 +7,8 @@ export class DefaultC2AHost implements IC2AHost {
   private readonly s3: AWS.S3;
 
   constructor() {
-    this.cfn = new AWS.CloudFormation();
-    this.s3 = new AWS.S3();
+    this.cfn = new AWS.CloudFormation({region: 'us-west-2'});
+    this.s3 = new AWS.S3({region: 'us-west-2'});
   }
 
   public async describeStackResources(stackName: string): Promise<AWS.CloudFormation.StackResources | undefined> {
@@ -38,7 +38,7 @@ export class DefaultC2AHost implements IC2AHost {
     return response;
   }
 
-  public async getLocalTemplate (filePath: string): Promise<any> {
+  public async getLocalTemplate (filePath: string): Promise<string> {
     return await fs.promises.readFile(filePath, 'utf8');
   }
 }
