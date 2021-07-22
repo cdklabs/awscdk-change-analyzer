@@ -1,12 +1,6 @@
 #!/usr/bin/env node
-import * as path from 'path';
 import * as yargs from 'yargs';
-
-function versionNumber(): string {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  return require(path.resolve('package.json')).version.replace(/\+[0-9a-f]+$/, '');
-}
-
+import { versionNumber } from '../lib/helpers/version';
 
 async function parseArguments() {
   //
