@@ -3,7 +3,7 @@ import {
   ComponentPropertyAccessError,
   InfraModel,
 } from 'cdk-change-analyzer-models';
-import { CFParser } from '../cloudformation';
+import { CFParser, CFParserArgs } from '../cloudformation';
 import { Parser } from '../parser';
 import { CDKConstruct } from './cdk-construct';
 
@@ -15,8 +15,8 @@ export class CDKParser implements Parser {
     this.cfParser = new CFParser(template);
   }
 
-  public parse(): InfraModel {
-    const cfInfraModel = this.cfParser.parse();
+  public parse(args?: CFParserArgs): InfraModel {
+    const cfInfraModel = this.cfParser.parse(args);
 
     const constructsByPath = this.extractConstructsByPath(cfInfraModel);
 

@@ -23,7 +23,10 @@ async function parseArguments() {
 
 async function main() {
   const argv = await parseArguments();
-  console.log(argv);
+  argv;
 }
 
-main();
+main().catch(err => {
+  console.error(err);
+  process.exitCode = 1;
+});

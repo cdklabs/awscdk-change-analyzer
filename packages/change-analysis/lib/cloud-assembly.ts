@@ -1,11 +1,11 @@
 // From aws-cdk/api/cloud-assembly.ts
-import * as cxapi from '@aws-cdk/cx-api';
+import * as fs from 'fs';
+import * as path from 'path';
 import { ArtifactType, AssetManifest, AssetManifestProperties } from '@aws-cdk/cloud-assembly-schema';
+import * as cxapi from '@aws-cdk/cx-api';
 import * as minimatch from 'minimatch';
 import * as semver from 'semver';
 import { versionNumber } from './private/version';
-import * as fs from 'fs';
-import path = require('path');
 
 /**
  * Flatten a list of lists into a list of elements
@@ -108,8 +108,8 @@ export class CloudAssembly {
       .filter((artifact) => artifact.manifest.type === ArtifactType.ASSET_MANIFEST)
       .map(({manifest}) => path.join(this.directory, (manifest.properties as AssetManifestProperties).file));
 
-    this.hash2Path = assetsFilePaths.reduce((acc, path) => {
-      const assetManifest: AssetManifest = JSON.parse((fs.readFileSync(path)).toString('utf8'));
+    this.hash2Path = assetsFilePaths.reduce((acc, fpath) => {
+      const assetManifest: AssetManifest = JSON.parse((fs.readFileSync(fpath)).toString('utf8'));
       const currentAssetPaths = Object.entries(assetManifest.files ?? {}).reduce((currAcc, [hash, properties]) => {
         return { ...currAcc, [hash]: properties.source.path };
       }, {});
@@ -228,8 +228,10 @@ export class CloudAssembly {
  * bundles cannot.
  */
 export class StackCollection {
-  constructor(public readonly assembly: CloudAssembly, public readonly stackArtifacts: cxapi.CloudFormationStackArtifact[]) {
-  }
+  constructor(
+    public readonly assembly: CloudAssembly,
+    public readonly stackArtifacts: cxapi.CloudFormationStackArtifact[],
+  ) {}
 
   public get stackCount() {
     return this.stackArtifacts.length;
@@ -326,7 +328,9 @@ export interface MetadataMessageOptions {
   strict?: boolean;
 }
 
-function indexByHierarchicalId(stacks: cxapi.CloudFormationStackArtifact[]): Map<string, cxapi.CloudFormationStackArtifact> {
+function indexByHierarchicalId(
+  stacks: cxapi.CloudFormationStackArtifact[],
+): Map<string, cxapi.CloudFormationStackArtifact> {
   const result = new Map<string, cxapi.CloudFormationStackArtifact>();
 
   for (const stack of stacks) {

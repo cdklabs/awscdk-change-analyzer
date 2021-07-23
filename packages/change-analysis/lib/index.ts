@@ -1,4 +1,4 @@
 export * from './toolkit';
-export * from './DefaultC2AHost';
-export * from './CfnTraverser';
+export * from './c2a-host';
+export * from './cfn-traverser';
 

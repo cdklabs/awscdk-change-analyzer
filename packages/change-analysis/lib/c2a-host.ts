@@ -1,6 +1,13 @@
 import * as fs from 'fs';
 import * as AWS from 'aws-sdk';
-import { IC2AHost } from './toolkit';
+
+export interface IC2AHost {
+  readonly describeStackResources: (stackName: string) => Promise<AWS.CloudFormation.StackResources | undefined>;
+  readonly describeCfnStack: (stackName: string) => Promise<AWS.CloudFormation.Stack | undefined>;
+  readonly getCfnTemplate: (stackName: string) => Promise<any>;
+  readonly getS3Object: (url: string) => Promise<any>;
+  readonly getLocalTemplate: (filePath: string) => Promise<any>;
+}
 
 export class DefaultC2AHost implements IC2AHost {
   private readonly cfn: AWS.CloudFormation;
@@ -50,15 +57,15 @@ export function getS3PropertiesFromUrl(url: string): { Bucket: string, Key: stri
   const splitParams = splitS3[1].split('/');
   if (splitParams.length == 2) error('S3 ObjectKey could not be found in url.');
   else if (splitParams.length == 1) error('S3 BucketName and ObjectKey could not be found in url.');
-  
-  const [_, bucket, ...key] = splitParams;
+
+  const [bucket, ...key] = splitParams.slice(1);
 
   return {
     Bucket: bucket,
     Key: key.join('/'),
-  }
+  };
 
   function error (message: string) {
     throw new Error(`${message} Expected the form 'https://s3.amazon.com/[bucketName]/[objectKey]', received: ${url}`);
   }
-} 
+}

@@ -1,5 +1,5 @@
-import { c2aDiff } from '../lib';
+// import { c2aDiff } from '../lib';
 
-describe('Running toolkit diff', () => {
+// describe('Running toolkit diff', () => {
 
-});
+// });

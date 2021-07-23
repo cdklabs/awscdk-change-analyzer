@@ -13,7 +13,7 @@ describe('Traverse on real data', () => {
       defaultBehavior: DefaultSelection.MainAssembly,
     });
     const traverser = new CfnTraverser(host, asm);
-  
+
     const localOutput = await traverser.traverseLocal(stacks.stackArtifacts[0].templateFile);
     const cfnOutput = await traverser.traverseCfn(stacks.stackArtifacts[0].stackName);
 

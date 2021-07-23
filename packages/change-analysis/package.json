@@ -31,10 +31,13 @@
     "cdk-change-analyzer-models": "^0.0.2",
     "fifinet": "0.1.7",
     "graphviz": "0.0.9",
+    "minimatch": "^3.0.4",
     "semver": "^7.3.5",
+    "yaml": "^1.10.2",
     "yargs": "^17.0.1"
   },
   "devDependencies": {
+    "@aws-cdk/cloud-assembly-schema": "^1.115.0",
     "@babel/core": "^7.12.13",
     "@babel/preset-env": "^7.12.13",
     "@babel/preset-typescript": "^7.12.13",

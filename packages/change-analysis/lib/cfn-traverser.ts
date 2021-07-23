@@ -1,8 +1,9 @@
-import { resolveCfnProperty } from "./private/cfn";
-import { deserializeStructure } from "./private/yml";
-import { IC2AHost, TemplateTree } from './toolkit';
 import * as path from 'path';
-import { CloudAssembly } from "./CloudAssembly";
+import { IC2AHost } from './c2a-host';
+import { CloudAssembly } from './cloud-assembly';
+import { resolveCfnProperty } from './private/cfn';
+import { deserializeStructure } from './private/yml';
+import { TemplateTree } from './toolkit';
 
 interface StackInfo {
   template: any;
@@ -36,7 +37,7 @@ export class CfnTraverser {
    * support legacy synthesis, as the legacy stacks have Cfn Parameters
    * for the s3 url that must be resolved by obtaining the parameter
    * key/value pair.
-   * 
+   *
    * @param stackName The current stack name to map
    */
   public async _mapId2Name(stackName: string) {
@@ -77,9 +78,10 @@ export class CfnTraverser {
 
     return {
       rootTemplate: template,
-      nestedTemplates: await this.findNestedTemplates(template, parameters, resolve).reduce(async (templates, [id, newInput]) => {
-        return {...(await templates), [id]: await recurse(newInput, id)};
-      }, {}),
+      nestedTemplates: await this.findNestedTemplates(template, parameters, resolve)
+        .reduce(async (templates, [id, newInput]) => {
+          return {...(await templates), [id]: await recurse(newInput, id)};
+        }, {}),
     };
   }
 
@@ -95,7 +97,7 @@ export class CfnTraverser {
         parameters,
       };
     };
-  
+
     return this.traverseStack({
       input: url,
       getTemplate: this._host.getS3Object.bind(this._host),
@@ -108,12 +110,12 @@ export class CfnTraverser {
     const process = async (response: any) => {
       await this._mapId2Name(stackName);
       const parameters = await this._cfnParameters(stackName);
-  
+
       return {
         template: (response.TemplateBody && deserializeStructure(response.TemplateBody)) || {},
         parameters,
       };
-    }
+    };
     return this.traverseStack({
       input: stackName,
       getTemplate: this._host.getCfnTemplate.bind(this._host),
@@ -144,20 +146,24 @@ export class CfnTraverser {
         const splitUrl = templateUrl['Fn::Join'][1];
         const hash = splitUrl?.slice(-1)[0].slice(1, -5);
         return this.asm.hash2Path[hash];
-      } 
+      },
     });
   }
 
-  public findNestedTemplates(template: any, parameters?: AWS.CloudFormation.Parameters, resolve?: (s: string) => string): string[][]{
+  public findNestedTemplates(
+    template: any,
+    parameters?: AWS.CloudFormation.Parameters,
+    resolve?: (s: string) => string,
+  ): string[][] {
     const resources = template.Resources;
     const nestedStacks = Object.entries<any>(resources ?? {})
       .filter(([_id, resource]) => resource.Type === 'AWS::CloudFormation::Stack')
       .map(([id, resource]) => {
         return [
-          id, 
+          id,
           resolve
             ? resolve(resource.Properties.TemplateURL)
-            : resolveCfnProperty(resource.Properties.TemplateURL, parameters ?? [])
+            : resolveCfnProperty(resource.Properties.TemplateURL, parameters ?? []),
         ];
       });
     return nestedStacks.filter(([_id, resource]) => resource !== undefined) as string[][];
