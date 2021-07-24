@@ -5,6 +5,7 @@ import { ArtifactType, AssetManifest, AssetManifestProperties } from '@aws-cdk/c
 import * as cxapi from '@aws-cdk/cx-api';
 import * as minimatch from 'minimatch';
 import * as semver from 'semver';
+import { error, print, warning } from './private/logging';
 import { versionNumber } from './private/version';
 
 /**
@@ -154,7 +155,7 @@ export class CloudAssembly {
       if (minimatch(stack.hierarchicalId, pattern)) {
         return true;
       } else if (stack.id === pattern && semver.major(versionNumber()) < 2) {
-        console.warn(`Selecting stack by identifier ${stack.id}. This identifier is deprecated and will be removed in v2. Please use ${stack.hierarchicalId} instead.`);
+        warning(`Selecting stack by identifier ${stack.id}. This identifier is deprecated and will be removed in v2. Please use ${stack.hierarchicalId} instead.`);
         return true;
       }
       return false;
@@ -274,14 +275,14 @@ export class StackCollection {
         switch (message.level) {
           case cxapi.SynthesisMessageLevel.WARNING:
             warnings = true;
-            printMessage(console.warn, 'Warning', message.id, message.entry);
+            printMessage(warning, 'Warning', message.id, message.entry);
             break;
           case cxapi.SynthesisMessageLevel.ERROR:
             errors = true;
-            printMessage(console.error, 'Error', message.id, message.entry);
+            printMessage(error, 'Error', message.id, message.entry);
             break;
           case cxapi.SynthesisMessageLevel.INFO:
-            printMessage(console.log, 'Info', message.id, message.entry);
+            printMessage(print, 'Info', message.id, message.entry);
             break;
         }
       }
@@ -365,7 +366,7 @@ function includeDownstreamStacks(
   } while (madeProgress);
 
   if (added.length > 0) {
-    console.log(`Including depending stacks: ${added.join(', ')}`);
+    print(`Including depending stacks: ${added.join(', ')}`);
   }
 }
 
@@ -395,7 +396,7 @@ function includeUpstreamStacks(
   }
 
   if (added.length > 0) {
-    console.log(`Including dependency stacks: ${added.join(', ')}`);
+    print(`Including dependency stacks: ${added.join(', ')}`);
   }
 }
 

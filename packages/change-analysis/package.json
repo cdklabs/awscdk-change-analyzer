@@ -2,7 +2,10 @@
   "name": "cdk-change-analyzer",
   "version": "0.0.2",
   "description": "The CDK Change Analyzer is a tool that enables detecting dangerous changes within CDK projects.",
-  "main": "out/index.js",
+  "main": "out/lib/index.js",
+  "bin": {
+    "aws-c2a": "bin/aws-c2a"
+  },
   "scripts": {
     "start": "sh output-analysis-to-fe.sh",
     "build": "yarn clean && yarn compile",
@@ -29,6 +32,7 @@
     "@types/string-similarity": "^4.0.0",
     "aws-sdk": "^2.949.0",
     "cdk-change-analyzer-models": "^0.0.2",
+    "colors": "^1.4.0",
     "fifinet": "0.1.7",
     "graphviz": "0.0.9",
     "minimatch": "^3.0.4",

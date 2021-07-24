@@ -1,7 +1,6 @@
 import * as path from 'path';
-import { CfnTraverser, IC2AHost, TemplateTree } from '../lib';
 import * as cx from '@aws-cdk/cx-api';
-import { CloudAssembly } from '../lib/cloud-assembly';
+import { CfnTraverser, CloudAssembly, IC2AHost, TemplateTree } from '../lib';
 class MockHost implements IC2AHost {
 
   public async describeStackResources(_stackName: string) {
@@ -30,18 +29,18 @@ class MockHost implements IC2AHost {
 
 
 const MockTemplates: {[stackName: string]: string[]} = {
-  'root': [
+  root: [
     'nested1',
     'nested2',
   ],
-  'nested1': [
+  nested1: [
     'nested3',
   ],
-  'nested2': [],
-  'nested3': [
+  nested2: [],
+  nested3: [
     'nested4',
   ],
-  'nested4': [],
+  nested4: [],
 };
 
 
@@ -54,7 +53,7 @@ describe('Cfn Traverser on mock host', () => {
     traverser = new CfnTraverser(host, asm);
     traverser.findNestedTemplates = ({name}): string[][] => {
       return MockTemplates[name].map(n => [n, n]);
-    }
+    };
     traverser._cfnParameters = async () => [];
   });
 
@@ -70,11 +69,11 @@ describe('Cfn Traverser on mock host', () => {
               nestedTemplates: {
                 nested4: {
                   rootTemplate: { name: 'nested4' },
-                  nestedTemplates: {}
-                }
-              }
+                  nestedTemplates: {},
+                },
+              },
             },
-          }
+          },
         },
         nested2: {
           rootTemplate: { name: 'nested2' },

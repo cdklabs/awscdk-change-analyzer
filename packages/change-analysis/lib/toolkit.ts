@@ -74,7 +74,9 @@ export class C2AToolkit {
     });
 
     const outputPath = options.outputPath ?? 'report.json';
-    return fs.promises.writeFile(outputPath, new JSONSerializer().serialize(report));
+    await fs.promises.writeFile(outputPath, new JSONSerializer().serialize(report));
+
+    return 0;
   }
 
   private async selectStacks(stackNames: string[]) {
