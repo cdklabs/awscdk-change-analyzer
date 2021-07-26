@@ -1,21 +1,29 @@
 import * as fs from 'fs';
-import { JSONSerializer, Transition } from 'cdk-change-analyzer-models';
+import { groupArrayBy, JSONSerializer, RuleRisk, Transition } from 'cdk-change-analyzer-models';
 import { IC2AHost } from './c2a-host';
 import { CfnTraverser } from './cfn-traverser';
 import { createChangeAnalysisReport } from './change-analysis-report/create-change-analysis-report';
 import { CloudAssembly, DefaultSelection } from './cloud-assembly';
 import { CDKParser } from './platform-mapping';
 import { CUserRules } from './user-configuration';
+import { error } from './private/logging';
 
 export interface TemplateTree {
   readonly rootTemplate: any;
   readonly nestedTemplates?: {[id: string]: TemplateTree};
 }
 
+export enum FAIL_ON {
+  HIGH='HIGH',
+  UNKNOWN_AND_HIGH='UNKNOWN and HIGH',
+  ALL='ALL',
+};
+
 export interface DiffOptions {
   stackNames: string[];
   rulesPath: string;
-  outputPath?: string;
+  outputPath: string;
+  failCondition?: FAIL_ON;
 }
 
 export interface EvaluateDiffOptions {
@@ -59,24 +67,66 @@ export class C2AToolkit {
 
     const before: {[stackName: string]: TemplateTree} = {};
     const after: {[stackName: string]: TemplateTree} = {};
+    const rules = JSON.parse(await fs.promises.readFile(options.rulesPath, 'utf-8'));
+    const outputPath = options.outputPath;
+
     for (const stack of selectedStacks.stackArtifacts) {
       const stackName = stack.stackName;
       before[stackName] = await this.traverser.traverseLocal(stack.templateFile);
       after[stackName] = await this.traverser.traverseCfn(stackName);
     }
+  
+    const report = await this.evaluateStacks({ before, after, rules });
+  
+    const aggregationMap = groupArrayBy(report.aggregations, (agg) => agg.characteristics.RISK);
 
-    const rules = JSON.parse(await fs.promises.readFile(options.rulesPath, 'utf-8'));
+    const aggregations = {
+      high: aggregationMap.get(RuleRisk.High),
+      low:  aggregationMap.get(RuleRisk.Low),
+      unknown: aggregationMap.get(RuleRisk.Unknown),
+    };
 
-    const report = await this.evaluateStacks({
-      before,
-      after,
-      rules,
-    });
+    const evaluateAggregations = (errorMessage: string, ...filter: RuleRisk[]) => {
+      const filteredAggregations: {[key: string]: number} = Object.entries(aggregations)
+        .filter(([risk, values]) => filter.includes(risk as RuleRisk) && (values?.length ?? 0) > 0)
+        .reduce((acc, [risk, values]) => ({...acc, [risk]: values?.length ?? 0}), {});
 
-    const outputPath = options.outputPath ?? 'report.json';
+      console.log(filteredAggregations);
+      if (Object.values(filteredAggregations).length > 0) {
+        const frequencyReport = Object.entries(filteredAggregations)
+          .reduce((acc, [risk, frequency]) => `${acc}\n * ${risk}: ${frequency}`, 'Risk Aggregation Report:')
+        error(`${errorMessage}\n\n${frequencyReport}`);
+        return 1;
+      }
+
+      return 0;
+    }
+
     await fs.promises.writeFile(outputPath, new JSONSerializer().serialize(report));
 
-    return 0;
+    switch (options.failCondition) {
+      case FAIL_ON.ALL: {
+        return evaluateAggregations(
+          `Changes detected. Your changes fall under ${options.failCondition} rules.`,
+          RuleRisk.Low, RuleRisk.Unknown, RuleRisk.High, 
+        );
+      }
+      case FAIL_ON.UNKNOWN_AND_HIGH: {
+        return evaluateAggregations(
+          `Unknown/high risk changes detected. Your changes fall under ${options.failCondition} rules.`,
+          RuleRisk.Unknown, RuleRisk.High, 
+        );
+      }
+      case FAIL_ON.HIGH: {
+        return evaluateAggregations(
+          `High risk changes detected. Your changes fall under ${options.failCondition} rules.`,
+          RuleRisk.High, 
+        );
+      }
+      default: {
+        return 0;
+      }
+    }
   }
 
   private async selectStacks(stackNames: string[]) {

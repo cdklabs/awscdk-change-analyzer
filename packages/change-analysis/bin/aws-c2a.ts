@@ -2,8 +2,8 @@
 import * as path from 'path';
 import * as yargs from 'yargs';
 import * as cxapi from '@aws-cdk/cx-api';
-import { C2AToolkit, CloudAssembly, DefaultC2AHost } from '../lib';
-import { print } from '../lib/private/logging';
+import { C2AToolkit, CloudAssembly, DefaultC2AHost, FAIL_ON } from '../lib';
+import { print, success } from '../lib/private/logging';
 import { versionNumber } from '../lib/private/version';
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-shadow */ // yargs
@@ -27,7 +27,7 @@ async function parseArguments() {
     .option('app', { type: 'string', alias: 'a', desc: 'REQUIRED: Path to your cloud assembly directory (e.g. "assembly-Pipeline-Stage/")', requiresArg: true, demandOption: true })
     .command('diff [STACKS..]', 'Compares the cdk app the deployed stack or a local template file', yargs => yargs
       .option('rulesPath', { type: 'string', alias: 'r', desc: 'The rules that you want to diff against', requiresArg: true, demandOption: true })
-      .option('out', { type: 'string', alias: 'o', desc: 'The output file after running the diff', requiresArg: true, default: 'out.json' }),
+      .option('out', { type: 'string', alias: 'o', desc: 'The output file after running the diff', requiresArg: true, default: 'report.json' }),
     )
     .version(versionNumber())
     .alias('v', 'version')
@@ -52,14 +52,23 @@ async function main(): Promise<number> {
         stackNames: (argv.STACKS || []) as string[],
         rulesPath: argv.rulesPath,
         outputPath: argv.out,
+        failCondition: FAIL_ON.HIGH,
       });
     }
-    default: 
-      return 1;
+    default: {
+      throw new Error('Received unknown command: ' + command);
+    }
   }
 }
 
-main().catch(err => {
-  print(err);
-  process.exitCode = 1;
-});
+main()
+  .then(value => {
+    if (value === 0) {
+      success('No changes detected!');
+    }
+    process.exitCode = value;
+  })
+  .catch(err => {
+    print(err);
+    process.exitCode = 1;
+  });

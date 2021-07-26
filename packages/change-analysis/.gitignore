@@ -4,6 +4,7 @@ node_modules
 # Never save generated files
 out
 out.json
+report.json
 cdk.out
 
 # Save Config Files
