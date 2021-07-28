@@ -1,7 +1,6 @@
 #!/usr/bin/env node
-import * as path from 'path';
-import * as yargs from 'yargs';
 import * as cxapi from '@aws-cdk/cx-api';
+import * as yargs from 'yargs';
 import { C2AToolkit, CloudAssembly, DefaultC2AHost, FAIL_ON } from '../lib';
 import { print, success } from '../lib/private/logging';
 import { versionNumber } from '../lib/private/version';
@@ -41,7 +40,7 @@ async function parseArguments() {
 async function main(): Promise<number> {
   const argv = await parseArguments();
   const command = argv._[0];
-  
+
   const host = new DefaultC2AHost();
   const asm = new CloudAssembly(new cxapi.CloudAssembly(argv.app));
   const cli = new C2AToolkit(asm, host);

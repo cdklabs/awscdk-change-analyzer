@@ -159,11 +159,12 @@ export class CfnTraverser {
     const nestedStacks = Object.entries<any>(resources ?? {})
       .filter(([_id, resource]) => resource.Type === 'AWS::CloudFormation::Stack')
       .map(([id, resource]) => {
+        const url = resource.Properties.TemplateURL;
         return [
           id,
           resolve
-            ? resolve(resource.Properties.TemplateURL)
-            : resolveCfnProperty(resource.Properties.TemplateURL, parameters ?? []),
+            ? resolve(url)
+            : resolveCfnProperty(url, parameters ?? []) ?? url,
         ];
       });
     return nestedStacks.filter(([_id, resource]) => resource !== undefined) as string[][];

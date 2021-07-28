@@ -9,13 +9,37 @@ export interface IC2AHost {
   readonly getLocalTemplate: (filePath: string) => Promise<any>;
 }
 
+/**
+ * An AWS account
+ *
+ * An AWS account always exists in only one partition. Usually we don't care about
+ * the partition, but when we need to form ARNs we do.
+ */
+export interface Account {
+  /**
+   * The account number
+   */
+  readonly accountId: string;
+
+  /**
+   * The partition ('aws' or 'aws-cn' or otherwise)
+   */
+  readonly partition: string;
+}
+
 export class DefaultC2AHost implements IC2AHost {
+  private account?: Account;
   private readonly cfn: AWS.CloudFormation;
   private readonly s3: AWS.S3;
 
-  constructor() {
-    this.cfn = new AWS.CloudFormation({region: 'us-west-2'});
-    this.s3 = new AWS.S3({region: 'us-west-2'});
+  constructor(profile?: string) {
+    AWS.config.update({ stsRegionalEndpoints: 'regional' });
+    if (profile) {
+      AWS.config.credentials = new AWS.SharedIniFileCredentials({profile});
+    }
+
+    this.cfn = new AWS.CloudFormation({ region: this.discoverDefaultRegion() });
+    this.s3 = new AWS.S3({ region: this.discoverDefaultRegion() });
   }
 
   public async describeStackResources(stackName: string): Promise<AWS.CloudFormation.StackResources | undefined> {
@@ -47,6 +71,31 @@ export class DefaultC2AHost implements IC2AHost {
 
   public async getLocalTemplate (filePath: string): Promise<string> {
     return await fs.promises.readFile(filePath, 'utf8');
+  }
+
+
+  public async discoverPartition(): Promise<string> {
+    return (await this.discoverCurrentAccount()).partition;
+  }
+
+  public discoverDefaultRegion(): string {
+    return AWS.config.region || 'us-east-1';
+  }
+
+  public async discoverCurrentAccount(): Promise<Account> {
+    if (this.account === undefined) {
+      const sts = new AWS.STS();
+      const response = await sts.getCallerIdentity().promise();
+      if (!response.Account || !response.Arn) {
+        throw new Error(`Unrecognized reponse from STS: '${JSON.stringify(response)}'`);
+      }
+      this.account = {
+        accountId: response.Account!,
+        partition: response.Arn!.split(':')[1],
+      };
+    }
+
+    return this.account;
   }
 }
 

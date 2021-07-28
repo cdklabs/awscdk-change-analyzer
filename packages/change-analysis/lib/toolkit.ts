@@ -5,8 +5,8 @@ import { CfnTraverser } from './cfn-traverser';
 import { createChangeAnalysisReport } from './change-analysis-report/create-change-analysis-report';
 import { CloudAssembly, DefaultSelection } from './cloud-assembly';
 import { CDKParser } from './platform-mapping';
-import { CUserRules } from './user-configuration';
 import { error } from './private/logging';
+import { CUserRules } from './user-configuration';
 
 export interface TemplateTree {
   readonly rootTemplate: any;
@@ -17,7 +17,7 @@ export enum FAIL_ON {
   HIGH='HIGH',
   UNKNOWN_AND_HIGH='UNKNOWN and HIGH',
   ALL='ALL',
-};
+}
 
 export interface DiffOptions {
   stackNames: string[];
@@ -75,14 +75,14 @@ export class C2AToolkit {
       before[stackName] = await this.traverser.traverseLocal(stack.templateFile);
       after[stackName] = await this.traverser.traverseCfn(stackName);
     }
-  
+
     const report = await this.evaluateStacks({ before, after, rules });
-  
+
     const aggregationMap = groupArrayBy(report.aggregations, (agg) => agg.characteristics.RISK);
 
     const aggregations = {
       high: aggregationMap.get(RuleRisk.High),
-      low:  aggregationMap.get(RuleRisk.Low),
+      low: aggregationMap.get(RuleRisk.Low),
       unknown: aggregationMap.get(RuleRisk.Unknown),
     };
 
@@ -91,16 +91,15 @@ export class C2AToolkit {
         .filter(([risk, values]) => filter.includes(risk as RuleRisk) && (values?.length ?? 0) > 0)
         .reduce((acc, [risk, values]) => ({...acc, [risk]: values?.length ?? 0}), {});
 
-      console.log(filteredAggregations);
       if (Object.values(filteredAggregations).length > 0) {
         const frequencyReport = Object.entries(filteredAggregations)
-          .reduce((acc, [risk, frequency]) => `${acc}\n * ${risk}: ${frequency}`, 'Risk Aggregation Report:')
+          .reduce((acc, [risk, frequency]) => `${acc}\n * ${risk}: ${frequency}`, 'Risk Aggregation Report:');
         error(`${errorMessage}\n\n${frequencyReport}`);
         return 1;
       }
 
       return 0;
-    }
+    };
 
     await fs.promises.writeFile(outputPath, new JSONSerializer().serialize(report));
 
@@ -108,19 +107,19 @@ export class C2AToolkit {
       case FAIL_ON.ALL: {
         return evaluateAggregations(
           `Changes detected. Your changes fall under ${options.failCondition} rules.`,
-          RuleRisk.Low, RuleRisk.Unknown, RuleRisk.High, 
+          RuleRisk.Low, RuleRisk.Unknown, RuleRisk.High,
         );
       }
       case FAIL_ON.UNKNOWN_AND_HIGH: {
         return evaluateAggregations(
           `Unknown/high risk changes detected. Your changes fall under ${options.failCondition} rules.`,
-          RuleRisk.Unknown, RuleRisk.High, 
+          RuleRisk.Unknown, RuleRisk.High,
         );
       }
       case FAIL_ON.HIGH: {
         return evaluateAggregations(
           `High risk changes detected. Your changes fall under ${options.failCondition} rules.`,
-          RuleRisk.High, 
+          RuleRisk.High,
         );
       }
       default: {
