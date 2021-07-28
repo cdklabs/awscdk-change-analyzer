@@ -40,7 +40,7 @@ test('Nested Stack Parameters\' dependencies', () => {
     },
   };
 
-  const parser = new CFParser(outer);
+  const parser = new CFParser('root', outer);
   const model = parser.parse({nestedStacks: {NestedStack: inner}});
   expect(model.components.length).toBe(4);
   expect(model.relationships.length).toBe(5);
@@ -79,7 +79,7 @@ test('Nested Stack Outputs\' dependencies', () => {
     },
   };
 
-  const parser = new CFParser(outer);
+  const parser = new CFParser('root', outer);
   const model = parser.parse({nestedStacks: {NestedStack: inner}});
   expect(model.components.length).toBe(4);
   expect(model.relationships.length).toBe(5);
@@ -155,7 +155,7 @@ test('Double Nested Stack\'s dependencies', () => {
     },
   };
 
-  const parser = new CFParser(outerStack);
+  const parser = new CFParser('root', outerStack);
   const model = parser.parse({nestedStacks: {MiddleStack: middleStack, InnerStack: innerStack}});
   genGraphOnEnvFlag(model, 'double-nested-stack');
   expect(model.components.length).toBe(9);

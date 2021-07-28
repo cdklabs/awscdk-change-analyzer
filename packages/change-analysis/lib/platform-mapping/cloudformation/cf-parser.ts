@@ -7,7 +7,6 @@ import { CFParameter } from './cf-parameter';
 import { CFParserArgs } from './cf-parser-args';
 import { CFResource } from './cf-resource';
 
-
 const cfEntityFactory = (componentType: string, componentName: string, definition: any, parserArgs: CFParserArgs) => {
   switch(componentType){
     case 'Resources':
@@ -25,12 +24,12 @@ const cfEntityFactory = (componentType: string, componentName: string, definitio
 
 export class CFParser implements Parser {
 
-  private template: Record<any, any>;
+  private templates: Record<any, any>[];
   private name: string;
 
-  constructor(template: Record<any, any>, name?: string) {
-    this.template = template;
-    this.name = name ?? 'root';
+  constructor(name: string, ...templates: Record<any, any>[]) {
+    this.templates = templates;
+    this.name = name;
   }
 
   /**
@@ -49,13 +48,16 @@ export class CFParser implements Parser {
      * Parses the cloudformation template onto CFEntities
      */
   public createCFEntities(templateRoot: Component, args?: CFParserArgs):Record<string, CFEntity> {
-    const entities: Record<string, CFEntity> = Object.fromEntries(
-      Object.entries(this.template).flatMap(([componentType, definitions]) =>
-        Object.entries(definitions).map(([componentName, definition]) =>
-          [componentName, cfEntityFactory(componentType, componentName, definition, args ?? {})],
-        ).filter(e => e[1] !== undefined),
+    const entities: Record<string, CFEntity> = this.templates.reduce((acc, template) => ({
+      ...acc,
+      ...Object.fromEntries(
+        Object.entries(template).flatMap(([componentType, definitions]) =>
+          Object.entries(definitions).map(([componentName, definition]) =>
+            [componentName, cfEntityFactory(componentType, componentName, definition, args ?? {})])
+            .filter(e => e[1] !== undefined),
       ),
-    );
+      ),
+    }), {});
 
     Object.values(entities).forEach(entity => {
       const rootRelationship = new StructuralRelationship(templateRoot, entity.component, 'root');

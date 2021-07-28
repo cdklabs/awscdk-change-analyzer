@@ -36,8 +36,8 @@ test('Extract Agg of operation type, component type and component subtype', () =
 
 
 test('Group operations from big template', () => {
-  const oldModel = new CDKParser(readSampleInput('kessel-run-stack-before.json')).parse();
-  const newModel = new CDKParser(readSampleInput('kessel-run-stack-after.json')).parse();
+  const oldModel = new CDKParser('root', readSampleInput('kessel-run-stack-before.json')).parse();
+  const newModel = new CDKParser('root', readSampleInput('kessel-run-stack-after.json')).parse();
 
   const diff = new DiffCreator(new Transition({v1: oldModel, v2: newModel})).create();
   const aggs = extractComponentOperationsAggs(diff, new Map());

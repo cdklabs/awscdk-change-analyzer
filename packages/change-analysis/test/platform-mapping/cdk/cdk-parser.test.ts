@@ -12,7 +12,7 @@ const {
 
 test('CDK simple template', () => {
   const cfnTemplate = readSampleInput('simple-template.json');
-  const parser = new CDKParser(cfnTemplate);
+  const parser = new CDKParser('root', cfnTemplate);
   const model = parser.parse();
 
   genGraphOnEnvFlag(model, 'simple-template');
@@ -22,7 +22,7 @@ test('CDK simple template', () => {
 
 test('CDK kessel run stack template', () => {
   const cfnTemplate = readSampleInput('KesselRunStack.template.json');
-  const parser = new CDKParser(cfnTemplate);
+  const parser = new CDKParser('root', cfnTemplate);
   const model = parser.parse();
 
   genGraphOnEnvFlag(model, 'kessel-run-template');
@@ -31,7 +31,7 @@ test('CDK kessel run stack template', () => {
 });
 
 test('Basic resources', () => {
-  const parser = new CDKParser({
+  const parser = new CDKParser('root', {
     Resources: {
       logicalId0: {
         Type: 'AWS::IAM::Policy',

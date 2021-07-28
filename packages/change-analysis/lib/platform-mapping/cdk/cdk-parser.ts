@@ -9,10 +9,13 @@ import { CDKConstruct } from './cdk-construct';
 
 export class CDKParser implements Parser {
 
+  public readonly name: string;
   private readonly cfParser: CFParser;
 
-  constructor(template: Record<any, any>) {
-    this.cfParser = new CFParser(template);
+  constructor(name: string, ...templates: Record<any, any>[]) {
+    this.name = name;
+    this.cfParser = new CFParser(name, ...templates);
+    console.log(templates);
   }
 
   public parse(args?: CFParserArgs): InfraModel {
