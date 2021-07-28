@@ -105,16 +105,18 @@ export class CloudAssembly {
   constructor(public readonly assembly: cxapi.CloudAssembly) {
     this.directory = assembly.directory;
 
+    // Obtain the file paths for all the asset manifest files
     const assetsFilePaths = assembly.artifacts
       .filter((artifact) => artifact.manifest.type === ArtifactType.ASSET_MANIFEST)
       .map(({manifest}) => path.join(this.directory, (manifest.properties as AssetManifestProperties).file));
 
+    // Loop through all the asset manifest files and create a flat map between content hash and file path
     this.hash2Path = assetsFilePaths.reduce((acc, fpath) => {
       const assetManifest: AssetManifest = JSON.parse((fs.readFileSync(fpath)).toString('utf8'));
-      const currentAssetPaths = Object.entries(assetManifest.files ?? {}).reduce((currAcc, [hash, properties]) => {
+      const currentAsset = Object.entries(assetManifest.files ?? {}).reduce((currAcc, [hash, properties]) => {
         return { ...currAcc, [hash]: properties.source.path };
       }, {});
-      return {...acc, ...currentAssetPaths };
+      return {...acc, ...currentAsset };
     }, {});
   }
 

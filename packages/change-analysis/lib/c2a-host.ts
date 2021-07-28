@@ -1,6 +1,9 @@
 import * as fs from 'fs';
 import * as AWS from 'aws-sdk';
 
+/**
+ * SDK calls required for aws-c2a
+ */
 export interface IC2AHost {
   readonly describeStackResources: (stackName: string) => Promise<AWS.CloudFormation.StackResources | undefined>;
   readonly describeCfnStack: (stackName: string) => Promise<AWS.CloudFormation.Stack | undefined>;
@@ -27,6 +30,9 @@ export interface Account {
   readonly partition: string;
 }
 
+/**
+ * The default implementation to perform AWS SDK calls.
+ */
 export class DefaultC2AHost implements IC2AHost {
   private account?: Account;
   private readonly cfn: AWS.CloudFormation;
@@ -42,16 +48,25 @@ export class DefaultC2AHost implements IC2AHost {
     this.s3 = new AWS.S3({ region: this.discoverDefaultRegion() });
   }
 
+  /**
+   * Given a stack name, return the stack's resources.
+   */
   public async describeStackResources(stackName: string): Promise<AWS.CloudFormation.StackResources | undefined> {
     const {StackResources} = await this.cfn.describeStackResources({ StackName: stackName }).promise();
     return StackResources;
   }
 
+  /**
+   * Given a stack name, return the first stack from the query.
+   */
   public async describeCfnStack(stackName: string): Promise<AWS.CloudFormation.Stack | undefined> {
     const { Stacks } = await this.cfn.describeStacks({ StackName: stackName }).promise();
     return Stacks?.[0];
   }
 
+  /**
+   * Given a stack name, return the CloudFormation Template Response
+   */
   public async getCfnTemplate(stackName: string): Promise<any> {
     const response = await this.cfn.getTemplate({ StackName: stackName, TemplateStage: 'Original'}).promise();
     return response;
@@ -69,6 +84,12 @@ export class DefaultC2AHost implements IC2AHost {
     return response;
   }
 
+  /**
+   * Given a file path, read the file.
+   *
+   * @param filePath The file path for a local cfn template
+   * @returns The template in string form
+   */
   public async getLocalTemplate (filePath: string): Promise<string> {
     return await fs.promises.readFile(filePath, 'utf8');
   }
@@ -99,6 +120,12 @@ export class DefaultC2AHost implements IC2AHost {
   }
 }
 
+/**
+ * Given a s3 url, extract and return the bucket and key for the object.
+ *
+ * @param url A s3 url in the form 'https://s3.amazon.com/[bucketName]/[objectKey]'
+ * @returns Bucket and Key
+ */
 export function getS3PropertiesFromUrl(url: string): { Bucket: string, Key: string } {
   const splitS3 = url.split('s3');
   if (splitS3.length < 2) error('S3 url does not contain an s3 split.');

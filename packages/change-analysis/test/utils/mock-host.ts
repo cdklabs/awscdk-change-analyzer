@@ -1,5 +1,8 @@
 import { IC2AHost } from '../../lib';
 
+/**
+ * A mock host used to test basic calls.
+ */
 export class MockHost implements IC2AHost {
 
   public async describeStackResources(_stackName: string) {

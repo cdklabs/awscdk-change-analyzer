@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { groupArrayBy, JSONSerializer, RuleRisk, Transition } from 'cdk-change-analyzer-models';
+import { ChangeAnalysisReport, groupArrayBy, JSONSerializer, RuleRisk, Transition } from 'cdk-change-analyzer-models';
 import { IC2AHost } from './c2a-host';
 import { CfnTraverser } from './cfn-traverser';
 import { createChangeAnalysisReport } from './change-analysis-report/create-change-analysis-report';
@@ -32,6 +32,9 @@ export interface EvaluateDiffOptions {
   rules: CUserRules;
 }
 
+/**
+ * The toolkit for utilizing c2a.
+ */
 export class C2AToolkit {
   private readonly asm: CloudAssembly;
   private readonly traverser: CfnTraverser;
@@ -41,15 +44,20 @@ export class C2AToolkit {
     this.traverser = new CfnTraverser(host, asm);
   }
 
-  public async evaluateStacks(options: EvaluateDiffOptions) {
+  /**
+   * Given the before/after forms of two template trees and
+   * a list of rules, return the change analysis report.
+   *
+   * @param options the options for evaluation
+   */
+  public async evaluateStacks(options: EvaluateDiffOptions): Promise<ChangeAnalysisReport> {
     const oldStack = Object.values(options.before)[0];
     const newStack = Object.values(options.after)[0];
 
     const flattenNestedStacks = (nestedStacks: {[id: string]: TemplateTree} | undefined ): {[id: string]: any}  => {
       return Object.entries(nestedStacks ?? {})
-        .reduce((acc, [stackName, {rootTemplate, nestedTemplates}]: [string, TemplateTree]) => {
-          return {...acc, [stackName]: rootTemplate, ...(flattenNestedStacks(nestedTemplates))};
-        }, {});
+        .reduce((acc, [stackName, {rootTemplate, nestedTemplates}]: [string, TemplateTree]) =>
+          ({...acc, [stackName]: rootTemplate, ...(flattenNestedStacks(nestedTemplates))}), {});
     };
 
     const oldModel = new CDKParser(oldStack.rootTemplate).parse({

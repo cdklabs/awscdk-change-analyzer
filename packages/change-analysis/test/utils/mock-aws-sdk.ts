@@ -12,6 +12,11 @@ interface IResource extends IStackInfo {
   readonly TemplateURL: string;
 }
 
+/**
+ * Class for creating Mock Cfn Stacks.
+ *
+ * Note: Very opinionated.
+ */
 export class MockCfnStack {
   public readonly Properties: IStackInfo;
   public readonly StackId: string;
@@ -53,6 +58,9 @@ export class MockCfnStack {
   get StackResources() { return this.Resources; }
 }
 
+/**
+ * A mock cloud environment for testing.
+ */
 export class MockArchitecture {
   public readonly state: MockCfnStack[];
 
