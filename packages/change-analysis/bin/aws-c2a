@@ -1,2 +1,3 @@
 #!/usr/bin/env node
-require('./cdk.js');
+process.env.AWS_SDK_LOAD_CONFIG=1
+require('../out/bin/aws-c2a.js');
