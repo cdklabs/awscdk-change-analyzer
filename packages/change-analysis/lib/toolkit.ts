@@ -7,6 +7,7 @@ import { CloudAssembly, DefaultSelection } from './cloud-assembly';
 import { CDKParser } from './platform-mapping';
 import { error } from './private/logging';
 import { CUserRules } from './user-configuration';
+import { flattenObjects, mapObjectValues } from './private/object';
 
 export interface TemplateTree {
   readonly rootTemplate: any;
@@ -59,22 +60,12 @@ export class C2AToolkit {
           ({...acc, [stackName]: rootTemplate, ...(flattenNestedStacks(nestedTemplates))}), {});
     };
 
-    const flattenMultipleStacks = (app: {[stackName: string]: TemplateTree}) => {
-      return Object.values(app)
-        .reduce((acc, {nestedTemplates}) =>
-          ({...acc, ...flattenNestedStacks(nestedTemplates)}), {});
-    };
-
-    const getRootTemplates = (app: {[stackName: string]: TemplateTree}) => {
-      return Object.values(app).map(tree => tree.rootTemplate);
-    };
-
-    const oldModel = new CDKParser('root', ...getRootTemplates(before)).parse({
-      nestedStacks: flattenMultipleStacks(before),
+    const oldModel = new CDKParser('root', ...mapObjectValues(before, tree => tree.rootTemplate)).parse({
+      nestedStacks: flattenObjects(mapObjectValues(before, app => flattenNestedStacks(app.nestedTemplates))),
     });
 
-    const newModel = new CDKParser('root', ...getRootTemplates(after)).parse({
-      nestedStacks: flattenMultipleStacks(after),
+    const newModel = new CDKParser('root', ...mapObjectValues(after, tree => tree.rootTemplate)).parse({
+      nestedStacks: flattenObjects(mapObjectValues(after, app => flattenNestedStacks(app.nestedTemplates))),
     });
 
     return createChangeAnalysisReport(new Transition({v1: oldModel, v2: newModel}), options.rules);
@@ -90,8 +81,8 @@ export class C2AToolkit {
 
     for (const stack of selectedStacks.stackArtifacts) {
       const stackName = stack.stackName;
-      before[stackName] = await this.traverser.traverseLocal(stack.templateFile);
-      after[stackName] = await this.traverser.traverseCfn(stackName);
+      before[stackName] = await this.traverser.traverseCfn(stackName);
+      after[stackName] = await this.traverser.traverseLocal(stack.templateFile);
     }
 
     const report = await this.evaluateStacks({ before, after, rules });
