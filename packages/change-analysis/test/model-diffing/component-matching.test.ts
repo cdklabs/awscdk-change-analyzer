@@ -1,8 +1,8 @@
 import { Transition } from 'cdk-change-analyzer-models';
 import {
   DiffCreator,
-} from '../../model-diffing';
-import { CDKParser } from '../../platform-mapping';
+} from '../../lib/model-diffing';
+import { CDKParser } from '../../lib/platform-mapping';
 import { ParserUtilsCreator } from '../utils';
 
 const dir = 'test/model-diffing';

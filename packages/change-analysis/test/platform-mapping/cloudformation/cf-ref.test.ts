@@ -1,4 +1,4 @@
-import { CFRef } from '../../../platform-mapping/cloudformation';
+import { CFRef } from '../../../lib/platform-mapping/cloudformation';
 
 test('Read ref in expression', () => {
   const refs: CFRef[] = CFRef.readRefsInExpression({

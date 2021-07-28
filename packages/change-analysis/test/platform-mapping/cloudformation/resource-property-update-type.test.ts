@@ -2,7 +2,7 @@ import {
   ComponentUpdateType,
   DependencyRelationship,
 } from 'cdk-change-analyzer-models';
-import { CFParser } from '../../../platform-mapping';
+import { CFParser } from '../../../lib/platform-mapping';
 
 test('Update type on first level resource property', () => {
 

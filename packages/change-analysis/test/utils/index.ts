@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { Component, InfraModel } from 'cdk-change-analyzer-models';
-import { generateGraph } from '../../visualization/graph-generator';
+import { generateGraph } from '../../lib/visualization/graph-generator';
 
 export const ParserUtilsCreator =
     (parserDir: string): Record<string, any> => Object.freeze({

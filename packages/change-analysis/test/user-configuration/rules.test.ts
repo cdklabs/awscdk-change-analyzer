@@ -3,7 +3,7 @@ import {
   CUserRule, CUserRules,
   parseRules, RuleProcessor, RuleConditionOperator,
   UserRule, UserRules,
-} from '../../user-configuration';
+} from '../../lib/user-configuration';
 import { diffTestCase1 } from '../default-test-cases/infra-model-diff';
 
 const diffTestCase1CRules: CUserRule[] = [{
