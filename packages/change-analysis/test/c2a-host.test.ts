@@ -4,9 +4,9 @@ import { MockArchitecture } from './utils';
 
 /**
  * Jest Mocking happens at initialization. This means every file that we
- * want to mock the architecture will have to have a copy of the below 
+ * want to mock the architecture will have to have a copy of the below
  * mock code.
- * 
+ *
  * FIXME: Find a way to amortize/centralize this code.
  * NOTE: Callback in jest.mock() cannot be moved outside as the import happens
  * after initialization.
@@ -17,21 +17,21 @@ jest.mock('aws-sdk', () => {
     config: { update: () => undefined },
     CloudFormation: jest.fn(() => {
       return {
-        describeStackResources: jest.fn(({ StackName }) => 
-          ({ promise: () => architecture.mockGetCfn(StackName) })
+        describeStackResources: jest.fn(({ StackName }) =>
+          ({ promise: () => architecture.mockGetCfn(StackName) }),
         ),
-        describeStacks: jest.fn(({StackName}) => 
-          ({ promise: () => ({ Stacks: [architecture.mockGetCfn(StackName)] }) })
+        describeStacks: jest.fn(({StackName}) =>
+          ({ promise: () => ({ Stacks: [architecture.mockGetCfn(StackName)] }) }),
         ),
         getTemplate: jest.fn(({StackName}) =>
-          ({ promise: () => ({ TemplateBody: architecture.mockGetCfn(StackName) }) })
+          ({ promise: () => ({ TemplateBody: architecture.mockGetCfn(StackName) }) }),
         ),
       };
     }),
     S3: jest.fn(() => {
       return {
         getObject: jest.fn(({Bucket, Key}) =>
-          ({ promise: () => ({ Body: architecture.mockGetS3(Bucket, Key) }) })
+          ({ promise: () => ({ Body: architecture.mockGetS3(Bucket, Key) }) }),
         ),
       };
     }),

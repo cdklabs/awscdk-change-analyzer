@@ -1,45 +1,45 @@
 import * as path from 'path';
 import * as cx from '@aws-cdk/cx-api';
 import { CfnTraverser, CloudAssembly, DefaultC2AHost, TemplateTree } from '../lib';
-import { MockHost, MockTemplates } from './utils/mock-host';
 import { MockArchitecture } from './utils/mock-aws-sdk';
+import { MockHost, MockTemplates } from './utils/mock-host';
 
 /**
  * Jest Mocking happens at initialization. This means every file that we
- * want to mock the architecture will have to have a copy of the below 
+ * want to mock the architecture will have to have a copy of the below
  * mock code.
- * 
+ *
  * FIXME: Find a way to amortize/centralize this code.
  * NOTE: Callback in jest.mock() cannot be moved outside as the import happens
  * after initialization.
  */
- const architecture = new MockArchitecture();
- jest.mock('aws-sdk', () => {
-   return {
-     config: { update: () => undefined },
-     CloudFormation: jest.fn(() => {
-       return {
-         describeStackResources: jest.fn(({ StackName }) => 
-           ({ promise: () => architecture.mockGetCfn(StackName) })
-         ),
-         describeStacks: jest.fn(({StackName}) => 
-           ({ promise: () => ({ Stacks: [architecture.mockGetCfn(StackName)] }) })
-         ),
-         getTemplate: jest.fn(({StackName}) =>
-           ({ promise: () => ({ TemplateBody: architecture.mockGetCfn(StackName)?.toString() }) })
-         ),
-       };
-     }),
-     S3: jest.fn(() => {
-       return {
-         getObject: jest.fn(({Bucket, Key}) =>
-           ({ promise: () => ({ Body: architecture.mockGetS3(Bucket, Key)?.toString() }) })
-         ),
-       };
-     }),
-   };
- });
- 
+const architecture = new MockArchitecture();
+jest.mock('aws-sdk', () => {
+  return {
+    config: { update: () => undefined },
+    CloudFormation: jest.fn(() => {
+      return {
+        describeStackResources: jest.fn(({ StackName }) =>
+          ({ promise: () => architecture.mockGetCfn(StackName) }),
+        ),
+        describeStacks: jest.fn(({StackName}) =>
+          ({ promise: () => ({ Stacks: [architecture.mockGetCfn(StackName)] }) }),
+        ),
+        getTemplate: jest.fn(({StackName}) =>
+          ({ promise: () => ({ TemplateBody: architecture.mockGetCfn(StackName)?.toString() }) }),
+        ),
+      };
+    }),
+    S3: jest.fn(() => {
+      return {
+        getObject: jest.fn(({Bucket, Key}) =>
+          ({ promise: () => ({ Body: architecture.mockGetS3(Bucket, Key)?.toString() }) }),
+        ),
+      };
+    }),
+  };
+});
+
 describe('Cfn Traverser on mocked sdk', () => {  // GIVEN
   let traverser: CfnTraverser;
   beforeAll(() => {
@@ -162,32 +162,32 @@ const properties = (name: string) => ({
 
 const nested3Output = {
   rootTemplate: { Resources: {} },
-  nestedTemplates: {}
-}
+  nestedTemplates: {},
+};
 
 const nested2Output = {
   rootTemplate: { Resources: {} },
-  nestedTemplates: {}
-}
+  nestedTemplates: {},
+};
 
 const nested1Output = {
   rootTemplate: {
-    Resources: { nested3: properties('nested3') }
+    Resources: { nested3: properties('nested3') },
   },
   nestedTemplates: {
     nested3: nested3Output,
-  }
-}
+  },
+};
 
 const rootOutput = {
   rootTemplate: {
     Resources: {
       nested1: properties('nested1'),
       nested2: properties('nested2'),
-    }
+    },
   },
   nestedTemplates: {
     nested1: nested1Output,
     nested2: nested2Output,
-  }
-}
+  },
+};

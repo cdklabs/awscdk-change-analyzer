@@ -1,4 +1,4 @@
-import { IC2AHost } from "../../lib";
+import { IC2AHost } from '../../lib';
 
 export class MockHost implements IC2AHost {
 

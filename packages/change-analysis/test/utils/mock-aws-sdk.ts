@@ -41,12 +41,12 @@ export class MockCfnStack {
     return JSON.stringify({
       Resources: {
         ...this.Resources.reduce((acc, resource) => ({
-          ...acc, [resource.PhysicalResourceId]: { 
+          ...acc, [resource.PhysicalResourceId]: {
             Type: 'AWS::CloudFormation::Stack',
             Properties: resource,
           },
-        }), {})
-      }
+        }), {}),
+      },
     });
   }
 
