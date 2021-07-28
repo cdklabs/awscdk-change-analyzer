@@ -61,13 +61,13 @@ export class C2AToolkit {
 
     const flattenMultipleStacks = (app: {[stackName: string]: TemplateTree}) => {
       return Object.values(app)
-        .reduce((acc, {nestedTemplates}) => 
+        .reduce((acc, {nestedTemplates}) =>
           ({...acc, ...flattenNestedStacks(nestedTemplates)}), {});
-    }
+    };
 
     const getRootTemplates = (app: {[stackName: string]: TemplateTree}) => {
       return Object.values(app).map(tree => tree.rootTemplate);
-    }
+    };
 
     const oldModel = new CDKParser('root', ...getRootTemplates(before)).parse({
       nestedStacks: flattenMultipleStacks(before),
