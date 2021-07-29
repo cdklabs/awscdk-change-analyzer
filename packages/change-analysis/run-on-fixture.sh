@@ -1,4 +1,6 @@
 #!/bin/bash
+set -euo pipefail
+
 function heading {
   printf "\e[38;5;81m$@\e[0m\n"
 }

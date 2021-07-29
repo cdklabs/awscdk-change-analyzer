@@ -24,6 +24,7 @@ export interface DiffOptions {
   stackNames: string[];
   rulesPath: string;
   outputPath: string;
+  fail: boolean;
   failCondition?: FAIL_ON;
 }
 
@@ -61,7 +62,8 @@ export class C2AToolkit {
 
     const report = await this.evaluateStacks({ before, after, rules });
     await fs.promises.writeFile(outputPath, new JSONSerializer().serialize(report));
-    return this.evaluateReport(report, options.failCondition);
+
+    return this.evaluateReport(report, options.failCondition) && options.fail ? 1 : 0;
   }
 
   /**
