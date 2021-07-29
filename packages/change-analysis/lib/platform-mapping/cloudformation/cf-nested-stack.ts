@@ -60,19 +60,16 @@ export class CFNestedStack extends CFResource {
 
     const crossRelationships: Relationship[] = (nestedModel.components
       .filter(c => c instanceof Component && c !== this.component) as Component[])
-      .map((c:Component) => {
-        console.log(c.name);
-        return this.createDependencyRelationship(c, 'nested-stack-component')
-      });
+      .map((c:Component) => this.createDependencyRelationship(c, 'nested-stack-component'));
 
     model.relationships.push(...crossRelationships, ...nestedModel.relationships);
     model.components.push(...nestedModel.components.filter(c => c !== this.component));
   }
 
   getComponentInAttributePath(attributePath:PropertyPath):Component {
-    const innerEntity = attributePath.length >= 2
-            && attributePath[0] === 'Outputs'
-            && this.innerCFEntities.find(entity => entity[attributePath[1]]);
+    const innerEntity: CFEntity | undefined = (attributePath.length >= 2 && attributePath[0] === 'Outputs')
+      ? this.innerCFEntities.find(entity => entity[attributePath[1]])?.[attributePath[1]]
+      : undefined;
 
     if(innerEntity instanceof CFOutput) return innerEntity.getComponentInAttributePath(attributePath.slice(2));
     return this.component;

@@ -1,5 +1,14 @@
 [
   {
+    "description": "Inserts are high risk",
+    "let": {
+        "change": { "change": {"type": "INSERT" } }
+    },
+    "effect": {
+        "risk": "high"
+    }
+  },
+  {
     "description": "Removes are high risk",
     "let": {
         "change": { "change": {"type": "REMOVE" } }

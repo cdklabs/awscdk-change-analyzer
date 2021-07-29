@@ -639,6 +639,143 @@
         ]
       },
       "displayName": "CrossStack"
+    },
+    "AnotherStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "AnotherStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "AnotherStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "AnotherStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/dc92bdc355912015462d7ee5366ea97adf74dba7a87fd754b82570d6015d7208.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "AnotherStack.assets"
+        ]
+      },
+      "dependencies": [
+        "AnotherStack.assets"
+      ],
+      "metadata": {
+        "/AnotherStack/StudentQueue/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StudentQueue68D52AA1",
+            "trace": [
+              "new Queue (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/aws-sqs/lib/queue.js:74:23)",
+              "new SQSStack (/Users/panbrya/awscdk-change-analyzer/packages/change-analysis/test/fixtures/cross-stacks/app/integ.cross-stack.js:11:29)",
+              "Object.<anonymous> (/Users/panbrya/awscdk-change-analyzer/packages/change-analysis/test/fixtures/cross-stacks/app/integ.cross-stack.js:54:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "internal/main/run_main_module.js:17:47"
+            ]
+          }
+        ],
+        "/AnotherStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata",
+            "trace": [
+              "new MetadataResource (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/metadata-resource.js:22:30)",
+              "/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:139:9",
+              "visit (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:200:9)",
+              "visit (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:197:9)",
+              "injectMetadataResources (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:128:5)",
+              "Object.synthesize (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:17:5)",
+              "App.synth (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/stage.js:100:41)",
+              "Object.<anonymous> (/Users/panbrya/awscdk-change-analyzer/packages/change-analysis/test/fixtures/cross-stacks/app/integ.cross-stack.js:55:5)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "internal/main/run_main_module.js:17:47"
+            ]
+          }
+        ],
+        "/AnotherStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable",
+            "trace": [
+              "new MetadataResource (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/metadata-resource.js:30:35)",
+              "/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:139:9",
+              "visit (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:200:9)",
+              "visit (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:197:9)",
+              "injectMetadataResources (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:128:5)",
+              "Object.synthesize (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:17:5)",
+              "App.synth (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/stage.js:100:41)",
+              "Object.<anonymous> (/Users/panbrya/awscdk-change-analyzer/packages/change-analysis/test/fixtures/cross-stacks/app/integ.cross-stack.js:55:5)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "internal/main/run_main_module.js:17:47"
+            ]
+          }
+        ],
+        "/AnotherStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion",
+            "trace": [
+              "addBootstrapVersionRule (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.js:435:19)",
+              "DefaultStackSynthesizer.synthesize (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.js:204:13)",
+              "/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:155:35",
+              "visit (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:200:9)",
+              "visit (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:197:9)",
+              "synthesizeTree (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:148:5)",
+              "Object.synthesize (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:33:5)",
+              "App.synth (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/stage.js:100:41)",
+              "Object.<anonymous> (/Users/panbrya/awscdk-change-analyzer/packages/change-analysis/test/fixtures/cross-stacks/app/integ.cross-stack.js:55:5)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "internal/main/run_main_module.js:17:47"
+            ]
+          }
+        ],
+        "/AnotherStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion",
+            "trace": [
+              "addBootstrapVersionRule (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.js:443:5)",
+              "DefaultStackSynthesizer.synthesize (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.js:204:13)",
+              "/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:155:35",
+              "visit (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:200:9)",
+              "visit (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:197:9)",
+              "synthesizeTree (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:148:5)",
+              "Object.synthesize (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/private/synthesis.js:33:5)",
+              "App.synth (/Users/panbrya/awscdk-change-analyzer/node_modules/@aws-cdk/core/lib/stage.js:100:41)",
+              "Object.<anonymous> (/Users/panbrya/awscdk-change-analyzer/packages/change-analysis/test/fixtures/cross-stacks/app/integ.cross-stack.js:55:5)",
+              "Module._compile (internal/modules/cjs/loader.js:1085:14)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)",
+              "Module.load (internal/modules/cjs/loader.js:950:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:790:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)",
+              "internal/main/run_main_module.js:17:47"
+            ]
+          }
+        ]
+      },
+      "displayName": "AnotherStack"
     }
   }
 }
