@@ -27,7 +27,7 @@ async function parseArguments() {
     .command('diff [STACKS..]', 'Compares the cdk app the deployed stack or a local template file', yargs => yargs
       .option('rulesPath', { type: 'string', alias: 'r', desc: 'The rules that you want to diff against', requiresArg: true, demandOption: true })
       .option('out', { type: 'string', alias: 'o', desc: 'The output file after running the diff', requiresArg: true, default: 'report.json' })
-      .option('fail', { type: 'boolean', desc: 'Fail with exit code 1 if changes detected', default: false })
+      .option('fail', { type: 'boolean', desc: 'Fail with exit code 1 if changes detected', default: false }),
     )
     .version(versionNumber())
     .alias('v', 'version')
