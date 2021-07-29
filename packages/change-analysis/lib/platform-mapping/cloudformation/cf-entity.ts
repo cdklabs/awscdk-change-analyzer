@@ -29,6 +29,7 @@ export abstract class CFEntity {
 
   constructor(name: string, definition: Record<string, any>, args: CFParserArgs){
     this.dependencyRefs = CFRef.readRefsInExpression(definition);
+    console.log(this.dependencyRefs);
     this.parserArgs = args;
     this.component = this.generateComponent(name, definition);
   }
@@ -54,6 +55,7 @@ export abstract class CFEntity {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     externalParameters?: Record<string, CFEntity[]>,
   ): void {
+    console.log(cfEntities);
     model.relationships.push(
       ...Array.from(this.dependencyRefs)
         .map(ref =>

@@ -84,6 +84,7 @@ test('Nested Stack Outputs\' dependencies', () => {
   expect(model.components.length).toBe(4);
   expect(model.relationships.length).toBe(5);
   expect(model.relationships.filter(r => r instanceof DependencyRelationship).length).toBe(2);
+  console.log(model.relationships.map(r => [r.source.name, r.target.name]));
   expect(model.relationships.filter(r =>
     r instanceof DependencyRelationship
         && r.source.name === 'Resource'
