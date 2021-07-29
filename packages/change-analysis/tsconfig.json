@@ -1,7 +1,3 @@
 {
-  "extends": "../../tsconfig.build.json",
-  "compilerOptions": {
-    "outDir": "out"
-  },
-  "exclude": ["out"]
+  "extends": "../../tsconfig.build.json"
 }

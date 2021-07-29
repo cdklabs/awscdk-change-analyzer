@@ -1,15 +1,15 @@
 {
   "Resources": {
-    "MyNewTopic86869434": {
+    "MyNewTopicEB836849": {
       "Type": "AWS::SNS::Topic",
       "Metadata": {
-        "aws:cdk:path": "NestedStackApp/AppResources/InnerStack/MyTopic/Resource"
+        "aws:cdk:path": "NestedStackApp/AppResources/InnerStack/MyNewTopic/Resource"
       }
     },
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAAE02NsQ7CMAxEv6V76mIJxIrUnaHwA1ViJLfCRnFShij/TgML03vSne4QCuIRDt1lflvvwzp4jQTlSpYo3NLsVzeqWIrZJzc+ZCLTHD0134PAiVWqQzz9jzSaGJS7vti37ldqdaKBYLFh21/xDNgtxtzHLImfBNOPH047hk+WAAAA"
+        "Analytics": "v2:deflate64:H4sIAAAAAAAAEyWLQQrCQAwA39L7NnVB9Cr07qH6gZKNkBYT2WTroezfdfU0A8NEiPEEh+4yv63HtA47aibYr2RO6eYzrmFUMc8FPYwPmci0ZKTm35DYWaWGtpsY7Hd9Mbb4k1qDaCJYbNjiEeIZYrcYc5+LOD8Jpj8/veX6iocAAAA="
       },
       "Metadata": {
         "aws:cdk:path": "NestedStackApp/AppResources/InnerStack/CDKMetadata/Default"

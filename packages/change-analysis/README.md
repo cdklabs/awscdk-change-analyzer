@@ -1,18 +1,30 @@
-## AWS CDK Change Analyzer - Change Analysis
+# AWS CDK Change Analyzer (C2A)
 
-`change-analysis` is a package of the CDK Change Analyzer that analyzes two CloudFormation templates, extracts their differences and produces a report of changes, customizable with a rules language.
+The AWS C2A Toolkit provides the `aws-c2a` command-line interface that can be used directly with the cloud assembly of a
+AWS CDK application. `aws-c2a` analyzes two CloudFormation templates, extracts their differences and produces a report of changes, customizable with a rules language.
 
-### Table of Contents
+## Commands
+
+### `aws-c2a diff`
+
+Computes the difference between the current cloud assembly state and the currently deployed application. `aws-c2a diff`
+outputs the report to a file and returns 0 if no differences are found.
+
+```sh
+aws-c2a diff --app='path/to/assembly/' --rulesPath='path/to/rules.json' --output='path/to/output.json'
+```
+
+## Table of Contents
 1. [Platform Mapping](#Platform-Mapping)
 2. [Model Diffing](#Model-Diffing)
 3. [Aggregations](#Aggregations)
 4. [User Configuration](#User-Configuration)
 
-### Platform Mapping
+## Platform Mapping
 
 The `platform-mapping` directory holds parsers that transform an artifact into an [InfraModel](../../README.md#InfraModel) - in this case, CloudFormation templates.
 
-#### CloudFormation Parser
+### CloudFormation Parser
 
 The CloudFormation parser takes any CloudFormation template and generates an [InfraModel](../../README.md#InfraModel)
 
@@ -31,13 +43,13 @@ The following image is an example of the created relationships:
 - References in intrinsic functions and in _DependsOn_ fields are transformed into Dependency Relationships
 - Structural Relationships connect resources to their stack
 
-#### AWS CDK Parser
+### AWS CDK Parser
 
 Parsing CDK-generated CloudFormation templates begins by using the [CloudFormation parser](#CloudFormation-Parser) and adding a _Component_ for each CDK Construct (extracted from the CloudFormation resources metadata). Afterwards, the stack _Component_ and its _Structural Relationships_ are removed and the CDK Construct Components are connected to the corresponding CloudFormation resource Components, as seen here:
 
 ![CDK Parser](https://user-images.githubusercontent.com/26902818/124098672-aa0cb680-da54-11eb-9051-253934faaf34.png)
 
-### Model Diffing
+## Model Diffing
 
 The process of diffing InfraModels is contained in the `model-diffing` directory.
 
@@ -56,14 +68,14 @@ Since detecting property operations and determining their similarity require the
     ```
     Let's consider the string value of key "d" has been changed and the similarity between the new and old value is 0.5. However, the value of key "a" will have similarity 1 because it has not been changed. We can calculate the similarity of the full properties by doing a weighted average between both similarities. "a" will have a weight of 4 (because it holds 4 unchanged values with similarity 1, two keys and two values) and "d" will have a weight of 1 (because it has only 1 primitive value). The similarity for this example is 1*(4/5)+0.5*(1/5)=0.9.
 
-#### Change Propagation
+### Change Propagation
 
 `change-propagator.ts` is responsible for taking the observed changes and propagating them. This means:
 - Modified properties with _componentUpdateType_ of "REPLACEMENT" or "POSSIBLE_REPLACEMENT" generate an operation (change) of type _Replace_ for their component.
 - Renamed _Components_ have an new _Replace_ operation.
 - _Replace_ operations in _Components_ with incoming _Dependency Relationships_ generate an Update _Operation_ to the source property of such relationships, indicating that a referenced value may have changed.
 
-### Aggregations
+## Aggregations
 
 Aggregations are structures that group Operations (changes) in a tree-like structure. based on their characteristics, according to a given structure. These are used to collapse changes when presenting them in an interface. Take the following example:
 
@@ -76,7 +88,7 @@ These are resulting aggregations that narrow down operations by:
 
 The characteristics that should be grouped at each level, and how, are described in `aggregations/component-operation/module-tree.ts`. Aggregation modules define how to split a group of operations and a module tree is a configuration of these modules that is used to generate the aggregations.
 
-### User Configuration
+## User Configuration
 
 Users can write rules classify the risk of each change and if it should be automatically approved or rejected. These rules are based on a custom grammar in JSON syntax. Take the following example of a rule:
 

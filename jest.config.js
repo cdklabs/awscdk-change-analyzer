@@ -5,5 +5,7 @@ module.exports = {
     '<rootDir>/node_modules',
     '<rootDir>/out',
     '<rootDir>/dist',
+    '.d.ts',
+    '.js',
   ]
 };
