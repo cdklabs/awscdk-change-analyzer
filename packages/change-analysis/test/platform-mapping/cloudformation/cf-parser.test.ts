@@ -4,7 +4,6 @@ import {
 import { CFParser } from '../../../lib/platform-mapping';
 import { ParserUtilsCreator } from '../../utils';
 
-
 const cloudformationDir = 'test/platform-mapping/cloudformation';
 
 const {
@@ -15,7 +14,7 @@ const {
 
 test('CloudFormation simple template', () => {
   const cfnTemplate = readSampleInput('integ.dynamodb.expected.json');
-  const parser = new CFParser(cfnTemplate);
+  const parser = new CFParser('root', cfnTemplate);
   const model = parser.parse();
 
   genGraphOnEnvFlag(model, 'integ.dynamodb.expected');
@@ -28,7 +27,7 @@ test('CloudFormation simple template', () => {
 
 test('CloudFormation complex template', () => {
   const cfnTemplate = readSampleInput('integ.instance.expected.json');
-  const parser = new CFParser(cfnTemplate);
+  const parser = new CFParser('root', cfnTemplate);
   const model = parser.parse();
 
   genGraphOnEnvFlag(model, 'integ.instance.expected');
@@ -43,7 +42,7 @@ test('CloudFormation nested template', () => {
   const cfnTemplateOuter = readSampleInput('nested-stacks-outer.json');
   const cfnTemplateInner = readSampleInput('nested-stacks-inner.json');
 
-  const parser = new CFParser(cfnTemplateOuter);
+  const parser = new CFParser('root', cfnTemplateOuter);
   const model = parser.parse({nestedStacks: {NestedStack: cfnTemplateInner}});
 
   genGraphOnEnvFlag(model, 'nested-stacks');
@@ -55,7 +54,7 @@ test('CloudFormation nested template', () => {
 });
 
 test('Basic resources', () => {
-  const parser = new CFParser({
+  const parser = new CFParser('root', {
     Resources: {
       logicalId0: {
         Type: 'AWS::IAM::Policy',

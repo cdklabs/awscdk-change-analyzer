@@ -26,7 +26,7 @@ export class CFNestedStack extends CFResource {
       throw Error(`Cannot evaluate nested stack '${nestedStackName}'. Its template was not provided`);
 
     const innerStack = this.parserArgs.nestedStacks[nestedStackName];
-    this.innerCFParser = new CFParser(innerStack, nestedStackName);
+    this.innerCFParser = new CFParser(nestedStackName, innerStack);
     this.innerCFEntities = this.innerCFParser.createCFEntities(this.component, {
       nestedStacks: this.parserArgs.nestedStacks,
     });

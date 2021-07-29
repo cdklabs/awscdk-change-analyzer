@@ -6,7 +6,7 @@ import { CFParser } from '../../../lib/platform-mapping';
 
 test('Update type on first level resource property', () => {
 
-  const parser = new CFParser({
+  const parser = new CFParser('root', {
     Parameters: {
       Parameter0: {
         Type: 'String',
@@ -41,7 +41,7 @@ test('Update type on first level resource property', () => {
 
 test('Update type on second level resource property', () => {
 
-  const parser = new CFParser({
+  const parser = new CFParser('root', {
     Parameters: {
       Parameter0: {
         Type: 'String',
@@ -75,7 +75,7 @@ test('Update type on second level resource property', () => {
 
 test('Unknown type on second level resource property', () => {
 
-  const parser = new CFParser({
+  const parser = new CFParser('root', {
     Parameters: {
       Parameter0: {
         Type: 'String',

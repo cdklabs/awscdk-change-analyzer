@@ -6,6 +6,7 @@ import { createChangeAnalysisReport } from './change-analysis-report/create-chan
 import { CloudAssembly, DefaultSelection } from './cloud-assembly';
 import { CDKParser } from './platform-mapping';
 import { error } from './private/logging';
+import { flattenObjects, mapObjectValues } from './private/object';
 import { CUserRules } from './user-configuration';
 
 export interface TemplateTree {
@@ -51,8 +52,7 @@ export class C2AToolkit {
    * @param options the options for evaluation
    */
   public async evaluateStacks(options: EvaluateDiffOptions): Promise<ChangeAnalysisReport> {
-    const oldStack = Object.values(options.before)[0];
-    const newStack = Object.values(options.after)[0];
+    const {before, after} = options;
 
     const flattenNestedStacks = (nestedStacks: {[id: string]: TemplateTree} | undefined ): {[id: string]: any}  => {
       return Object.entries(nestedStacks ?? {})
@@ -60,11 +60,12 @@ export class C2AToolkit {
           ({...acc, [stackName]: rootTemplate, ...(flattenNestedStacks(nestedTemplates))}), {});
     };
 
-    const oldModel = new CDKParser(oldStack.rootTemplate).parse({
-      nestedStacks: flattenNestedStacks(oldStack.nestedTemplates),
+    const oldModel = new CDKParser('root', ...mapObjectValues(before, tree => tree.rootTemplate)).parse({
+      nestedStacks: flattenObjects(mapObjectValues(before, app => flattenNestedStacks(app.nestedTemplates))),
     });
-    const newModel = new CDKParser(newStack.rootTemplate).parse({
-      nestedStacks: flattenNestedStacks(newStack.nestedTemplates),
+
+    const newModel = new CDKParser('root', ...mapObjectValues(after, tree => tree.rootTemplate)).parse({
+      nestedStacks: flattenObjects(mapObjectValues(after, app => flattenNestedStacks(app.nestedTemplates))),
     });
 
     return createChangeAnalysisReport(new Transition({v1: oldModel, v2: newModel}), options.rules);
@@ -80,8 +81,8 @@ export class C2AToolkit {
 
     for (const stack of selectedStacks.stackArtifacts) {
       const stackName = stack.stackName;
-      before[stackName] = await this.traverser.traverseLocal(stack.templateFile);
-      after[stackName] = await this.traverser.traverseCfn(stackName);
+      before[stackName] = await this.traverser.traverseCfn(stackName);
+      after[stackName] = await this.traverser.traverseLocal(stack.templateFile);
     }
 
     const report = await this.evaluateStacks({ before, after, rules });
@@ -89,9 +90,9 @@ export class C2AToolkit {
     const aggregationMap = groupArrayBy(report.aggregations, (agg) => agg.characteristics.RISK);
 
     const aggregations = {
-      high: aggregationMap.get(RuleRisk.High),
-      low: aggregationMap.get(RuleRisk.Low),
-      unknown: aggregationMap.get(RuleRisk.Unknown),
+      high: aggregationMap.get(RuleRisk.High)?.[0]?.subAggs ?? [],
+      low: aggregationMap.get(RuleRisk.Low)?.[0]?.subAggs ?? [],
+      unknown: aggregationMap.get(RuleRisk.Unknown)?.[0]?.subAggs ?? [],
     };
 
     const evaluateAggregations = (errorMessage: string, ...filter: RuleRisk[]) => {

@@ -1,0 +1,20 @@
+[
+  {
+    "description": "Removes are high risk",
+    "let": {
+        "change": { "change": {"type": "REMOVE" } }
+    },
+    "effect": {
+        "risk": "high"
+    }
+  },
+  {
+    "description": "Replace are high risk",
+    "let": {
+        "change": { "change": {"type": "REPLACE" } }
+    },
+    "effect": {
+        "risk": "high"
+    }
+  }
+]

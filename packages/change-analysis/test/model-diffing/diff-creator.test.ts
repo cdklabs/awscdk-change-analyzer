@@ -10,7 +10,7 @@ import { DiffCreator } from '../../lib/model-diffing';
 import { CFParser } from '../../lib/platform-mapping';
 
 test('Update Component Property', () => {
-  const oldModel = new CFParser({
+  const oldModel = new CFParser('root', {
     Resources: {
       logicalId0: {
         Type: 'AWS::IAM::Policy',
@@ -24,7 +24,7 @@ test('Update Component Property', () => {
       },
     },
   }).parse();
-  const newModel = new CFParser({
+  const newModel = new CFParser('root', {
     Resources: {
       logicalId0: {
         Type: 'AWS::IAM::Policy',
@@ -51,7 +51,7 @@ test('Update Component Property', () => {
 });
 
 test('Update Multiple Nested Component Properties', () => {
-  const oldModel = new CFParser({
+  const oldModel = new CFParser('root', {
     Resources: {
       logicalId0: {
         Type: 'AWS::IAM::Policy',
@@ -70,7 +70,7 @@ test('Update Multiple Nested Component Properties', () => {
       },
     },
   }).parse();
-  const newModel = new CFParser({
+  const newModel = new CFParser('root', {
     Resources: {
       logicalId0: {
         Type: 'AWS::IAM::Policy',
@@ -108,7 +108,7 @@ test('Update Multiple Nested Component Properties', () => {
 });
 
 test('Remove Component', () => {
-  const oldModel = new CFParser({
+  const oldModel = new CFParser('root', {
     Resources: {
       logicalId0: {
         Type: 'AWS::IAM::Policy',
@@ -121,7 +121,7 @@ test('Remove Component', () => {
       },
     },
   }).parse();
-  const newModel = new CFParser({
+  const newModel = new CFParser('root', {
     Resources: {
       logicalId0: {
         Type: 'AWS::IAM::Policy',
@@ -139,7 +139,7 @@ test('Remove Component', () => {
 });
 
 test('Insert Component', () => {
-  const oldModel = new CFParser({
+  const oldModel = new CFParser('root', {
     Resources: {
       logicalId0: {
         Type: 'AWS::IAM::Policy',
@@ -149,7 +149,7 @@ test('Insert Component', () => {
       },
     },
   }).parse();
-  const newModel = new CFParser({
+  const newModel = new CFParser('root', {
     Resources: {
       logicalId0: {
         Type: 'AWS::IAM::Policy',
@@ -170,7 +170,7 @@ test('Insert Component', () => {
 });
 
 test('Renamed Component', () => {
-  const oldModel = new CFParser({
+  const oldModel = new CFParser('root', {
     Resources: {
       logicalId0: {
         Type: 'AWS::IAM::Policy',
@@ -180,7 +180,7 @@ test('Renamed Component', () => {
       },
     },
   }).parse();
-  const newModel = new CFParser({
+  const newModel = new CFParser('root', {
     Resources: {
       logicalId1: {
         Type: 'AWS::IAM::Policy',
