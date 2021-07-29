@@ -45,7 +45,7 @@
     "@aws-cdk/aws-appsync": "^1.115.0",
     "@aws-cdk/aws-ec2": "^1.115.0",
     "@aws-cdk/aws-iam": "^1.115.0",
-    "@aws-cdk/aws-sns": "^1.116.0",
+    "@aws-cdk/aws-sns": "^1.115.0",
     "@aws-cdk/aws-sqs": "^1.115.0",
     "@aws-cdk/cloud-assembly-schema": "^1.115.0",
     "@aws-cdk/core": "^1.115.0",
