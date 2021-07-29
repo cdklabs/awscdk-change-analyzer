@@ -45,6 +45,25 @@ export class C2AToolkit {
     this.traverser = new CfnTraverser(host, asm);
   }
 
+  public async c2aDiff(options: DiffOptions) {
+    const selectedStacks = await this.selectStacks(options.stackNames);
+
+    const before: {[stackName: string]: TemplateTree} = {};
+    const after: {[stackName: string]: TemplateTree} = {};
+    const rules = JSON.parse(await fs.promises.readFile(options.rulesPath, 'utf-8'));
+    const outputPath = options.outputPath;
+
+    for (const stack of selectedStacks.stackArtifacts) {
+      const stackName = stack.stackName;
+      before[stackName] = await this.getCfnTemplate(stackName);
+      after[stackName] = await this.traverser.traverseLocal(stack.templateFile);
+    }
+
+    const report = await this.evaluateStacks({ before, after, rules });
+    await fs.promises.writeFile(outputPath, new JSONSerializer().serialize(report));
+    return this.evaluateReport(report, options.failCondition);
+  }
+
   /**
    * Given the before/after forms of two template trees and
    * a list of rules, return the change analysis report.
@@ -60,35 +79,29 @@ export class C2AToolkit {
           ({...acc, [stackName]: rootTemplate, ...(flattenNestedStacks(nestedTemplates))}), {});
     };
 
-    const oldModel = new CDKParser('root', ...mapObjectValues(before, tree => tree.rootTemplate)).parse({
+    const oldModel = new CDKParser('oldRoot', ...mapObjectValues(before, tree => tree.rootTemplate)).parse({
       nestedStacks: flattenObjects(mapObjectValues(before, app => flattenNestedStacks(app.nestedTemplates))),
     });
 
-    const newModel = new CDKParser('root', ...mapObjectValues(after, tree => tree.rootTemplate)).parse({
+    const newModel = new CDKParser('newRoot', ...mapObjectValues(after, tree => tree.rootTemplate)).parse({
       nestedStacks: flattenObjects(mapObjectValues(after, app => flattenNestedStacks(app.nestedTemplates))),
     });
 
     return createChangeAnalysisReport(new Transition({v1: oldModel, v2: newModel}), options.rules);
   }
 
-  public async c2aDiff(options: DiffOptions) {
-    const selectedStacks = await this.selectStacks(options.stackNames);
-
-    const before: {[stackName: string]: TemplateTree} = {};
-    const after: {[stackName: string]: TemplateTree} = {};
-    const rules = JSON.parse(await fs.promises.readFile(options.rulesPath, 'utf-8'));
-    const outputPath = options.outputPath;
-
-    for (const stack of selectedStacks.stackArtifacts) {
-      const stackName = stack.stackName;
-      before[stackName] = await this.traverser.traverseCfn(stackName);
-      after[stackName] = await this.traverser.traverseLocal(stack.templateFile);
-    }
-
-    const report = await this.evaluateStacks({ before, after, rules });
+  /**
+   * Evaluates a change report against a fail condition. If no fail condition is
+   * provided, we return success.
+   *
+   * @param report The change report to evaluate
+   * @param failCondition The conditions that can cause failure
+   */
+  private evaluateReport(report: ChangeAnalysisReport, failCondition?: FAIL_ON) {
+    if (!failCondition)
+      return 0;
 
     const aggregationMap = groupArrayBy(report.aggregations, (agg) => agg.characteristics.RISK);
-
     const aggregations = {
       high: aggregationMap.get(RuleRisk.High)?.[0]?.subAggs ?? [],
       low: aggregationMap.get(RuleRisk.Low)?.[0]?.subAggs ?? [],
@@ -106,34 +119,48 @@ export class C2AToolkit {
         error(`${errorMessage}\n\n${frequencyReport}`);
         return 1;
       }
-
       return 0;
     };
 
-    await fs.promises.writeFile(outputPath, new JSONSerializer().serialize(report));
-
-    switch (options.failCondition) {
+    switch (failCondition) {
       case FAIL_ON.ALL: {
         return evaluateAggregations(
-          `Changes detected. Your changes fall under ${options.failCondition} rules.`,
+          `Changes detected. Your changes fall under ${failCondition} rules.`,
           RuleRisk.Low, RuleRisk.Unknown, RuleRisk.High,
         );
       }
       case FAIL_ON.UNKNOWN_AND_HIGH: {
         return evaluateAggregations(
-          `Unknown/high risk changes detected. Your changes fall under ${options.failCondition} rules.`,
+          `Unknown/high risk changes detected. Your changes fall under ${failCondition} rules.`,
           RuleRisk.Unknown, RuleRisk.High,
         );
       }
       case FAIL_ON.HIGH: {
         return evaluateAggregations(
-          `High risk changes detected. Your changes fall under ${options.failCondition} rules.`,
+          `High risk changes detected. Your changes fall under ${failCondition} rules.`,
           RuleRisk.High,
         );
       }
-      default: {
-        return 0;
+      default: { return 0; }
+    }
+  }
+
+  /**
+   * A get method for cfn templates that won't error for non-existing
+   * stacks.
+   *
+   * @param stackName StackName to retrieve
+   * @returns The CFN stack related to the stack name, if the stack
+   * is not found return an empty template tree
+   */
+  private async getCfnTemplate(stackName: string) {
+    try {
+      return await this.traverser.traverseCfn(stackName);
+    } catch (e) {
+      if (e.code === 'ValidationError' && e.message === `Stack with id ${stackName} does not exist`) {
+        return { rootTemplate: {} };
       }
+      throw e;
     }
   }
 
