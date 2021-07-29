@@ -9,7 +9,7 @@ This tool generates a comprehensive list of modifications between two CloudForma
 ```bash
 yarn install --frozen-lockfile
 yarn build
-// You will first need to deploy the app/integ.nested-stacks.js file
+# You will first need to deploy the app/integ.nested-stacks.js file
 yarn workspace cdk-change-analyzer run start nested-stacks
 ```
 
