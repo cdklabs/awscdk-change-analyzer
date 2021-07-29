@@ -1,7 +1,7 @@
-import * as cdk from '@aws-cdk/core';
 import * as ec2 from '@aws-cdk/aws-ec2';
 import * as iam from '@aws-cdk/aws-iam';
 import * as sns from '@aws-cdk/aws-sns';
+import * as cdk from '@aws-cdk/core';
 
 class BaseResources extends cdk.NestedStack {
   public readonly vpc:  ec2.Vpc;
@@ -24,7 +24,7 @@ class BaseResources extends cdk.NestedStack {
           cidrMask: 22,
           name: 'private',
           subnetType: ec2.SubnetType.ISOLATED,
-        }
+        },
       ],
     });
 
@@ -60,7 +60,7 @@ class AppResources extends cdk.NestedStack {
       instanceName: 'MyServer',
       instanceType: ec2.InstanceType.of(
         ec2.InstanceClass.T2,
-        ec2.InstanceSize.MICRO
+        ec2.InstanceSize.MICRO,
       ),
       machineImage: ec2.MachineImage.latestAmazonLinux({
         generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
@@ -77,7 +77,7 @@ class AppResources extends cdk.NestedStack {
     );
 
     instance.role.addManagedPolicy(
-      iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore')
+      iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore'),
     );
 
     new InnerStack(this, 'InnerStack', props);
@@ -90,7 +90,7 @@ class App extends cdk.Stack {
 
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-    
+
     this.base = new BaseResources(this, 'BaseResources');
     const { vpc, appSecurityGroup } = this.base;
 
@@ -106,7 +106,7 @@ class App extends cdk.Stack {
 const app = new cdk.App({
   context: {
     '@aws-cdk/core:newStyleStackSynthesis': 'true',
-  }
+  },
 });
 new App(app, 'NestedStackApp', {});
 
