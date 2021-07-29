@@ -9,7 +9,8 @@ This tool generates a comprehensive list of modifications between two CloudForma
 ```bash
 yarn install --frozen-lockfile
 yarn build
-yarn workspace cdk-change-analyzer run start scenario1
+// You will first need to deploy the app/integ.nested-stacks.js file
+yarn workspace cdk-change-analyzer run start nested-stacks
 ```
 
 ## Repository Structure
@@ -49,7 +50,6 @@ In addition to InfraModel, InfraModelDiff has a few extra concepts:
 - **Transition** - Contains the two versions (before and after) of any entity, after two InfraModels have been matched.
 
 This is then represented in a graph, according to the following class diagram:
-
 
 ![graph](https://user-images.githubusercontent.com/26902818/124144956-52863f00-da84-11eb-9fa1-57c2147f0e83.png)
 

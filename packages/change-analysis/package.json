@@ -2,15 +2,16 @@
   "name": "cdk-change-analyzer",
   "version": "0.2.0",
   "description": "The CDK Change Analyzer is a tool that enables detecting dangerous changes within CDK projects.",
-  "main": "out/lib/index.js",
+  "main": "lib/index.js",
   "bin": {
     "aws-c2a": "bin/aws-c2a"
   },
   "scripts": {
-    "start": "sh output-analysis-to-fe.sh",
+    "start": "sh run-on-fixture.sh",
     "build": "yarn clean && yarn compile",
     "compile": "npx tsc --build",
-    "clean": "npx rimraf out",
+    "clean": "npx tsc --build --clean",
+    "clean:all": "git clean -fdx",
     "lint": "eslint . --ext .ts",
     "test": "jest"
   },
@@ -26,7 +27,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@aws-cdk/cfnspec": "^1.90.0",
+    "@aws-cdk/cfnspec": "^1.115.0",
     "@aws-cdk/cx-api": "^1.115.0",
     "@types/graphviz": "0.0.32",
     "@types/string-similarity": "^4.0.0",
@@ -41,7 +42,12 @@
     "yargs": "^17.0.1"
   },
   "devDependencies": {
+    "@aws-cdk/aws-appsync": "^1.115.0",
+    "@aws-cdk/aws-ec2": "^1.115.0",
+    "@aws-cdk/aws-iam": "^1.115.0",
+    "@aws-cdk/aws-sqs": "^1.115.0",
     "@aws-cdk/cloud-assembly-schema": "^1.115.0",
+    "@aws-cdk/core": "^1.115.0",
     "@babel/core": "^7.12.13",
     "@babel/preset-env": "^7.12.13",
     "@babel/preset-typescript": "^7.12.13",
