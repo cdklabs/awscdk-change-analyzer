@@ -6,8 +6,8 @@ import { createChangeAnalysisReport } from './change-analysis-report/create-chan
 import { CloudAssembly, DefaultSelection } from './cloud-assembly';
 import { CDKParser } from './platform-mapping';
 import { error } from './private/logging';
-import { CUserRules } from './user-configuration';
 import { flattenObjects, mapObjectValues } from './private/object';
+import { CUserRules } from './user-configuration';
 
 export interface TemplateTree {
   readonly rootTemplate: any;
