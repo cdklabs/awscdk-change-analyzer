@@ -55,7 +55,7 @@ export class CFParser implements Parser {
             [componentName, cfEntityFactory(componentType, componentName, definition, args ?? {})])
             .filter(e => e[1] !== undefined),
         ),
-      )
+      ),
     );
 
     entities.forEach((templateEntities) => Object.values(templateEntities).forEach(entity => {
