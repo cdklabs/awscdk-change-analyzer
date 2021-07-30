@@ -47,22 +47,21 @@ export class CFParser implements Parser {
   /**
      * Parses the cloudformation template onto CFEntities
      */
-  public createCFEntities(templateRoot: Component, args?: CFParserArgs):Record<string, CFEntity> {
-    const entities: Record<string, CFEntity> = this.templates.reduce((acc, template) => ({
-      ...acc,
-      ...Object.fromEntries(
+  public createCFEntities(templateRoot: Component, args?: CFParserArgs):Record<string, CFEntity>[] {
+    const entities: Record<string, CFEntity>[] = this.templates.map(template =>
+      Object.fromEntries(
         Object.entries(template).flatMap(([componentType, definitions]) =>
           Object.entries(definitions).map(([componentName, definition]) =>
             [componentName, cfEntityFactory(componentType, componentName, definition, args ?? {})])
             .filter(e => e[1] !== undefined),
         ),
       ),
-    }), {});
+    );
 
-    Object.values(entities).forEach(entity => {
+    entities.forEach((templateEntities) => Object.values(templateEntities).forEach(entity => {
       const rootRelationship = new StructuralRelationship(templateRoot, entity.component, 'root');
       entity.component.addIncoming(rootRelationship);
-    });
+    }));
 
     return entities;
   }
@@ -73,16 +72,16 @@ export class CFParser implements Parser {
      */
   public createModel(
     templateRoot:Component,
-    cfEntities: Record<string, CFEntity>,
+    cfEntities: Record<string, CFEntity>[],
     externalParameters?: Record<string, CFEntity[]>,
   ):InfraModel {
     const infraModel = new InfraModel(
       [templateRoot],
       [...templateRoot.outgoing],
     );
-    Object.values(cfEntities).forEach(node => {
-      node.populateModel(infraModel, cfEntities, externalParameters);
-    });
+    cfEntities.forEach(entities => Object.values(entities).forEach(node => {
+      node.populateModel(infraModel, entities, externalParameters);
+    }));
 
     return infraModel;
   }

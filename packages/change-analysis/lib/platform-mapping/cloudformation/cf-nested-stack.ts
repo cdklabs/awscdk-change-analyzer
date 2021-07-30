@@ -9,7 +9,7 @@ import { CFResource } from './cf-resource';
 
 export class CFNestedStack extends CFResource {
 
-  readonly innerCFEntities: Record<string, CFEntity>;
+  readonly innerCFEntities: Record<string, CFEntity>[];
   readonly innerCFParser: CFParser;
   readonly parameterRefs: CFRef[];
 
@@ -67,9 +67,9 @@ export class CFNestedStack extends CFResource {
   }
 
   getComponentInAttributePath(attributePath:PropertyPath):Component {
-    const innerEntity = attributePath.length >= 2
-            && attributePath[0] === 'Outputs'
-            && this.innerCFEntities[attributePath[1]];
+    const innerEntity: CFEntity | undefined = (attributePath.length >= 2 && attributePath[0] === 'Outputs')
+      ? this.innerCFEntities.find(entity => entity[attributePath[1]])?.[attributePath[1]]
+      : undefined;
 
     if(innerEntity instanceof CFOutput) return innerEntity.getComponentInAttributePath(attributePath.slice(2));
     return this.component;
