@@ -1,6 +1,6 @@
 {
   "name": "cdk-change-analyzer",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "The CDK Change Analyzer is a tool that enables detecting dangerous changes within CDK projects.",
   "main": "lib/index.js",
   "bin": {
