@@ -1,4 +1,4 @@
-import { getS3PropertiesFromUrl } from '../../lib';
+import { getS3PropertiesFromUrl } from '../../../lib';
 
 interface IStackInfo {
   readonly ResourceType: string;

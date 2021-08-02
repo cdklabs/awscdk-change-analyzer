@@ -1,4 +1,4 @@
-import { IC2AHost } from '../../lib';
+import { IC2AHost } from '../../../lib';
 
 /**
  * A mock host used to test basic calls.
