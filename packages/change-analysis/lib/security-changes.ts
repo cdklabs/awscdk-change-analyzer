@@ -1,26 +1,26 @@
-import { CUserRule, CUserRules } from "./user-configuration";
 import { OperationType, RuleRisk } from 'cdk-change-analyzer-models';
+import { CUserRule, CUserRules } from './user-configuration';
 
 export const broadeningSecurityGroup = [
   {
-    "description": "Additions to EC2 Security Group Properites",
-    "let": { "securityGroup": { "Resource": "AWS::EC2::SecurityGroup" } },
-    "then": [
+    description: 'Additions to EC2 Security Group Properites',
+    let: { securityGroup: { Resource: 'AWS::EC2::SecurityGroup' } },
+    then: [
       {
-        "description": "Full inserts to the SecurityGroupEgress Property",
-        "let": { "change": { "change": { "propertyOperationType": "INSERT" } } },
-        "where": "change appliesTo securityGroup.Properties.SecurityGroupEgress",
-        "effect": { "risk": "high" }
+        description: 'Full inserts to the SecurityGroupEgress Property',
+        let: { change: { change: { propertyOperationType: 'INSERT' } } },
+        where: 'change appliesTo securityGroup.Properties.SecurityGroupEgress',
+        effect: { risk: 'high' },
       },
       {
-        "description": "Full inserts to the SecurityGroupIngress Property",
-        "let": { "change": { "change": { "propertyOperationType": "INSERT" } } },
-        "where": "change appliesTo securityGroup.Properties.SecurityGroupingress",
-        "effect": { "risk": "high" }
-      }
-    ]
-  }
-]
+        description: 'Full inserts to the SecurityGroupIngress Property',
+        let: { change: { change: { propertyOperationType: 'INSERT' } } },
+        where: 'change appliesTo securityGroup.Properties.SecurityGroupingress',
+        effect: { risk: 'high' },
+      },
+    ],
+  },
+];
 
 interface ChangeRuleOptions {
   propertyOperationType?: OperationType;
@@ -35,11 +35,6 @@ interface ResourceRuleOptions {
 }
 
 export class SecurityChangesRules {
-  private _rules: CUserRules;
-
-  get rules(): CUserRules {
-    return this._rules;
-  }
 
   public static BroadeningSecurityGroup() {
     const rules = new SecurityChangesRules();
@@ -49,7 +44,7 @@ export class SecurityChangesRules {
       then: [
         { propertyOperationType: OperationType.INSERT, target: 'securityGroup.Properties.SecurityGroupEngress' },
         { propertyOperationType: OperationType.INSERT, target: 'securityGroup.Properties.SecurityGroupIngress' },
-      ]
+      ],
     });
     const securityGroupResources = ['Ingress', 'Egress'].map(type => rules._createResourceRule({
       identifier: `securityGroup${type}`,
@@ -61,6 +56,12 @@ export class SecurityChangesRules {
     return rules;
   }
 
+  private _rules: CUserRules;
+
+  get rules(): CUserRules {
+    return this._rules;
+  }
+
   constructor() {
     this._rules = [];
   }
@@ -69,7 +70,7 @@ export class SecurityChangesRules {
     return {
       let: { [options.identifier]: { Resource: options.resource } },
       then: options.then.map(opts => this._createChangeRule(opts)),
-    }
+    };
   }
 
   private _createChangeRule(options: ChangeRuleOptions): CUserRule {
@@ -77,7 +78,7 @@ export class SecurityChangesRules {
     return {
       let: { change: { change: { ...opts } } },
       where: `change appliesTo ${target}`,
-      effect: { risk: RuleRisk.High }
+      effect: { risk: RuleRisk.High },
     };
   }
 
