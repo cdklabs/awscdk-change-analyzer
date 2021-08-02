@@ -1,48 +1,17 @@
 import * as path from 'path';
 import { DefaultC2AHost } from '../lib';
-import { MockArchitecture } from './utils';
 
-/**
- * Jest Mocking happens at initialization. This means every file that we
- * want to mock the architecture will have to have a copy of the below
- * mock code.
- *
- * FIXME: Find a way to amortize/centralize this code.
- * NOTE: Callback in jest.mock() cannot be moved outside as the import happens
- * after initialization.
- */
-const architecture = new MockArchitecture();
-jest.mock('aws-sdk', () => {
-  return {
-    config: { update: () => undefined },
-    CloudFormation: jest.fn(() => {
-      return {
-        describeStackResources: jest.fn(({ StackName }) =>
-          ({ promise: () => architecture.mockGetCfn(StackName) }),
-        ),
-        describeStacks: jest.fn(({StackName}) =>
-          ({ promise: () => ({ Stacks: [architecture.mockGetCfn(StackName)] }) }),
-        ),
-        getTemplate: jest.fn(({StackName}) =>
-          ({ promise: () => ({ TemplateBody: architecture.mockGetCfn(StackName) }) }),
-        ),
-      };
-    }),
-    S3: jest.fn(() => {
-      return {
-        getObject: jest.fn(({Bucket, Key}) =>
-          ({ promise: () => ({ Body: architecture.mockGetS3(Bucket, Key) }) }),
-        ),
-      };
-    }),
-  };
-});
+jest.mock('aws-sdk');
 
 describe('Default C2A Host', () => {
   // GIVEN
   let host:  DefaultC2AHost;
   beforeAll(() => {
     host = new DefaultC2AHost();
+  });
+
+  afterAll(() => {
+    jest.clearAllMocks();
   });
 
   describe('makes valid cloudformation calls', () => {
@@ -56,7 +25,6 @@ describe('Default C2A Host', () => {
       const output = await host.describeStackResources('root');
 
       // THEN
-      expect(architecture.mockGetCfn).toBeCalledTimes(1);
       expect(output).toEqual(expectedOutput.Resources);
     });
 
@@ -65,7 +33,6 @@ describe('Default C2A Host', () => {
       const output = await host.describeCfnStack('root');
 
       // THEN
-      expect(architecture.mockGetCfn).toBeCalledTimes(1);
       expect(output).toEqual(expectedOutput);
     });
 
@@ -74,8 +41,7 @@ describe('Default C2A Host', () => {
       const output = await host.getCfnTemplate('root');
 
       // THEN
-      expect(architecture.mockGetCfn).toBeCalledTimes(1);
-      expect(output).toEqual({ TemplateBody: expectedOutput });
+      expect(JSON.parse(output.TemplateBody)).toEqual(mockedExpectedOutput);
     });
 
     test('for getting a s3 template', async () => {
@@ -83,8 +49,7 @@ describe('Default C2A Host', () => {
       const output = await host.getS3Object('https://s3.amazon.com/myBucket/root');
 
       // THEN
-      expect(architecture.mockGetS3).toBeCalledTimes(1);
-      expect(output).toEqual({ Body: expectedOutput });
+      expect(JSON.parse(output.Body)).toEqual(mockedExpectedOutput);
     });
 
     test('for getting a local template', async () => {
@@ -119,6 +84,31 @@ describe('Default C2A Host', () => {
     });
   });
 });
+
+const mockedExpectedOutput = {
+  Resources: {
+    nested1: {
+      Properties: {
+        LogicalResourceId: 'nested1',
+        PhysicalResourceId: 'nested1',
+        ResourceType: 'AWS::CloudFormation::Stack',
+        TemplateURL: 'https://s3.amazon.com/myBucket/nested1',
+        Type: 'AWS::CloudFormation::Stack',
+      },
+      Type: 'AWS::CloudFormation::Stack',
+    },
+    nested2: {
+      Properties: {
+        LogicalResourceId: 'nested2',
+        PhysicalResourceId: 'nested2',
+        ResourceType: 'AWS::CloudFormation::Stack',
+        TemplateURL: 'https://s3.amazon.com/myBucket/nested2',
+        Type: 'AWS::CloudFormation::Stack',
+      },
+      Type: 'AWS::CloudFormation::Stack',
+    },
+  },
+};
 
 const expectedOutput = {
   Resources: [

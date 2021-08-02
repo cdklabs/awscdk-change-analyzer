@@ -1,44 +1,9 @@
 import * as path from 'path';
 import * as cx from '@aws-cdk/cx-api';
 import { CfnTraverser, CloudAssembly, DefaultC2AHost, TemplateTree } from '../lib';
-import { MockArchitecture } from './utils/mock-aws-sdk';
-import { MockHost, MockTemplates } from './utils/mock-host';
+import { MockHost, MockTemplates } from './utils/mocks/c2a-host';
 
-/**
- * Jest Mocking happens at initialization. This means every file that we
- * want to mock the architecture will have to have a copy of the below
- * mock code.
- *
- * FIXME: Find a way to amortize/centralize this code.
- * NOTE: Callback in jest.mock() cannot be moved outside as the import happens
- * after initialization.
- */
-const architecture = new MockArchitecture();
-jest.mock('aws-sdk', () => {
-  return {
-    config: { update: () => undefined },
-    CloudFormation: jest.fn(() => {
-      return {
-        describeStackResources: jest.fn(({ StackName }) =>
-          ({ promise: () => architecture.mockGetCfn(StackName) }),
-        ),
-        describeStacks: jest.fn(({StackName}) =>
-          ({ promise: () => ({ Stacks: [architecture.mockGetCfn(StackName)] }) }),
-        ),
-        getTemplate: jest.fn(({StackName}) =>
-          ({ promise: () => ({ TemplateBody: architecture.mockGetCfn(StackName)?.toString() }) }),
-        ),
-      };
-    }),
-    S3: jest.fn(() => {
-      return {
-        getObject: jest.fn(({Bucket, Key}) =>
-          ({ promise: () => ({ Body: architecture.mockGetS3(Bucket, Key)?.toString() }) }),
-        ),
-      };
-    }),
-  };
-});
+jest.mock('aws-sdk');
 
 describe('Cfn Traverser on mocked sdk', () => {  // GIVEN
   let traverser: CfnTraverser;
@@ -58,10 +23,6 @@ describe('Cfn Traverser on mocked sdk', () => {  // GIVEN
     const output = await traverser.traverseCfn('root');
 
     // THEN
-    // Every template read consists of 2 CFN calls (parameters + logical id mapping)
-    // 4 stacks (root, nested1, nested2, nested3) * 2 + 1 (entry cfn call) = 9
-    expect(architecture.mockGetCfn).toBeCalledTimes(9);
-    expect(architecture.mockGetS3).toBeCalledTimes(3);
     expect(output).toEqual(rootOutput);
   });
 
@@ -70,7 +31,6 @@ describe('Cfn Traverser on mocked sdk', () => {  // GIVEN
     const output = await traverser.traverseCfn('nested3');
 
     // THEN
-    expect(architecture.mockGetCfn).toBeCalledTimes(3);
     expect(output).toEqual(nested3Output);
   });
 
@@ -79,8 +39,6 @@ describe('Cfn Traverser on mocked sdk', () => {  // GIVEN
     const output = await traverser.traverseS3('https://s3.amazon.com/myBucket/nested3', 'nested3');
 
     // THEN
-    expect(architecture.mockGetCfn).toBeCalledTimes(2);
-    expect(architecture.mockGetS3).toBeCalledTimes(1);
     expect(output).toEqual(nested3Output);
   });
 });
