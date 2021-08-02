@@ -75,7 +75,6 @@ function parseComponentCFilter(selector: ComponentCFilter): SelectorFilter {
   let { type, subtype } = selector;
 
   const shortformKeys = Object.keys(shortform);
-  console.log(shortformKeys);
   if(shortformKeys.length + ((isDefined(type) || isDefined(subtype)) ? 1 : 0) > 1)
     throw Error('Cannot specify type or subtype more than once');
 

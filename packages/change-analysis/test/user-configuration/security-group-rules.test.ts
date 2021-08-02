@@ -5,6 +5,7 @@ import { createChangeAnalysisReport } from '../../lib/change-analysis-report/cre
 import { CFParser } from '../../lib/platform-mapping';
 import { CUserRules, RuleProcessor, parseRules, UserRules } from '../../lib/user-configuration';
 import { DiffCreator } from '../../lib/model-diffing';
+import { SecurityChangesRules } from '../../lib/security-changes';
 
 const RULES_PATH = path.resolve(__dirname, '../fixtures/rules/broadening-permissions.json');
 
@@ -39,11 +40,11 @@ describe('EC2 Security Group default rules', () => {
   let rules: CUserRules;
   let oldModel: InfraModel;
   beforeAll(() => {
-    rules = JSON.parse(fs.readFileSync(RULES_PATH, { encoding: 'utf-8' }));
+    rules = SecurityChangesRules.BroadeningSecurityGroup().rules;
     oldModel = new CFParser('oldRoot', BEFORE).parse();
   });
 
-  test('detect full additions to security group egress', () => {
+  test('detect full additions to security group property: egress ', () => {
     // GIVEN
     const after = copy(BEFORE);
     
@@ -59,18 +60,56 @@ describe('EC2 Security Group default rules', () => {
     expect(result.size).toBe(1);
   });
 
-  test('detect updates property values to security group egress', () => {
+  test('detect full additions to security group property: ingress', () => {
     // GIVEN
     const after = copy(BEFORE);
-    after.Resources.SecurityGroup.Properties.SecurityGroupEgress[0].CidrIp = "0.0.0.1/0";
+    
+    after.Resources.SecurityGroup.Properties.SecurityGroupIngress.push(
+      { CidrIp: '0.0.0.1/0', IpProtocol: '-1' }
+    );
 
     // WHEN
     const newModel = new CFParser('newRoot', after).parse();
     const result = processRules(oldModel, newModel, rules);
-    
-    generateReport(oldModel, newModel, rules);
 
-    console.log(result);
+    // THEN
+    expect(result.size).toBe(1);
+  });
+
+  test('detect inserts to security group egress', () => {
+    // GIVEN
+    const after = copy(BEFORE);
+    
+    after.Resources.SecurityGroupEgress = {
+      Type: 'AWS::EC2::SecurityGroupEgress',
+      Properties: {
+        GroupId: '123456789',
+        IpProtocol: 'tcp',
+      }
+    };
+
+    // WHEN
+    const newModel = new CFParser('newRoot', after).parse();
+    const result = processRules(oldModel, newModel, rules);
+
+    // THEN
+    expect(result.size).toBe(1);
+  });
+
+  test('detect inserts to security group egress', () => {
+    // GIVEN
+    const after = copy(BEFORE);
+    
+    after.Resources.SecurityGroupIngress = {
+      Type: 'AWS::EC2::SecurityGroupIngress',
+      Properties: {
+        IpProtocol: 'tcp',
+      }
+    };
+
+    // WHEN
+    const newModel = new CFParser('newRoot', after).parse();
+    const result = processRules(oldModel, newModel, rules);
 
     // THEN
     expect(result.size).toBe(1);

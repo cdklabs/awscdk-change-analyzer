@@ -8,6 +8,12 @@
         "let": { "change": { "change": { "propertyOperationType": "INSERT" } } },
         "where": "change appliesTo securityGroup.Properties.SecurityGroupEgress",
         "effect": { "risk": "high" }
+      },
+      {
+        "description": "Full inserts to the SecurityGroupIngress Property",
+        "let": { "change": { "change": { "propertyOperationType": "INSERT" } } },
+        "where": "change appliesTo securityGroup.Properties.SecurityGroupingress",
+        "effect": { "risk": "high" }
       }
     ]
   }
