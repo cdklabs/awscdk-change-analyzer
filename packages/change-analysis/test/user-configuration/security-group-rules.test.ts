@@ -1,0 +1,78 @@
+import * as fs from 'fs';
+import * as path from 'path';
+import { InfraModel, JSONSerializer, Transition } from 'cdk-change-analyzer-models';
+import { createChangeAnalysisReport } from '../../lib/change-analysis-report/create-change-analysis-report';
+import { CFParser } from '../../lib/platform-mapping';
+import { CUserRules, RuleProcessor, parseRules, UserRules } from '../../lib/user-configuration';
+import { DiffCreator } from '../../lib/model-diffing';
+
+const RULES_PATH = path.resolve(__dirname, '../fixtures/rules/broadening-permissions.json');
+
+const BEFORE = {
+  Resources: {
+    SecurityGroup: {
+      Type: 'AWS::EC2::SecurityGroup',
+      Properties: {
+        SecurityGroupEgress: [ { CidrIp: '0.0.0.0/0', IpProtocol: '-1' } ],
+        SecurityGroupIngress: [ { CidrIp: '0.0.0.0/0', IpProtocol: '-1' } ],
+      },
+    },
+  },
+};
+
+function processRules(oldModel: InfraModel, newModel: InfraModel, rules: CUserRules) {
+  const diff = new DiffCreator(new Transition({ v1: oldModel, v2: newModel })).create();
+  const _rules: UserRules = parseRules(rules);
+  return new RuleProcessor(diff.generateOutgoingGraph()).processRules(_rules);
+}
+
+function generateReport(oldModel: InfraModel, newModel: InfraModel, rules: CUserRules) {
+  const report = createChangeAnalysisReport(new Transition({ v1: oldModel, v2: newModel }), rules);
+  fs.writeFileSync('report.json', new JSONSerializer().serialize(report));
+}
+
+const copy = (source: any) => {
+  return JSON.parse(JSON.stringify(source));
+}
+
+describe('EC2 Security Group default rules', () => {
+  let rules: CUserRules;
+  let oldModel: InfraModel;
+  beforeAll(() => {
+    rules = JSON.parse(fs.readFileSync(RULES_PATH, { encoding: 'utf-8' }));
+    oldModel = new CFParser('oldRoot', BEFORE).parse();
+  });
+
+  test('detect full additions to security group egress', () => {
+    // GIVEN
+    const after = copy(BEFORE);
+    
+    after.Resources.SecurityGroup.Properties.SecurityGroupEgress.push(
+      { CidrIp: '0.0.0.1/0', IpProtocol: '-1' }
+    );
+
+    // WHEN
+    const newModel = new CFParser('newRoot', after).parse();
+    const result = processRules(oldModel, newModel, rules);
+
+    // THEN
+    expect(result.size).toBe(1);
+  });
+
+  test('detect updates property values to security group egress', () => {
+    // GIVEN
+    const after = copy(BEFORE);
+    after.Resources.SecurityGroup.Properties.SecurityGroupEgress[0].CidrIp = "0.0.0.1/0";
+
+    // WHEN
+    const newModel = new CFParser('newRoot', after).parse();
+    const result = processRules(oldModel, newModel, rules);
+    
+    generateReport(oldModel, newModel, rules);
+
+    console.log(result);
+
+    // THEN
+    expect(result.size).toBe(1);
+  });
+});
