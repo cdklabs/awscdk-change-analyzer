@@ -28,5 +28,21 @@ export function mergeObjects<T>(...objects: {[key: string]: T[]}[]): {[key: stri
  * @param source The source object to copy
  */
 export function copy<T>(source: T): T{
-  return JSON.parse(JSON.stringify(source));
+  if (typeof source !== 'object' || source === null) {
+    return source;
+  }
+  if (Array.isArray(source)) {
+    return copyArray(source);
+  }
+  return copyObject(source);
+}
+
+function copyArray<T extends any[]>(source: T): T {
+  return source.map((value) => copy(value)) as T;
+}
+
+function copyObject<T>(source: T): T {
+  return Object.entries(source).reduce((acc, [key, value]) => ({
+    ...acc, [key]: copy(value),
+  }), {}) as T;
 }
