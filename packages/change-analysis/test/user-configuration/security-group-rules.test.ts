@@ -1,44 +1,28 @@
-import * as fs from 'fs';
-import { InfraModel, JSONSerializer, Transition } from 'cdk-change-analyzer-models';
-import { createChangeAnalysisReport } from '../../lib/change-analysis-report/create-change-analysis-report';
-import { DiffCreator } from '../../lib/model-diffing';
+import { InfraModel } from '../../../change-analysis-models';
 import { CFParser } from '../../lib/platform-mapping';
+import { copy } from '../../lib/private/object';
 import { SecurityChangesRules } from '../../lib/security-changes';
-import { CUserRules, RuleProcessor, parseRules, UserRules } from '../../lib/user-configuration';
-
-const BEFORE = {
-  Resources: {
-    SecurityGroup: {
-      Type: 'AWS::EC2::SecurityGroup',
-      Properties: {
-        SecurityGroupEgress: [ { CidrIp: '0.0.0.0/0', IpProtocol: '-1' } ],
-        SecurityGroupIngress: [ { CidrIp: '0.0.0.0/0', IpProtocol: '-1' } ],
-      },
-    },
-  },
-};
-
-function processRules(oldModel: InfraModel, newModel: InfraModel, rules: CUserRules) {
-  const diff = new DiffCreator(new Transition({ v1: oldModel, v2: newModel })).create();
-  const _rules: UserRules = parseRules(rules);
-  return new RuleProcessor(diff.generateOutgoingGraph()).processRules(_rules);
-}
-
-export function generateReport(oldModel: InfraModel, newModel: InfraModel, rules: CUserRules) {
-  const report = createChangeAnalysisReport(new Transition({ v1: oldModel, v2: newModel }), rules);
-  fs.writeFileSync('report.json', new JSONSerializer().serialize(report));
-}
-
-const copy = (source: any) => {
-  return JSON.parse(JSON.stringify(source));
-};
+import { CUserRules } from '../../lib/user-configuration';
+import { processRules } from './util';
 
 describe('EC2 Security Group default rules', () => {
+  const BEFORE: Record<any, any> = {
+    Resources: {
+      SecurityGroup: {
+        Type: 'AWS::EC2::SecurityGroup',
+        Properties: {
+          SecurityGroupEgress: [ { CidrIp: '0.0.0.0/0', IpProtocol: '-1' } ],
+          SecurityGroupIngress: [ { CidrIp: '0.0.0.0/0', IpProtocol: '-1' } ],
+        },
+      },
+    },
+  };
+
   let rules: CUserRules;
   let oldModel: InfraModel;
   beforeAll(() => {
     rules = SecurityChangesRules.BroadeningSecurityGroup().rules;
-    oldModel = new CFParser('oldRoot', BEFORE).parse();
+    oldModel = new CFParser('root', BEFORE).parse();
   });
 
   test('detect full additions to security group property: egress ', () => {
@@ -50,7 +34,7 @@ describe('EC2 Security Group default rules', () => {
     );
 
     // WHEN
-    const newModel = new CFParser('newRoot', after).parse();
+    const newModel = new CFParser('root', after).parse();
     const result = processRules(oldModel, newModel, rules);
 
     // THEN
@@ -66,7 +50,7 @@ describe('EC2 Security Group default rules', () => {
     );
 
     // WHEN
-    const newModel = new CFParser('newRoot', after).parse();
+    const newModel = new CFParser('root', after).parse();
     const result = processRules(oldModel, newModel, rules);
 
     // THEN
@@ -86,7 +70,7 @@ describe('EC2 Security Group default rules', () => {
     };
 
     // WHEN
-    const newModel = new CFParser('newRoot', after).parse();
+    const newModel = new CFParser('root', after).parse();
     const result = processRules(oldModel, newModel, rules);
 
     // THEN
@@ -105,7 +89,7 @@ describe('EC2 Security Group default rules', () => {
     };
 
     // WHEN
-    const newModel = new CFParser('newRoot', after).parse();
+    const newModel = new CFParser('root', after).parse();
     const result = processRules(oldModel, newModel, rules);
 
     // THEN

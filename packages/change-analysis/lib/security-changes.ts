@@ -1,31 +1,12 @@
 import { OperationType, RuleRisk } from 'cdk-change-analyzer-models';
+import { IAM_POLICY_PROPERTIES, IAM_POLICY_RESOURCES } from './private/security-policies';
 import { CUserRule, CUserRules } from './user-configuration';
 
-export const broadeningSecurityGroup = [
-  {
-    description: 'Additions to EC2 Security Group Properites',
-    let: { securityGroup: { Resource: 'AWS::EC2::SecurityGroup' } },
-    then: [
-      {
-        description: 'Full inserts to the SecurityGroupEgress Property',
-        let: { change: { change: { propertyOperationType: 'INSERT' } } },
-        where: 'change appliesTo securityGroup.Properties.SecurityGroupEgress',
-        effect: { risk: 'high' },
-      },
-      {
-        description: 'Full inserts to the SecurityGroupIngress Property',
-        let: { change: { change: { propertyOperationType: 'INSERT' } } },
-        where: 'change appliesTo securityGroup.Properties.SecurityGroupingress',
-        effect: { risk: 'high' },
-      },
-    ],
-  },
-];
-
 interface ChangeRuleOptions {
+  target: string;
   propertyOperationType?: OperationType;
   type?: OperationType;
-  target: string
+  changeId?: string;
 }
 
 interface ResourceRuleOptions {
@@ -56,6 +37,52 @@ export class SecurityChangesRules {
     return rules;
   }
 
+  public static BroadeningIamPermissions() {
+    const rules = new SecurityChangesRules();
+    // Policy Properties
+    rules.addRules(...Object.entries(IAM_POLICY_PROPERTIES).map(([resource, policies]) => {
+      const identifier = resource.replace(/::/g, '');
+      return rules._createResourceRule({
+        identifier,
+        resource,
+        then: policies.flatMap(policy => [
+          // Managed Policies
+          {
+            propertyOperationType: OperationType.INSERT,
+            target: `${identifier}.Properties.${policy}`,
+          },
+          // Inline Identity Policies
+          {
+            propertyOperationType: OperationType.INSERT,
+            target: `${identifier}.Properties.${policy}.Policies`,
+          },
+          // Inline Resource Policies
+          {
+            propertyOperationType: OperationType.INSERT,
+            target: `${identifier}.Properties.${policy}.Statement`,
+          },
+        ]),
+      });
+    }));
+
+    // Policy Resources
+    rules.addRules(...IAM_POLICY_RESOURCES.map(resource => {
+      const identifier = resource.replace(/::/g, '');
+      return rules._createResourceRule({
+        identifier,
+        resource,
+        then: [
+          { type: OperationType.INSERT, target: identifier },
+          {
+            propertyOperationType: OperationType.INSERT,
+            target: `${identifier}.Properties.PolicyStatement.Statement`,
+          },
+        ],
+      });
+    }));
+    return rules;
+  }
+
   private _rules: CUserRules;
 
   get rules(): CUserRules {
@@ -75,9 +102,10 @@ export class SecurityChangesRules {
 
   private _createChangeRule(options: ChangeRuleOptions): CUserRule {
     const {target, ...opts} = options;
+    const id = options.changeId ?? 'change';
     return {
-      let: { change: { change: { ...opts } } },
-      where: `change appliesTo ${target}`,
+      let: { [id]: { change: { ...opts } } },
+      where: `${id} appliesTo ${target}`,
       effect: { risk: RuleRisk.High },
     };
   }
