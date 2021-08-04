@@ -7,6 +7,8 @@ import { versionNumber } from '../lib/private/version';
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-shadow */ // yargs
 
+const failConditions: ReadonlyArray<FAIL_ON> = [ FAIL_ON.ALL, FAIL_ON.HIGH, FAIL_ON.UNKNOWN_AND_HIGH ];
+
 async function parseArguments() {
   // Use the following configuration for array arguments:
   //
@@ -25,9 +27,11 @@ async function parseArguments() {
     .usage('Usage: aws-c2a -a <cdk-app> COMMAND')
     .option('app', { type: 'string', alias: 'a', desc: 'REQUIRED: Path to your cloud assembly directory (e.g. "assembly-Pipeline-Stage/")', requiresArg: true, demandOption: true })
     .command('diff [STACKS..]', 'Compares the cdk app the deployed stack or a local template file', yargs => yargs
-      .option('rulesPath', { type: 'string', alias: 'r', desc: 'The rules that you want to diff against', requiresArg: true, demandOption: true })
+      .option('rules-path', { type: 'string', alias: 'r', desc: 'The rules that you want to diff against', requiresArg: true, demandOption: true })
       .option('out', { type: 'string', alias: 'o', desc: 'The output file after running the diff', requiresArg: true, default: 'report.json' })
-      .option('fail', { type: 'boolean', desc: 'Fail with exit code 1 if changes detected', default: false }),
+      .option('fail', { type: 'boolean', desc: 'Fail with exit code 1 if changes detected', default: false })
+      .option('broadening-permissions', { type: 'boolean', desc: 'Add base rules to detect broadening permssions', default: false })
+      .option('fail-condition', { choices: failConditions, desc: 'Add base rules to detect broadening permssions', default: undefined }),
     )
     .version(versionNumber())
     .alias('v', 'version')
@@ -50,10 +54,11 @@ async function main(): Promise<number> {
     case 'diff': {
       return cli.c2aDiff({
         stackNames: (argv.STACKS || []) as string[],
-        rulesPath: argv.rulesPath,
+        rulesPath: argv['rules-path'],
         outputPath: argv.out,
         fail: argv.fail,
-        failCondition: FAIL_ON.HIGH,
+        broadeningPermissions: argv['broadening-permissions'],
+        failCondition: argv['fail-condition'],
       });
     }
     default: {

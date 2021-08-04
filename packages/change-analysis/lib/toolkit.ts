@@ -7,6 +7,7 @@ import { CloudAssembly, DefaultSelection } from './cloud-assembly';
 import { CDKParser } from './platform-mapping';
 import { error } from './private/logging';
 import { flattenObjects, mapObjectValues } from './private/object';
+import { SecurityChangesRules } from './security-changes';
 import { CUserRules } from './user-configuration';
 
 export interface TemplateTree {
@@ -25,6 +26,7 @@ export interface DiffOptions {
   rulesPath: string;
   outputPath: string;
   fail: boolean;
+  broadeningPermissions?: boolean;
   failCondition?: FAIL_ON;
 }
 
@@ -51,7 +53,11 @@ export class C2AToolkit {
 
     const before: {[stackName: string]: TemplateTree} = {};
     const after: {[stackName: string]: TemplateTree} = {};
-    const rules = JSON.parse(await fs.promises.readFile(options.rulesPath, 'utf-8'));
+    const rules = [
+      ...(options.broadeningPermissions ? SecurityChangesRules.BroadeningPermissions().rules : []),
+      ...JSON.parse(await fs.promises.readFile(options.rulesPath, 'utf-8')),
+    ];
+
     const outputPath = options.outputPath;
 
     for (const stack of selectedStacks.stackArtifacts) {
@@ -74,6 +80,7 @@ export class C2AToolkit {
    */
   public async evaluateStacks(options: EvaluateDiffOptions): Promise<ChangeAnalysisReport> {
     const {before, after} = options;
+
 
     const flattenNestedStacks = (nestedStacks: {[id: string]: TemplateTree} | undefined ): {[id: string]: any}  => {
       return Object.entries(nestedStacks ?? {})

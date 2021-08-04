@@ -21,7 +21,7 @@ FIXTURE=$1
 
 heading "Running aws-c2a diff on $FIXTURE"
 heading "--------------------------------------"
-bin/aws-c2a diff --app test/fixtures/$FIXTURE --rulesPath test/fixtures/$FIXTURE/rules.json --out test/fixtures/$FIXTURE/report.json
+bin/aws-c2a diff --app test/fixtures/$FIXTURE --rules-path test/fixtures/$FIXTURE/rules.json --fail-condition HIGH --out test/fixtures/$FIXTURE/report.json 
 diff test/fixtures/$FIXTURE/change-report.json test/fixtures/$FIXTURE/report.json
 EXIT_CODE=$?
 heading "--------------------------------------"
