@@ -4,7 +4,9 @@ import { copy } from '../../lib/private/object';
 import { IAM_INLINE_IDENTITY_POLICIES, IAM_INLINE_RESOURCE_POLICIES, IAM_MANAGED_POLICIES, IAM_POLICY_RESOURCES } from '../../lib/private/security-policies';
 import { SecurityChangesRules } from '../../lib/security-changes';
 import { CUserRules } from '../../lib/user-configuration';
-import { arbitraryPolicyStatement, cfnWithPolicyDocument, processRules } from './util';
+import { arbitraryPolicyStatement, cfnWithPolicyDocument, processRules, firstKey } from '../utils';
+
+const appliesTo = (out: any) => out._label === 'appliesTo';
 
 describe('IAM Policy default rules', () => {
   const BEFORE: Record<any, any> = { Resources: {} };
@@ -21,7 +23,6 @@ describe('IAM Policy default rules', () => {
       test(`detect addition of ${resource} resource`, () => {
         // GIVEN
         const after = copy(BEFORE);
-
         after.Resources[resource.replace(/::/g, '-')] = {
           Type: resource,
           Properties: {},
@@ -33,6 +34,17 @@ describe('IAM Policy default rules', () => {
 
         // THEN
         expect(result.size).toBe(1);
+        expect(firstKey(result, appliesTo)).toMatchObject({
+          _in: {
+            _entityType: 'component',
+            type: 'Resource',
+            subtype: resource,
+          },
+          _out: {
+            type: 'INSERT',
+            _entityType: 'change',
+          },
+        });
       });
 
       test(`detect addition to policy statement in ${resource} resource`, () => {
@@ -76,6 +88,16 @@ describe('IAM Policy default rules', () => {
 
           // THEN
           expect(result.size).toBe(1);
+          expect(firstKey(result, appliesTo)).toMatchObject({
+            _in: {
+              _entityType: 'property',
+              value: 'abcdefghi',
+            },
+            _out: {
+              propertyOperationType: 'INSERT',
+              _entityType: 'change',
+            },
+          });
         });
       });
     });
@@ -109,6 +131,16 @@ describe('IAM Policy default rules', () => {
 
           // THEN
           expect(result.size).toBe(1);
+          expect(firstKey(result, appliesTo)).toMatchObject({
+            _in: {
+              _entityType: 'property',
+              value: 'Allow', // A property of the new statement
+            },
+            _out: {
+              propertyOperationType: 'INSERT',
+              _entityType: 'change',
+            },
+          });
         });
 
         test(`detect policy additions to inline identity policies in ${resource} resource`, () => {
@@ -138,6 +170,16 @@ describe('IAM Policy default rules', () => {
 
           // THEN
           expect(result.size).toBe(1);
+          expect(firstKey(result, appliesTo)).toMatchObject({
+            _in: {
+              _entityType: 'property',
+              value: 'Allow', // A property of the new statement
+            },
+            _out: {
+              propertyOperationType: 'INSERT',
+              _entityType: 'change',
+            },
+          });
         });
       });
     });
@@ -167,6 +209,16 @@ describe('IAM Policy default rules', () => {
 
           // THEN
           expect(result.size).toBe(1);
+          expect(firstKey(result, appliesTo)).toMatchObject({
+            _in: {
+              _entityType: 'property',
+              value: 'Allow', // A property of the new statement
+            },
+            _out: {
+              propertyOperationType: 'INSERT',
+              _entityType: 'change',
+            },
+          });
         });
       });
     });

@@ -2,15 +2,13 @@ import { ModelEntity, Serialized, RuleEffect } from 'cdk-change-analyzer-models'
 import * as fn from 'fifinet';
 import { appliesToHandler } from './operator-handlers';
 import { equalsHandler } from './operator-handlers/equals';
-import { UserRule, Bindings, RuleEffectDefinition, Selector, selectorIsReference, RuleConditions, RuleConditionOperator, isInputScalar } from './rule';
+import { UserRules, UserRule, Bindings, RuleEffectDefinition, Selector, selectorIsReference, RuleConditions, RuleConditionOperator, isInputScalar } from './rule';
 
 /**
  * Process user rules and assign rule effects to the respective vertices in the graph
  */
-type UserRules = UserRule[];
-
-type RulesScope = Record<string, ScopeNode>;
-type RuleOutput = Map<fn.Vertex<any, any>, RuleEffect>;
+export type RulesScope = Record<string, ScopeNode>;
+export type RuleOutput = Map<fn.Vertex<any, any>, RuleEffect>;
 
 type VertexScopeNode = {
   vertex: fn.Vertex<any, any>;

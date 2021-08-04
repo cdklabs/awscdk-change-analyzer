@@ -3,7 +3,7 @@ import { InfraModel, JSONSerializer, Transition } from 'cdk-change-analyzer-mode
 import { createChangeAnalysisReport } from '../../lib/change-analysis-report/create-change-analysis-report';
 import { DiffCreator } from '../../lib/model-diffing';
 import { copy } from '../../lib/private/object';
-import { CUserRules, RuleProcessor, parseRules, UserRules } from '../../lib/user-configuration';
+import { CUserRules, RuleProcessor, parseRules, UserRules, RuleOutput } from '../../lib/user-configuration';
 
 export function processRules(oldModel: InfraModel, newModel: InfraModel, rules: CUserRules) {
   const diff = new DiffCreator(new Transition({ v1: oldModel, v2: newModel })).create();
@@ -38,4 +38,8 @@ export const arbitraryPolicyStatement =  {
   Action: 'test:Test',
   Resource: '*',
   Principal: { Service: 'test.amazonaws.com' },
+};
+
+export const firstKey = (output: RuleOutput, findCb?: (out: any) => boolean) => {
+  return findCb ? [...output][0][0]._out.find(findCb) : [...output][0][0];
 };

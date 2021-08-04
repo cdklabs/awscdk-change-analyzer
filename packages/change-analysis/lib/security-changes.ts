@@ -16,7 +16,10 @@ interface ResourceRuleOptions {
 }
 
 export class SecurityChangesRules {
-
+  /**
+   * Rules that pertain to broadening permissions for
+   * EC2 security group changes.
+   */
   public static BroadeningSecurityGroup() {
     const rules = new SecurityChangesRules();
     const securityGroup = rules._createResourceRule({
@@ -36,7 +39,10 @@ export class SecurityChangesRules {
 
     return rules;
   }
-
+  /**
+   * Rules that pertain to broadening permissions for
+   * IAM policy/statement changes.
+   */
   public static BroadeningIamPermissions() {
     const rules = new SecurityChangesRules();
     // Policy Properties
@@ -64,7 +70,6 @@ export class SecurityChangesRules {
         ]),
       });
     }));
-
     // Policy Resources
     rules.addRules(...IAM_POLICY_RESOURCES.map(resource => {
       const identifier = resource.replace(/::/g, '');
@@ -82,6 +87,14 @@ export class SecurityChangesRules {
     }));
     return rules;
   }
+  public static BroadeningPermissions() {
+    const rules = new SecurityChangesRules();
+    rules.addRules(
+      ...SecurityChangesRules.BroadeningSecurityGroup().rules,
+      ...SecurityChangesRules.BroadeningIamPermissions().rules,
+    );
+    return rules;
+  }
 
   private _rules: CUserRules;
 
@@ -93,6 +106,14 @@ export class SecurityChangesRules {
     this._rules = [];
   }
 
+  public addRules(...rules: CUserRule[]) {
+    this._rules.push(...rules);
+  }
+
+  /**
+   * An opinionated utility that creates nested change
+   * rules for a given resource.
+   */
   private _createResourceRule(options: ResourceRuleOptions) {
     return {
       let: { [options.identifier]: { Resource: options.resource } },
@@ -100,6 +121,10 @@ export class SecurityChangesRules {
     };
   }
 
+  /**
+   * An opinionated utility that wil produce a high risk change
+   * rule that applies to a given target.
+   */
   private _createChangeRule(options: ChangeRuleOptions): CUserRule {
     const {target, ...opts} = options;
     const id = options.changeId ?? 'change';
@@ -108,9 +133,5 @@ export class SecurityChangesRules {
       where: `${id} appliesTo ${target}`,
       effect: { risk: RuleRisk.High },
     };
-  }
-
-  public addRules(...rules: CUserRule[]) {
-    this._rules.push(...rules);
   }
 }

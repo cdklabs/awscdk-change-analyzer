@@ -3,7 +3,9 @@ import { CFParser } from '../../lib/platform-mapping';
 import { copy } from '../../lib/private/object';
 import { SecurityChangesRules } from '../../lib/security-changes';
 import { CUserRules } from '../../lib/user-configuration';
-import { processRules } from './util';
+import { firstKey, processRules } from '../utils';
+
+const appliesTo = (out: any) => out._label === 'appliesTo';
 
 describe('EC2 Security Group default rules', () => {
   const BEFORE: Record<any, any> = {
@@ -39,6 +41,16 @@ describe('EC2 Security Group default rules', () => {
 
     // THEN
     expect(result.size).toBe(1);
+    expect(firstKey(result, appliesTo)).toMatchObject({
+      _in: {
+        _entityType: 'property',
+        value: '0.0.0.1/0',
+      },
+      _out: {
+        propertyOperationType: 'INSERT',
+        _entityType: 'change',
+      },
+    });
   });
 
   test('detect full additions to security group property: ingress', () => {
@@ -55,6 +67,16 @@ describe('EC2 Security Group default rules', () => {
 
     // THEN
     expect(result.size).toBe(1);
+    expect(firstKey(result, appliesTo)).toMatchObject({
+      _in: {
+        _entityType: 'property',
+        value: '0.0.0.1/0',
+      },
+      _out: {
+        propertyOperationType: 'INSERT',
+        _entityType: 'change',
+      },
+    });
   });
 
   test('detect inserts to security group egress', () => {
@@ -75,6 +97,17 @@ describe('EC2 Security Group default rules', () => {
 
     // THEN
     expect(result.size).toBe(1);
+    expect(firstKey(result, appliesTo)).toMatchObject({
+      _in: {
+        _entityType: 'component',
+        type: 'Resource',
+        subtype: 'AWS::EC2::SecurityGroupEgress',
+      },
+      _out: {
+        type: 'INSERT',
+        _entityType: 'change',
+      },
+    });
   });
 
   test('detect inserts to security group egress', () => {
@@ -94,5 +127,16 @@ describe('EC2 Security Group default rules', () => {
 
     // THEN
     expect(result.size).toBe(1);
+    expect(firstKey(result, appliesTo)).toMatchObject({
+      _in: {
+        _entityType: 'component',
+        type: 'Resource',
+        subtype: 'AWS::EC2::SecurityGroupIngress',
+      },
+      _out: {
+        type: 'INSERT',
+        _entityType: 'change',
+      },
+    });
   });
 });
