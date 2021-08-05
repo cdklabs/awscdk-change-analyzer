@@ -13,7 +13,7 @@
     "clean": "npx tsc --build --clean",
     "clean:all": "git clean -fdx",
     "lint": "eslint . --ext .ts",
-    "test": "jest"
+    "test": "npx jest"
   },
   "repository": {
     "type": "git",

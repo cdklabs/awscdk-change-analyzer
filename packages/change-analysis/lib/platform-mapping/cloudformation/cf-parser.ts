@@ -52,10 +52,11 @@ export class CFParser implements Parser {
     const entities: Record<string, CFEntity>[] = this.templates.map(template =>
       fromEntries(
         flatMap(Object.entries(template), ([componentType, definitions]) =>
-          Object.entries(definitions).map(([componentName, definition]) =>
-            [componentName, cfEntityFactory(componentType, componentName, definition, args ?? {})])
-            .filter(e => e[1] !== undefined),
-        ) as [string, CFEntity][]
+          Object.entries(definitions)
+            .map(([componentName, definition]) =>
+              [componentName, cfEntityFactory(componentType, componentName, definition, args ?? {})])
+            .filter(e => e[1] !== undefined) as [string, CFNestedStack | CFResource | CFParameter | CFOutput][]
+        )
       ),
     );
 
