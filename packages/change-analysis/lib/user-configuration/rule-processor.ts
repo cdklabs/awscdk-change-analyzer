@@ -1,5 +1,6 @@
 import { ModelEntity, Serialized, RuleEffect } from 'cdk-change-analyzer-models';
 import * as fn from 'fifinet';
+import { flatMap } from '../private/node';
 import { appliesToHandler } from './operator-handlers';
 import { equalsHandler } from './operator-handlers/equals';
 import { UserRules, UserRule, Bindings, RuleEffectDefinition, Selector, selectorIsReference, RuleConditions, RuleConditionOperator, isInputScalar } from './rule';
@@ -50,13 +51,13 @@ export class RuleProcessor {
   }
 
   private processRulesWithScope(rules: UserRules, scope: RulesScope): RuleOutput {
-    return new Map([...rules.flatMap(r => [...this.processRule(r, scope)])]);
+    return new Map([...flatMap(rules, r => [...this.processRule(r, scope)])])
   }
 
   private processRule(rule: UserRule, currentScope: RulesScope): RuleOutput{
     const newScopes = rule.let ? this.getScopesFromDeclarations(rule.let, currentScope) : [currentScope];
 
-    return new Map([...newScopes.flatMap((newScope): [ModelEntity, RuleEffect][] => {
+    return new Map([...flatMap(newScopes, (newScope): [ModelEntity, RuleEffect][] => {
       let output = new Map<ModelEntity, RuleEffect>();
       if(rule.effect)
         output = new Map([...output, ...this.extractRuleEffect(newScope, rule.effect)]);
@@ -80,7 +81,7 @@ export class RuleProcessor {
     let newScopes: RulesScope[] = [{...currentScope}];
     Object.entries(bindings).forEach(
       ([identifier, selector]) => {
-        newScopes = newScopes.flatMap((scope): RulesScope[] => {
+        newScopes = flatMap(newScopes, (scope): RulesScope[] => {
           const newScopeNodes = this.processDefinition(identifier, selector, scope);
           if(!newScopeNodes.length)
             return [];
@@ -126,9 +127,9 @@ export class RuleProcessor {
       const exposesValuesScopeNodes = traverse({_label: 'exposesValues', key: path[0]});
 
       return [
-        ...newPropertyScopeNodes.flatMap(v => this.navigateToPath(v, path)),
-        ...nestedPropertyScopeNodes.flatMap(v => this.navigateToPath(v, path.slice(1))),
-        ...exposesValuesScopeNodes.flatMap(v => this.navigateToPath(v, path.slice(1))),
+        ...flatMap(newPropertyScopeNodes, v => this.navigateToPath(v, path)),
+        ...flatMap(nestedPropertyScopeNodes, v => this.navigateToPath(v, path.slice(1))),
+        ...flatMap(exposesValuesScopeNodes, v => this.navigateToPath(v, path.slice(1))),
         ...[entity.vertex[path[0]]].filter(fn.isDefined).map(scalarToScopeNode) ?? [],
       ];
     } else if(isScopeValue(entity)){

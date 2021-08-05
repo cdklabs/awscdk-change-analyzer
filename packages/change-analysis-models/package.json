@@ -20,6 +20,9 @@
     "url": "https://aws.amazon.com",
     "organization": true
   },
+  "engines": {
+    "node": ">= 10.13.0 <13 || >=13.7.0"
+  },
   "license": "Apache-2.0",
   "dependencies": {
     "@aws-cdk/cfnspec": "^1.90.0",

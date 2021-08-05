@@ -8,6 +8,7 @@ import {
   Component,
   RuleEffect,
 } from 'cdk-change-analyzer-models';
+import { flatMap } from '../../private/node';
 import { addAggDescriptions } from '../add-aggregation-descriptions';
 import { ModuleTreeAggsExtractor } from '../aggregations-extractor';
 import * as descriptionCreators from './description-creators';
@@ -44,5 +45,5 @@ export function extractComponentOperationsAggsPerComponent(
 }
 
 const explodeOperations = (ops: ComponentOperation[]) => {
-  return ops.flatMap(o => (o instanceof UpdatePropertyComponentOperation) ? o.getLeaves() : [o]);
+  return flatMap(ops, o => (o instanceof UpdatePropertyComponentOperation) ? o.getLeaves() : [o]);
 };

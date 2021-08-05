@@ -1,4 +1,5 @@
 import { isDefined, ModelEntityTypes } from 'cdk-change-analyzer-models';
+import { fromEntries } from '../private/node';
 import { ConditionInput, RuleCondition, RuleConditionOperator, RuleConditions, Selector, SelectorFilter, UserRule, RuleScopeReference, RuleEffectDefinition } from './rule';
 import { CBindings, CSelector, CUserRule, isPathCSelector, ComponentCFilter, CRuleConditions, isComponentCFilter, GeneralCSelector, CRuleEffectDefinition } from './rule-config-schema';
 
@@ -22,7 +23,7 @@ function parseRule(rule: CUserRule): UserRule {
 
 function parseBindings(bindings?: CBindings){
   if(!bindings) return {};
-  return Object.fromEntries(
+  return fromEntries(
     Object.entries(bindings).map(([identifier, cselector]) =>
       [identifier, parseSelector(cselector)]),
   );

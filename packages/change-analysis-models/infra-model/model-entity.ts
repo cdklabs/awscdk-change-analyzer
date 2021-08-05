@@ -1,6 +1,6 @@
 import * as fn from 'fifinet';
 import { Serialized } from '../export/json-serializable';
-import { isDefined } from '../utils';
+import { flatMap, isDefined } from '../utils';
 
 export type OutgoingReferences = Record<
     string,
@@ -38,7 +38,7 @@ export class ModelEntity<
             refName: label, ref: e, key
         });
         
-        return Object.entries(this.outgoingNodeReferences).flatMap(([k, v]) => {
+        return flatMap(Object.entries(this.outgoingNodeReferences), ([k, v]) => {
             if(v instanceof ModelEntity){
                 return [createInfoObj(k, v)];
             } if(v instanceof Set) {
@@ -65,6 +65,6 @@ export class ModelEntity<
 
     public generateOutgoingGraph() { 
         const entities = this.explodeNodeReferences();
-        return new fn.Graph(entities.map(e => e.nodeData), entities.flatMap(e => e.getOutgoingNodeEdges()));
+        return new fn.Graph(entities.map(e => e.nodeData), flatMap(entities, e => e.getOutgoingNodeEdges()));
     }
 }

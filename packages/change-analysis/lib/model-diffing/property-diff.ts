@@ -14,6 +14,7 @@ import {
   MovePropertyComponentOperation,
   arrayIntersection, isDefined, stringSimilarity,
 } from 'cdk-change-analyzer-models';
+import { fromEntries } from '../private/node';
 import { propertySimilarityEvaluatorCreator } from './entity-matchers/component-properties-matcher';
 import { matchEntities } from './entity-matchers/entities-matcher';
 
@@ -149,8 +150,8 @@ export class PropertyDiffCreator {
       p2Array.map((_,i) => i),
       propertySimilarityEvaluatorCreator(
         this.componentTransition,
-        Object.fromEntries(p1Array.map((e, i) => [i, e])),
-        Object.fromEntries(p2Array.map((e, i) => [i, e])),
+        fromEntries(p1Array.map((e, i) => [i, e])),
+        fromEntries(p2Array.map((e, i) => [i, e])),
         pathP1, pathP2,
       ),
       propertySimilarityThreshold,

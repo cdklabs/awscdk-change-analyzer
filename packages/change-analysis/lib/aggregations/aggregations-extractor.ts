@@ -1,4 +1,5 @@
 import { AggCharacteristicValue, Aggregation, setsEqual } from 'cdk-change-analyzer-models';
+import { flatMap } from '../private/node';
 import { AggModuleTreeNode } from './aggregation-module-tree-node';
 
 export class ModuleTreeAggsExtractor {
@@ -27,11 +28,11 @@ export class ModuleTreeAggsExtractor {
     if(moduleNode.disableOnNoExtraInfo && directAggs.length <= 1)
       return [];
 
-    const finalAggs = directAggs.flatMap(g => {
+    const finalAggs = flatMap(directAggs, g => {
       const gs = ModuleTreeAggsExtractor.findAggsIntersections<T>(
-        moduleNode.submodules?.flatMap(
+        moduleNode.submodules ? flatMap(moduleNode.submodules,
           sm => ModuleTreeAggsExtractor.extractTreeRoot(sm, g.entities, {...characteristics, ...g.characteristics}),
-        ) ?? [],
+        ) : [],
       );
 
       if(moduleNode.forceSubmoduleCollapse ||

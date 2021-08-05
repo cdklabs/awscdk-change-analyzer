@@ -2,7 +2,7 @@ import { JSONSerializable, Serialized } from "../export/json-serializable";
 import { SerializationID } from "../export/json-serializer";
 import { SerializationClasses } from "../export/serialization-classes";
 import { Component, InfraModel, ModelEntity } from "../infra-model";
-import { groupArrayBy, isDefined } from "../utils";
+import { flatMap, groupArrayBy, isDefined } from "../utils";
 import { ComponentOperation } from "./operations";
 import { Transition } from "./transition";
 
@@ -37,7 +37,7 @@ export class InfraModelDiff extends ModelEntity<{}, OutgoingNodeReferences> impl
         componentTransitions: Transition<Component>[]
     ): Map<Component, Transition<Component>> {
         return new Map(
-            componentTransitions.flatMap(t => [[t.v1, t], [t.v2, t]])
+            flatMap(componentTransitions, t => [[t.v1, t], [t.v2, t]])
             .filter(([v]) => isDefined(v)) as [Component, Transition<Component>][]
         );
     }

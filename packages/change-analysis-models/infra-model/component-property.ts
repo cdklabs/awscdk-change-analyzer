@@ -2,6 +2,7 @@ import { JSONSerializable } from "../export/json-serializable";
 import { SerializationID } from "../export/json-serializer";
 import { SerializationClasses } from "../export/serialization-classes";
 import { SerializedComponentProperty, SerializedComponentPropertyArray, SerializedComponentPropertyEmpty, SerializedComponentPropertyPrimitive, SerializedComponentPropertyRecord } from "../export/serialized-interfaces/infra-model/serialized-component-property";
+import { flatMap, fromEntries } from "../utils";
 import { ModelEntity, OutgoingReferences } from "./model-entity";
 import { ModelEntityTypes } from "./model-entity-types";
 
@@ -100,7 +101,7 @@ export abstract class ComponentPropertyValue/* TODO Value*/<ND extends NodeData 
     public explode(): ComponentPropertyValue[]{
         if(this.isPrimitive() || this.value === undefined) return [this];
         
-        return Object.values(this.value).flatMap(v => v.explode());
+        return flatMap(Object.values(this.value), v => v.explode());
     }
 
     public abstract toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedComponentProperty;
@@ -133,7 +134,7 @@ export class ComponentPropertyRecord extends ComponentCollectionProperty  {
 
     public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedComponentPropertyRecord {
         return {
-            value: Object.fromEntries(Object.entries(this.getRecord()).map(([k, v]) => [k, serialize(v)])),
+            value: fromEntries(Object.entries(this.getRecord()).map(([k, v]) => [k, serialize(v)])),
             componentUpdateType: this.componentUpdateType,
         };
     }

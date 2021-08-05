@@ -1,4 +1,5 @@
 import { isDefined, CompleteTransition, Transition, JSONSerializable, Serialized } from 'cdk-change-analyzer-models';
+import { flatMap } from '../../private/node';
 
 type ValidEntity = JSONSerializable | Serialized;
 
@@ -73,7 +74,7 @@ function findMatchesDecreasingSimilarity<T extends ValidEntity, K>(
     throw Error('Similarity threshold must be a value between 0 and 1');
 
   const matches: [number, EntityMatch<T,K>][] =
-        entitiesA.flatMap(entityA =>
+        flatMap(entitiesA, entityA =>
           entitiesB.map((entityB): [number, EntityMatch<T,K>] | undefined => {
 
             const transition = new CompleteTransition({v1: entityA, v2: entityB});

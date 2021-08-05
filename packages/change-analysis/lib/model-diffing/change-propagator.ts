@@ -15,13 +15,14 @@ import {
   PropertyComponentOperation,
   arraysEqual,
 } from 'cdk-change-analyzer-models';
+import { flatMap } from '../private/node';
 
 /**
  * Creates the ComponentOperations caused by existing ones
  * @returns the new InfraModelDiff
  */
 export function propagateChanges(modelDiff: InfraModelDiff): InfraModelDiff{
-  const propagatedOperations: ComponentOperation[] = modelDiff.componentOperations.flatMap(o => {
+  const propagatedOperations: ComponentOperation[] = flatMap(modelDiff.componentOperations, o => {
     if(o instanceof UpdatePropertyComponentOperation){
       return propagatePropertyOperation(o, modelDiff);
     } else if(o instanceof RenameComponentOperation){
@@ -53,7 +54,7 @@ function propagatePropertyOperation(
   if(componentUpdate !== ComponentUpdateType.REPLACEMENT
         && componentUpdate !== ComponentUpdateType.POSSIBLE_REPLACEMENT)
     return compOp instanceof UpdatePropertyComponentOperation
-      ? (compOp.innerOperations ?? []).flatMap(i => propagatePropertyOperation(i, modelDiff))
+      ? flatMap((compOp.innerOperations ?? []), i => propagatePropertyOperation(i, modelDiff))
       : [];
 
   /** if the property is a replacement-inducing collection and
@@ -66,7 +67,7 @@ function propagatePropertyOperation(
             && arraysEqual(Object.keys(v1.getCollection()), Object.keys(v2.getCollection()))
             && compOp instanceof UpdatePropertyComponentOperation
     ){
-      return (compOp.innerOperations ?? []).flatMap(i => propagatePropertyOperation(i, modelDiff));
+      return flatMap((compOp.innerOperations ?? []), i => propagatePropertyOperation(i, modelDiff));
     }
   }
 
@@ -109,7 +110,7 @@ function propagateReplacementOperation(replacementOp: ReplaceComponentOperation,
     .filter(r => r instanceof DependencyRelationship) as DependencyRelationship[];
 
 
-  const replacementPropagations = dependentRelationships.flatMap((rel: DependencyRelationship) => {
+  const replacementPropagations = flatMap(dependentRelationships, (rel: DependencyRelationship) => {
     try{
       const sourceComponentTransition = modelDiff.getComponentTransition(rel.source);
 

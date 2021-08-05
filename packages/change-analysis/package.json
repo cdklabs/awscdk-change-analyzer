@@ -25,6 +25,9 @@
     "url": "https://aws.amazon.com",
     "organization": true
   },
+  "engines": {
+    "node": ">= 10.13.0 <13 || >=13.7.0"
+  },
   "license": "Apache-2.0",
   "dependencies": {
     "@aws-cdk/cfnspec": "^1.115.0",
@@ -39,7 +42,7 @@
     "minimatch": "^3.0.4",
     "semver": "^7.3.5",
     "yaml": "^1.10.2",
-    "yargs": "^17.0.1"
+    "yargs": "^16.2.0"
   },
   "devDependencies": {
     "@aws-cdk/aws-appsync": "^1.115.0",
