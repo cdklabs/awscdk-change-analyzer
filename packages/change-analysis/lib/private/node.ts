@@ -1,15 +1,12 @@
 /**
  * Map a function over an array and concatenate the results
  */
- export function flatMap<T, U>(xs: T[], fn: ((x: T, i: number) => U[])): U[] {
-  return flatten(xs.map(fn));
-}
-
-/**
- * Flatten a list of lists into a list of elements
- */
-export function flatten<T>(xs: T[][]): T[] {
-  return Array.prototype.concat.apply([], xs);
+export function flatMap<T, U>(xs: T[], f: (x: T) => U[]): U[] {
+  const ret = new Array<U>();
+  for (const x of xs) {
+    ret.push(...f(x));
+  }
+  return ret;
 }
 
 /**
