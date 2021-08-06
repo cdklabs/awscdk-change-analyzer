@@ -13,7 +13,7 @@ export function flatMap<T, U>(xs: T[], f: (x: T) => U[]): U[] {
  * Creates an object representing the given iterable
  * list of [key, value] pairs.
  */
-export function fromEntries(xs: [string|number|symbol, any][]) {
-  return xs.reduce((acc, [key, value]) => ({...acc, [key]: value}), {});
+export function fromEntries<T>(xs: [string|number|symbol, T][]): {[key: string]: T} {
+  return xs.reduce((acc, [key, value]) => ({ ...acc, [key]: value,}), {});
 }
  
