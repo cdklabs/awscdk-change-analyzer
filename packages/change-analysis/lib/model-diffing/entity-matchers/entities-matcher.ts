@@ -1,7 +1,6 @@
 import { CompleteTransition, Transition, JSONSerializable, Serialized } from 'cdk-change-analyzer-models';
-import { flatMap } from '../../private/node';
 import {isDefined} from 'fifinet';
-import * as fs from 'fs';
+import { flatMap } from '../../private/node';
 
 type ValidEntity = JSONSerializable | Serialized;
 
@@ -98,6 +97,6 @@ function findMatchesDecreasingSimilarity<T extends ValidEntity, K>(
     .sort((m1, m2) => {
       if (m1[0] > m2[0]) return -1;
       return (m1[0] === m2[0] && +m1[1].transition.nodeData._id < +m2[1].transition.nodeData._id) ? -1 : 1;
-    }) 
+    })
     .map(([, entityMatch]) => entityMatch);
 }

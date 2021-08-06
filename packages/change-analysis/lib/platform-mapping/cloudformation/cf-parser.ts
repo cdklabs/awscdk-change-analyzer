@@ -55,8 +55,8 @@ export class CFParser implements Parser {
           Object.entries(definitions)
             .map(([componentName, definition]) =>
               [componentName, cfEntityFactory(componentType, componentName, definition, args ?? {})])
-            .filter(e => e[1] !== undefined) as [string, CFNestedStack | CFResource | CFParameter | CFOutput][]
-        )
+            .filter(e => e[1] !== undefined) as [string, CFNestedStack | CFResource | CFParameter | CFOutput][],
+        ),
       ),
     );
 

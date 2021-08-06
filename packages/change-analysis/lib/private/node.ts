@@ -14,6 +14,5 @@ export function flatMap<T, U>(xs: T[], f: (x: T) => U[]): U[] {
  * list of [key, value] pairs.
  */
 export function fromEntries<T>(xs: [string|number|symbol, T][]): {[key: string]: T} {
-  return xs.reduce((acc, [key, value]) => ({ ...acc, [key]: value,}), {});
+  return xs.reduce((acc, [key, value]) => ({ ...acc, [key]: value}), {});
 }
- 

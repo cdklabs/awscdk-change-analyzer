@@ -23,7 +23,7 @@ export class CFRef {
           .filter(v => !Object.keys(value[1]).includes(v))
           .map(r => new CFRef(path, r)) ?? [];
       }
-        
+
       throw new CFRefInitError('Fn::Sub does not follow the right structure');
     },
   })

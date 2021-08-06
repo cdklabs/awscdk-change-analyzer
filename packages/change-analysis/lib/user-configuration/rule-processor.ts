@@ -51,7 +51,7 @@ export class RuleProcessor {
   }
 
   private processRulesWithScope(rules: UserRules, scope: RulesScope): RuleOutput {
-    return new Map([...flatMap(rules, r => [...this.processRule(r, scope)])])
+    return new Map([...flatMap(rules, r => [...this.processRule(r, scope)])]);
   }
 
   private processRule(rule: UserRule, currentScope: RulesScope): RuleOutput{
