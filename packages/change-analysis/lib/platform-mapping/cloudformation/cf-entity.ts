@@ -10,6 +10,7 @@ import {
   DependencyRelationshipOptions,
   PropertyPath,
 } from 'cdk-change-analyzer-models';
+import { fromEntries } from '../../private/node';
 import { CFParserArgs } from './cf-parser-args';
 import { CFRef } from './cf-ref';
 
@@ -105,7 +106,7 @@ export abstract class CFEntity {
           updateType,
         );
       } else if(typeof _definition === 'object' && _definition !== null) {
-        return new ComponentPropertyRecord(Object.fromEntries(
+        return new ComponentPropertyRecord(fromEntries(
           Object.entries(_definition).map(([propKey, propValue]) => {
             const newPropertyPath = [...propertyPath, propKey];
             return [propKey, factory(propValue, newPropertyPath)];

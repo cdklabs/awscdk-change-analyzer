@@ -15,16 +15,15 @@ export class CFRef {
     },
     'Fn::Sub': (path: PropertyPath, value: any) => {
       if(Array.isArray(value)
-                && typeof value[0] === 'string'
-                && (
-                  (typeof value[1] === 'object' && value[1] !== null)
-                    || value[1] === undefined
-                ))
-        return [...value[0].matchAll(/\$\{[A-Za-z0-9.]*\}/g)]
-          .map(v => v[0].slice(2,-1))
-          .filter(v => !Object.keys(value[1])
-            .includes(v),
-          ).map(r => new CFRef(path, r));
+        && typeof value[0] === 'string'
+        && ((typeof value[1] === 'object' && value[1] !== null) || value[1] === undefined)
+      ) {
+        return value[0].match(/\$\{[A-Za-z0-9.]*\}/g)
+          ?.map(v => v.slice(2, -1))
+          .filter(v => !Object.keys(value[1]).includes(v))
+          .map(r => new CFRef(path, r)) ?? [];
+      }
+
       throw new CFRefInitError('Fn::Sub does not follow the right structure');
     },
   })

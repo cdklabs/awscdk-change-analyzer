@@ -3,6 +3,7 @@ import {
   ComponentPropertyAccessError,
   InfraModel,
 } from 'cdk-change-analyzer-models';
+import { flatMap } from '../../private/node';
 import { CFParser, CFParserArgs } from '../cloudformation';
 import { Parser } from '../parser';
 import { CDKConstruct } from './cdk-construct';
@@ -84,7 +85,7 @@ export class CDKParser implements Parser {
 
     const relationships = [
       ...cfInfraModel.relationships.filter(r => r.source !== cfInfraRoot),
-      ...constructs.flatMap(c => [...c.component.outgoing]),
+      ...flatMap(constructs, c => [...c.component.outgoing]),
     ];
 
     return new InfraModel(components, relationships);

@@ -5,7 +5,7 @@ import { CfnTraverser } from './cfn-traverser';
 import { createChangeAnalysisReport } from './change-analysis-report/create-change-analysis-report';
 import { CloudAssembly, DefaultSelection } from './cloud-assembly';
 import { CDKParser } from './platform-mapping';
-import { error } from './private/logging';
+import { warning, error } from './private/logging';
 import { flattenObjects, mapObjectValues } from './private/object';
 import { SecurityChangesRules } from './security-changes';
 import { CUserRules } from './user-configuration';
@@ -23,9 +23,9 @@ export enum FAIL_ON {
 
 export interface DiffOptions {
   stackNames: string[];
-  rulesPath: string;
   outputPath: string;
   fail: boolean;
+  rulesPath?: string;
   broadeningPermissions?: boolean;
   failCondition?: FAIL_ON;
 }
@@ -55,8 +55,12 @@ export class C2AToolkit {
     const after: {[stackName: string]: TemplateTree} = {};
     const rules = [
       ...(options.broadeningPermissions ? SecurityChangesRules.BroadeningPermissions().rules : []),
-      ...JSON.parse(await fs.promises.readFile(options.rulesPath, 'utf-8')),
+      ...(options.rulesPath ? JSON.parse(await fs.promises.readFile(options.rulesPath, 'utf-8')) : []),
     ];
+
+    if (rules.length) {
+      warning('No rules are configured. Run with c2a diff with `--broadening-permissions` or `--rules-path` to analyze the risk of your changes.');
+    }
 
     const outputPath = options.outputPath;
 

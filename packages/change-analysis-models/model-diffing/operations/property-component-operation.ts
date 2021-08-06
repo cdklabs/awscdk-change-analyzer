@@ -2,7 +2,7 @@ import { JSONSerializable } from "../../export/json-serializable";
 import { SerializationClasses } from "../../export/serialization-classes";
 import { SerializedPropertyComponentOperation, SerializedUpdatePropertyComponentOperation } from "../../export/serialized-interfaces/infra-model-diff/serialized-component-operation";
 import { ComponentPropertyValue, ComponentUpdateType, PropertyPath } from "../../infra-model";
-import { arraysEqual } from "../../utils";
+import { arraysEqual, flatMap } from "../../utils";
 import { Transition } from "../transition";
 import { ComponentOperation, OperationType, OpNodeData, OpOutgoingNodeReferences } from "./component-operation";
 
@@ -124,7 +124,7 @@ export class UpdatePropertyComponentOperation extends PropertyComponentOperation
         if(!this.innerOperations || this.innerOperations.length === 0) {
             return [this];
         }
-        return this.innerOperations.flatMap(o =>
+        return flatMap(this.innerOperations, o =>
             [this, ...(
                 o instanceof UpdatePropertyComponentOperation
                     ? o.getAllInnerOperations()
@@ -149,7 +149,7 @@ export class UpdatePropertyComponentOperation extends PropertyComponentOperation
 
     public getLeaves(): PropertyComponentOperation[] {
         if(!this.innerOperations) return [this];
-        return this.innerOperations.flatMap(o => (o instanceof UpdatePropertyComponentOperation) ? o.getLeaves() : [o]);
+        return flatMap(this.innerOperations, o => (o instanceof UpdatePropertyComponentOperation) ? o.getLeaves() : [o]);
     }
 
     public toSerialized(

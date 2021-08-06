@@ -1,4 +1,5 @@
 import { AggCharacteristicValue, Aggregation } from 'cdk-change-analyzer-models';
+import { flatMap } from '../private/node';
 
 export type AggDescriptionCreator =
     (characteristics: Record<string, AggCharacteristicValue>) => {
@@ -18,7 +19,7 @@ export function addAggDescriptions<T>(
     if(!agg.descriptions)
       agg.descriptions = [];
     const undescribedCharacteristics = new Set(Object.keys(agg.characteristics));
-    agg.descriptions.push(...descriptionCreators.flatMap(creator => {
+    agg.descriptions.push(...flatMap(descriptionCreators, creator => {
       const { descriptions, describedCharacteristics } = creator(agg.characteristics);
       describedCharacteristics?.forEach(c => undescribedCharacteristics.delete(c));
       return descriptions ?? [];

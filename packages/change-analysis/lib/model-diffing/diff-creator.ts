@@ -13,6 +13,7 @@ import {
   groupArrayBy,
 } from 'cdk-change-analyzer-models';
 import { isDefined } from 'fifinet';
+import { flatMap } from '../private/node';
 import {
   componentSimilarityEvaluator,
   sameNameComponentSimilarityEvaluator,
@@ -48,7 +49,7 @@ export class DiffCreator {
 
     const categories = [...new Set([...oldComponentsGrouped.keys(), ...newComponentsGrouped.keys()])];
 
-    componentOperations.push(...categories.flatMap((type) =>
+    componentOperations.push(...flatMap(categories, (type) =>
       this.diffComponents(
         oldComponentsGrouped.get(type) ?? [],
         newComponentsGrouped.get(type) ?? [],

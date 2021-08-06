@@ -5,6 +5,7 @@ import { Aggregation, aggregationSerializer } from "../aggregations";
 import { ComponentOperation, InfraModelDiff, Transition, UpdatePropertyComponentOperation } from "../model-diffing";
 import { Component } from "../infra-model";
 import { RuleEffect } from "../rules";
+import { fromEntries } from "../utils";
 
 export class ChangeAnalysisReport implements JSONSerializable {
 
@@ -22,12 +23,12 @@ export class ChangeAnalysisReport implements JSONSerializable {
         return {
             infraModelDiff: serialize(this.infraModelDiff),
             aggregations: this.aggregations.map(agg => this.serializeAgg(agg, serialize, serializeCustom)),
-            aggregationsPerComponent: Object.fromEntries(
+            aggregationsPerComponent: fromEntries(
                 [...this.aggregationsPerComponent].map(([compTransition, aggArr]) => {
                     return [serialize(compTransition), aggArr.map(agg => this.serializeAgg(agg, serialize, serializeCustom))];
                 })
             ),
-            rulesOutput: Object.fromEntries(
+            rulesOutput: fromEntries(
                 [...this.rulesOutput].map(([op, effect]) => [serialize(op), effect])
             )
         };

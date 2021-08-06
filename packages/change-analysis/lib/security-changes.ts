@@ -1,4 +1,5 @@
 import { OperationType, RuleRisk } from 'cdk-change-analyzer-models';
+import {flatMap} from './private/node';
 import { IAM_POLICY_PROPERTIES, IAM_POLICY_RESOURCES } from './private/security-policies';
 import { CUserRule, CUserRules } from './user-configuration';
 
@@ -51,7 +52,7 @@ export class SecurityChangesRules {
       return rules._createResourceRule({
         identifier,
         resource,
-        then: policies.flatMap(policy => [
+        then: flatMap(policies, policy => [
           // Managed Policies
           {
             propertyOperationType: OperationType.INSERT,

@@ -1,4 +1,6 @@
-import { isDefined, CompleteTransition, Transition, JSONSerializable, Serialized } from 'cdk-change-analyzer-models';
+import { CompleteTransition, Transition, JSONSerializable, Serialized } from 'cdk-change-analyzer-models';
+import {isDefined} from 'fifinet';
+import { flatMap } from '../../private/node';
 
 type ValidEntity = JSONSerializable | Serialized;
 
@@ -71,28 +73,30 @@ function findMatchesDecreasingSimilarity<T extends ValidEntity, K>(
 
   if(similarityThreshold < 0 || similarityThreshold > 1)
     throw Error('Similarity threshold must be a value between 0 and 1');
-
   const matches: [number, EntityMatch<T,K>][] =
-        entitiesA.flatMap(entityA =>
-          entitiesB.map((entityB): [number, EntityMatch<T,K>] | undefined => {
+    flatMap(entitiesA, entityA =>
+      entitiesB.map((entityB): [number, EntityMatch<T,K>] | undefined => {
+        const transition = new CompleteTransition({v1: entityA, v2: entityB});
+        const similarityCalcResult = similarityEvaluator(transition);
 
-            const transition = new CompleteTransition({v1: entityA, v2: entityB});
+        if(!similarityCalcResult)
+          return;
 
-            const similarityCalcResult = similarityEvaluator(transition);
+        const [similarity, metadata] = similarityCalcResult;
+        if(similarity < 0 || similarity > 1)
+          throw Error('Similarity does not have a value in the range [0, 1]');
 
-            if(!similarityCalcResult)
-              return;
+        if(similarity > similarityThreshold)
+          return [similarity, {transition, metadata}];
 
-            const [similarity, metadata] = similarityCalcResult;
-            if(similarity < 0 || similarity > 1)
-              throw Error('Similarity does not have a value in the range [0, 1]');
+        return;
+      }),
+    ).filter(isDefined);
 
-            if(similarity > similarityThreshold)
-              return [similarity, {transition, metadata}];
-
-            return;
-          }),
-        ).filter(isDefined);
-
-  return matches.sort((m1, m2) => m1[0] > m2[0] ? -1 : 1).map(([, entityMatch]) => entityMatch);
+  return matches
+    .sort((m1, m2) => {
+      if (m1[0] > m2[0]) return -1;
+      return (m1[0] === m2[0] && +m1[1].transition.nodeData._id < +m2[1].transition.nodeData._id) ? -1 : 1;
+    })
+    .map(([, entityMatch]) => entityMatch);
 }

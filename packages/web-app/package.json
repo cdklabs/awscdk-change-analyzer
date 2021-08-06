@@ -9,6 +9,9 @@
   },
   "keywords": [],
   "author": "",
+  "engines": {
+    "node": ">= 10.13.0 <13 || >=13.7.0"
+  },
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^4.11.3",

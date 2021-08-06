@@ -1,4 +1,5 @@
 import { InfraModel, Component, StructuralRelationship } from 'cdk-change-analyzer-models';
+import { flatMap, fromEntries } from '../../private/node';
 import { Parser } from '../parser';
 import { CFEntity } from './cf-entity';
 import { CFNestedStack } from './cf-nested-stack';
@@ -49,11 +50,12 @@ export class CFParser implements Parser {
      */
   public createCFEntities(templateRoot: Component, args?: CFParserArgs):Record<string, CFEntity>[] {
     const entities: Record<string, CFEntity>[] = this.templates.map(template =>
-      Object.fromEntries(
-        Object.entries(template).flatMap(([componentType, definitions]) =>
-          Object.entries(definitions).map(([componentName, definition]) =>
-            [componentName, cfEntityFactory(componentType, componentName, definition, args ?? {})])
-            .filter(e => e[1] !== undefined),
+      fromEntries(
+        flatMap(Object.entries(template), ([componentType, definitions]) =>
+          Object.entries(definitions)
+            .map(([componentName, definition]) =>
+              [componentName, cfEntityFactory(componentType, componentName, definition, args ?? {})])
+            .filter(e => e[1] !== undefined) as [string, CFNestedStack | CFResource | CFParameter | CFOutput][],
         ),
       ),
     );

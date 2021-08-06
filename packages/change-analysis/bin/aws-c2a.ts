@@ -27,11 +27,11 @@ async function parseArguments() {
     .usage('Usage: aws-c2a -a <cdk-app> COMMAND')
     .option('app', { type: 'string', alias: 'a', desc: 'REQUIRED: Path to your cloud assembly directory (e.g. "assembly-Pipeline-Stage/")', requiresArg: true, demandOption: true })
     .command('diff [STACKS..]', 'Compares the cdk app the deployed stack or a local template file', yargs => yargs
-      .option('rules-path', { type: 'string', alias: 'r', desc: 'The rules that you want to diff against', requiresArg: true, demandOption: true })
       .option('out', { type: 'string', alias: 'o', desc: 'The output file after running the diff', requiresArg: true, default: 'report.json' })
+      .option('rules-path', { type: 'string', alias: 'r', desc: 'The rules that you want to diff against', requiresArg: true })
       .option('fail', { type: 'boolean', desc: 'Fail with exit code 1 if changes detected', default: false })
       .option('broadening-permissions', { type: 'boolean', desc: 'Add base rules to detect broadening permssions', default: false })
-      .option('fail-condition', { choices: failConditions, desc: 'Add base rules to detect broadening permssions', default: undefined }),
+      .option('fail-condition', { choices: failConditions, desc: 'Configure the risk outputs that cause failure', default: FAIL_ON.HIGH }),
     )
     .version(versionNumber())
     .alias('v', 'version')
