@@ -58,7 +58,7 @@ export class C2AToolkit {
       ...(options.rulesPath ? JSON.parse(await fs.promises.readFile(options.rulesPath, 'utf-8')) : []),
     ];
 
-    if (rules.length) {
+    if (rules.length === 0) {
       warning('No rules are configured. Run with c2a diff with `--broadening-permissions` or `--rules-path` to analyze the risk of your changes.');
     }
 
