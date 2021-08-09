@@ -22,7 +22,7 @@ function HierarchicalTree() {
       <AppContext.Consumer>{({changeReport}) =>
         <Paper elevation={3} className={classes.root}>
             <List disablePadding style={{width: '100%'}}>
-                {buildVisualHierarchy(changeReport.infraModelDiff).map((n) =>
+                {changeReport && buildVisualHierarchy(changeReport.infraModelDiff).map((n) =>
                     <HierarchicalNode key={n.compTransition.nodeData._id} node={n}/>
                 )}
             </List>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tab, Tabs, AppBar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ChangeAnalysisReport } from 'cdk-change-analyzer-models/change-analysis-report';
@@ -8,12 +8,12 @@ import { Component, ComponentPropertyValue } from 'cdk-change-analyzer-models/in
 import { ComponentOperation, Transition } from 'cdk-change-analyzer-models/model-diffing';
 import { Aggregation } from 'cdk-change-analyzer-models/aggregations';
 import { findAggregationWithChange } from './selectors/aggregation-helpers';
-import { RuleAction, RuleEffect } from 'cdk-change-analyzer-models/rules';
-import ChangesGroup from './reusable-components/ChangesGroup';
+import { RuleAction } from 'cdk-change-analyzer-models/rules';
 
+import { JSONDeserializer } from 'cdk-change-analyzer-models/export/json-deserializer';
 
 interface AppState {
-    changeReport: ChangeAnalysisReport,
+    changeReport?: ChangeAnalysisReport,
     showComponentInHierarchy: (comp: Transition<Component>) => void,
     selectedCompTransition?: Transition<Component>,
     setSelectedCompTransition: Function,
@@ -23,11 +23,9 @@ interface AppState {
     showAggregation: Function,
     setChangesApproval: Function,
     approvedChanges: Map<ComponentOperation, RuleAction>,
-
 }
 
 export const AppContext = React.createContext({} as AppState);
-
 
 const useStyles = makeStyles({
   wrapper: {
@@ -43,23 +41,34 @@ const useStyles = makeStyles({
   },
 });
 
-interface props {
-    changeReport: ChangeAnalysisReport
-}
 
-const App = ({changeReport}: props) => {
+const App = () => {
     const classes = useStyles();
 
+    const [changeReport, setChangeReport] = useState<ChangeAnalysisReport | undefined>(undefined);
     const [selectedTab, setSelectedTab] = useState(0);
     
     const [selectedCompTransition, setSelectedCompTransition] = useState(undefined as Transition<Component> | undefined);
     const [selectedAgg, setSelectedAgg] = useState(undefined as Aggregation<ComponentOperation> | undefined);
 
-    const [approvedChanges, setApprovedChanges] = useState<Map<ComponentOperation, RuleAction>>(
-        new Map([...changeReport.rulesOutput]
-            .map(([op, effect]) => [op, effect.action ?? RuleAction.None])
-        )
-    );
+    const [approvedChanges, setApprovedChanges] = useState<Map<ComponentOperation, RuleAction>>(new Map());
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch('data.json');
+            const report = await response.json();
+            const deserializedReport = new JSONDeserializer<ChangeAnalysisReport>().deserialize(JSON.stringify(report));
+            setChangeReport(deserializedReport);
+        }
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (changeReport)
+            setApprovedChanges(new Map([...changeReport.rulesOutput]
+                .map(([op, effect]) => [op, effect.action ?? RuleAction.None])
+            ))
+    }, [changeReport]);
     
     const showComponentInHierarchy = (comp: Transition<Component>) => {
         setSelectedTab(1);
@@ -72,7 +81,7 @@ const App = ({changeReport}: props) => {
     };
 
     const setSelectedChange = (op: ComponentOperation) => {
-        const agg = findAggregationWithChange(op, changeReport.aggregations);
+        const agg = findAggregationWithChange(op, changeReport?.aggregations ?? []);
         if(agg)
             showAggregation(agg);
     }

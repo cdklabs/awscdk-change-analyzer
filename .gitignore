@@ -16,3 +16,6 @@ node_modules
 
 # Overrides
 !jest.config.js
+
+# Build Files
+data.json

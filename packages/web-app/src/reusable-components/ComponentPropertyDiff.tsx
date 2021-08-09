@@ -33,13 +33,13 @@ function ComponentPropertyDiff({componentTransition, propertyOp}: Props) {
             <ChangesDiff
                 stringifierOutput={
                     getPropertyDiff({v1: componentTransition.v1?.properties, v2: componentTransition.v2?.properties},
-                        changeReport.infraModelDiff.getTransitionOperations(componentTransition)?.filter((o: ComponentOperation) => o instanceof PropertyComponentOperation) as PropertyComponentOperation[]
+                        changeReport?.infraModelDiff.getTransitionOperations(componentTransition)?.filter((o: ComponentOperation) => o instanceof PropertyComponentOperation) as PropertyComponentOperation[]
                     )
                 }
                 flashObj={propertyOp}
                 onClick={(p: (string | number)[]) => {
                     const targetComponent = findLastReferenceInPath(p);
-                    if(targetComponent)
+                    if(targetComponent && changeReport)
                         showComponentInHierarchy(changeReport.infraModelDiff.getComponentTransition(targetComponent));
                 }}
                 isClickable={(p: (string | number)[]) => {
