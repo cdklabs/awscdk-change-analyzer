@@ -14,11 +14,11 @@ export class ModelEntity<
 
     static idCounter = 0;
 
-    public readonly nodeData: fn.VertexProps<ND>;
+    public readonly nodeData: fn.VertexProps<ND> & { entityType: string };
     protected readonly outgoingNodeReferences: OR;
 
     constructor(entityType: string, nodeData: fn.InVertex<ND>, outgoingNodeReferences: OR){
-        this.nodeData = {_entityType: entityType, _id: `${++ModelEntity.idCounter}`, ...nodeData};
+        this.nodeData = { entityType, _id: `${++ModelEntity.idCounter}`, ...nodeData};
         this.outgoingNodeReferences = outgoingNodeReferences; 
     }
 

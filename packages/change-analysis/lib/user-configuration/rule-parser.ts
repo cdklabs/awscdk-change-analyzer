@@ -67,7 +67,7 @@ function parseGeneralFilter(selector: GeneralCSelector): SelectorFilter {
 
   return {
     ...selector[keys[0]],
-    _entityType: keys[0],
+    entityType: keys[0],
   };
 }
 
@@ -88,7 +88,7 @@ function parseComponentCFilter(selector: ComponentCFilter): SelectorFilter {
   }
 
   return {
-    _entityType: ModelEntityTypes.component,
+    entityType: ModelEntityTypes.component,
     type,
     ...subtype ? {subtype} : {},
     ...name ? {name} : {},

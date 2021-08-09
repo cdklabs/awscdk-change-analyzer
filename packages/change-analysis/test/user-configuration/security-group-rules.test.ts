@@ -1,4 +1,4 @@
-import { InfraModel } from '../../../change-analysis-models';
+import { InfraModel } from 'cdk-change-analyzer-models';
 import { CFParser } from '../../lib/platform-mapping';
 import { copy } from '../../lib/private/object';
 import { SecurityChangesRules } from '../../lib/security-changes';
@@ -27,7 +27,7 @@ describe('EC2 Security Group default rules', () => {
     oldModel = new CFParser('root', BEFORE).parse();
   });
 
-  test('detect full additions to security group property: egress ', () => {
+  test('detect full additions to security group property: egress', () => {
     // GIVEN
     const after = copy(BEFORE);
 
@@ -37,20 +37,17 @@ describe('EC2 Security Group default rules', () => {
 
     // WHEN
     const newModel = new CFParser('root', after).parse();
-    const result = processRules(oldModel, newModel, rules);
+    const { graph: g, rulesOutput: result } = processRules(oldModel, newModel, rules);
+    const firstVertex = firstKey(result)._id;
 
     // THEN
-    expect(result.size).toBe(1);
-    expect(firstKey(result, appliesTo)).toMatchObject({
-      _in: {
-        _entityType: 'property',
-        value: '0.0.0.1/0',
-      },
-      _out: {
-        propertyOperationType: 'INSERT',
-        _entityType: 'change',
-      },
-    });
+    expect(g.v(firstVertex).run()).toHaveLength(1);
+    expect(g.v(firstVertex).run()[0]).toMatchObject({ propertyOperationType: 'INSERT' });
+    expect(g.v(firstVertex).out({_label: 'appliesTo'}).filter({entityType: 'property'}).run()).toMatchObject([
+      {},
+      { value: '-1' },
+      { value: '0.0.0.1/0' },
+    ]);
   });
 
   test('detect full additions to security group property: ingress', () => {
@@ -63,20 +60,17 @@ describe('EC2 Security Group default rules', () => {
 
     // WHEN
     const newModel = new CFParser('root', after).parse();
-    const result = processRules(oldModel, newModel, rules);
+    const { graph: g, rulesOutput: result } = processRules(oldModel, newModel, rules);
+    const firstVertex = firstKey(result)._id;
 
     // THEN
-    expect(result.size).toBe(1);
-    expect(firstKey(result, appliesTo)).toMatchObject({
-      _in: {
-        _entityType: 'property',
-        value: '0.0.0.1/0',
-      },
-      _out: {
-        propertyOperationType: 'INSERT',
-        _entityType: 'change',
-      },
-    });
+    expect(g.v(firstVertex).run()).toHaveLength(1);
+    expect(g.v(firstVertex).run()[0]).toMatchObject({ propertyOperationType: 'INSERT' });
+    expect(g.v(firstVertex).out({_label: 'appliesTo'}).filter({entityType: 'property'}).run()).toMatchObject([
+      {},
+      { value: '-1' },
+      { value: '0.0.0.1/0' },
+    ]);
   });
 
   test('detect inserts to security group egress', () => {
@@ -93,21 +87,15 @@ describe('EC2 Security Group default rules', () => {
 
     // WHEN
     const newModel = new CFParser('root', after).parse();
-    const result = processRules(oldModel, newModel, rules);
+    const { graph: g, rulesOutput: result } = processRules(oldModel, newModel, rules);
+    const firstVertex = firstKey(result)._id;
 
     // THEN
-    expect(result.size).toBe(1);
-    expect(firstKey(result, appliesTo)).toMatchObject({
-      _in: {
-        _entityType: 'component',
-        type: 'Resource',
-        subtype: 'AWS::EC2::SecurityGroupEgress',
-      },
-      _out: {
-        type: 'INSERT',
-        _entityType: 'change',
-      },
-    });
+    expect(g.v(firstVertex).run()).toHaveLength(1);
+    expect(g.v(firstVertex).run()[0]).toMatchObject({ type: 'INSERT' });
+    expect(g.v(firstVertex).out('appliesTo').run()).toMatchObject([{
+      subtype: 'AWS::EC2::SecurityGroupEgress',
+    }]);
   });
 
   test('detect inserts to security group egress', () => {
@@ -123,20 +111,14 @@ describe('EC2 Security Group default rules', () => {
 
     // WHEN
     const newModel = new CFParser('root', after).parse();
-    const result = processRules(oldModel, newModel, rules);
+    const { graph: g, rulesOutput: result } = processRules(oldModel, newModel, rules);
+    const firstVertex = firstKey(result)._id;
 
     // THEN
-    expect(result.size).toBe(1);
-    expect(firstKey(result, appliesTo)).toMatchObject({
-      _in: {
-        _entityType: 'component',
-        type: 'Resource',
-        subtype: 'AWS::EC2::SecurityGroupIngress',
-      },
-      _out: {
-        type: 'INSERT',
-        _entityType: 'change',
-      },
-    });
+    expect(g.v(firstVertex).run()).toHaveLength(1);
+    expect(g.v(firstVertex).run()[0]).toMatchObject({ type: 'INSERT' });
+    expect(g.v(firstVertex).out('appliesTo').run()).toMatchObject([{
+      subtype: 'AWS::EC2::SecurityGroupIngress',
+    }]);
   });
 });

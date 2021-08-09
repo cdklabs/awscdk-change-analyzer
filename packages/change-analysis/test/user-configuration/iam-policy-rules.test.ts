@@ -1,4 +1,4 @@
-import { InfraModel } from '../../../change-analysis-models';
+import { InfraModel } from 'cdk-change-analyzer-models';
 import { CFParser } from '../../lib/platform-mapping';
 import { copy } from '../../lib/private/object';
 import { IAM_INLINE_IDENTITY_POLICIES, IAM_INLINE_RESOURCE_POLICIES, IAM_MANAGED_POLICIES, IAM_POLICY_RESOURCES } from '../../lib/private/security-policies';
@@ -30,19 +30,19 @@ describe('IAM Policy default rules', () => {
 
         // WHEN
         const newModel = new CFParser('root', after).parse();
-        const result = processRules(oldModel, newModel, rules);
+        const { graph: g, rulesOutput: result } = processRules(oldModel, newModel, rules);
 
         // THEN
         expect(result.size).toBe(1);
         expect(firstKey(result, appliesTo)).toMatchObject({
           _in: {
-            _entityType: 'component',
+            entityType: 'component',
             type: 'Resource',
             subtype: resource,
           },
           _out: {
             type: 'INSERT',
-            _entityType: 'change',
+            entityType: 'change',
           },
         });
       });
@@ -58,7 +58,7 @@ describe('IAM Policy default rules', () => {
 
         // WHEN
         const newModel = new CFParser('root', after).parse();
-        const result = processRules(_oldModel, newModel, rules);
+        const { graph: g, rulesOutput: result } = processRules(_oldModel, newModel, rules);
 
         // THEN
         expect(result.size).toBe(1);
@@ -84,18 +84,18 @@ describe('IAM Policy default rules', () => {
 
           // WHEN
           const newModel = new CFParser('root', after).parse();
-          const result = processRules(_oldModel, newModel, rules);
+          const { graph: g, rulesOutput: result } = processRules(_oldModel, newModel, rules);
 
           // THEN
           expect(result.size).toBe(1);
           expect(firstKey(result, appliesTo)).toMatchObject({
             _in: {
-              _entityType: 'property',
+              entityType: 'property',
               value: 'abcdefghi',
             },
             _out: {
               propertyOperationType: 'INSERT',
-              _entityType: 'change',
+              entityType: 'change',
             },
           });
         });
@@ -127,18 +127,18 @@ describe('IAM Policy default rules', () => {
 
           // WHEN
           const newModel = new CFParser('root', after).parse();
-          const result = processRules(_oldModel, newModel, rules);
+          const { graph: g, rulesOutput: result } = processRules(_oldModel, newModel, rules);
 
           // THEN
           expect(result.size).toBe(1);
           expect(firstKey(result, appliesTo)).toMatchObject({
             _in: {
-              _entityType: 'property',
+              entityType: 'property',
               value: 'Allow', // A property of the new statement
             },
             _out: {
               propertyOperationType: 'INSERT',
-              _entityType: 'change',
+              entityType: 'change',
             },
           });
         });
@@ -166,18 +166,18 @@ describe('IAM Policy default rules', () => {
 
           // WHEN
           const newModel = new CFParser('root', after).parse();
-          const result = processRules(_oldModel, newModel, rules);
+          const { graph: g, rulesOutput: result } = processRules(_oldModel, newModel, rules);
 
           // THEN
           expect(result.size).toBe(1);
           expect(firstKey(result, appliesTo)).toMatchObject({
             _in: {
-              _entityType: 'property',
+              entityType: 'property',
               value: 'Allow', // A property of the new statement
             },
             _out: {
               propertyOperationType: 'INSERT',
-              _entityType: 'change',
+              entityType: 'change',
             },
           });
         });
@@ -205,18 +205,18 @@ describe('IAM Policy default rules', () => {
 
           // WHEN
           const newModel = new CFParser('root', after).parse();
-          const result = processRules(_oldModel, newModel, rules);
+          const { graph: g, rulesOutput: result } = processRules(_oldModel, newModel, rules);
 
           // THEN
           expect(result.size).toBe(1);
           expect(firstKey(result, appliesTo)).toMatchObject({
             _in: {
-              _entityType: 'property',
+              entityType: 'property',
               value: 'Allow', // A property of the new statement
             },
             _out: {
               propertyOperationType: 'INSERT',
-              _entityType: 'change',
+              entityType: 'change',
             },
           });
         });

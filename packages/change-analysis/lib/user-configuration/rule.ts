@@ -43,7 +43,7 @@ export type RuleScopeReference = {
 export type SelectorFilter = {
   [key: string]: Scalar,
 } & {
-  _entityType: string,
+  entityType: string,
 }
 
 export type Selector = ({
