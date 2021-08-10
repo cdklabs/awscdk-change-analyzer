@@ -1,0 +1,61 @@
+{
+  "name": "@aws-c2a/engine",
+  "version": "0.2.5",
+  "description": "The CDK Change Analyzer is a tool that enables detecting dangerous changes within CDK projects.",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "yarn clean && yarn compile",
+    "compile": "npx tsc --build",
+    "clean": "npx tsc --build --clean",
+    "clean:all": "git clean -fdx",
+    "lint": "eslint . --ext .ts",
+    "test": "npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cdklabs/awscdk-change-analyzer.git",
+    "directory": "packages/@aws-c2a/engine"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "organization": true
+  },
+  "engines": {
+    "node": ">= 10.13.0 <13 || >=13.7.0"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@aws-c2a/models": "^0.2.4",
+    "@aws-cdk/cfnspec": "^1.115.0",
+    "@types/graphviz": "0.0.32",
+    "@types/string-similarity": "^4.0.0",
+    "aws-sdk": "^2.949.0",
+    "colors": "^1.4.0",
+    "fifinet": "0.1.7",
+    "graphviz": "0.0.9",
+    "minimatch": "^3.0.4",
+    "semver": "^7.3.5",
+    "yaml": "^1.10.2",
+    "yargs": "^16.2.0"
+  },
+  "devDependencies": {
+    "@aws-cdk/core": "^1.115.0",
+    "@babel/core": "^7.12.13",
+    "@babel/preset-env": "^7.12.13",
+    "@babel/preset-typescript": "^7.12.13",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.33",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.19.0",
+    "eslint-plugin-import": "^2.23.4",
+    "jest": "^26.5.0",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.5.0",
+    "ts-node": "^9.1.1",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.1.3"
+  }
+}
