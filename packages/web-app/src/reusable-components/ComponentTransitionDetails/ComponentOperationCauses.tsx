@@ -14,7 +14,7 @@ export const ComponentOperationCauses = ({op}: Props) => {
     const { changeReport } = useContext(AppContext); 
     const cause = op.cause;
 
-    const consequences = changeReport?.infraModelDiff.componentOperations.filter(o => o.cause === op) ?? [];
+    const consequences = changeReport.infraModelDiff.componentOperations.filter(o => o.cause === op);
 
     return <>
         <Typography><b>Caused by:</b> {cause ? <ComponentOperationsList ops={[cause]}/> : 'Direct Change'}</Typography>
