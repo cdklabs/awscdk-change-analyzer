@@ -3,7 +3,7 @@ import {
   ComponentUpdateType,
   isDefined,
 } from '@aws-c2a/models';
-import { schema, specification } from '@aws-cdk/cfnspec/lib';
+import { schema, specification } from '@aws-cdk/cfnspec';
 import { isListProperty, isRecordType } from '@aws-cdk/cfnspec/lib/schema';
 import { CFEntity } from './cf-entity';
 import { CFParserArgs } from './cf-parser-args';

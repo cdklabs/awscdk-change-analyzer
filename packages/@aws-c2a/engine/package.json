@@ -26,10 +26,11 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
+    "@aws-c2a/models": "^0.2.4",
+    "@aws-cdk/cfnspec": "^1.115.0",
     "@types/graphviz": "0.0.32",
     "@types/string-similarity": "^4.0.0",
     "aws-sdk": "^2.949.0",
-    "@aws-c2a/models": "^0.2.4",
     "colors": "^1.4.0",
     "fifinet": "0.1.7",
     "graphviz": "0.0.9",
