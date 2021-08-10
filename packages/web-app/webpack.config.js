@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require("copy-webpack-plugin");
+const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
+const {DefinePlugin} = require('webpack');
 
 const outputDirectory = 'dist';
 
@@ -33,14 +34,16 @@ module.exports = {
     }
   },
   plugins: [
-    new CopyPlugin({
-      patterns: [
-        { from: './data.json', to: '.' },
-      ],
-    }),
     new HtmlWebpackPlugin({
+      inject: true,
       template: './public/index.html',
-      filename: './index.html'
+      filename: './index.html',
+      inlineSource: '.(js|css)$' // embed all javascript and css inline
     }),
+    // Inlines chunks with `runtime` in the name
+    new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/bundle/]),
+    new DefinePlugin({
+      IS_PRODUCTION: process.env.NODE_ENV === 'production',
+    })
   ]
 };

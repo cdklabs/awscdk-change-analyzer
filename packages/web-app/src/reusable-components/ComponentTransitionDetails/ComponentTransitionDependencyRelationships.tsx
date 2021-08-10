@@ -50,9 +50,7 @@ export const CompTransitionDependencyRelationships = ({ componentTransition }: P
     const classes = useStyles();
     
     const {changeReport, showComponentInHierarchy} = useContext(AppContext);
-    const getTransitionFromComponent = changeReport
-        ? changeReport.infraModelDiff.getComponentTransition.bind(changeReport.infraModelDiff)
-        : () => { throw new Error('Change report not configured') };
+    const getTransitionFromComponent = changeReport.infraModelDiff.getComponentTransition.bind(changeReport.infraModelDiff);
     
     const outgoing = [...new Set([componentTransition.v2?.outgoing ?? [], componentTransition.v1?.outgoing ?? []]
         .flatMap(rels => [...rels].filter(rel => rel instanceof DependencyRelationship).map(rel => getTransitionFromComponent(rel.target))))];
