@@ -1,0 +1,1 @@
+declare module '@aws-c2a/web-app/dist/index.html';

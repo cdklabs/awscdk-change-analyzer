@@ -11,4 +11,4 @@ cdk.out
 !jest.config.js
 !.eslintrc.js
 !babel.config.js
-
+!package-declarations.d.ts

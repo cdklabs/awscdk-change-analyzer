@@ -6,6 +6,7 @@ import { CfnTraverser } from './cfn-traverser';
 import { CloudAssembly, DefaultSelection } from './cloud-assembly';
 import { warning, error } from './private/logging';
 import { flattenObjects, mapObjectValues } from './private/object';
+const templatePath = require.resolve('@aws-c2a/web-app/dist/index.html');
 
 export interface TemplateTree {
   readonly rootTemplate: any;
@@ -25,6 +26,11 @@ export interface DiffOptions {
   rulesPath?: string;
   broadeningPermissions?: boolean;
   failCondition?: FAIL_ON;
+}
+
+export interface GenOptions {
+  reportPath: string;
+  outputPath: string;
 }
 
 export interface EvaluateDiffOptions {
@@ -73,6 +79,14 @@ export class C2AToolkit {
     return this.evaluateReport(report, options.failCondition) && options.fail ? 1 : 0;
   }
 
+  public async c2aGen(options: GenOptions) {
+    const report = JSON.stringify(await fs.promises.readFile(options.reportPath, 'utf-8'));
+    const template = await fs.promises.readFile(templatePath, 'utf-8');
+    const webapp = template.replace('"!!!CDK_CHANGE_ANALYSIS_REPORT"', report);
+    await fs.promises.writeFile(options.outputPath, webapp);
+    return 0;
+  }
+
   /**
    * Given the before/after forms of two template trees and
    * a list of rules, return the change analysis report.
@@ -81,7 +95,6 @@ export class C2AToolkit {
    */
   public async evaluateStacks(options: EvaluateDiffOptions): Promise<ChangeAnalysisReport> {
     const {before, after} = options;
-
 
     const flattenNestedStacks = (nestedStacks: {[id: string]: TemplateTree} | undefined ): {[id: string]: any}  => {
       return Object.entries(nestedStacks ?? {})
