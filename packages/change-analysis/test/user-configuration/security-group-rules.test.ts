@@ -5,8 +5,6 @@ import { SecurityChangesRules } from '../../lib/security-changes';
 import { CUserRules } from '../../lib/user-configuration';
 import { firstKey, processRules } from '../utils';
 
-const appliesTo = (out: any) => out._label === 'appliesTo';
-
 describe('EC2 Security Group default rules', () => {
   const BEFORE: Record<any, any> = {
     Resources: {
@@ -43,7 +41,7 @@ describe('EC2 Security Group default rules', () => {
     // THEN
     expect(g.v(firstVertex).run()).toHaveLength(1);
     expect(g.v(firstVertex).run()[0]).toMatchObject({ propertyOperationType: 'INSERT' });
-    expect(g.v(firstVertex).out({_label: 'appliesTo'}).filter({entityType: 'property'}).run()).toMatchObject([
+    expect(g.v(firstVertex).out('appliesTo').filter({entityType: 'property'}).run()).toMatchObject([
       {},
       { value: '-1' },
       { value: '0.0.0.1/0' },
@@ -66,7 +64,7 @@ describe('EC2 Security Group default rules', () => {
     // THEN
     expect(g.v(firstVertex).run()).toHaveLength(1);
     expect(g.v(firstVertex).run()[0]).toMatchObject({ propertyOperationType: 'INSERT' });
-    expect(g.v(firstVertex).out({_label: 'appliesTo'}).filter({entityType: 'property'}).run()).toMatchObject([
+    expect(g.v(firstVertex).out('appliesTo').filter({entityType: 'property'}).run()).toMatchObject([
       {},
       { value: '-1' },
       { value: '0.0.0.1/0' },
