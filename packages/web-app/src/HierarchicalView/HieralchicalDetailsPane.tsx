@@ -68,8 +68,7 @@ function HierarchicalDetailsPane({componentTransition}: props) {
                     <Typography className={classes.characteristicDescription}>
                         {componentTransition.v2?.type ?? componentTransition.v1?.type} {componentTransition.v2?.subtype ?? componentTransition.v1?.subtype ?? ''}
                         <br/>
-                        {changeReport &&
-                            <b>{getComponentOperationsDescription(componentTransition, changeReport)}</b>}
+                        <b>{getComponentOperationsDescription(componentTransition, changeReport)}</b>
                     </Typography>
                     <Typography className={classes.ocurrencesTitle} variant="h6">Details:</Typography>
                 </Box>
