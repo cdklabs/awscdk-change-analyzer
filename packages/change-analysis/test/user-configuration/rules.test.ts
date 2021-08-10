@@ -29,8 +29,8 @@ const diffTestCase1CRules: CUserRule[] = [{
 
 const diffTestCase1Rules: UserRule[] = [{
   let: {
-    role: { filter: { _entityType: 'component', type: 'resource', subtype: 'AWS::IAM::Role' }},
-    instance: { filter: { _entityType: 'component', type: 'resource', subtype: 'AWS::EC2::Instance' }},
+    role: { filter: { entityType: 'component', type: 'resource', subtype: 'AWS::IAM::Role' }},
+    instance: { filter: { entityType: 'component', type: 'resource', subtype: 'AWS::EC2::Instance' }},
   },
   then: [{
     let: {
@@ -38,7 +38,7 @@ const diffTestCase1Rules: UserRule[] = [{
       nested: { propertyReference: {identifier: 'instance', propertyPath: ['nested'] } },
       propComp2_1: { propertyReference: {identifier: 'instance', propertyPath: ['nested', 'propComp2'] } },
       propComp2_2: { propertyReference: {identifier: 'nested', propertyPath: ['propComp2'] } },
-      change: { filter: {_entityType: 'change', type: 'UPDATE' } },
+      change: { filter: {entityType: 'change', type: 'UPDATE' } },
     },
     effect: {
       target: 'change',
@@ -64,9 +64,9 @@ test('Rules conditions parsing', () => {
 
   const expectedRules: UserRules = [{
     let: {
-      role: { filter: { _entityType: 'component', type: 'resource', subtype: 'AWS::IAM::Role' }},
+      role: { filter: { entityType: 'component', type: 'resource', subtype: 'AWS::IAM::Role' }},
       change: {
-        filter: {_entityType: 'change'},
+        filter: {entityType: 'change'},
         where: [{
           operator: RuleConditionOperator.appliesTo,
           leftInput: {identifier: 'change'},
@@ -86,9 +86,9 @@ test('Rule processor basic filter', () => {
   const result = new RuleProcessor(diff.generateOutgoingGraph()).processRules(diffTestCase1Rules);
 
   expect(result.size).toEqual(2);
-  expect([...result][0][0]).toMatchObject({ _entityType: 'change', type: 'UPDATE' });
+  expect([...result][0][0]).toMatchObject({ entityType: 'change', type: 'UPDATE' });
   expect([...result][0][1]).toEqual({risk: RuleRisk.High, action: RuleAction.Reject});
-  expect([...result][1][0]).toMatchObject({ _entityType: 'change', type: 'UPDATE' });
+  expect([...result][1][0]).toMatchObject({ entityType: 'change', type: 'UPDATE' });
   expect([...result][1][1]).toEqual({risk: RuleRisk.High, action: RuleAction.Reject});
 });
 
@@ -98,8 +98,8 @@ test('Rule processor appliesTo condition', () => {
 
   const rules = [{
     let: {
-      role: { filter: { _entityType: 'component', type: 'resource', subtype: 'AWS::IAM::Role' }},
-      change: { filter: {_entityType: 'change' }, where: [{
+      role: { filter: { entityType: 'component', type: 'resource', subtype: 'AWS::IAM::Role' }},
+      change: { filter: {entityType: 'change' }, where: [{
         leftInput: {identifier: 'change'},
         operator: RuleConditionOperator.appliesTo,
         rightInput: {identifier: 'role'},
@@ -114,6 +114,6 @@ test('Rule processor appliesTo condition', () => {
 
   const result = new RuleProcessor(diff.generateOutgoingGraph()).processRules(rules);
   expect(result.size).toEqual(1);
-  expect([...result][0][0]).toMatchObject({ _entityType: 'change', type: 'UPDATE' });
+  expect([...result][0][0]).toMatchObject({ entityType: 'change', type: 'UPDATE' });
   expect([...result][0][1]).toEqual({risk: RuleRisk.High, action: RuleAction.Reject});
 });

@@ -8,7 +8,11 @@ import { CUserRules, RuleProcessor, parseRules, UserRules, RuleOutput } from '..
 export function processRules(oldModel: InfraModel, newModel: InfraModel, rules: CUserRules) {
   const diff = new DiffCreator(new Transition({ v1: oldModel, v2: newModel })).create();
   const _rules: UserRules = parseRules(rules);
-  return new RuleProcessor(diff.generateOutgoingGraph()).processRules(_rules);
+  const graph = diff.generateOutgoingGraph();
+  return {
+    graph,
+    rulesOutput: new RuleProcessor(graph).processRules(_rules),
+  };
 }
 
 export function generateReport(oldModel: InfraModel, newModel: InfraModel, rules: CUserRules) {
