@@ -1,6 +1,6 @@
 {
   "name": "@aws-c2a/web-app",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "",
   "scripts": {
     "start": "webpack serve --mode production --open",
@@ -14,7 +14,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@aws-c2a/models": "^0.3.0",
+    "@aws-c2a/models": "^0.3.1",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/styles": "^4.11.3",
@@ -42,5 +42,8 @@
     "webpack": "^5.24.4",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

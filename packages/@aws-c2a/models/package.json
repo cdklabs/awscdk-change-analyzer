@@ -1,6 +1,6 @@
 {
   "name": "@aws-c2a/models",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "The models package for CDK Change Analyzer: a tool that enables detecting dangerous changes within CDK projects.",
   "main": "out/index.js",
   "scripts": {
@@ -44,5 +44,8 @@
     "ts-jest": "^26.5.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
