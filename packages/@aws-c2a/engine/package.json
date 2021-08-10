@@ -1,10 +1,9 @@
 {
-  "name": "@aws-c2a/engin",
+  "name": "@aws-c2a/engine",
   "version": "0.2.5",
   "description": "The CDK Change Analyzer is a tool that enables detecting dangerous changes within CDK projects.",
   "main": "lib/index.js",
   "scripts": {
-    "start": "sh run-on-fixture.sh",
     "build": "yarn clean && yarn compile",
     "compile": "npx tsc --build",
     "clean": "npx tsc --build --clean",

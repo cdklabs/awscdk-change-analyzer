@@ -2,7 +2,8 @@
   "lerna": "3.15.0",
   "npmClient": "yarn",
   "packages": [
-    "packages/*"
+    "packages/*",
+    "packages/@aws-c2a/*"
   ],
   "rejectCycles": true,
   "version": "0.2.5",

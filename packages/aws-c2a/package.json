@@ -35,6 +35,7 @@
     "@types/graphviz": "0.0.32",
     "@types/string-similarity": "^4.0.0",
     "aws-sdk": "^2.949.0",
+    "@aws-c2a/engine": "^0.2.5",
     "@aws-c2a/models": "^0.2.4",
     "colors": "^1.4.0",
     "fifinet": "0.1.7",
