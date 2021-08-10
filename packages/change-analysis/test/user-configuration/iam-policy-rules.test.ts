@@ -6,8 +6,6 @@ import { SecurityChangesRules } from '../../lib/security-changes';
 import { CUserRules } from '../../lib/user-configuration';
 import { arbitraryPolicyStatement, cfnWithPolicyDocument, processRules, firstKey } from '../utils';
 
-const appliesTo = (out: any) => out._label === 'appliesTo';
-
 describe('IAM Policy default rules', () => {
   const BEFORE: Record<any, any> = { Resources: {} };
 
@@ -32,12 +30,12 @@ describe('IAM Policy default rules', () => {
         const newModel = new CFParser('root', after).parse();
         const { graph: g, rulesOutput: result } = processRules(oldModel, newModel, rules);
         const firstVertex = firstKey(result)._id;
-    
+
         // THEN
         expect(g.v(firstVertex).run()).toHaveLength(1);
         expect(g.v(firstVertex).run()[0]).toMatchObject({ type: 'INSERT' });
         expect(g.v(firstVertex).out('appliesTo').filter({entityType: 'component'}).run()).toMatchObject([
-          { subtype: resource }
+          { subtype: resource },
         ]);
       });
 
@@ -54,7 +52,7 @@ describe('IAM Policy default rules', () => {
         const newModel = new CFParser('root', after).parse();
         const { graph: g, rulesOutput: result } = processRules(_oldModel, newModel, rules);
         const firstVertex = firstKey(result)._id;
-    
+
         // THEN
         expect(g.v(firstVertex).run()).toHaveLength(1);
         expect(g.v(firstVertex).run()[0]).toMatchObject({ propertyOperationType: 'INSERT' });
@@ -89,7 +87,7 @@ describe('IAM Policy default rules', () => {
           const newModel = new CFParser('root', after).parse();
           const { graph: g, rulesOutput: result } = processRules(_oldModel, newModel, rules);
           const firstVertex = firstKey(result)._id;
-      
+
           // THEN
           expect(g.v(firstVertex).run()).toHaveLength(1);
           expect(g.v(firstVertex).run()[0]).toMatchObject({ propertyOperationType: 'INSERT' });
@@ -128,7 +126,7 @@ describe('IAM Policy default rules', () => {
           const newModel = new CFParser('root', after).parse();
           const { graph: g, rulesOutput: result } = processRules(_oldModel, newModel, rules);
           const firstVertex = firstKey(result)._id;
-      
+
           // THEN
           expect(g.v(firstVertex).run()).toHaveLength(1);
           expect(g.v(firstVertex).run()[0]).toMatchObject({ propertyOperationType: 'INSERT' });
@@ -166,7 +164,7 @@ describe('IAM Policy default rules', () => {
           const newModel = new CFParser('root', after).parse();
           const { graph: g, rulesOutput: result } = processRules(_oldModel, newModel, rules);
           const firstVertex = firstKey(result)._id;
-      
+
           // THEN
           expect(g.v(firstVertex).run()).toHaveLength(1);
           expect(g.v(firstVertex).run()[0]).toMatchObject({ propertyOperationType: 'INSERT' });
@@ -204,7 +202,7 @@ describe('IAM Policy default rules', () => {
           const newModel = new CFParser('root', after).parse();
           const { graph: g, rulesOutput: result } = processRules(_oldModel, newModel, rules);
           const firstVertex = firstKey(result)._id;
-      
+
           // THEN
           expect(g.v(firstVertex).run()).toHaveLength(1);
           expect(g.v(firstVertex).run()[0]).toMatchObject({ propertyOperationType: 'INSERT' });

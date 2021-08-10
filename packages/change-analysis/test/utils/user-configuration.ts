@@ -11,7 +11,7 @@ export function processRules(oldModel: InfraModel, newModel: InfraModel, rules: 
   const graph = diff.generateOutgoingGraph();
   return {
     graph,
-    rulesOutput: new RuleProcessor(graph).processRules(_rules)
+    rulesOutput: new RuleProcessor(graph).processRules(_rules),
   };
 }
 
