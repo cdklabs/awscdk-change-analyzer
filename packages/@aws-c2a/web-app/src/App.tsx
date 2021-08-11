@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
+import { RuleAction , Aggregation, ComponentOperation, Transition, Component, ChangeAnalysisReport } from '@aws-c2a/models';
 import { Tab, Tabs, AppBar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { ChangeAnalysisReport } from '@aws-c2a/models/change-analysis-report';
 import AggregationsTab from './AggregationsView/AggregationsTab';
 import HierarchicalTab from './HierarchicalView/HierarchicalTab';
-import { Component, ComponentPropertyValue } from '@aws-c2a/models/infra-model';
-import { ComponentOperation, Transition } from '@aws-c2a/models/model-diffing';
-import { Aggregation } from '@aws-c2a/models/aggregations';
-import { findAggregationWithChange } from './selectors/aggregation-helpers';
-import { RuleAction } from '@aws-c2a/models/rules';
+import {  findAggregationWithChange } from './selectors/aggregation-helpers';
 
 interface AppState {
     changeReport: ChangeAnalysisReport,
@@ -50,7 +46,11 @@ const App = ({changeReport}: AppProps) => {
     const [selectedCompTransition, setSelectedCompTransition] = useState(undefined as Transition<Component> | undefined);
     const [selectedAgg, setSelectedAgg] = useState(undefined as Aggregation<ComponentOperation> | undefined);
 
-    const [approvedChanges, setApprovedChanges] = useState<Map<ComponentOperation, RuleAction>>(new Map());
+    const [approvedChanges, setApprovedChanges] = useState<Map<ComponentOperation, RuleAction>>(
+        new Map([...changeReport.rulesOutput]
+            .map(([op, effect]) => [op, effect.action ?? RuleAction.None])
+        )
+    );
     
     const showComponentInHierarchy = (comp: Transition<Component>) => {
         setSelectedTab(1);

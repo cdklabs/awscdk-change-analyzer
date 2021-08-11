@@ -1,9 +1,12 @@
 import React from 'react';
-import { ComponentOperation } from '@aws-c2a/models/model-diffing';
-import { CompOpAggCharacteristics } from '@aws-c2a/models/aggregations';
+import {
+    Aggregation,
+    getAllCharacteristics,
+    ComponentOperation,
+    CompOpAggCharacteristics
+} from '@aws-c2a/models';
 import { Box, IconButton, makeStyles, Theme, Tooltip, Typography } from '@material-ui/core';
 import { Launch as LaunchIcon } from '@material-ui/icons';
-import { Aggregation, getAllDescriptions, getAllCharacteristics } from '@aws-c2a/models/aggregations';
 import CollapsableRow from '../../reusable-components/CollapsableRow';
 import { useIdAssignerHook } from '../../utils/idCreator';
 import { AppContext } from '../../App';
