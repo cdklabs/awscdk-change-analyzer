@@ -11,5 +11,13 @@ Computes the difference between the current cloud assembly state and the current
 outputs the report to a file and returns 0 if no differences are found.
 
 ```sh
-aws-c2a diff --app='path/to/assembly/' --rulesPath='path/to/rules.json' --output='path/to/output.json'
+aws-c2a diff --app='path/to/assembly/' --rules-path='path/to/rules.json' --output='path/to/output.json'
+```
+
+### `aws-c2a gen`
+
+Generate an html file that aggregates the output of `aws-c2a diff`.
+
+```sh
+aws-c2a gen --report='path/to/change-report.json' --output='path/to/index.html'
 ```

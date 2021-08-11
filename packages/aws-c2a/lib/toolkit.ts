@@ -43,12 +43,32 @@ export interface EvaluateDiffOptions {
  * The toolkit for utilizing c2a.
  */
 export class C2AToolkit {
-  private readonly asm: CloudAssembly;
-  private readonly traverser: CfnTraverser;
+  private readonly _host: IC2AHost;
+  private _asm?: CloudAssembly;
+  private _traverser?: CfnTraverser;
 
-  constructor(asm: CloudAssembly, host: IC2AHost) {
-    this.asm = asm;
-    this.traverser = new CfnTraverser(host, asm);
+  constructor(host: IC2AHost, asm?: CloudAssembly) {
+    this._host = host;
+    this._asm = asm;
+    this._traverser = asm ? new CfnTraverser(host, asm) : undefined;
+  }
+
+  public setAsm(_asm: CloudAssembly) {
+    this._asm = _asm;
+  }
+
+  private get asm(): CloudAssembly {
+    if (!this._asm) {
+      throw new Error('C2A Cloud Assembly not attached to Toolkit. Please attach the assembly to the toolkit.');
+    }
+    return this._asm;
+  }
+
+  private get traverser(): CfnTraverser {
+    if (!this._traverser) {
+      this._traverser = new CfnTraverser(this._host, this.asm);
+    }
+    return this._traverser;
   }
 
   public async c2aDiff(options: DiffOptions) {
