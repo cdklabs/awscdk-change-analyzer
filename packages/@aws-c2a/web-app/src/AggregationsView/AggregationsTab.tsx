@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import { ComponentOperation } from '@aws-c2a/models/model-diffing';
+import React from 'react';
 import ChangeTree from './ChangeTree';
 import ChangeDetailsPane from './ChangeDetailsPane/ChangeDetailsPane';
 import { Grid } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Aggregation } from '@aws-c2a/models/aggregations';
-import { useIdAssignerHook } from '../utils/idCreator';
 import { AppContext } from '../App';
+import { useIdAssignerHook } from '../utils/idCreator';
 
 const useStyles = makeStyles((theme: Theme) => ({
     fillHeight: {

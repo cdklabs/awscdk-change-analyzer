@@ -25,7 +25,7 @@ async function parseArguments() {
 
   return yargs
     .usage('Usage: aws-c2a COMMAND')
-    .command('diff --app <cdk-app> [STACKS..]', 'Compares the cdk app the deployed stack or a local template file', yargs => yargs
+    .command('diff [STACKS..]', 'Compares the cdk app the deployed stack or a local template file', yargs => yargs
       .option('app', { type: 'string', alias: 'a', desc: 'REQUIRED: Path to your cloud assembly directory (e.g. "assembly-Pipeline-Stage/")', requiresArg: true, demandOption: true })
       .option('out', { type: 'string', alias: 'o', desc: 'The output file after running the diff', requiresArg: true, default: 'report.json' })
       .option('rules-path', { type: 'string', alias: 'r', desc: 'The rules that you want to diff against', requiresArg: true })
@@ -33,7 +33,7 @@ async function parseArguments() {
       .option('broadening-permissions', { type: 'boolean', desc: 'Add base rules to detect broadening permssions', default: false })
       .option('fail-condition', { choices: failConditions, desc: 'Configure the risk outputs that cause failure', default: FAIL_ON.HIGH }),
     )
-    .command('html --report <report-path>', 'Generate an html file that aggregates the output of aws-c2a diff', yargs => yargs
+    .command('html', 'Generate an html file that aggregates the output of aws-c2a diff', yargs => yargs
       .option('report', { type: 'string', alias: 'r', desc: 'REQUIRED: The file path to the change report', requiresArg: true, demandOption: true })
       .option('out', { type: 'string', alias: 'o', desc: 'The generated html file', requiresArg: true, default: 'index.html' }),
     )

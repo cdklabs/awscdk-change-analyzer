@@ -1,7 +1,13 @@
-import { ComponentOperation, InfraModelDiff, PropertyComponentOperation, Transition, UpdatePropertyComponentOperation } from "@aws-c2a/models/model-diffing";
-
-import { Component, Relationship, StructuralRelationship } from "@aws-c2a/models/infra-model";
-import { isDefined } from "@aws-c2a/models/utils";
+import {
+    Component,
+    Relationship,
+    Transition,
+    StructuralRelationship,
+    isDefined,
+    ComponentOperation,
+    InfraModelDiff,
+    UpdatePropertyComponentOperation
+} from "@aws-c2a/models";
 
 export interface VisualHierarchyNode {
     changes: ComponentOperation[],
