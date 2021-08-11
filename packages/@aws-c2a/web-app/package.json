@@ -1,6 +1,6 @@
 {
   "name": "@aws-c2a/web-app",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "",
   "scripts": {
     "start": "webpack serve --mode production --open",
