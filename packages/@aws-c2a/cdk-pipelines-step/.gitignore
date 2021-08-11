@@ -1,0 +1,14 @@
+# Never save build specific files
+node_modules
+
+# Never save generated files
+out
+out.json
+report.json
+cdk.out
+
+# Save Config Files
+!jest.config.js
+!.eslintrc.js
+!babel.config.js
+
