@@ -94,7 +94,7 @@ export class ChangeAnalysisCheck extends CoreConstruct {
         phases: {
           build: {
             commands: [
-              'npm install -g cdk-change-analyzer',
+              'npm install -g aws-c2a',
               // $CODEBUILD_INITIATOR will always be Code Pipeline and in the form of:
               // "codepipeline/example-pipeline-name-Xxx"
               'export PIPELINE_NAME="$(node -pe \'`${process.env.CODEBUILD_INITIATOR}`.split("/")[1]\')"',
@@ -117,6 +117,8 @@ export class ChangeAnalysisCheck extends CoreConstruct {
                   'export MESSAGE="No changes that violate rules detected."',
                 ],
                 elseStatements: [
+                  'aws-c2a html --report report.json',
+                  'cat index.html',
                   `[ -z "\${NOTIFICATION_ARN}" ] || ${publishNotification}`,
                   'export MESSAGE="Deployment would make security-impacting changes. Click the link below to inspect them, then click Approve if all changes are expected."',
                 ],
