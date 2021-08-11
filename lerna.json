@@ -6,6 +6,6 @@
     "packages/@aws-c2a/*"
   ],
   "rejectCycles": true,
-  "version": "0.3.2",
+  "version": "0.3.3",
   "useWorkspaces": true
 }
