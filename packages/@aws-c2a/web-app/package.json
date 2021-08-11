@@ -5,7 +5,8 @@
   "scripts": {
     "start": "webpack serve --mode production --open",
     "dev": "webpack serve --mode development --open",
-    "build": "webpack --node-env production --mode production"
+    "build": "webpack --node-env production --mode production",
+    "postbuild": "cp dist/index.html fixtures/template.index.html"
   },
   "keywords": [],
   "author": "",
