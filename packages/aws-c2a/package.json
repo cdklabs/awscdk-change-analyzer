@@ -32,6 +32,7 @@
   "dependencies": {
     "@aws-c2a/engine": "^0.3.1",
     "@aws-c2a/models": "^0.3.1",
+    "@aws-c2a/web-app": "^0.3.1",
     "@aws-cdk/cfnspec": "^1.115.0",
     "@aws-cdk/cx-api": "^1.115.0",
     "@types/graphviz": "0.0.32",
@@ -65,6 +66,7 @@
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
     "babel-jest": "^26.6.3",
+    "babel-plugin-inline-import": "^3.0.0",
     "eslint": "^7.19.0",
     "eslint-plugin-import": "^2.23.4",
     "jest": "^26.5.0",

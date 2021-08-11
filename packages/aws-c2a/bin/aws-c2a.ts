@@ -24,14 +24,18 @@ async function parseArguments() {
   //   ./prog --arg one --arg two position  =>  will parse to  { arg: ['one', 'two'], _: ['positional'] }.
 
   return yargs
-    .usage('Usage: aws-c2a -a <cdk-app> COMMAND')
-    .option('app', { type: 'string', alias: 'a', desc: 'REQUIRED: Path to your cloud assembly directory (e.g. "assembly-Pipeline-Stage/")', requiresArg: true, demandOption: true })
-    .command('diff [STACKS..]', 'Compares the cdk app the deployed stack or a local template file', yargs => yargs
+    .usage('Usage: aws-c2a COMMAND')
+    .command('diff --app <cdk-app> [STACKS..]', 'Compares the cdk app the deployed stack or a local template file', yargs => yargs
+      .option('app', { type: 'string', alias: 'a', desc: 'REQUIRED: Path to your cloud assembly directory (e.g. "assembly-Pipeline-Stage/")', requiresArg: true, demandOption: true })
       .option('out', { type: 'string', alias: 'o', desc: 'The output file after running the diff', requiresArg: true, default: 'report.json' })
       .option('rules-path', { type: 'string', alias: 'r', desc: 'The rules that you want to diff against', requiresArg: true })
       .option('fail', { type: 'boolean', desc: 'Fail with exit code 1 if changes detected', default: false })
       .option('broadening-permissions', { type: 'boolean', desc: 'Add base rules to detect broadening permssions', default: false })
       .option('fail-condition', { choices: failConditions, desc: 'Configure the risk outputs that cause failure', default: FAIL_ON.HIGH }),
+    )
+    .command('html --report <report-path>', 'Generate an html file that aggregates the output of aws-c2a diff', yargs => yargs
+      .option('report', { type: 'string', alias: 'r', desc: 'REQUIRED: The file path to the change report', requiresArg: true, demandOption: true })
+      .option('out', { type: 'string', alias: 'o', desc: 'The generated html file', requiresArg: true, default: 'index.html' }),
     )
     .version(versionNumber())
     .alias('v', 'version')
@@ -47,11 +51,16 @@ async function main(): Promise<number> {
   const command = argv._[0];
 
   const host = new DefaultC2AHost();
-  const asm = new CloudAssembly(new cxapi.CloudAssembly(argv.app));
-  const cli = new C2AToolkit(asm, host);
+  const asm = argv.app ? new CloudAssembly(new cxapi.CloudAssembly(argv.app)) : undefined;
+  const cli = new C2AToolkit(host, asm);
 
   switch (command) {
     case 'diff': {
+      if (asm === undefined) {
+        yargs.showHelp();
+        print('\nMissing required argument: app');
+        return 1;
+      }
       return cli.c2aDiff({
         stackNames: (argv.STACKS || []) as string[],
         rulesPath: argv['rules-path'],
@@ -59,6 +68,12 @@ async function main(): Promise<number> {
         fail: argv.fail,
         broadeningPermissions: argv['broadening-permissions'],
         failCondition: argv['fail-condition'],
+      });
+    }
+    case 'html': {
+      return cli.c2aHtml({
+        reportPath: argv.report,
+        outputPath: argv.out,
       });
     }
     default: {
