@@ -28,7 +28,7 @@ export interface DiffOptions {
   failCondition?: FAIL_ON;
 }
 
-export interface GenOptions {
+export interface HtmlOptions {
   reportPath: string;
   outputPath: string;
 }
@@ -99,7 +99,7 @@ export class C2AToolkit {
     return this.evaluateReport(report, options.failCondition) && options.fail ? 1 : 0;
   }
 
-  public async c2aGen(options: GenOptions) {
+  public async c2aHtml(options: HtmlOptions) {
     const report = JSON.stringify(await fs.promises.readFile(options.reportPath, 'utf-8'));
     const template = await fs.promises.readFile(templatePath, 'utf-8');
     const webapp = template.replace('"!!!CDK_CHANGE_ANALYSIS_REPORT"', report);

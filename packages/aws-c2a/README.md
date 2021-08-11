@@ -14,10 +14,10 @@ outputs the report to a file and returns 0 if no differences are found.
 aws-c2a diff --app='path/to/assembly/' --rules-path='path/to/rules.json' --output='path/to/output.json'
 ```
 
-### `aws-c2a gen`
+### `aws-c2a html`
 
 Generate an html file that aggregates the output of `aws-c2a diff`.
 
 ```sh
-aws-c2a gen --report='path/to/change-report.json' --output='path/to/index.html'
+aws-c2a html --report='path/to/change-report.json' --output='path/to/index.html'
 ```

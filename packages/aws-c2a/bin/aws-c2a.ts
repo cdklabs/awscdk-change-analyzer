@@ -33,7 +33,7 @@ async function parseArguments() {
       .option('broadening-permissions', { type: 'boolean', desc: 'Add base rules to detect broadening permssions', default: false })
       .option('fail-condition', { choices: failConditions, desc: 'Configure the risk outputs that cause failure', default: FAIL_ON.HIGH }),
     )
-    .command('gen --report <report-path>', 'Generate an html file that aggregates the output of aws-c2a diff', yargs => yargs
+    .command('html --report <report-path>', 'Generate an html file that aggregates the output of aws-c2a diff', yargs => yargs
       .option('report', { type: 'string', alias: 'r', desc: 'REQUIRED: The file path to the change report', requiresArg: true, demandOption: true })
       .option('out', { type: 'string', alias: 'o', desc: 'The generated html file', requiresArg: true, default: 'index.html' }),
     )
@@ -70,8 +70,8 @@ async function main(): Promise<number> {
         failCondition: argv['fail-condition'],
       });
     }
-    case 'gen': {
-      return cli.c2aGen({
+    case 'html': {
+      return cli.c2aHtml({
         reportPath: argv.report,
         outputPath: argv.out,
       });
