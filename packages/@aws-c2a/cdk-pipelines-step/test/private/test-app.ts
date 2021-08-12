@@ -1,9 +1,9 @@
-import { Construct } from 'constructs';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as s3 from '@aws-cdk/aws-s3';
 import { App, AppProps, Environment, Stage, Stack, StackProps, StageProps } from '@aws-cdk/core';
 import * as cxapi from '@aws-cdk/cx-api';
+import { Construct } from 'constructs';
 
 export function assemblyBuilderOf(stage: Stage): cxapi.CloudAssemblyBuilder {
   return (stage as any)._assemblyBuilder;
@@ -52,7 +52,7 @@ export class OneStackApp extends Stage {
 /**
  * A test stack
  */
- export class BucketStack extends Stack {
+export class BucketStack extends Stack {
   public readonly bucket: s3.IBucket;
 
   constructor(scope: Construct, id: string, props?: StackProps) {

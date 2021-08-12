@@ -73,6 +73,7 @@ export class ChangeAnalysisCheck extends CoreConstruct {
     this.preApproveLambda = preApproveLambda;
 
     this.webappBucket = new s3.Bucket(this, 'C2AWebappBucket', {
+      publicReadAccess: false,
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
@@ -171,6 +172,5 @@ export class ChangeAnalysisCheck extends CoreConstruct {
 
     this.preApproveLambda.grantInvoke(this.c2aDiffProject);
     this.webappBucket.grantReadWrite(this.c2aDiffProject);
-
   }
 }

@@ -1,5 +1,5 @@
-import { Construct } from 'constructs';
 import * as cdkp from '@aws-cdk/pipelines';
+import { Construct } from 'constructs';
 
 export type ModernTestGitHubNpmPipelineProps = Partial<cdkp.CodePipelineProps> & Partial<cdkp.ShellStepProps>;
 
