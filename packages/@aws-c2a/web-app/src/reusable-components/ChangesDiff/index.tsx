@@ -2,10 +2,10 @@ import React, { useCallback } from 'react';
 import { DiffStringOutput } from '../../selectors/diff-stringifier';
 
 interface Props<T> {
-    stringifierOutput: DiffStringOutput<T>,
-    flashObj?: T,
-    onClick?: (path: (string | number)[]) => void
-    isClickable?: (path: (string | number)[]) => boolean
+  stringifierOutput: DiffStringOutput<T>,
+  flashObj?: T,
+  onClick?: (path: (string | number)[]) => void
+  isClickable?: (path: (string | number)[]) => boolean
 }
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,22 +26,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ChangesDiff<T>({stringifierOutput, flashObj, onClick, isClickable}: Props<T>) {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    const opRef = useCallback(node => {
-        if(node?.scrollIntoView){
-            node.scrollIntoView({block: 'end', behavior: 'smooth'});
-            //uncomment to make the diff highlighting slowly disappear
-            //node.style.backgroundColor = 'transparent';
-            //node.style.boxShadow = '0 0 0.5em 0.5em transparent';
-        }
-    },[]);
+  const opRef = useCallback(node => {
+    if(node?.scrollIntoView){
+      node.scrollIntoView({block: 'end', behavior: 'smooth'});
+      //uncomment to make the diff highlighting slowly disappear
+      //node.style.backgroundColor = 'transparent';
+      //node.style.boxShadow = '0 0 0.5em 0.5em transparent';
+    }
+  },[]);
 
-    return (
-        <div className={classes.pre}>
-                <DiffSection stringifierOutput={stringifierOutput} flashRef={(r) => opRef(r)} flashObj={flashObj} onClick={onClick} isClickable={isClickable}/>
-        </div>
-    );
+  return (
+    <div className={classes.pre}>
+      <DiffSection stringifierOutput={stringifierOutput} flashRef={(r) => opRef(r)} flashObj={flashObj} onClick={onClick} isClickable={isClickable}/>
+    </div>
+  );
 }
 
 export default ChangesDiff;

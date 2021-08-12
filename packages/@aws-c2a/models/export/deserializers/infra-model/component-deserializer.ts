@@ -1,19 +1,19 @@
-import { Component, ComponentPropertyValue } from "../../../infra-model";
-import { JSONSerializable, Serialized } from "../../json-serializable";
-import { SerializationID } from "../../json-serializer";
-import { SerializedComponent } from "../../serialized-interfaces/infra-model/serialized-component";
+import { Component, ComponentPropertyValue } from '../../../infra-model';
+import { JSONSerializable, Serialized } from '../../json-serializable';
+import { SerializationID } from '../../json-serializer';
+import { SerializedComponent } from '../../serialized-interfaces/infra-model/serialized-component';
 
 export function componentDeserializer(obj: Serialized, deserialize: (obj: SerializationID) => JSONSerializable): JSONSerializable {
-    const serializedComponent: SerializedComponent = obj as SerializedComponent;
+  const serializedComponent: SerializedComponent = obj as SerializedComponent;
 
-    const component = new Component(
-        serializedComponent.name,
-        serializedComponent.type,
-        {
-            subtype: serializedComponent?.subtype,
-            properties: deserialize(serializedComponent.properties) as ComponentPropertyValue
-        }
-    );
+  const component = new Component(
+    serializedComponent.name,
+    serializedComponent.type,
+    {
+      subtype: serializedComponent?.subtype,
+      properties: deserialize(serializedComponent.properties) as ComponentPropertyValue,
+    },
+  );
 
-    return component;
+  return component;
 }

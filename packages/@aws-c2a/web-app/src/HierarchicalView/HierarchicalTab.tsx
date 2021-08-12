@@ -1,15 +1,15 @@
-import React from 'react';
+import { Component } from '@aws-c2a/models/infra-model';
 import { Transition } from '@aws-c2a/models/model-diffing';
 import { Grid } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import HierarchicalTree from './HierarchicalTree';
-import { Component } from '@aws-c2a/models/infra-model';
-import HierarchicalDetailsPane from './HieralchicalDetailsPane';
+import React from 'react';
 import { AppContext } from '../App';
+import HierarchicalDetailsPane from './HieralchicalDetailsPane';
+import HierarchicalTree from './HierarchicalTree';
 
 interface HierarchicalViewState {
-    selectedCompTransition?: Transition<Component>,
-    setSelectedCompTransition: Function,
+  selectedCompTransition?: Transition<Component>,
+  setSelectedCompTransition: Function,
 }
 
 export const HierarchicalViewContext = React.createContext({} as HierarchicalViewState);
@@ -20,24 +20,24 @@ const useStyles = makeStyles((theme: Theme) => ({
     maxHeight: '100%',
   },
   tree: {
-    zIndex: theme.zIndex.drawer-1
-  }
+    zIndex: theme.zIndex.drawer-1,
+  },
 }));
 
 const HierarchicalTab = () => {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    return (
-        <Grid container spacing={0} className={classes.fillHeight}>
-            <Grid item xs={12} md={6} lg={4} className={`${classes.fillHeight} ${classes.tree}`}>
-                <HierarchicalTree />
-            </Grid>
-            <AppContext.Consumer>{({changeReport, selectedCompTransition}) => 
-                <Grid item xs={12} md={6} lg={8} className={classes.fillHeight}>
-                    <HierarchicalDetailsPane componentTransition={selectedCompTransition} componentOps={selectedCompTransition && changeReport.infraModelDiff.getTransitionOperations(selectedCompTransition)} />
-                </Grid>
-            }</AppContext.Consumer>
+  return (
+    <Grid container spacing={0} className={classes.fillHeight}>
+      <Grid item xs={12} md={6} lg={4} className={`${classes.fillHeight} ${classes.tree}`}>
+        <HierarchicalTree />
+      </Grid>
+      <AppContext.Consumer>{({changeReport, selectedCompTransition}) =>
+        <Grid item xs={12} md={6} lg={8} className={classes.fillHeight}>
+          <HierarchicalDetailsPane componentTransition={selectedCompTransition} componentOps={selectedCompTransition && changeReport.infraModelDiff.getTransitionOperations(selectedCompTransition)} />
         </Grid>
-    );
+      }</AppContext.Consumer>
+    </Grid>
+  );
 };
 export default HierarchicalTab;

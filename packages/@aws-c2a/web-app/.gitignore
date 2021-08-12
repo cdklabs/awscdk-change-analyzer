@@ -1,19 +1,26 @@
-.DS_*
-*.log
-logs
+# Never save user specific files
+*.sublime
+*.DS_*
 **/*.backup.*
 **/*.back.*
 
+# Never save build specific files
 node_modules
 bower_components
 dist
 
-*.sublime*
 
-psd
-thumb
-sketch
+# Never save generated files
+out
+out.json
+report.json
+cdk.out
+*.log
+logs
 
+# Save Config Files
 !package-declarations.d.ts
+!jest.config.js
+!.eslintrc.js
 !babel.config.js
-!webpack.config.js
+
