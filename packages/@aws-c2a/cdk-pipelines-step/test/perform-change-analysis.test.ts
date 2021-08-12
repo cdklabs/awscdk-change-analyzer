@@ -216,5 +216,5 @@ describe('perform change analysis', () => {
         },
       ),
     });
-  })
+  });
 });
