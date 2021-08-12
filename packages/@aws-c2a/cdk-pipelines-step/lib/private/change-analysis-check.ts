@@ -108,9 +108,6 @@ export class ChangeAnalysisCheck extends CoreConstruct {
       ` --message "${message.join('\n')}"`;
 
     this.c2aDiffProject = new codebuild.Project(this, 'CDKChangeAnalysis', {
-      environment: {
-        buildImage: codebuild.LinuxBuildImage.STANDARD_5_0,
-      },
       buildSpec: codebuild.BuildSpec.fromObject({
         version: 0.2,
         phases: {

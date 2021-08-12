@@ -35,7 +35,7 @@ export class PreApproveLambda extends CoreConstruct {
   constructor(scope: Construct, id: string, props: PreApproveLambdaProps) {
     super(scope, id);
 
-    this.preApproveLambda = new lambda.Function(scope, 'CDKPipelinesAutoApprove', {
+    this.preApproveLambda = new lambda.Function(scope, 'C2APipelinesAutoApprove', {
       handler: 'index.handler',
       runtime: lambda.Runtime.NODEJS_14_X,
       code: lambda.Code.fromAsset(path.resolve(__dirname, 'approve-lambda')),
