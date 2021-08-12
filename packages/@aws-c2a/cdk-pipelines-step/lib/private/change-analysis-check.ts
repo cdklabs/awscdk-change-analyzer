@@ -1,8 +1,8 @@
-import * as s3 from '@aws-cdk/aws-s3';
 import * as codebuild from '@aws-cdk/aws-codebuild';
 import * as cp from '@aws-cdk/aws-codepipeline';
 import * as iam from '@aws-cdk/aws-iam';
 import * as lambda from '@aws-cdk/aws-lambda';
+import * as s3 from '@aws-cdk/aws-s3';
 import { RemovalPolicy, Tags } from '@aws-cdk/core';
 import { Construct } from 'constructs';
 import { PreApproveLambda } from './pre-approve-lambda';
@@ -79,7 +79,7 @@ export class ChangeAnalysisCheck extends CoreConstruct {
     const putObject =
       'aws s3api put-object' +
       ` --bucket ${this.webappBucket.bucketName}` +
-      ' --key $STAGE_NAME/index.html' + 
+      ' --key $STAGE_NAME/index.html' +
       ' --body index.html';
 
     const signObject =
@@ -138,7 +138,7 @@ export class ChangeAnalysisCheck extends CoreConstruct {
                 elseStatements: [
                   'aws-c2a html --report report.json',
                   putObject,
-                  `export LINK=\$(${signObject})`,
+                  `export LINK=$(${signObject})`,
                   `[ -z "\${NOTIFICATION_ARN}" ] || ${publishNotification}`,
                   'export MESSAGE="Deployment would make security-impacting changes. Click the link below to inspect them, then click Approve if all changes are expected."',
                 ],

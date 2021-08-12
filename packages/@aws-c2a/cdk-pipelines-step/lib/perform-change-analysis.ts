@@ -2,8 +2,8 @@ import { IStage } from '@aws-cdk/aws-codepipeline';
 import * as cpa from '@aws-cdk/aws-codepipeline-actions';
 import * as sns from '@aws-cdk/aws-sns';
 import { Stage } from '@aws-cdk/core';
-import { Node } from 'constructs';
 import { CodePipeline, CodePipelineActionFactoryResult, ICodePipelineActionFactory, ProduceActionOptions, Step } from '@aws-cdk/pipelines';
+import { Node } from 'constructs';
 import { ChangeAnalysisCheck } from './private/change-analysis-check';
 
 /**
