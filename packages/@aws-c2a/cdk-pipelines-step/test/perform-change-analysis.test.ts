@@ -39,7 +39,7 @@ describe('perform change analysis', () => {
     expect(pipelineStack).toHaveResourceLike('AWS::Lambda::Function', {
       Role: {
         'Fn::GetAtt': [
-          stringLike('CdkPipeline*ChangeAnalysisCheckC2APipelinesAutoApproveServiceRole*'),
+          stringLike('CdkChangeAnalysisCheckC2APipelinesAutoApproveServiceRole*'),
           'Arn',
         ],
       },
