@@ -70,7 +70,7 @@ export class PerformChangeAnalysis extends Step implements ICodePipelineActionFa
   }
 
   private getOrCreateChangeAnalysis(pipeline: CodePipeline): ChangeAnalysisCheck {
-    const id = 'PipelinesChangeAnalysisCheck';
+    const id = 'ChangeAnalysisCheck';
     const existing = Node.of(pipeline).tryFindChild(id);
     if (existing) {
       if (!(existing instanceof ChangeAnalysisCheck)) {
