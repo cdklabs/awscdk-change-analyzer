@@ -80,7 +80,8 @@ export class ChangeAnalysisCheck extends CoreConstruct {
       'aws s3api put-object' +
       ` --bucket ${this.webappBucket.bucketName}` +
       ' --key $STAGE_NAME/index.html' +
-      ' --body index.html';
+      ' --body index.html' +
+      ' --content-type text/html';
 
     const signObject =
       'aws s3 presign' +
