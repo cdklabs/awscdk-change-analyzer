@@ -1,5 +1,4 @@
-import { Aggregation } from '@aws-c2a/models/aggregations';
-import { ComponentOperation } from '@aws-c2a/models/model-diffing';
+import { Aggregation, ComponentOperation } from '@aws-c2a/models';
 
 export function findAggregationWithChange(
   op: ComponentOperation, aggs: Aggregation<ComponentOperation>[],

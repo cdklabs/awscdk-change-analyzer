@@ -36,6 +36,5 @@ export const Intro = () => {
     enabled={true}
     steps={steps}
     initialStep={0}
-    onExit={() => console.log('exited')}
   />;
 };

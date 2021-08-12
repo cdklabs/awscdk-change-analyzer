@@ -22,7 +22,7 @@ const AggregationsTab = () => {
   const idAssigner = useIdAssignerHook();
 
   return (
-    <AppContext.Consumer>{({ selectedAgg, setSelectedAgg }) =>
+    <AppContext.Consumer>{({ selectedAgg }) =>
       <Grid container spacing={0} className={classes.fillHeight}>
         <Grid item xs={12} md={6} lg={4} className={`${classes.fillHeight} ${classes.tree}`}>
           <ChangeTree/>

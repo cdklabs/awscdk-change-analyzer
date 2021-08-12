@@ -1,5 +1,4 @@
-import { Component } from '@aws-c2a/models/infra-model';
-import { ComponentOperation, Transition } from '@aws-c2a/models/model-diffing';
+import { Component, ComponentOperation, Transition } from '@aws-c2a/models';
 import { Box, makeStyles, Theme, Typography } from '@material-ui/core';
 import React from 'react';
 import { AppContext } from '../App';

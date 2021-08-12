@@ -1,13 +1,11 @@
-import { ComponentOperation } from '@aws-c2a/models/model-diffing';
-import { Box, Card, CardContent, IconButton, Tooltip, Typography } from '@material-ui/core';
+import { ComponentOperation } from '@aws-c2a/models';
+import { Card, CardContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 
 import { AppContext } from '../App';
 import { mostRecentInTransition } from '../selectors/component-transition-helpers';
 import { getComponentOperationDescription } from '../selectors/description-generators';
-import { useIdAssignerHook } from '../utils/idCreator';
-import CollapsableRow from './CollapsableRow';
 
 const useStyles = makeStyles({
   root: {
@@ -27,8 +25,6 @@ interface Props {
 
 const SingleChange = ({op}: Props) => {
   const classes = useStyles();
-
-  const idAssigner = useIdAssignerHook();
 
   const componentTypeAndSubtype = `${mostRecentInTransition(op.componentTransition).type} ${mostRecentInTransition(op.componentTransition).subtype ?? ''}`;
 

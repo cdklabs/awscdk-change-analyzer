@@ -1,8 +1,17 @@
-import { ChangeAnalysisReport } from '@aws-c2a/models/change-analysis-report';
-import { Component } from '@aws-c2a/models/infra-model';
-import { ComponentOperation, InsertComponentOperation, RemoveComponentOperation, RenameComponentOperation, Transition } from '@aws-c2a/models/model-diffing';
+import {
+  ChangeAnalysisReport,
+  Component,
+  ComponentOperation,
+  InsertComponentOperation,
+  RemoveComponentOperation,
+  RenameComponentOperation,
+  Transition,
+} from '@aws-c2a/models';
 
-export function getComponentOperationsDescription(compTransition: Transition<Component>, changeReport: ChangeAnalysisReport) {
+export function getComponentOperationsDescription(
+  compTransition: Transition<Component>,
+  changeReport: ChangeAnalysisReport,
+) {
   const ops = changeReport.infraModelDiff.getTransitionOperations(compTransition);
 
   if(!ops.length) return ['Unchanged'];

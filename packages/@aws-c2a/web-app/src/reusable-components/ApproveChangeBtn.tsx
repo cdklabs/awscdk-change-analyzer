@@ -1,5 +1,4 @@
-import { ComponentOperation } from '@aws-c2a/models/model-diffing';
-import { RuleAction } from '@aws-c2a/models/rules';
+import { ComponentOperation, RuleAction } from '@aws-c2a/models';
 import { IconButton, makeStyles, Tooltip } from '@material-ui/core';
 import { Done as DoneIcon, DoneAll as DoneAllIcon, Clear as ClearIcon } from '@material-ui/icons';
 import React, { ReactEventHandler, useContext } from 'react';

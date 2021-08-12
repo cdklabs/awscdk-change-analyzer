@@ -39,7 +39,13 @@ function ChangesDiff<T>({stringifierOutput, flashObj, onClick, isClickable}: Pro
 
   return (
     <div className={classes.pre}>
-      <DiffSection stringifierOutput={stringifierOutput} flashRef={(r) => opRef(r)} flashObj={flashObj} onClick={onClick} isClickable={isClickable}/>
+      <DiffSection
+        stringifierOutput={stringifierOutput}
+        flashRef={(r) => opRef(r)}
+        flashObj={flashObj}
+        onClick={onClick}
+        isClickable={isClickable}
+      />
     </div>
   );
 }

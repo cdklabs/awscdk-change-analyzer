@@ -1,6 +1,10 @@
-import { JSONSerializable, Serialized } from '@aws-c2a/models/export/json-serializable';
-import { Component, InfraModel, StructuralRelationship } from '@aws-c2a/models/infra-model';
-import { Transition } from '@aws-c2a/models/model-diffing';
+import {
+  JSONSerializable,
+  Serialized,
+  Component,
+  StructuralRelationship,
+  Transition,
+} from '@aws-c2a/models';
 
 export function mostRecentInTransition<T extends JSONSerializable | Serialized>(t: Transition<T>): T{
   const mostRecent = t.v2 ?? t.v1;

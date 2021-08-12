@@ -73,10 +73,17 @@ function ChangeDetailsPane({agg}: props) {
             ? <>
               <Typography variant="h5" className={classes.mainCharacteristicDescription}>
                 {(characteristics && characteristics[CompOpAggCharacteristics.OPERATION_TYPE]) ?? 'Changes'}
-                <b>{characteristics && ` ${characteristics[CompOpAggCharacteristics.COMPONENT_TYPE]} ${characteristics[CompOpAggCharacteristics.COMPONENT_SUBTYPE] ?? ''}`}</b>
+                {characteristics &&
+                  <b>{
+                    ` ${characteristics[CompOpAggCharacteristics.COMPONENT_TYPE]}` +
+                    ` ${characteristics[CompOpAggCharacteristics.COMPONENT_SUBTYPE] ?? ''}`
+                  }</b>
+                }
               </Typography>
               {descriptions && descriptions.length &&
-                                <Typography className={classes.characteristicDescription}>{descriptions[descriptions.length - 1]}</Typography>
+                <Typography className={classes.characteristicDescription}>
+                  {descriptions[descriptions.length - 1]}
+                </Typography>
               }
             </>
             : <Typography variant="h5" className={classes.mainCharacteristicDescription}>
@@ -84,7 +91,9 @@ function ChangeDetailsPane({agg}: props) {
             </Typography>
           }
 
-          <Typography className={classes.ocurrencesTitle} variant="h6">Occurrences ({agg.entities.size}):</Typography>
+          <Typography className={classes.ocurrencesTitle} variant="h6">
+            Occurrences ({agg.entities.size}):
+          </Typography>
         </Box>
         <Box className={`${classes.fillParent} ${classes.occurrences}`}>
           {[...agg.entities].map((op,i) =>
@@ -104,7 +113,11 @@ function ChangeDetailsPane({agg}: props) {
               </>}
               title={<b>{getComponentStructuralPath(mostRecentInTransition(op.componentTransition))}</b>}
               content={
-                <ComponentTransitionDetails componentTransition={op.componentTransition} highlightOperation={op} showReferences/>
+                <ComponentTransitionDetails
+                  componentTransition={op.componentTransition}
+                  highlightOperation={op}
+                  showReferences
+                />
               }
             />,
           )}

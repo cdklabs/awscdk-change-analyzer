@@ -1,18 +1,9 @@
-import { Component } from '@aws-c2a/models/infra-model';
-import { Transition } from '@aws-c2a/models/model-diffing';
 import { Grid } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import React from 'react';
 import { AppContext } from '../App';
 import HierarchicalDetailsPane from './HieralchicalDetailsPane';
 import HierarchicalTree from './HierarchicalTree';
-
-interface HierarchicalViewState {
-  selectedCompTransition?: Transition<Component>,
-  setSelectedCompTransition: Function,
-}
-
-export const HierarchicalViewContext = React.createContext({} as HierarchicalViewState);
 
 const useStyles = makeStyles((theme: Theme) => ({
   fillHeight: {
@@ -34,7 +25,10 @@ const HierarchicalTab = () => {
       </Grid>
       <AppContext.Consumer>{({changeReport, selectedCompTransition}) =>
         <Grid item xs={12} md={6} lg={8} className={classes.fillHeight}>
-          <HierarchicalDetailsPane componentTransition={selectedCompTransition} componentOps={selectedCompTransition && changeReport.infraModelDiff.getTransitionOperations(selectedCompTransition)} />
+          <HierarchicalDetailsPane
+            componentTransition={selectedCompTransition}
+            componentOps={selectedCompTransition &&
+              changeReport.infraModelDiff.getTransitionOperations(selectedCompTransition)} />
         </Grid>
       }</AppContext.Consumer>
     </Grid>

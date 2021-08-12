@@ -4,18 +4,18 @@ import { makeStyles } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import AggregationsTab from './AggregationsView/AggregationsTab';
 import HierarchicalTab from './HierarchicalView/HierarchicalTab';
-import {  findAggregationWithChange } from './selectors/aggregation-helpers';
+import { findAggregationWithChange } from './selectors/aggregation-helpers';
 
 interface AppState {
   changeReport: ChangeAnalysisReport,
   showComponentInHierarchy: (comp: Transition<Component>) => void,
   selectedCompTransition?: Transition<Component>,
-  setSelectedCompTransition: Function,
+  setSelectedCompTransition: React.Dispatch<React.SetStateAction<Transition<Component> | undefined>>,
   selectedAgg?: Aggregation<ComponentOperation>,
-  setSelectedAgg: Function,
-  setSelectedChange: Function,
-  showAggregation: Function,
-  setChangesApproval: Function,
+  setSelectedAgg:  React.Dispatch<React.SetStateAction<Aggregation<ComponentOperation> | undefined>>,
+  setSelectedChange: (op: ComponentOperation) => void,
+  showAggregation: (agg: Aggregation<ComponentOperation>) => void,
+  setChangesApproval: (changes: ComponentOperation[], state: RuleAction) => void,
   approvedChanges: Map<ComponentOperation, RuleAction>,
 }
 

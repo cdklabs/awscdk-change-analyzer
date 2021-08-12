@@ -39,7 +39,10 @@ function buildVisualHierarchyForComponentTransition(
     .filter(isDefined)
     .sort((r1, r2) => (r1.changes.length < r2.changes.length) ? 1 : -1);
 
-  const changes = innerNodes.reduce((acc, t) => [...acc, ...t.changes], modelDiff.getTransitionOperations(compTransition).flatMap(op => op instanceof UpdatePropertyComponentOperation ? op.getLeaves() : op));
+  const changes = innerNodes.reduce((acc, t) => {
+    return [...acc, ...t.changes];
+  }, modelDiff.getTransitionOperations(compTransition)
+    .flatMap(op => op instanceof UpdatePropertyComponentOperation ? op.getLeaves() : op));
   return {
     changes,
     compTransition,
@@ -48,7 +51,8 @@ function buildVisualHierarchyForComponentTransition(
 }
 
 function getChildNodes(outgoingRelationships: Relationship[], modelDiff: InfraModelDiff): Transition<Component>[]{
-  const structuralRelationships = outgoingRelationships.filter(r => r instanceof StructuralRelationship) as StructuralRelationship[];
+  const structuralRelationships = outgoingRelationships
+    .filter(r => r instanceof StructuralRelationship) as StructuralRelationship[];
 
   return [...new Set(structuralRelationships.map(r => {
     try {

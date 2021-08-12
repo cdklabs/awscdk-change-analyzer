@@ -1,9 +1,9 @@
-import { Accordion as MuiAccordion, AccordionDetails, AccordionSummary, Box, Hidden, Theme, Typography } from '@material-ui/core';
+import { Accordion as MuiAccordion, AccordionDetails, AccordionSummary, Theme, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
 
 import { withStyles } from '@material-ui/styles';
-import React, { Ref, useEffect, useRef, useState } from 'react';
+import React, { Ref, useState } from 'react';
 
 const useStyles = makeStyles((theme: Theme) => ({
   wrapper: {
@@ -90,7 +90,7 @@ interface Props {
   content?: React.ReactNode,
   color?: string,
   expanded?: boolean,
-  onChange?: (event: React.ChangeEvent<{}>, expanded: boolean) => void,
+  onChange?: (event: React.ChangeEvent<any>, expanded: boolean) => void,
   selected?: boolean,
   stretchOnExpand?: boolean,
   stickySummary?: boolean,
@@ -104,14 +104,19 @@ const CollapsableRow = React.forwardRef((props: Props, ref?: Ref<HTMLDivElement>
   if(!onChange){
     const expandedUseState = useState(expanded ?? false);
     expanded = expandedUseState[0];
-    onChange = (e, expanded) => expandedUseState[1](expanded);
+    onChange = (_e, didExpand) => expandedUseState[1](didExpand);
   }
   const {title, description, content, icon, rightIcon} = props;
   const classes = useStyles({...props, expanded});
 
   return (
     <div ref={ref} className={classes.wrapper}>
-      <Accordion className={classes.root} onChange={onChange} expanded={content ? expanded : false} TransitionProps={{ unmountOnExit: true, ...props.disableAnimation ? {timeout: 0} : {} }}>
+      <Accordion
+        className={classes.root}
+        onChange={onChange}
+        expanded={content ? expanded : false}
+        TransitionProps={{ unmountOnExit: true, ...props.disableAnimation ? {timeout: 0} : {} }}
+      >
         <AccordionSummary className={classes.head} expandIcon={content ? <ExpandMoreIcon /> : <React.Fragment/>}>
           <Typography className={classes.headIcon}>{icon}</Typography>
           <div className={classes.headText}>

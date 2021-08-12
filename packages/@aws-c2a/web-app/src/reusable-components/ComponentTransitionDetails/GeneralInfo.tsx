@@ -1,5 +1,4 @@
-import { Component } from '@aws-c2a/models/infra-model';
-import { ComponentOperation, Transition } from '@aws-c2a/models/model-diffing';
+import { Component, ComponentOperation, Transition } from '@aws-c2a/models';
 import { Typography } from '@material-ui/core';
 import React from 'react';
 import { mostRecentInTransition } from '../../selectors/component-transition-helpers';
@@ -10,7 +9,7 @@ interface Props {
   highlightOperation?: ComponentOperation,
 }
 
-export const GeneralInfo = ({compTransition, highlightOperation}: Props) => {
+export const GeneralInfo = ({compTransition}: Props) => {
   return <>
     <Typography><b>{mostRecentInTransition(compTransition).type}</b> {mostRecentInTransition(compTransition).subtype ?? ''}</Typography>
     <br/>

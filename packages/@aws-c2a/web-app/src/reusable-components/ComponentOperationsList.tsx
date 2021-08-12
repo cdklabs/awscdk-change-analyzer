@@ -1,8 +1,6 @@
-import { Component } from '@aws-c2a/models/infra-model';
-import { ComponentOperation, Transition } from '@aws-c2a/models/model-diffing';
+import { Component, ComponentOperation, Transition } from '@aws-c2a/models';
 import { List, ListItem, Typography } from '@material-ui/core';
-import React, { useContext } from 'react';
-import { AppContext } from '../App';
+import React from 'react';
 import { getComponentOperationDescription } from '../selectors/description-generators';
 
 interface Props {

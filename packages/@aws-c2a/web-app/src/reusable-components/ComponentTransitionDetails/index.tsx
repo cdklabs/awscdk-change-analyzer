@@ -1,8 +1,5 @@
-import { Component } from '@aws-c2a/models/infra-model';
-import { ComponentOperation, PropertyComponentOperation, Transition } from '@aws-c2a/models/model-diffing';
-import { isDefined } from '@aws-c2a/models/utils';
-import { Theme } from '@material-ui/core';
-import { makeStyles, Paper, Tab, Tabs, Tooltip, Typography } from '@material-ui/core';
+import { Component, ComponentOperation, PropertyComponentOperation, Transition, isDefined } from '@aws-c2a/models';
+import { makeStyles, Paper, Tab, Tabs, Theme } from '@material-ui/core';
 import {
   Code as CodeIcon,
   ArrowRightAlt as ArrowRightAltIcon,
@@ -84,7 +81,7 @@ function ComponentTransitionDetails({componentTransition, highlightOperation, sh
     },
   };
 
-  const [selectedPanel, setSelectedPanel] = useState(Object.keys(panels).find(title => panels[title].condition !== false));
+  const [selectedPanel, setSelectedPanel] = useState(Object.keys(panels).find(t => panels[t].condition !== false));
   const menuRef = useRef<HTMLButtonElement>(null);
   const [menuTop, setMenuTop] = useState(0);
   useEffect(() => {

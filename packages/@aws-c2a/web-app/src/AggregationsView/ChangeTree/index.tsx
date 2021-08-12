@@ -1,7 +1,11 @@
-import { groupArrayBy, isDefined } from '@aws-c2a/models';
-import { CompOpAggCharacteristics, Aggregation } from '@aws-c2a/models/aggregations';
-import { ComponentOperation } from '@aws-c2a/models/model-diffing';
-import { RuleRisk } from '@aws-c2a/models/rules';
+import {
+  groupArrayBy,
+  isDefined,
+  CompOpAggCharacteristics,
+  ComponentOperation,
+  Aggregation,
+  RuleRisk,
+} from '@aws-c2a/models';
 import { List, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -13,7 +17,6 @@ import React, { useContext, useState } from 'react';
 import { AppContext } from '../../App';
 import ChangesGroup from '../../reusable-components/ChangesGroup';
 import CollapsableRow from '../../reusable-components/CollapsableRow';
-
 
 const useStyles = makeStyles({
   root: {

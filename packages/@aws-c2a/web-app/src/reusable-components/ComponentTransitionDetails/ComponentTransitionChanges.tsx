@@ -1,8 +1,6 @@
-import { Component } from '@aws-c2a/models/infra-model';
-import { Transition } from '@aws-c2a/models/model-diffing';
+import { Component, Transition } from '@aws-c2a/models';
 import { List, Typography } from '@material-ui/core';
-import React from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { AppContext } from '../../App';
 import { useIdAssignerHook } from '../../utils/idCreator';
 import ChangesGroup from '../ChangesGroup';

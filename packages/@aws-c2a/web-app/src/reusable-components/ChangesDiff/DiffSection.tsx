@@ -1,4 +1,4 @@
-import { Fade, Tooltip, Typography } from '@material-ui/core';
+import { makeStyles, Fade, Tooltip } from '@material-ui/core';
 import React from 'react';
 import { DiffHighlightType, DiffStringOutput, Highlights } from '../../selectors/diff-stringifier';
 
@@ -9,9 +9,6 @@ interface Props<T> {
   onClick?: (path: (string | number)[]) => void
   isClickable?: (path: (string | number)[]) => boolean
 }
-
-import { makeStyles } from '@material-ui/core/styles';
-import { isDefined } from '@aws-c2a/models/utils';
 
 const useStyles = makeStyles({
   pre: {
@@ -53,8 +50,15 @@ function DiffSection<T>({stringifierOutput, flashObj, flashRef, onClick, isClick
         key={i}
         className={classes.pre}
         ref={hasFlashObj ? flashRef : undefined}
-        style={{...hasFlashObj ? flashStyle : {}}}>
-        {<DiffSection stringifierOutput={chunk} flashObj={flashObj} flashRef={flashRef} onClick={onClick} isClickable={isClickable} />}
+        style={{...hasFlashObj ? flashStyle : {}}}
+      >
+        <DiffSection
+          stringifierOutput={chunk}
+          flashObj={flashObj}
+          flashRef={flashRef}
+          onClick={onClick}
+          isClickable={isClickable}
+        />
       </div>;
     } else {
       const {str, highlights} = chunk;

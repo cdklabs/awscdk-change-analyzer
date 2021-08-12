@@ -1,7 +1,6 @@
-import { ComponentOperation } from '@aws-c2a/models/model-diffing';
-import { List, ListItem, Typography } from '@material-ui/core';
-import React from 'react';
-import { useContext } from 'react';
+import { ComponentOperation } from '@aws-c2a/models';
+import { Typography } from '@material-ui/core';
+import React, { useContext } from 'react';
 import { AppContext } from '../../App';
 import { ComponentOperationsList } from '../ComponentOperationsList';
 
