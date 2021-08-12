@@ -74,6 +74,7 @@ export class ChangeAnalysisCheck extends CoreConstruct {
 
     this.webappBucket = new s3.Bucket(this, 'C2AWebappBucket', {
       publicReadAccess: false,
+      autoDeleteObjects: true,
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
