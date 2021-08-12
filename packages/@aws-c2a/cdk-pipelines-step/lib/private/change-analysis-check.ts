@@ -173,6 +173,7 @@ export class ChangeAnalysisCheck extends CoreConstruct {
     }));
 
     this.preApproveLambda.grantInvoke(this.c2aDiffProject);
-    this.webappBucket.grantWrite(this.c2aDiffProject);
+    this.webappBucket.grantReadWrite(this.c2aDiffProject);
+
   }
 }

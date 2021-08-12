@@ -25,7 +25,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@aws-cdk/cfnspec": "^1.90.0",
+    "@aws-cdk/cfnspec": "^1.115.0",
     "fifinet": "0.1.7"
   },
   "devDependencies": {
