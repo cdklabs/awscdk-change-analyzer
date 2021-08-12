@@ -17,9 +17,14 @@ export const ComponentOperationsList = ({ops}: Props) => {
   };
 
   return <List>
-    {ops.map(op => <ListItem><Typography>
-      {getCompInfo(op.componentTransition)}
-      <br/>{getComponentOperationDescription(op)}
-    </Typography></ListItem>)}
+    {ops.map(op =>
+      <ListItem key={op.nodeData._id}>
+        <Typography>
+          {getCompInfo(op.componentTransition)}
+          <br/>
+          {getComponentOperationDescription(op)}
+        </Typography>
+      </ListItem>,
+    )}
   </List>;
 };

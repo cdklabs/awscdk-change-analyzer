@@ -19,7 +19,7 @@ export const ComponentTransitionChanges = ({compTransition}: Props) => {
     {
       aggregations && aggregations.length ? aggregations.map(
         agg => <ChangesGroup key={idAssigner.get(agg)} agg={agg}/>,
-      ) : <Typography>'This object has suffered no changes'</Typography>
+      ) : <Typography>&lsquo;This object has suffered no changes&rsquo;</Typography>
     }
   </List>;
 };
