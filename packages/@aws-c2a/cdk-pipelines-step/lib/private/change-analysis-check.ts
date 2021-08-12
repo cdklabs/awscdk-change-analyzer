@@ -1,8 +1,9 @@
+import * as s3 from '@aws-cdk/aws-s3';
 import * as codebuild from '@aws-cdk/aws-codebuild';
 import * as cp from '@aws-cdk/aws-codepipeline';
 import * as iam from '@aws-cdk/aws-iam';
 import * as lambda from '@aws-cdk/aws-lambda';
-import { Tags } from '@aws-cdk/core';
+import { RemovalPolicy, Tags } from '@aws-cdk/core';
 import { Construct } from 'constructs';
 import { PreApproveLambda } from './pre-approve-lambda';
 import { ifElse } from './security-check-utils';
@@ -53,6 +54,11 @@ export class ChangeAnalysisCheck extends CoreConstruct {
    * - If changes are detected, CodeBuild will exit into a ManualApprovalAction
    */
   public readonly c2aDiffProject: codebuild.Project;
+  /**
+   * A S3 Bucket that stores all the generated web apps created from
+   * the change reports.
+   */
+  public readonly webappBucket: s3.Bucket;
 
   constructor(scope: Construct, id: string, props: ChangeAnalysisCheckProps) {
     super(scope, id);
@@ -61,10 +67,25 @@ export class ChangeAnalysisCheck extends CoreConstruct {
       includeResourceTypes: ['AWS::CodePipeline::Pipeline'],
     });
 
-    const { preApproveLambda, invokeLambda } = new PreApproveLambda(this, 'CDKPreApproveLambda', {
+    const { preApproveLambda, invokeLambda } = new PreApproveLambda(this, 'C2APreApproveLambda', {
       pipelineTag: 'CHANGE_ANALYSIS',
     });
     this.preApproveLambda = preApproveLambda;
+
+    this.webappBucket = new s3.Bucket(this, 'C2AWebappBucket', {
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
+
+    const putObject =
+      'aws s3api put-object' +
+      ` --bucket ${this.webappBucket.bucketName}` +
+      ' --key $STAGE_NAME/index.html' + 
+      ' --body index.html';
+
+    const signObject =
+      'aws s3 presign' +
+      ` s3://${this.webappBucket.bucketName}/$STAGE_NAME/index.html` +
+      ' --expires-in 604800';
 
     const message = [
       'An upcoming change would violate configured rules settings in $PIPELINE_NAME.',
@@ -85,7 +106,7 @@ export class ChangeAnalysisCheck extends CoreConstruct {
       ' --subject "$NOTIFICATION_SUBJECT"' +
       ` --message "${message.join('\n')}"`;
 
-    this.c2aDiffProject = new codebuild.Project(this, 'CDKSecurityCheck', {
+    this.c2aDiffProject = new codebuild.Project(this, 'CDKChangeAnalysis', {
       environment: {
         buildImage: codebuild.LinuxBuildImage.STANDARD_5_0,
       },
@@ -105,8 +126,6 @@ export class ChangeAnalysisCheck extends CoreConstruct {
               'ACCOUNT_ID="$(node -pe \'`${process.env.ARN}`.split(":")[4]\')"',
               'PROJECT_NAME="$(node -pe \'`${process.env.ARN}`.split(":")[5].split("/")[1]\')"',
               'PROJECT_ID="$(node -pe \'`${process.env.ARN}`.split(":")[6]\')"',
-              // Manual Approval adds 'http/https' to the resolved link
-              'export LINK="https://$REGION.console.aws.amazon.com/codesuite/codebuild/$ACCOUNT_ID/projects/$PROJECT_NAME/build/$PROJECT_NAME:$PROJECT_ID/?region=$REGION"',
               'export PIPELINE_LINK="https://$REGION.console.aws.amazon.com/codesuite/codepipeline/pipelines/$PIPELINE_NAME/view?region=$REGION"',
               // Run invoke only if cdk diff passes (returns exit code 0)
               // 0 -> true, 1 -> false
@@ -118,7 +137,8 @@ export class ChangeAnalysisCheck extends CoreConstruct {
                 ],
                 elseStatements: [
                   'aws-c2a html --report report.json',
-                  'cat index.html',
+                  putObject,
+                  `export LINK=\$(${signObject})`,
                   `[ -z "\${NOTIFICATION_ARN}" ] || ${publishNotification}`,
                   'export MESSAGE="Deployment would make security-impacting changes. Click the link below to inspect them, then click Approve if all changes are expected."',
                 ],
@@ -147,10 +167,11 @@ export class ChangeAnalysisCheck extends CoreConstruct {
     }));
 
     this.c2aDiffProject.addToRolePolicy(new iam.PolicyStatement({
-      actions: ['cloudformation:GetTemplate', 'cloudformation:DescribeStack'],
+      actions: ['cloudformation:GetTemplate', 'cloudformation:DescribeStackResources', 'cloudformation:DescribeStacks'],
       resources: ['*'],
     }));
 
     this.preApproveLambda.grantInvoke(this.c2aDiffProject);
+    this.webappBucket.grantWrite(this.c2aDiffProject);
   }
 }
