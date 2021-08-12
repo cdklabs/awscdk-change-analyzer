@@ -34,7 +34,8 @@ describe('perform change analysis', () => {
     });
 
     // THEN
-    expect(pipelineStack).toCountResources('AWS::Lambda::Function', 1);
+    // 1 for lambda to auto delete s3, 1 for auto approve lambda
+    expect(pipelineStack).toCountResources('AWS::Lambda::Function', 2);
     expect(pipelineStack).toHaveResourceLike('AWS::Lambda::Function', {
       Role: {
         'Fn::GetAtt': [
