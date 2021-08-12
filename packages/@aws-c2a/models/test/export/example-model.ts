@@ -94,5 +94,8 @@ export const buildDiff = (): InfraModelDiff => {
 
   const infraModelTransition =  new Transition<InfraModel>({v1: infraModelv1, v2: infraModelv2});
 
-  return new InfraModelDiff([directChangeComponent1, directChangeComponent2], [component1Transition, component2Transition], infraModelTransition);
+  return new InfraModelDiff(
+    [directChangeComponent1, directChangeComponent2],
+    [component1Transition, component2Transition], infraModelTransition,
+  );
 };

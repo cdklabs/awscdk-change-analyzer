@@ -1,4 +1,4 @@
-import { ChangeAnalysisReport } from '../../change-analysis-report';
+// import { ChangeAnalysisReport } from '../../change-analysis-report';
 import { buildDiff } from './example-model';
 
 // TODO: Fix test

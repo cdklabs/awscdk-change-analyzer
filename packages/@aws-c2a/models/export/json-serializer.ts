@@ -10,7 +10,12 @@ export class JSONSerializer {
   public add(obj: JSONSerializable): SerializationID {
     const id = this.encodedReferences.get(obj);
     if(!id){ //for performance. Would not want to serialize the object if it already exists
-      return this.addCustom(obj, obj.getSerializationClass(), obj.toSerialized(this.add.bind(this), this.addCustom.bind(this)));
+      return this.addCustom(
+        obj,
+        obj.getSerializationClass(),
+        obj.toSerialized(this.add.bind(this),
+          this.addCustom.bind(this)),
+      );
     }
     return id;
   }

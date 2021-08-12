@@ -3,7 +3,10 @@ import { JSONSerializable, Serialized } from '../../json-serializable';
 import { SerializationID } from '../../json-serializer';
 import { SerializedAggregation } from '../../serialized-interfaces/aggregations/serialized-aggregation';
 
-export function aggregationDeserializer<T extends JSONSerializable>(obj: Serialized, deserialize: (obj: SerializationID) => any): Aggregation<T> {
+export function aggregationDeserializer<T extends JSONSerializable>(
+  obj: Serialized,
+  deserialize: (obj: SerializationID) => any,
+): Aggregation<T> {
   const serialized = obj as SerializedAggregation;
 
   const agg = {

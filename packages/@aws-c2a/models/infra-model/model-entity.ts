@@ -30,7 +30,9 @@ export class ModelEntity<
       key,
     });
 
-    return this.explodeDirectReferences().filter(({ref}) => isDefined(ref)).map(({refName, ref, key}) => createModelEntityEdge(refName, ref, key));
+    return this.explodeDirectReferences()
+      .filter(({ref}) => isDefined(ref))
+      .map(({refName, ref, key}) => createModelEntityEdge(refName, ref, key));
   }
 
   private explodeDirectReferences(): {refName: string, ref: ModelEntity, key?: string}[] {

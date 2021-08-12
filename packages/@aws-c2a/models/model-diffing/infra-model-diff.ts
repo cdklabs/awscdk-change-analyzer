@@ -13,8 +13,23 @@ type OutgoingNodeReferences = {
   readonly componentTransitions: Transition<Component>[],
   readonly infraModelTransition: Transition<InfraModel>,
 }
-// eslint-disable-next-line @typescript-eslint/ban-types
-export class InfraModelDiff extends ModelEntity<{}, OutgoingNodeReferences> implements JSONSerializable {
+
+export class InfraModelDiff
+  extends ModelEntity<Record<string, Serialized>, OutgoingNodeReferences>
+  implements JSONSerializable
+{
+  private static createComponentTransitionMap(
+    componentTransitions: Transition<Component>[],
+  ): Map<Component, Transition<Component>> {
+    return new Map(
+      flatMap(componentTransitions, t => [[t.v1, t], [t.v2, t]])
+        .filter(([v]) => isDefined(v)) as [Component, Transition<Component>][],
+    );
+  }
+
+  private static createComponentTransitionToOperationsMap(componentOperations: ComponentOperation[]) {
+    return groupArrayBy(componentOperations, o => o.componentTransition);
+  }
 
   private readonly componentToTransitionMap: Map<Component, Transition<Component>>;
   private readonly componentTransitionToOperationsMap: Map<Transition<Component>, ComponentOperation[]>;
@@ -30,22 +45,9 @@ export class InfraModelDiff extends ModelEntity<{}, OutgoingNodeReferences> impl
   ){
     super('diff', {}, {componentOperations, componentTransitions, infraModelTransition});
     this.componentToTransitionMap = InfraModelDiff.createComponentTransitionMap(componentTransitions);
-    this.componentTransitionToOperationsMap = InfraModelDiff.createComponentTransitionToOperationsMap(componentOperations);
+    this.componentTransitionToOperationsMap =
+      InfraModelDiff.createComponentTransitionToOperationsMap(componentOperations);
   }
-
-  private static createComponentTransitionMap(
-    componentTransitions: Transition<Component>[],
-  ): Map<Component, Transition<Component>> {
-    return new Map(
-      flatMap(componentTransitions, t => [[t.v1, t], [t.v2, t]])
-        .filter(([v]) => isDefined(v)) as [Component, Transition<Component>][],
-    );
-  }
-
-  private static createComponentTransitionToOperationsMap(componentOperations: ComponentOperation[]) {
-    return groupArrayBy(componentOperations, o => o.componentTransition);
-  }
-
   public getComponentTransition(e: Component): Transition<Component>{
     const t = this.componentToTransitionMap.get(e);
     if(!t)

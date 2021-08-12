@@ -15,11 +15,15 @@ export type PropOpOutgoingNodeReferences = OpOutgoingNodeReferences & {
   readonly pathTransition: Transition<PropertyPath>,
 }
 
-export abstract class PropertyComponentOperation<ND extends OpNodeData = any, OR extends PropOpOutgoingNodeReferences = any>
-  extends ComponentOperation<ND & InternalOpNodeData, OR> {
+export abstract class PropertyComponentOperation
+<ND extends OpNodeData = any, OR extends PropOpOutgoingNodeReferences = any>
+  extends ComponentOperation<ND & InternalOpNodeData, OR>
+{
 
   public get pathTransition(): Transition<PropertyPath> { return this.outgoingNodeReferences.pathTransition; }
-  public get propertyTransition(): Transition<ComponentPropertyValue> { return this.outgoingNodeReferences.propertyTransition; }
+  public get propertyTransition(): Transition<ComponentPropertyValue> {
+    return this.outgoingNodeReferences.propertyTransition;
+  }
   public get propertyOperationType(): OperationType { return this.nodeData.propertyOperationType; }
 
   constructor(
@@ -72,8 +76,9 @@ export abstract class PropertyComponentOperation<ND extends OpNodeData = any, OR
   }
 }
 
-export class InsertPropertyComponentOperation extends PropertyComponentOperation<OpNodeData, PropOpOutgoingNodeReferences> {
-
+export class InsertPropertyComponentOperation
+  extends PropertyComponentOperation<OpNodeData, PropOpOutgoingNodeReferences>
+{
   constructor(
     nodeData: OpNodeData,
     outgoingReferences: PropOpOutgoingNodeReferences,
@@ -110,9 +115,12 @@ export type UpdatePropOpOutgoingNodeReferences = PropOpOutgoingNodeReferences & 
   readonly innerOperations?: PropertyComponentOperation[],
 }
 
-export class UpdatePropertyComponentOperation extends PropertyComponentOperation<OpNodeData, UpdatePropOpOutgoingNodeReferences> {
-
-  public get innerOperations(): PropertyComponentOperation[] | undefined { return this.outgoingNodeReferences.innerOperations; }
+export class UpdatePropertyComponentOperation
+  extends PropertyComponentOperation<OpNodeData, UpdatePropOpOutgoingNodeReferences>
+{
+  public get innerOperations(): PropertyComponentOperation[] | undefined {
+    return this.outgoingNodeReferences.innerOperations;
+  }
 
   constructor(
     nodeData: OpNodeData,

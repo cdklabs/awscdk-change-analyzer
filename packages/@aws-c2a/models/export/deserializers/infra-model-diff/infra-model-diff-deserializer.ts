@@ -4,7 +4,10 @@ import { JSONSerializable, Serialized } from '../../json-serializable';
 import { SerializationID } from '../../json-serializer';
 import { SerializedInfraModelDiff } from '../../serialized-interfaces/infra-model-diff/serialized-infra-model-diff';
 
-export function infraModelDiffDeserializer(obj: Serialized, deserialize: (obj: SerializationID) => JSONSerializable): JSONSerializable {
+export function infraModelDiffDeserializer(
+  obj: Serialized,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): JSONSerializable {
   const serialized = obj as SerializedInfraModelDiff;
 
   return new InfraModelDiff(

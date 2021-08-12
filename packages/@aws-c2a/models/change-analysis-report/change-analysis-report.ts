@@ -3,7 +3,7 @@ import { JSONSerializable, Serialized } from '../export/json-serializable';
 import { SerializationClasses } from '../export/serialization-classes';
 import { SerializedChangeAnalysisReport } from '../export/serialized-interfaces/serialized-change-analysis-report';
 import { Component } from '../infra-model';
-import { ComponentOperation, InfraModelDiff, Transition, UpdatePropertyComponentOperation } from '../model-diffing';
+import { ComponentOperation, InfraModelDiff, Transition } from '../model-diffing';
 import { RuleEffect } from '../rules';
 import { fromEntries } from '../utils';
 

@@ -3,7 +3,10 @@ import { JSONSerializable, Serialized } from '../../json-serializable';
 import { SerializationID } from '../../json-serializer';
 import { SerializedComponent } from '../../serialized-interfaces/infra-model/serialized-component';
 
-export function componentDeserializer(obj: Serialized, deserialize: (obj: SerializationID) => JSONSerializable): JSONSerializable {
+export function componentDeserializer(
+  obj: Serialized,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): JSONSerializable {
   const serializedComponent: SerializedComponent = obj as SerializedComponent;
 
   const component = new Component(

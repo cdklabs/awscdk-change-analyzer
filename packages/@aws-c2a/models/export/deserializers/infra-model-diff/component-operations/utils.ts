@@ -1,8 +1,8 @@
-import { Component, ComponentPropertyValue, PropertyPath, Relationship } from '../../../../infra-model';
+import { Component, ComponentPropertyValue, PropertyPath } from '../../../../infra-model';
 import { ComponentOperation, OperationCertainty, OpNodeData, OpOutgoingNodeReferences, PropertyComponentOperation, PropOpOutgoingNodeReferences, Transition, UpdatePropOpOutgoingNodeReferences } from '../../../../model-diffing/';
 import { JSONSerializable } from '../../../json-serializable';
 import { SerializationID } from '../../../json-serializer';
-import { SerializedComponentOperation, SerializedOutgoingRelationshipComponentOperation, SerializedPropertyComponentOperation, SerializedUpdatePropertyComponentOperation } from '../../../serialized-interfaces/infra-model-diff/serialized-component-operation';
+import { SerializedComponentOperation, SerializedPropertyComponentOperation, SerializedUpdatePropertyComponentOperation } from '../../../serialized-interfaces/infra-model-diff/serialized-component-operation';
 
 export function deserializeOpNodeData(serialized: SerializedComponentOperation): OpNodeData {
   return {
@@ -10,7 +10,10 @@ export function deserializeOpNodeData(serialized: SerializedComponentOperation):
   };
 }
 
-export function deserializeOpOutoingNodeReferences(serialized: SerializedComponentOperation, deserialize: (obj: SerializationID) => JSONSerializable): OpOutgoingNodeReferences {
+export function deserializeOpOutoingNodeReferences(
+  serialized: SerializedComponentOperation,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): OpOutgoingNodeReferences {
   return {
     cause: serialized.cause ? deserialize(serialized.cause) as ComponentOperation : undefined,
     componentTransition: deserialize(serialized.componentTransition) as Transition<Component>,
@@ -18,8 +21,10 @@ export function deserializeOpOutoingNodeReferences(serialized: SerializedCompone
 }
 
 // PropertyComponentOperations
-
-export function deserializePropOpOutoingNodeReferences(serialized: SerializedPropertyComponentOperation, deserialize: (obj: SerializationID) => JSONSerializable): PropOpOutgoingNodeReferences {
+export function deserializePropOpOutoingNodeReferences(
+  serialized: SerializedPropertyComponentOperation,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): PropOpOutgoingNodeReferences {
   return {
     ...deserializeOpOutoingNodeReferences(serialized, deserialize),
     pathTransition: deserialize(serialized.pathTransition) as Transition<PropertyPath>,
@@ -27,9 +32,12 @@ export function deserializePropOpOutoingNodeReferences(serialized: SerializedPro
   };
 }
 
-export function deserializeUpdatePropOpOutoingNodeReferences(serialized: SerializedUpdatePropertyComponentOperation, deserialize: (obj: SerializationID) => JSONSerializable): UpdatePropOpOutgoingNodeReferences {
+export function deserializeUpdatePropOpOutoingNodeReferences(
+  serialized: SerializedUpdatePropertyComponentOperation,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): UpdatePropOpOutgoingNodeReferences {
   return {
     ...deserializePropOpOutoingNodeReferences(serialized, deserialize),
-    innerOperations: serialized.innerOperations ? serialized.innerOperations.map(deserialize) as PropertyComponentOperation[] : undefined,
+    innerOperations: serialized.innerOperations?.map(deserialize) as PropertyComponentOperation[],
   };
 }

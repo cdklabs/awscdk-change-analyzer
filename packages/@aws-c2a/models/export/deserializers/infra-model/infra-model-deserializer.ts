@@ -3,7 +3,10 @@ import { JSONSerializable, Serialized } from '../../json-serializable';
 import { SerializationID } from '../../json-serializer';
 import { SerializedInfraModel } from '../../serialized-interfaces/infra-model/serialized-infra-model';
 
-export function infraModelDeserializer(obj: Serialized, deserialize: (obj: SerializationID) => JSONSerializable): JSONSerializable {
+export function infraModelDeserializer(
+  obj: Serialized,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): JSONSerializable {
   const serializedInfraModel = obj as SerializedInfraModel;
 
   return new InfraModel(

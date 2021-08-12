@@ -3,7 +3,10 @@ import { JSONSerializable, Serialized } from '../../json-serializable';
 import { SerializationID } from '../../json-serializer';
 import { SerializedDependencyRelationship } from '../../serialized-interfaces/infra-model/serialized-relationship';
 
-export function dependencyRelationshipDeserializer(obj: Serialized, deserialize: (obj: SerializationID) => JSONSerializable): JSONSerializable {
+export function dependencyRelationshipDeserializer(
+  obj: Serialized,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): JSONSerializable {
   const serializedDependencyRelationship = obj as SerializedDependencyRelationship;
 
   const target = deserialize(serializedDependencyRelationship.target) as Component;

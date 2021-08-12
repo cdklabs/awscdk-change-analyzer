@@ -8,7 +8,10 @@ import { SerializationID } from '../../../json-serializer';
 import { SerializedPropertyComponentOperation } from '../../../serialized-interfaces/infra-model-diff/serialized-component-operation';
 import { deserializeOpNodeData, deserializePropOpOutoingNodeReferences, deserializeUpdatePropOpOutoingNodeReferences } from './utils';
 
-export function insertPropertyComponentOperationDeserializer(obj: Serialized, deserialize: (obj: SerializationID) => JSONSerializable): JSONSerializable {
+export function insertPropertyComponentOperationDeserializer(
+  obj: Serialized,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): JSONSerializable {
   const serialized = obj as SerializedPropertyComponentOperation;
 
   return new InsertPropertyComponentOperation(
@@ -17,7 +20,10 @@ export function insertPropertyComponentOperationDeserializer(obj: Serialized, de
   );
 }
 
-export function removePropertyComponentOperationDeserializer(obj: Serialized, deserialize: (obj: SerializationID) => JSONSerializable): JSONSerializable {
+export function removePropertyComponentOperationDeserializer(
+  obj: Serialized,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): JSONSerializable {
   const serialized = obj as SerializedPropertyComponentOperation;
 
   return new RemovePropertyComponentOperation(
@@ -26,7 +32,10 @@ export function removePropertyComponentOperationDeserializer(obj: Serialized, de
   );
 }
 
-export function movePropertyComponentOperationDeserializer(obj: Serialized, deserialize: (obj: SerializationID) => JSONSerializable): JSONSerializable {
+export function movePropertyComponentOperationDeserializer(
+  obj: Serialized,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): JSONSerializable {
   const serialized = obj as SerializedPropertyComponentOperation;
 
   return new MovePropertyComponentOperation(
@@ -35,7 +44,10 @@ export function movePropertyComponentOperationDeserializer(obj: Serialized, dese
   );
 }
 
-export function updatePropertyComponentOperationDeserializer(obj: Serialized, deserialize: (obj: SerializationID) => JSONSerializable): JSONSerializable {
+export function updatePropertyComponentOperationDeserializer(
+  obj: Serialized,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): JSONSerializable {
   const serialized = obj as SerializedPropertyComponentOperation;
 
   return new MovePropertyComponentOperation(

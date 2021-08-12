@@ -27,12 +27,14 @@ export class ComponentPropertyAccessError extends Error {}
 type NodeData = {
   readonly componentUpdateType?: ComponentUpdateType,
 }
-
-export abstract class ComponentPropertyValue/* TODO Value*/<ND extends NodeData = any, OR extends OutgoingReferences = any>
+/* TODO Value*/
+export abstract class ComponentPropertyValue<ND extends NodeData = any, OR extends OutgoingReferences = any>
   extends ModelEntity<ND, OR>
   implements JSONSerializable {
 
-  public get componentUpdateType(): ComponentUpdateType { return this.nodeData.componentUpdateType ?? ComponentUpdateType.NONE; }
+  public get componentUpdateType(): ComponentUpdateType {
+    return this.nodeData.componentUpdateType ?? ComponentUpdateType.NONE;
+  }
 
   public abstract get value(): ComponentPropertyValueType | undefined;
 
@@ -121,7 +123,9 @@ type OutgoingCollectionReferences = {
   readonly value: PropertyCollectionValue;
 }
 
-export abstract class ComponentCollectionProperty extends ComponentPropertyValue<NodeData, OutgoingCollectionReferences> {
+export abstract class ComponentCollectionProperty
+  extends ComponentPropertyValue<NodeData, OutgoingCollectionReferences>
+{
   public get value(): ComponentPropertyValueType {
     return this.outgoingNodeReferences.value;
   }

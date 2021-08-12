@@ -4,7 +4,10 @@ import { JSONSerializable, Serialized } from '../../json-serializable';
 import { SerializationID } from '../../json-serializer';
 import { SerializedComponentPropertyArray, SerializedComponentPropertyPrimitive, SerializedComponentPropertyRecord } from '../../serialized-interfaces/infra-model/serialized-component-property';
 
-export function componentPropertyArrayDeserializer(obj: Serialized, deserialize: (obj: SerializationID) => JSONSerializable): JSONSerializable {
+export function componentPropertyArrayDeserializer(
+  obj: Serialized,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): JSONSerializable {
   const serializedComponentProperty = obj as SerializedComponentPropertyArray;
 
   return new ComponentPropertyArray(
@@ -13,11 +16,15 @@ export function componentPropertyArrayDeserializer(obj: Serialized, deserialize:
   );
 }
 
-export function componentPropertyRecordDeserializer(obj: Serialized, deserialize: (obj: SerializationID) => JSONSerializable): JSONSerializable {
+export function componentPropertyRecordDeserializer(
+  obj: Serialized,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): JSONSerializable {
   const serializedComponentProperty = obj as SerializedComponentPropertyRecord;
 
   return new ComponentPropertyRecord(
-    fromEntries(Object.entries(serializedComponentProperty.value).map(([k,v]) => [k, deserialize(v) as ComponentPropertyValue])),
+    fromEntries(Object.entries(serializedComponentProperty.value)
+      .map(([k,v]) => [k, deserialize(v) as ComponentPropertyValue])),
     serializedComponentProperty.componentUpdateType,
   );
 }

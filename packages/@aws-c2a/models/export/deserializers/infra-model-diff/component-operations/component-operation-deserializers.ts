@@ -9,7 +9,10 @@ import { SerializationID } from '../../../json-serializer';
 import { SerializedComponentOperation } from '../../../serialized-interfaces/infra-model-diff/serialized-component-operation';
 import { deserializeOpNodeData, deserializeOpOutoingNodeReferences } from './utils';
 
-export function insertComponentOperationDeserializer(obj: Serialized, deserialize: (obj: SerializationID) => JSONSerializable): JSONSerializable {
+export function insertComponentOperationDeserializer(
+  obj: Serialized,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): JSONSerializable {
   const serialized = obj as SerializedComponentOperation;
 
   return new InsertComponentOperation(
@@ -18,7 +21,10 @@ export function insertComponentOperationDeserializer(obj: Serialized, deserializ
   );
 }
 
-export function removeComponentOperationDeserializer(obj: Serialized, deserialize: (obj: SerializationID) => JSONSerializable): JSONSerializable {
+export function removeComponentOperationDeserializer(
+  obj: Serialized,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): JSONSerializable {
   const serialized = obj as SerializedComponentOperation;
 
   return new RemoveComponentOperation(
@@ -27,7 +33,10 @@ export function removeComponentOperationDeserializer(obj: Serialized, deserializ
   );
 }
 
-export function replaceComponentOperationDeserializer(obj: Serialized, deserialize: (obj: SerializationID) => JSONSerializable): JSONSerializable {
+export function replaceComponentOperationDeserializer(
+  obj: Serialized,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): JSONSerializable {
   const serialized = obj as SerializedComponentOperation;
 
   return new ReplaceComponentOperation(
@@ -36,7 +45,10 @@ export function replaceComponentOperationDeserializer(obj: Serialized, deseriali
   );
 }
 
-export function renameComponentOperationDeserializer(obj: Serialized, deserialize: (obj: SerializationID) => JSONSerializable): JSONSerializable {
+export function renameComponentOperationDeserializer(
+  obj: Serialized,
+  deserialize: (obj: SerializationID) => JSONSerializable,
+): JSONSerializable {
   const serialized = obj as SerializedComponentOperation;
 
   return new RenameComponentOperation(

@@ -17,7 +17,10 @@ export interface JSONSerializable {
      * @param serializer Serializes a JSONSerializable inner instance and returns its serialized id
      * @returns the serialized object
      */
-  toSerialized(serialize: (obj: JSONSerializable) => SerializationID, serializeCustom: (obj: any, serializationClass: string, serialized: Serialized) => SerializationID): Serialized;
+  toSerialized(
+    serialize: (obj: JSONSerializable) => SerializationID,
+    serializeCustom: (obj: any, serializationClass: string, serialized: Serialized) => SerializationID
+  ): Serialized;
 
   getSerializationClass(): string;
 }
