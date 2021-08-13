@@ -1,7 +1,7 @@
 import { MockArchitecture } from './architecture';
 const architecture = new MockArchitecture();
 
-export const config = { update: () => undefined };
+export const config: { update: () => undefined } = { update: () => undefined };
 
 export const CloudFormation = jest.fn(() => {
   return {

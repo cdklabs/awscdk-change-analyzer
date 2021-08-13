@@ -5,7 +5,7 @@ import { IC2AHost } from '../../../lib';
  */
 export class MockHost implements IC2AHost {
 
-  public async describeStackResources(_stackName: string) {
+  public async describeStackResources(_stackName: string): Promise<undefined> {
     return undefined;
   }
   public async describeCfnStack(_stackName: string): Promise<AWS.CloudFormation.Stack | undefined> {
