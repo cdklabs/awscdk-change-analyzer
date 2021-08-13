@@ -4,24 +4,29 @@ import * as AWS from 'aws-sdk';
 const client = new AWS.CodePipeline({ apiVersion: '2015-07-09' });
 const TIMEOUT_IN_MINUTES = 5;
 
-const sleep = (seconds: number) => {
+const sleep = (seconds: number): Promise<void> => {
   return new Promise<void>(resolve => setTimeout(resolve, seconds * 1000));
 };
 
-export async function handler(event: any, _context: any) {
+interface ApproveLambdaEvent {
+  readonly PipelineName: string;
+  readonly StageName: string;
+  readonly ActionName: string;
+}
+
+export async function handler(event: ApproveLambdaEvent): Promise<void> {
   const {
     PipelineName: pipelineName,
     StageName: stageName,
     ActionName: actionName,
   } = event;
 
-  function parseState(response: any): string | undefined {
+  function parseState(response: AWS.CodePipeline.Types.GetPipelineStateOutput): string | undefined {
     const stages = response.stageStates;
-    const validStages = stages?.filter((s: any) => s.stageName === stageName);
-    const manualApproval = validStages.length &&
-      validStages[0].actionStates.filter((state: any) => state.actionName === actionName);
-    const latest = manualApproval && manualApproval.length &&
-      manualApproval[0].latestExecution;
+    const validStages = stages?.filter((s: AWS.CodePipeline.StageState) => s.stageName === stageName);
+    const manualApproval = validStages?.[0].actionStates
+      ?.filter((state: AWS.CodePipeline.ActionState) => state.actionName === actionName);
+    const latest = manualApproval?.length && manualApproval[0].latestExecution;
 
     return latest ? latest.token : undefined;
   }

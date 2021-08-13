@@ -26,7 +26,7 @@ export class TestApp extends App {
     });
   }
 
-  public stackArtifact(stackName: string | Stack) {
+  public stackArtifact(stackName: string | Stack): Stack | undefined {
     if (typeof stackName !== 'string') {
       stackName = stackName.stackName;
     }
@@ -37,7 +37,7 @@ export class TestApp extends App {
     return supportStack;
   }
 
-  public cleanup() {
+  public cleanup(): void {
     rimraf(assemblyBuilderOf(this).outdir);
   }
 }
@@ -64,7 +64,7 @@ export class BucketStack extends Stack {
 /**
  * rm -rf reimplementation, don't want to depend on an NPM package for this
  */
-export function rimraf(fsPath: string) {
+export function rimraf(fsPath: string): void {
   try {
     const isDir = fs.lstatSync(fsPath).isDirectory();
 
