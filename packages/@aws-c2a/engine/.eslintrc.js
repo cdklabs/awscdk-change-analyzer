@@ -1,6 +1,5 @@
 module.exports = {
     env: {
-      browser: true,
       es2020: true,
     },
     extends: [
@@ -13,7 +12,7 @@ module.exports = {
       ecmaFeatures: {
         jsx: true,
       },
-      ecmaVersion: 11,
+      ecmaVersion: 2018,
       sourceType: 'module',
       project: './tsconfig.json',
     },

@@ -6,7 +6,8 @@
     "start": "webpack serve --mode production --open",
     "dev": "webpack serve --mode development --open",
     "build": "webpack --node-env production --mode production",
-    "postbuild": "cp dist/index.html fixtures/template.index.html"
+    "postbuild": "cp dist/index.html fixtures/template.index.html",
+    "lint": "eslint . --ext .ts --ext .tsx"
   },
   "keywords": [],
   "author": "",
@@ -35,6 +36,7 @@
     "@types/react-dom": "^17.0.2",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.2.4",
+    "eslint-plugin-react": "^7.24.0",
     "html-webpack-plugin": "^4.3.1",
     "react-dev-utils": "^11.0.4",
     "source-map-loader": "^2.0.1",

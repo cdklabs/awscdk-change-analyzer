@@ -1,46 +1,63 @@
-import { ComponentPropertyValue } from "@aws-c2a/models/infra-model"
-import { InsertPropertyComponentOperation, PropertyComponentOperation, MovePropertyComponentOperation, RemovePropertyComponentOperation, Transition, UpdatePropertyComponentOperation, TransitionVersions } from "@aws-c2a/models/model-diffing"
-import { groupArrayBy } from "@aws-c2a/models/utils"
-import { DiffHighlightType, DiffStringifier, DiffStringOutput } from "./diff-stringifier";
+import {
+  groupArrayBy,
+  InsertPropertyComponentOperation,
+  PropertyComponentOperation,
+  MovePropertyComponentOperation,
+  RemovePropertyComponentOperation,
+  UpdatePropertyComponentOperation,
+  TransitionVersions,
+  ComponentPropertyValue,
+} from '@aws-c2a/models';
+import { DiffHighlightType, DiffStringifier, DiffStringOutput } from './diff-stringifier';
 
 export function getPropertyDiff(
-    t: TransitionVersions<ComponentPropertyValue>,
-    ops: PropertyComponentOperation[]
+  t: TransitionVersions<ComponentPropertyValue>,
+  ops: PropertyComponentOperation[],
 ): DiffStringOutput<PropertyComponentOperation> {
-    ops = ops.flatMap(o => (o instanceof UpdatePropertyComponentOperation) ? o.getLeaves() : [o]);
-    const propertyToOperationMap = groupArrayBy(ops, (o: PropertyComponentOperation) => o.propertyTransition.v2);
-    
-    return new DiffStringifier<PropertyComponentOperation>(
-        t.v2 ?? t.v1,
-        ops.filter(o => o instanceof RemovePropertyComponentOperation && o.pathTransition.v1)
-            .map(o => ({path: o.pathTransition.v1!, structure: {content: o.propertyTransition.v1, highlights: {[DiffHighlightType.Remove]: [o]}}})),
-        propertyChangeResolverCreator(propertyToOperationMap),
-    ).build();
+  ops = ops.flatMap(o => (o instanceof UpdatePropertyComponentOperation) ? o.getLeaves() : [o]);
+  const propertyToOperationMap = groupArrayBy(ops, (o: PropertyComponentOperation) => o.propertyTransition.v2);
+
+  return new DiffStringifier<PropertyComponentOperation>(
+    t.v2 ?? t.v1,
+    ops.filter(o => o instanceof RemovePropertyComponentOperation && o.pathTransition.v1)
+      .map(o => ({
+        path: o.pathTransition.v1!,
+        structure: {content: o.propertyTransition.v1, highlights: {[DiffHighlightType.Remove]: [o]}},
+      })),
+    propertyChangeResolverCreator(propertyToOperationMap),
+  ).build();
 }
 
 
-const propertyChangeResolverCreator = (propertyToOperationMap: Map<ComponentPropertyValue | undefined, PropertyComponentOperation[]>) => (obj: any) => {
+const propertyChangeResolverCreator = (
+  propertyToOperationMap: Map<ComponentPropertyValue | undefined, PropertyComponentOperation[]>,
+) => (obj: any) => {
+  const firstOp = (propertyToOperationMap.get(obj) ?? []).filter(op => op.cause === undefined)[0];
+  const indirectUpdates = (propertyToOperationMap.get(obj) || [])
+    .filter(op => op instanceof UpdatePropertyComponentOperation && op.cause !== undefined);
+  const highlights = indirectUpdates.length ? {[DiffHighlightType.Update]: indirectUpdates} : {};
 
-    const op = (propertyToOperationMap.get(obj) ?? []).filter(op => op.cause === undefined)[0];
-    const indirectUpdates = (propertyToOperationMap.get(obj) || []).filter(op => op instanceof UpdatePropertyComponentOperation && op.cause !== undefined);
-    const highlights = indirectUpdates.length ? {[DiffHighlightType.Update]: indirectUpdates} : {};
-
-    if(op instanceof UpdatePropertyComponentOperation){
-        if(op.propertyTransition.v1 && op.propertyTransition.v2 && op.propertyTransition.v1 !== op.propertyTransition.v2){
-            return {structures: [
-                {content: op.propertyTransition.v1, highlights: {[DiffHighlightType.Remove]: [op]}},
-                {content: obj, highlights: {...highlights, [DiffHighlightType.Insert]: [op]}}
-            ]};
-        } else if (op instanceof MovePropertyComponentOperation) {
-            if(!op.pathTransition.v1) throw Error("Move operation does not have previous path");
-            return {
-                renamedFrom: op.pathTransition.v1.slice(-1)[0],
-                structures: [{content: op.propertyTransition.v2, highlights: {[DiffHighlightType.Update]: [...highlights[DiffHighlightType.Update] ?? [], op]}}]};
-        }
+  if(firstOp instanceof UpdatePropertyComponentOperation){
+    if(firstOp.propertyTransition.v1 && firstOp.propertyTransition.v2
+        && firstOp.propertyTransition.v1 !== firstOp.propertyTransition.v2) {
+      return {structures: [
+        {content: firstOp.propertyTransition.v1, highlights: {[DiffHighlightType.Remove]: [firstOp]}},
+        {content: obj, highlights: {...highlights, [DiffHighlightType.Insert]: [firstOp]}},
+      ]};
+    } else if (firstOp instanceof MovePropertyComponentOperation) {
+      if(!firstOp.pathTransition.v1) throw Error('Move operation does not have previous path');
+      return {
+        renamedFrom: firstOp.pathTransition.v1.slice(-1)[0],
+        structures: [{
+          content: firstOp.propertyTransition.v2,
+          highlights: {[DiffHighlightType.Update]: [...highlights[DiffHighlightType.Update] ?? [], firstOp]},
+        }],
+      };
     }
+  }
 
-    if(op instanceof InsertPropertyComponentOperation){
-        return {structures: [{content: obj, highlights: {...highlights, [DiffHighlightType.Insert]: [op]}}]};
-    }
-    return {structures: [{content: obj, highlights}]};
-}
+  if(firstOp instanceof InsertPropertyComponentOperation){
+    return {structures: [{content: obj, highlights: {...highlights, [DiffHighlightType.Insert]: [firstOp]}}]};
+  }
+  return {structures: [{content: obj, highlights}]};
+};

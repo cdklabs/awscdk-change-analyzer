@@ -1,17 +1,15 @@
-import { List, ListItem, Typography } from "@material-ui/core";
-import { Component, InfraModel } from "@aws-c2a/models/infra-model";
-import { OutgoingRelationshipComponentOperation } from "@aws-c2a/models/model-diffing";
-import React from "react";
-import { getComponentStructuralPath, mostRecentInTransition } from "../../selectors/component-transition-helpers";
-import RelationshipOpDetails from "../RelationshipOpDetails";
+import { Component} from '@aws-c2a/models';
+import { Typography } from '@material-ui/core';
+import React from 'react';
+import { getComponentStructuralPath} from '../../selectors/component-transition-helpers';
 
 interface Props {
-    component: Component,
-};
+  component: Component,
+}
 
 export const ComponentDetails = ({component}: Props) => {
-    return <>
-        <Typography>Name: {component.name}</Typography>
-        <Typography>Path: {getComponentStructuralPath(component)}</Typography>
-    </>
-}   
+  return <>
+    <Typography>Name: {component.name}</Typography>
+    <Typography>Path: {getComponentStructuralPath(component)}</Typography>
+  </>;
+};
