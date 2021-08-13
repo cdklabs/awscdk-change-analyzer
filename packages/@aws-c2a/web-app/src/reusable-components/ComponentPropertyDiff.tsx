@@ -9,7 +9,7 @@ interface Props {
   propertyOp?: PropertyComponentOperation,
 }
 
-function ComponentPropertyDiff({componentTransition, propertyOp}: Props) {
+export default function ComponentPropertyDiff({componentTransition, propertyOp}: Props): JSX.Element {
 
   const {changeReport} = useContext(AppContext);
 
@@ -50,5 +50,3 @@ function ComponentPropertyDiff({componentTransition, propertyOp}: Props) {
     }</AppContext.Consumer>
   );
 }
-
-export default ComponentPropertyDiff;

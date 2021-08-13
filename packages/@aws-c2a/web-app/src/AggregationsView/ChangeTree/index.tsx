@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-function ChangeTree() {
+export default function ChangeTree(): JSX.Element {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(0);
 
@@ -79,7 +79,7 @@ function ChangeTree() {
   );
 }
 
-function renderAggs(aggs: Aggregation<ComponentOperation>[]){
+function renderAggs(aggs: Aggregation<ComponentOperation>[]): JSX.Element[] {
   return aggs.map((agg, i) => <ChangesGroup
     key={i}
     agg={agg}
@@ -92,6 +92,3 @@ function renderAggs(aggs: Aggregation<ComponentOperation>[]){
     }
   />);
 }
-
-
-export default ChangeTree;

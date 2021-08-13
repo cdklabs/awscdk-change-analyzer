@@ -21,7 +21,8 @@ export function getPropertyDiff(
     t.v2 ?? t.v1,
     ops.filter(o => o instanceof RemovePropertyComponentOperation && o.pathTransition.v1)
       .map(o => ({
-        path: o.pathTransition.v1!,
+        // Above filter ensure this exists
+        path: o.pathTransition.v1!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
         structure: {content: o.propertyTransition.v1, highlights: {[DiffHighlightType.Remove]: [o]}},
       })),
     propertyChangeResolverCreator(propertyToOperationMap),

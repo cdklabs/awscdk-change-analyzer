@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const HierarchicalTab = () => {
+export default function HierarchicalTab(): JSX.Element {
   const classes = useStyles();
 
   return (
@@ -33,5 +33,4 @@ const HierarchicalTab = () => {
       }</AppContext.Consumer>
     </Grid>
   );
-};
-export default HierarchicalTab;
+}

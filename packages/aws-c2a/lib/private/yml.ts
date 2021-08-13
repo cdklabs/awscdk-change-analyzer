@@ -59,7 +59,7 @@ export function deserializeStructure(str: string): any {
 /**
  * Load a YAML or JSON file from disk
  */
-export async function loadStructuredFile(fileName: string) {
+export async function loadStructuredFile(fileName: string): Promise<any> {
   const contents = await fs.promises.readFile(fileName, { encoding: 'utf-8' });
   return deserializeStructure(contents);
 }

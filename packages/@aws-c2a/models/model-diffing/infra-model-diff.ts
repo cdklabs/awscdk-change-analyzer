@@ -27,16 +27,24 @@ export class InfraModelDiff
     );
   }
 
-  private static createComponentTransitionToOperationsMap(componentOperations: ComponentOperation[]) {
+  private static createComponentTransitionToOperationsMap(
+    componentOperations: ComponentOperation[],
+  ): Map<Transition<Component>, ComponentOperation[]> {
     return groupArrayBy(componentOperations, o => o.componentTransition);
   }
 
   private readonly componentToTransitionMap: Map<Component, Transition<Component>>;
   private readonly componentTransitionToOperationsMap: Map<Transition<Component>, ComponentOperation[]>;
 
-  public get componentOperations() { return this.outgoingNodeReferences.componentOperations; }
-  public get componentTransitions() { return this.outgoingNodeReferences.componentTransitions; }
-  public get infraModelTransition() { return this.outgoingNodeReferences.infraModelTransition; }
+  public get componentOperations(): ComponentOperation[] {
+    return this.outgoingNodeReferences.componentOperations;
+  }
+  public get componentTransitions(): Transition<Component>[] {
+    return this.outgoingNodeReferences.componentTransitions;
+  }
+  public get infraModelTransition(): Transition<InfraModel> {
+    return this.outgoingNodeReferences.infraModelTransition;
+  }
 
   constructor(
     componentOperations: ComponentOperation[],

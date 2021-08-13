@@ -56,7 +56,7 @@ export class Transition
     return SerializationClasses.TRANSITION;
   }
 
-  public explode() {
+  public explode(): NonNullable<T>[]{
     return [this.v1, this.v2].filter(isDefined);
   }
 
@@ -75,8 +75,9 @@ export class Transition
 export class CompleteTransition
 <T extends JSONSerializable | Serialized> extends Transition<T, CompleteTransitionVersions<T>>
 {
-  get v1(): T { return super.v1!; }
-  get v2(): T { return super.v2!; }
+  // By definition these need to be defined
+  get v1(): T { return super.v1!; } // eslint-disable-line @typescript-eslint/no-non-null-assertion
+  get v2(): T { return super.v2!; } // eslint-disable-line @typescript-eslint/no-non-null-assertion
 
   constructor(versions: CompleteTransitionVersions<T>){
     super(versions);

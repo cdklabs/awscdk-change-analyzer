@@ -7,7 +7,7 @@ interface Props {
   ops: ComponentOperation[],
 }
 
-export const ComponentOperationsList = ({ops}: Props) => {
+export function ComponentOperationsList({ops}: Props): JSX.Element {
 
   const getCompInfo = (ct: Transition<Component>) => {
     const comp = ct.v2 ?? ct.v1;
@@ -27,4 +27,4 @@ export const ComponentOperationsList = ({ops}: Props) => {
       </ListItem>,
     )}
   </List>;
-};
+}

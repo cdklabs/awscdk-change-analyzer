@@ -23,7 +23,7 @@ interface Props {
   op: ComponentOperation,
 }
 
-const SingleChange = ({op}: Props) => {
+export default function SingleChange({op}: Props): JSX.Element {
   const classes = useStyles();
 
   const componentTypeAndSubtype = `${mostRecentInTransition(op.componentTransition).type} ${mostRecentInTransition(op.componentTransition).subtype ?? ''}`;
@@ -46,6 +46,4 @@ const SingleChange = ({op}: Props) => {
       </CardContent>
     </Card>
   }</AppContext.Consumer>;
-};
-
-export default SingleChange;
+}

@@ -16,6 +16,7 @@ node_modules
 
 # Overrides
 !jest.config.js
+!.eslintrc.build.js
 
 # Build Files
 data.json

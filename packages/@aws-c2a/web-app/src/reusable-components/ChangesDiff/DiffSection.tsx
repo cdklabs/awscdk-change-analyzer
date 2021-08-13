@@ -40,7 +40,9 @@ const clickableStyle = {
   textDecorationSkip: 'spaces',
 };
 
-function DiffSection<T>({stringifierOutput, flashObj, flashRef, onClick, isClickable}: Props<T>) {
+export default function DiffSection<T>(
+  {stringifierOutput, flashObj, flashRef, onClick, isClickable}: Props<T>,
+): JSX.Element {
   const classes = useStyles();
 
   return <>{stringifierOutput.map((chunk, i) => {
@@ -90,5 +92,3 @@ function makeHighlightDescriptions<T>(highlights: Highlights<T>): string {
 function makeHighlightStyles(types: DiffHighlightType[]) {
   return Object.assign({}, ...types.map(h => diffTypeToStyle[h]));
 }
-
-export default DiffSection;
