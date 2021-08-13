@@ -33,8 +33,6 @@ jobs:
 
     - name: Lint
       run: yarn lint
-      with:
-        annotations: false
     
     - name: Test
       run: yarn test
