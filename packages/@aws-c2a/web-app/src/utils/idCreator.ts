@@ -4,7 +4,7 @@ export class ObjIdAssigner {
   map = new WeakMap();
   counter = 0;
 
-  get(obj: any) {
+  get(obj: any): any {
     if(obj === undefined) return obj;
     let id = this.map.get(obj);
     if (!id) {
@@ -15,7 +15,7 @@ export class ObjIdAssigner {
   }
 }
 
-export function useIdAssignerHook() {
+export function useIdAssignerHook(): ObjIdAssigner {
   const [isOnline] = useState(new ObjIdAssigner());
   return isOnline;
 }

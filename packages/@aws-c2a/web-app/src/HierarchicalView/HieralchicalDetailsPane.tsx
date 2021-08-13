@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-function HierarchicalDetailsPane({componentTransition}: props) {
+export default function HierarchicalDetailsPane({componentTransition}: props): JSX.Element {
   const classes = useStyles();
 
   return <AppContext.Consumer>{({changeReport}) =>
@@ -79,4 +79,3 @@ function HierarchicalDetailsPane({componentTransition}: props) {
       </Box>
   }</AppContext.Consumer>;
 }
-export default HierarchicalDetailsPane;

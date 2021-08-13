@@ -37,7 +37,7 @@ export class DiffStringifier<T> {
     ((obj: any) => ({structures: [{content: obj, highlights: {}}]})),
   ){}
 
-  build(){
+  build(): DiffStringOutput<T> {
     return this.buildDiffString(this.newObj, 0, [], {});
   }
 

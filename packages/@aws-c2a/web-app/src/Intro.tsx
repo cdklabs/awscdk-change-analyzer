@@ -1,7 +1,7 @@
 import { Steps } from 'intro.js-react';
 import React from 'react';
 
-export const Intro = () => {
+export function Intro(): JSX.Element {
   const steps = [
     {
       intro: 'Welcome to the CDK Change Analysis Tool. Here\'s a quick UI introduction',
@@ -37,4 +37,4 @@ export const Intro = () => {
     steps={steps}
     initialStep={0}
   />;
-};
+}

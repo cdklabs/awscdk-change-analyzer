@@ -20,11 +20,6 @@ module.exports = {
     'import',
     '@typescript-eslint',
   ],
-  settings: {
-    react: {
-      version: 'detect',
-    }
-  },
   rules: {
     'linebreak-style': [ 'error', 'unix' ],
 

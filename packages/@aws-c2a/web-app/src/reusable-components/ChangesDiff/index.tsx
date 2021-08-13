@@ -1,5 +1,7 @@
+import { makeStyles } from '@material-ui/core/styles';
 import React, { useCallback } from 'react';
 import { DiffStringOutput } from '../../selectors/diff-stringifier';
+import DiffSection from './DiffSection';
 
 interface Props<T> {
   stringifierOutput: DiffStringOutput<T>,
@@ -7,9 +9,6 @@ interface Props<T> {
   onClick?: (path: (string | number)[]) => void
   isClickable?: (path: (string | number)[]) => boolean
 }
-
-import { makeStyles } from '@material-ui/core/styles';
-import DiffSection from './DiffSection';
 
 const useStyles = makeStyles((theme) => ({
   pre: {
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ChangesDiff<T>({stringifierOutput, flashObj, onClick, isClickable}: Props<T>) {
+export default function ChangesDiff<T>({stringifierOutput, flashObj, onClick, isClickable}: Props<T>): JSX.Element {
   const classes = useStyles();
 
   const opRef = useCallback(node => {
@@ -49,5 +48,3 @@ function ChangesDiff<T>({stringifierOutput, flashObj, onClick, isClickable}: Pro
     </div>
   );
 }
-
-export default ChangesDiff;

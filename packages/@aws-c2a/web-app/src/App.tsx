@@ -38,7 +38,7 @@ const useStyles = makeStyles({
 interface AppProps {
   changeReport: ChangeAnalysisReport;
 }
-const App = ({changeReport}: AppProps) => {
+export default function App({changeReport}: AppProps): JSX.Element {
   const classes = useStyles();
 
   const [selectedTab, setSelectedTab] = useState(0);
@@ -103,5 +103,4 @@ const App = ({changeReport}: AppProps) => {
       </div>
     </AppContext.Provider>
   );
-};
-export default App;
+}

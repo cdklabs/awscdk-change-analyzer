@@ -24,7 +24,7 @@ interface Props {
   expandedByDefault?: boolean
 }
 
-const ChangesGroup = ({agg, title, description, expandedByDefault}: Props) => {
+export function ChangesGroup({agg, title, description, expandedByDefault}: Props): JSX.Element {
   const classes = useStyles();
 
   const { selectedAgg } = useContext(AppContext);
@@ -67,13 +67,13 @@ const ChangesGroup = ({agg, title, description, expandedByDefault}: Props) => {
       expanded={isExpanded}
     />
   }</AppContext.Consumer>;
-};
+}
 
 function isAggExpanded(
   selectedAgg?: Aggregation<ComponentOperation>,
   agg?: Aggregation<ComponentOperation>,
   expandedByDefault = false,
-){
+): boolean {
   if(expandedByDefault) return true;
   if(!selectedAgg || !agg) return false;
   if(agg === selectedAgg) return true;
@@ -83,5 +83,3 @@ function isAggExpanded(
 
   return explodeAgg(agg).some(a => a === selectedAgg);
 }
-
-export default ChangesGroup;

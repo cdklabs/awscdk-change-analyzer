@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
-function HierarchicalTree() {
+export default function HierarchicalTree(): JSX.Element {
   const classes = useStyles();
   const {changeReport} = useContext(AppContext);
 
@@ -29,5 +29,3 @@ function HierarchicalTree() {
     </Paper>
   );
 }
-
-export default HierarchicalTree;

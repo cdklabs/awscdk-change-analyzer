@@ -9,7 +9,7 @@ interface Props {
   highlightOperation?: ComponentOperation,
 }
 
-export const GeneralInfo = ({compTransition}: Props) => {
+export function GeneralInfo ({compTransition}: Props): JSX.Element {
   return <>
     <Typography><b>{mostRecentInTransition(compTransition).type}</b> {mostRecentInTransition(compTransition).subtype ?? ''}</Typography>
     <br/>
@@ -23,4 +23,4 @@ export const GeneralInfo = ({compTransition}: Props) => {
       <ComponentDetails component={compTransition.v2}/>
     </> : ''}
   </>;
-};
+}
