@@ -111,8 +111,8 @@ export class DefaultC2AHost implements IC2AHost {
         throw new Error(`Unrecognized reponse from STS: '${JSON.stringify(response)}'`);
       }
       this.account = {
-        accountId: response.Account!,
-        partition: response.Arn!.split(':')[1],
+        accountId: response.Account,
+        partition: response.Arn.split(':')[1],
       };
     }
 

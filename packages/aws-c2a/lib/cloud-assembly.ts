@@ -218,7 +218,7 @@ export class CloudAssembly {
   /**
    * Select a single stack by its ID
    */
-  public stackById(stackId: string) {
+  public stackById(stackId: string): StackCollection {
     return new StackCollection(this, [this.assembly.getStackArtifact(stackId)]);
   }
 }
@@ -236,11 +236,11 @@ export class StackCollection {
     public readonly stackArtifacts: cxapi.CloudFormationStackArtifact[],
   ) {}
 
-  public get stackCount() {
+  public get stackCount(): number {
     return this.stackArtifacts.length;
   }
 
-  public get firstStack() {
+  public get firstStack(): cxapi.CloudFormationStackArtifact {
     if (this.stackCount < 1) {
       throw new Error('StackCollection contains no stack artifacts (trying to access the first one)');
     }
@@ -251,7 +251,7 @@ export class StackCollection {
     return this.stackArtifacts.map(s => s.id);
   }
 
-  public reversed() {
+  public reversed(): StackCollection {
     const arts = [...this.stackArtifacts];
     arts.reverse();
     return new StackCollection(this.assembly, arts);
@@ -268,7 +268,7 @@ export class StackCollection {
   /**
    * Extracts 'aws:cdk:warning|info|error' metadata entries from the stack synthesis
    */
-  public processMetadataMessages(options: MetadataMessageOptions = {}) {
+  public processMetadataMessages(options: MetadataMessageOptions = {}): void {
     let warnings = false;
     let errors = false;
 
@@ -350,7 +350,8 @@ function indexByHierarchicalId(
  */
 function includeDownstreamStacks(
   selectedStacks: Map<string, cxapi.CloudFormationStackArtifact>,
-  allStacks: Map<string, cxapi.CloudFormationStackArtifact>) {
+  allStacks: Map<string, cxapi.CloudFormationStackArtifact>,
+): void {
   const added = new Array<string>();
 
   let madeProgress;
@@ -379,7 +380,8 @@ function includeDownstreamStacks(
  */
 function includeUpstreamStacks(
   selectedStacks: Map<string, cxapi.CloudFormationStackArtifact>,
-  allStacks: Map<string, cxapi.CloudFormationStackArtifact>) {
+  allStacks: Map<string, cxapi.CloudFormationStackArtifact>,
+): void {
   const added = new Array<string>();
   let madeProgress = true;
   while (madeProgress) {
@@ -390,6 +392,8 @@ function includeUpstreamStacks(
       for (const dependencyId of stack.dependencies.map(x => x.manifest.displayName ?? x.id)) {
         if (!selectedStacks.has(dependencyId) && allStacks.has(dependencyId)) {
           added.push(dependencyId);
+          // We know allStacks has dependencyId from the above conditional
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           selectedStacks.set(dependencyId, allStacks.get(dependencyId)!);
           madeProgress = true;
         }
