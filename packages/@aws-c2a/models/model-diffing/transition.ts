@@ -56,7 +56,7 @@ export class Transition
     return SerializationClasses.TRANSITION;
   }
 
-  public explode(): T[] | undefined {
+  public explode(): NonNullable<T>[]{
     return [this.v1, this.v2].filter(isDefined);
   }
 

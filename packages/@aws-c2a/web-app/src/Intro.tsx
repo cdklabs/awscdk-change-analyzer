@@ -36,5 +36,6 @@ export function Intro(): JSX.Element {
     enabled={true}
     steps={steps}
     initialStep={0}
+    onExit={() => undefined}
   />;
 }

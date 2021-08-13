@@ -24,7 +24,7 @@ interface Props {
   expandedByDefault?: boolean
 }
 
-export function ChangesGroup({agg, title, description, expandedByDefault}: Props): JSX.Element {
+export default function ChangesGroup({agg, title, description, expandedByDefault}: Props): JSX.Element {
   const classes = useStyles();
 
   const { selectedAgg } = useContext(AppContext);
