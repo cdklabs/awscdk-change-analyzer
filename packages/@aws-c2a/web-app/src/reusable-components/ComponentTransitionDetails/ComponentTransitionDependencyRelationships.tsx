@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const CompTransitionDependencyRelationships = ({ componentTransition }: Props) => {
+export function CompTransitionDependencyRelationships ({ componentTransition }: Props): JSX.Element {
   const classes = useStyles();
 
   const {changeReport, showComponentInHierarchy} = useContext(AppContext);
@@ -91,4 +91,4 @@ export const CompTransitionDependencyRelationships = ({ componentTransition }: P
       {outgoing.map(c => generateListItem(c, {before: <ArrowForwardIcon/>}))}
     </div> : ''}
   </div>;
-};
+}

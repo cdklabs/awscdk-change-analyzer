@@ -18,7 +18,7 @@ type Props = {
   changes: ComponentOperation | ComponentOperation[],
 }
 
-const ApproveChangeBtn = ({changes}: Props) => {
+export default function ApproveChangeBtn({changes}: Props): JSX.Element {
 
   const changesArr = Array.isArray(changes) ? changes : [changes];
 
@@ -59,6 +59,4 @@ const ApproveChangeBtn = ({changes}: Props) => {
         : <DoneIcon/>
     }</IconButton>
   </Tooltip>;
-};
-
-export default ApproveChangeBtn;
+}

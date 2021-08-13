@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const AggregationsTab = () => {
+export default function AggregationsTab(): JSX.Element {
   const classes = useStyles();
 
   const idAssigner = useIdAssignerHook();
@@ -33,5 +33,4 @@ const AggregationsTab = () => {
       </Grid>
     }</AppContext.Consumer>
   );
-};
-export default AggregationsTab;
+}

@@ -65,7 +65,7 @@ export class ModelEntity<
     return [...result];
   }
 
-  public generateOutgoingGraph() {
+  public generateOutgoingGraph(): fn.Graph<any, {_label: string, _in: string, _out: string}> {
     const entities = this.explodeNodeReferences();
     return new fn.Graph(entities.map(e => e.nodeData), flatMap(entities, e => e.getOutgoingNodeEdges()));
   }

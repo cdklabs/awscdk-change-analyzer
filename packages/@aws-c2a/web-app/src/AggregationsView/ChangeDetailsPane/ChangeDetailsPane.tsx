@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-function ChangeDetailsPane({agg}: props) {
+export default function ChangeDetailsPane({agg}: props): JSX.Element {
   const classes = useStyles();
 
   const descriptions = agg && agg.descriptions;
@@ -64,65 +64,66 @@ function ChangeDetailsPane({agg}: props) {
 
   const idAssigner = useIdAssignerHook();
 
-  return <AppContext.Consumer>{({showComponentInHierarchy}) =>
-    !agg
-      ? <Box className={`${classes.fillParent} ${classes.emptyRoot}`}>Select a set of changes to view their details</Box>
-      : <Box className={`${classes.root} ${classes.fillParent}`}>
-        <Box className={classes.header}>
-          {characteristics !== undefined
-            ? <>
-              <Typography variant="h5" className={classes.mainCharacteristicDescription}>
-                {(characteristics && characteristics[CompOpAggCharacteristics.OPERATION_TYPE]) ?? 'Changes'}
-                {characteristics &&
-                  <b>{
-                    ` ${characteristics[CompOpAggCharacteristics.COMPONENT_TYPE]}` +
-                    ` ${characteristics[CompOpAggCharacteristics.COMPONENT_SUBTYPE] ?? ''}`
-                  }</b>
-                }
-              </Typography>
-              {descriptions && descriptions.length &&
-                <Typography className={classes.characteristicDescription}>
-                  {descriptions[descriptions.length - 1]}
+  return (
+    <AppContext.Consumer>{({showComponentInHierarchy}) =>
+      !agg
+        ? <Box className={`${classes.fillParent} ${classes.emptyRoot}`}>Select a set of changes to view their details</Box>
+        : <Box className={`${classes.root} ${classes.fillParent}`}>
+          <Box className={classes.header}>
+            {characteristics !== undefined
+              ? <>
+                <Typography variant="h5" className={classes.mainCharacteristicDescription}>
+                  {(characteristics && characteristics[CompOpAggCharacteristics.OPERATION_TYPE]) ?? 'Changes'}
+                  {characteristics &&
+                    <b>{
+                      ` ${characteristics[CompOpAggCharacteristics.COMPONENT_TYPE]}` +
+                      ` ${characteristics[CompOpAggCharacteristics.COMPONENT_SUBTYPE] ?? ''}`
+                    }</b>
+                  }
                 </Typography>
-              }
-            </>
-            : <Typography variant="h5" className={classes.mainCharacteristicDescription}>
-                            Changes
-            </Typography>
-          }
+                {descriptions && descriptions.length &&
+                  <Typography className={classes.characteristicDescription}>
+                    {descriptions[descriptions.length - 1]}
+                  </Typography>
+                }
+              </>
+              : <Typography variant="h5" className={classes.mainCharacteristicDescription}>
+                              Changes
+              </Typography>
+            }
 
-          <Typography className={classes.ocurrencesTitle} variant="h6">
-            Occurrences ({agg.entities.size}):
-          </Typography>
+            <Typography className={classes.ocurrencesTitle} variant="h6">
+              Occurrences ({agg.entities.size}):
+            </Typography>
+          </Box>
+          <Box className={`${classes.fillParent} ${classes.occurrences}`}>
+            {[...agg.entities].map((op,i) =>
+              <CollapsableRow
+                stickySummary
+                key={idAssigner.get(op)}
+                expanded={agg.entities.size === 1}
+                icon={`${i+1}.`}
+                disableAnimation
+                rightIcon={<>
+                  <Tooltip title="Open in Hierarchical View">
+                    <IconButton size="small" onClick={() => showComponentInHierarchy(op.componentTransition)}>
+                      <LaunchIcon/>
+                    </IconButton>
+                  </Tooltip>
+                  <ApproveChangeBtn changes={op}/>
+                </>}
+                title={<b>{getComponentStructuralPath(mostRecentInTransition(op.componentTransition))}</b>}
+                content={
+                  <ComponentTransitionDetails
+                    componentTransition={op.componentTransition}
+                    highlightOperation={op}
+                    showReferences
+                  />
+                }
+              />,
+            )}
+          </Box>
         </Box>
-        <Box className={`${classes.fillParent} ${classes.occurrences}`}>
-          {[...agg.entities].map((op,i) =>
-            <CollapsableRow
-              stickySummary
-              key={idAssigner.get(op)}
-              expanded={agg.entities.size === 1}
-              icon={`${i+1}.`}
-              disableAnimation
-              rightIcon={<>
-                <Tooltip title="Open in Hierarchical View">
-                  <IconButton size="small" onClick={() => showComponentInHierarchy(op.componentTransition)}>
-                    <LaunchIcon/>
-                  </IconButton>
-                </Tooltip>
-                <ApproveChangeBtn changes={op}/>
-              </>}
-              title={<b>{getComponentStructuralPath(mostRecentInTransition(op.componentTransition))}</b>}
-              content={
-                <ComponentTransitionDetails
-                  componentTransition={op.componentTransition}
-                  highlightOperation={op}
-                  showReferences
-                />
-              }
-            />,
-          )}
-        </Box>
-      </Box>
-  }</AppContext.Consumer>;
+    }</AppContext.Consumer>
+  );
 }
-export default ChangeDetailsPane;

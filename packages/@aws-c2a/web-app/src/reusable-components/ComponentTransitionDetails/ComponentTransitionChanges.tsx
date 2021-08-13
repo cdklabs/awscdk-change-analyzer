@@ -9,7 +9,7 @@ interface Props {
   compTransition: Transition<Component>,
 }
 
-export const ComponentTransitionChanges = ({compTransition}: Props) => {
+export function ComponentTransitionChanges({compTransition}: Props): JSX.Element {
 
   const { aggregationsPerComponent } = useContext(AppContext).changeReport;
   const aggregations = aggregationsPerComponent.get(compTransition);
@@ -22,4 +22,4 @@ export const ComponentTransitionChanges = ({compTransition}: Props) => {
       ) : <Typography>&lsquo;This object has suffered no changes&rsquo;</Typography>
     }
   </List>;
-};
+}

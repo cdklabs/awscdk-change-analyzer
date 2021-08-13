@@ -8,7 +8,7 @@ interface Props {
   op: ComponentOperation,
 }
 
-export const ComponentOperationCauses = ({op}: Props) => {
+export function ComponentOperationCauses({op}: Props): JSX.Element {
 
   const { changeReport } = useContext(AppContext);
   const cause = op.cause;
@@ -24,4 +24,4 @@ export const ComponentOperationCauses = ({op}: Props) => {
       // <Typography>(No known changes result from this change)</Typography>
     }
   </>;
-};
+}

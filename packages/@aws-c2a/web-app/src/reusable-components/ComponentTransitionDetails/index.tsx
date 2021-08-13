@@ -50,7 +50,9 @@ const useStyle = makeStyles((theme: Theme) => ({
   },
 }));
 
-function ComponentTransitionDetails({componentTransition, highlightOperation, showReferences}: Props) {
+export default function ComponentTransitionDetails(
+  {componentTransition, highlightOperation, showReferences}: Props,
+): JSX.Element {
   const classes = useStyle();
 
   const panels: Record<string, Panel> = {
@@ -118,5 +120,3 @@ function ComponentTransitionDetails({componentTransition, highlightOperation, sh
     </div>
   </div>;
 }
-
-export default ComponentTransitionDetails;

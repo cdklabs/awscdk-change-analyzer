@@ -53,7 +53,7 @@ export class C2AToolkit {
     this._traverser = asm ? new CfnTraverser(host, asm) : undefined;
   }
 
-  public setAsm(_asm: CloudAssembly) {
+  public setAsm(_asm: CloudAssembly): void {
     this._asm = _asm;
   }
 
@@ -71,7 +71,7 @@ export class C2AToolkit {
     return this._traverser;
   }
 
-  public async c2aDiff(options: DiffOptions) {
+  public async c2aDiff(options: DiffOptions): Promise<number> {
     const selectedStacks = await this.selectStacks(options.stackNames);
 
     const before: {[stackName: string]: TemplateTree} = {};
@@ -99,7 +99,7 @@ export class C2AToolkit {
     return this.evaluateReport(report, options.failCondition) && options.fail ? 1 : 0;
   }
 
-  public async c2aHtml(options: HtmlOptions) {
+  public async c2aHtml(options: HtmlOptions): Promise<number> {
     const report = JSON.stringify(await fs.promises.readFile(options.reportPath, 'utf-8'));
     const template = await fs.promises.readFile(templatePath, 'utf-8');
     const webapp = template.replace('"!!!CDK_CHANGE_ANALYSIS_REPORT"', report);

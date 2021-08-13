@@ -13,7 +13,7 @@ interface Props {
   expandedByDefault?: boolean
 }
 
-function HierarchicalNode({node, expandedByDefault}: Props) {
+export default function HierarchicalNode({node, expandedByDefault}: Props): JSX.Element {
 
   const {changes, compTransition, innerNodes} = node;
 
@@ -71,5 +71,3 @@ function isNodeExpanded(
 
   return explodeNode(node).some(n => n.compTransition === selectedCompTransition);
 }
-
-export default HierarchicalNode;

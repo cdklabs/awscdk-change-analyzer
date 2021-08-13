@@ -35,7 +35,7 @@ export class MockCfnStack {
     this.StackId = `arn:aws:cloudformation:us-east-1:123456789012:stack/${name}`;
   }
 
-  public addResources(...nestedStacks: MockCfnStack[]) {
+  public addResources(...nestedStacks: MockCfnStack[]): void {
     this.Resources.push(...nestedStacks.map(nestedStack => ({
       Type: 'AWS::CloudFormation::Stack',
       ...nestedStack.Properties,
@@ -55,7 +55,7 @@ export class MockCfnStack {
     });
   }
 
-  get StackResources() { return this.Resources; }
+  get StackResources(): IResource[] { return this.Resources; }
 }
 
 /**

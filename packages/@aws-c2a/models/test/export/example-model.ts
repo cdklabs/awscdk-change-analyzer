@@ -9,7 +9,7 @@ import {
 import { InfraModelDiff, Transition, UpdatePropertyComponentOperation } from '../../model-diffing';
 
 
-export const buildModelV1 = () => {
+export const buildModelV1 = (): InfraModel => {
   const component1v1 = new Component('component1', 'resource', {
     subtype: 'AWS::IAM::Role',
     properties: new ComponentPropertyRecord(
@@ -35,7 +35,7 @@ export const buildModelV1 = () => {
   return infraModelv1;
 };
 
-const buildModelV2 = () => {
+const buildModelV2 = (): InfraModel => {
   const component1v2 = new Component('component1', 'resource', {
     subtype: 'AWS::IAM::Role',
     properties: new ComponentPropertyRecord(

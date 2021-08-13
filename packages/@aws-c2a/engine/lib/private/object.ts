@@ -1,9 +1,9 @@
-export const flattenObjects = (objects: Record<any, any>[]) => {
+export const flattenObjects = (objects: Record<any, any>[]): Record<any, any> => {
   return objects.reduce((acc, object) =>
     ({...acc, ...object}));
 };
 
-export const mapObjectValues = <T, R>(object: Record<any, T>, cb: (v: T, i: number) => R) => {
+export const mapObjectValues = <T, R>(object: Record<any, T>, cb: (v: T, i: number) => R): R[] => {
   return Object.values(object).map(cb);
 };
 

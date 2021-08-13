@@ -25,7 +25,7 @@ export const stringSimilarity = (a: string, b: string): number => {
 
 };
 
-export const capitalizeString = (s: string) => {
+export const capitalizeString = (s: string): string => {
   const lowerCase = s.toLocaleLowerCase();
   if(lowerCase.length)
     return `${lowerCase.charAt(0).toUpperCase()}${lowerCase.slice(1)}`;

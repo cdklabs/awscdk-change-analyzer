@@ -7,9 +7,9 @@ interface Props {
   component: Component,
 }
 
-export const ComponentDetails = ({component}: Props) => {
+export function ComponentDetails({component}: Props): JSX.Element {
   return <>
     <Typography>Name: {component.name}</Typography>
     <Typography>Path: {getComponentStructuralPath(component)}</Typography>
   </>;
-};
+}

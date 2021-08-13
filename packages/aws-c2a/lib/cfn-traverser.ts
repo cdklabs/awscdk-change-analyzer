@@ -73,6 +73,7 @@ export class CfnTraverser {
   public async traverseS3(url: string, logicalId?: string): Promise<TemplateTree> {
     const process = async (response: any) => {
       // We guarantee the logical id being present because we always pass it in during recursion
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const stackName = this._id2Name[logicalId!] ?? logicalId!;
       await this._mapId2Name(stackName);
       const parameters = await this._cfnParameters(stackName);
@@ -184,7 +185,7 @@ export class CfnTraverser {
    *
    * @param stackName The current stack name to map
    */
-  public async _mapId2Name(stackName: string) {
+  public async _mapId2Name(stackName: string): Promise<void> {
     ((await this._host.describeStackResources(stackName)) ?? [])
       .filter(({ResourceType}) => ResourceType === 'AWS::CloudFormation::Stack')
       .forEach(({LogicalResourceId, PhysicalResourceId}) => {

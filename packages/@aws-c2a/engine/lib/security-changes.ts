@@ -21,7 +21,7 @@ export class SecurityChangesRules {
    * Rules that pertain to broadening permissions for
    * EC2 security group changes.
    */
-  public static BroadeningSecurityGroup() {
+  public static BroadeningSecurityGroup(): SecurityChangesRules {
     const rules = new SecurityChangesRules();
     const securityGroup = rules._createResourceRule({
       identifier: 'securityGroup',
@@ -44,7 +44,7 @@ export class SecurityChangesRules {
    * Rules that pertain to broadening permissions for
    * IAM policy/statement changes.
    */
-  public static BroadeningIamPermissions() {
+  public static BroadeningIamPermissions(): SecurityChangesRules {
     const rules = new SecurityChangesRules();
     // Policy Properties
     rules.addRules(...Object.entries(IAM_POLICY_PROPERTIES).map(([resource, policies]) => {
@@ -88,7 +88,7 @@ export class SecurityChangesRules {
     }));
     return rules;
   }
-  public static BroadeningPermissions() {
+  public static BroadeningPermissions(): SecurityChangesRules {
     const rules = new SecurityChangesRules();
     rules.addRules(
       ...SecurityChangesRules.BroadeningSecurityGroup().rules,
@@ -107,7 +107,7 @@ export class SecurityChangesRules {
     this._rules = [];
   }
 
-  public addRules(...rules: CUserRule[]) {
+  public addRules(...rules: CUserRule[]): void {
     this._rules.push(...rules);
   }
 
@@ -115,7 +115,7 @@ export class SecurityChangesRules {
    * An opinionated utility that creates nested change
    * rules for a given resource.
    */
-  private _createResourceRule(options: ResourceRuleOptions) {
+  private _createResourceRule(options: ResourceRuleOptions): CUserRule {
     return {
       let: { [options.identifier]: { Resource: options.resource } },
       then: options.then.map(opts => this._createChangeRule(opts)),
