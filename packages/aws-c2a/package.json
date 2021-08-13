@@ -1,6 +1,6 @@
 {
   "name": "aws-c2a",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "The CLI toolkit to run CDK Change Analyzer on a given architecture",
   "main": "lib/index.js",
   "bin": {
@@ -32,7 +32,7 @@
   "dependencies": {
     "@aws-c2a/engine": "^0.3.3",
     "@aws-c2a/models": "^0.3.3",
-    "@aws-c2a/web-app": "^0.3.3",
+    "@aws-c2a/web-app": "^0.3.4",
     "@aws-cdk/cfnspec": "^1.115.0",
     "@aws-cdk/cx-api": "^1.115.0",
     "@types/graphviz": "0.0.32",

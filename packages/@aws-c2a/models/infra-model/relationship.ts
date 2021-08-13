@@ -1,17 +1,17 @@
-import { JSONSerializable } from "../export/json-serializable";
-import { SerializationID } from "../export/json-serializer";
-import { SerializedRelationship } from "../export/serialized-interfaces/infra-model/serialized-relationship";
-import { Component } from "./component";
-import { ModelEntity } from "./model-entity";
-import { ModelEntityTypes } from "./model-entity-types";
+import { JSONSerializable } from '../export/json-serializable';
+import { SerializationID } from '../export/json-serializer';
+import { SerializedRelationship } from '../export/serialized-interfaces/infra-model/serialized-relationship';
+import { Component } from './component';
+import { ModelEntity } from './model-entity';
+import { ModelEntityTypes } from './model-entity-types';
 
 export type RelationshipData = {
-    readonly type: string;
+  readonly type: string;
 }
 
 export type RelationshipEdges = {
-    readonly source: Component,
-    readonly target: Component,
+  readonly source: Component,
+  readonly target: Component,
 }
 
 /**
@@ -19,24 +19,24 @@ export type RelationshipEdges = {
  * describe how they relate to each other
  */
 export abstract class Relationship<T extends RelationshipData = RelationshipData>
-    extends ModelEntity<T, RelationshipEdges>
-    implements JSONSerializable
+  extends ModelEntity<T, RelationshipEdges>
+  implements JSONSerializable
 {
-    public get type(): string { return this.nodeData.type; }
-    public get target(): Component { return this.outgoingNodeReferences.target; }
-    public get source(): Component { return this.outgoingNodeReferences.source; }
+  public get type(): string { return this.nodeData.type; }
+  public get target(): Component { return this.outgoingNodeReferences.target; }
+  public get source(): Component { return this.outgoingNodeReferences.source; }
 
-    constructor(source: Component, target: Component, nodeData: T){
-        super(ModelEntityTypes.relationship, nodeData, {source, target});
-    }
+  constructor(source: Component, target: Component, nodeData: T){
+    super(ModelEntityTypes.relationship, nodeData, {source, target});
+  }
 
-    public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedRelationship {
-        return {
-            target: serialize(this.target),
-            source: serialize(this.source),
-            type: this.type,
-        };
-    }
+  public toSerialized(serialize: (obj: JSONSerializable) => SerializationID): SerializedRelationship {
+    return {
+      target: serialize(this.target),
+      source: serialize(this.source),
+      type: this.type,
+    };
+  }
 
-    public abstract getSerializationClass(): string;
+  public abstract getSerializationClass(): string;
 }

@@ -1,6 +1,6 @@
-import { SerializationClasses } from "../export/serialization-classes";
-import { Component } from "./component";
-import { Relationship } from "./relationship";
+import { SerializationClasses } from '../export/serialization-classes';
+import { Component } from './component';
+import { Relationship } from './relationship';
 
 /**
  * StructuralRelationship establishes a conceptual hierarchy between
@@ -9,12 +9,12 @@ import { Relationship } from "./relationship";
  */
 export class StructuralRelationship extends Relationship {
 
-    constructor(source: Component, target: Component, type: string){
-        super(source, target, {type});
-    }
+  constructor(source: Component, target: Component, type: string){
+    super(source, target, {type});
+  }
 
-    public getSerializationClass(): string{
-        return SerializationClasses.STRUCTURAL_RELATIONSHIP;
-    }
+  public getSerializationClass(): string{
+    return SerializationClasses.STRUCTURAL_RELATIONSHIP;
+  }
 
 }

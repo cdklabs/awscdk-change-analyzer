@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { List, Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import React, { useContext } from 'react';
 import { AppContext } from '../App';
 import { buildVisualHierarchy } from '../selectors/hierarchy-builder';
 import HierarchicalNode from './HierarchicalNode';
@@ -16,18 +16,18 @@ const useStyles = makeStyles({
 });
 
 function HierarchicalTree() {
-    const classes = useStyles();
-    const {changeReport} = useContext(AppContext);
+  const classes = useStyles();
+  const {changeReport} = useContext(AppContext);
 
-    return (
-      <Paper elevation={3} className={classes.root}>
-          <List disablePadding style={{width: '100%'}}>
-              {buildVisualHierarchy(changeReport.infraModelDiff).map((n) =>
-                  <HierarchicalNode key={n.compTransition.nodeData._id} node={n}/>
-              )}
-          </List>
-      </Paper>
-    );
+  return (
+    <Paper elevation={3} className={classes.root}>
+      <List disablePadding style={{width: '100%'}}>
+        {buildVisualHierarchy(changeReport.infraModelDiff).map((n) =>
+          <HierarchicalNode key={n.compTransition.nodeData._id} node={n}/>,
+        )}
+      </List>
+    </Paper>
+  );
 }
 
 export default HierarchicalTree;

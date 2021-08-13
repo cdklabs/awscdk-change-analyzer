@@ -6,7 +6,7 @@ import { CfnTraverser } from './cfn-traverser';
 import { CloudAssembly, DefaultSelection } from './cloud-assembly';
 import { warning, error } from './private/logging';
 import { flattenObjects, mapObjectValues } from './private/object';
-const templatePath = require.resolve('@aws-c2a/web-app/dist/index.html');
+const templatePath = require.resolve('@aws-c2a/web-app/fixtures/template.index.html');
 
 export interface TemplateTree {
   readonly rootTemplate: any;
