@@ -16,13 +16,18 @@ export interface PerformChangeAnalysisProps {
    * This should be the same Stage object you are passing to `addStage()`.
    */
   readonly stage: Stage;
-
   /**
    * Topic to send notifications when a human needs to give manual confirmation
    *
    * @default - no notification
    */
   readonly notificationTopic?: sns.ITopic;
+  /**
+   * Clean up the web app s3 bucket objects when deleting the stack.
+   *
+   * @default false
+   */
+  readonly autoDeleteObjects?: boolean;
 }
 
 /**
@@ -82,6 +87,7 @@ export class PerformChangeAnalysis extends Step implements ICodePipelineActionFa
 
     return new ChangeAnalysisCheck(pipeline, id, {
       codePipeline: pipeline.pipeline,
+      autoDeleteObjects: this.props.autoDeleteObjects,
     });
   }
 }

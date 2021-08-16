@@ -1,12 +1,25 @@
 import * as iam from '@aws-cdk/aws-iam';
-import * as secrets from '@aws-cdk/aws-secretsmanager';
 import * as s3 from '@aws-cdk/aws-s3';
-import { Construct } from 'constructs';
+import * as secrets from '@aws-cdk/aws-secretsmanager';
 import { RemovalPolicy, Stack } from '@aws-cdk/core';
 
 // keep this import separate from other imports to reduce chance for merge conflicts with v2-main
 // eslint-disable-next-line no-duplicate-imports, import/order
 import { Construct as CoreConstruct } from '@aws-cdk/core';
+import { Construct } from 'constructs';
+
+/**
+ * The props to configure WebAppBucket
+ */
+export interface WebAppBucketProps {
+  /**
+   * Clean up all objects when bucket is attempted to
+   * be deleted.
+   *
+   * @default false
+   */
+  readonly autoDeleteObjects?: boolean;
+}
 
 /**
  * A S3 Bucket that stores the html files to be viewed
@@ -26,7 +39,7 @@ export class WebAppBucket extends CoreConstruct {
   /**
    * The aws cli command to generate a presigned url that
    * renders the change report hmtl file.
-   * 
+   *
    * Requires the environment variables:
    *  - $DOWNLOAD_USER_KEY
    *  - $DOWNLOAD_USER_SECRET
@@ -37,7 +50,7 @@ export class WebAppBucket extends CoreConstruct {
    *
    * The environment variable must be saved in the following manner:
    *  - $DOWNLOAD_USER_KEY: { value: `${accessKeySecret.secretArn}:AWS_ACCESS_KEY_ID` },
-   *  - $DOWNLOAD_USER_SECRET: { value: `${accessKeySecret.secretArn}:AWS_SECRET_ACCESS_KEY` }, 
+   *  - $DOWNLOAD_USER_SECRET: { value: `${accessKeySecret.secretArn}:AWS_SECRET_ACCESS_KEY` },
    */
   public readonly accessKeySecret: secrets.Secret;
   /**
@@ -49,11 +62,11 @@ export class WebAppBucket extends CoreConstruct {
    */
   private readonly user: iam.User;
 
-  constructor(scope: Construct, id: string) {
+  constructor(scope: Construct, id: string, props?: WebAppBucketProps) {
     super(scope, id);
 
     this.bucket = new s3.Bucket(scope,' C2AWebAppBucket', {
-      autoDeleteObjects: true,
+      autoDeleteObjects: props?.autoDeleteObjects ?? false,
       publicReadAccess: false,
       removalPolicy: RemovalPolicy.DESTROY,
     });
@@ -71,7 +84,7 @@ export class WebAppBucket extends CoreConstruct {
       AWS_ACCESS_KEY_ID: accessKey.ref,
       AWS_SECRET_ACCESS_KEY: accessKey.getAtt('SecretAccessKey'),
     });
-  
+
     this.bucket.grantRead(this.user);
 
     this.putObject =

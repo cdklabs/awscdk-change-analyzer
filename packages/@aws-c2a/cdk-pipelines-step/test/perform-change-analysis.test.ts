@@ -34,8 +34,7 @@ describe('perform change analysis', () => {
     });
 
     // THEN
-    // 1 for lambda to auto delete s3, 1 for auto approve lambda
-    expect(pipelineStack).toCountResources('AWS::Lambda::Function', 2);
+    expect(pipelineStack).toCountResources('AWS::Lambda::Function', 1);
     expect(pipelineStack).toHaveResourceLike('AWS::Lambda::Function', {
       Role: {
         'Fn::GetAtt': [
@@ -48,6 +47,30 @@ describe('perform change analysis', () => {
     expect(pipelineStack).toCountResources('AWS::CodeBuild::Project', 3);
     // 1 for OneStackApp, 1 for web app
     expect(pipelineStack).toCountResources('AWS::S3::Bucket', 2);
+  });
+
+  test('configuring autoDeleteObjects adds lambda function to remove objects', () => {
+    // WHEN
+    const stage = new OneStackApp(app, 'App');
+    pipeline.addStage(stage, {
+      pre: [
+        new PerformChangeAnalysis('Check', {
+          stage,
+          autoDeleteObjects: true,
+        }),
+      ],
+    });
+    // THEN
+    // 1 for auto delete s3 lambda and 1 for auto approve lambda
+    expect(pipelineStack).toCountResources('AWS::Lambda::Function', 2);
+    expect(pipelineStack).toHaveResourceLike('AWS::Lambda::Function', {
+      Role: {
+        'Fn::GetAtt': [
+          stringLike('CustomS3AutoDeleteObjectsCustomResourceProviderRole*'),
+          'Arn',
+        ],
+      },
+    });
   });
 
   test('passes correct environment variables to CodeBuild project', () => {
@@ -220,5 +243,5 @@ describe('perform change analysis', () => {
     });
   });
 
-  
+
 });

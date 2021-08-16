@@ -7,11 +7,11 @@ import { Tags } from '@aws-cdk/core';
 import { Construct } from 'constructs';
 import { PreApproveLambda } from './pre-approve-lambda';
 import { ifElse } from './security-check-utils';
+import { WebAppBucket } from './web-app-bucket';
 
 // keep this import separate from other imports to reduce chance for merge conflicts with v2-main
 // eslint-disable-next-line no-duplicate-imports, import/order
 import { Construct as CoreConstruct } from '@aws-cdk/core';
-import { WebAppBucket } from './web-app-bucket';
 
 /**
  * Properties for an ChangeAnalysisCheck
@@ -23,6 +23,12 @@ export interface ChangeAnalysisCheckProps {
    * Will have a tag added to it.
    */
   readonly codePipeline: cp.Pipeline;
+  /**
+   * Clean up the web app s3 bucket objects when deleting the stack.
+   *
+   * @default false
+   */
+  readonly autoDeleteObjects?: boolean;
 }
 
 /**
@@ -73,7 +79,9 @@ export class ChangeAnalysisCheck extends CoreConstruct {
     });
     this.preApproveLambda = preApproveLambda;
 
-    const { accessKeySecret, bucket, putObject, signObject} = new WebAppBucket(this, 'C2ABucket');
+    const { accessKeySecret, bucket, putObject, signObject} = new WebAppBucket(this, 'C2ABucket', {
+      autoDeleteObjects: props.autoDeleteObjects,
+    });
     this.bucket = bucket;
 
     const message = [
