@@ -71,6 +71,7 @@ describe('perform change analysis', () => {
               Name: stringLike('*Check'),
               Configuration: objectLike({
                 EnvironmentVariables: encodedJson([
+                  { name: 'CODEPIPELINE_EXECUTION_ID', type: 'PLAINTEXT', value: '#{codepipeline.PipelineExecutionId}' },
                   { name: 'STAGE_PATH', type: 'PLAINTEXT', value: 'C2APipelineUnitStack/App' },
                   { name: 'STAGE_NAME', type: 'PLAINTEXT', value: 'App' },
                   { name: 'ACTION_NAME', type: 'PLAINTEXT', value: anything() },
@@ -218,4 +219,6 @@ describe('perform change analysis', () => {
       ),
     });
   });
+
+  
 });

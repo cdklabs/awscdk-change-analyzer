@@ -8,24 +8,53 @@ import { RemovalPolicy, Stack } from '@aws-cdk/core';
 // eslint-disable-next-line no-duplicate-imports, import/order
 import { Construct as CoreConstruct } from '@aws-cdk/core';
 
+/**
+ * A S3 Bucket that stores the html files to be viewed
+ * during the Approval Action of stage configured with
+ * ChangeAnalysisCheck.
+ */
 export class WebAppBucket extends CoreConstruct {
-  
+  /**
+   * The s3 bucket that holds all the html files
+   */
   public readonly bucket: s3.IBucket;
-
+  /**
+   * The aws cli command to put an html file into its
+   * corresponding s3 bucket location.
+   */
   public readonly putObject: string;
-
+  /**
+   * The aws cli command to generate a presigned url that
+   * renders the change report hmtl file.
+   * 
+   * Requires the environment variables:
+   *  - $DOWNLOAD_USER_KEY
+   *  - $DOWNLOAD_USER_SECRET
+   */
   public readonly signObject: string;
-
+  /**
+   * The accessKeySecret of the user to generate the presigned url.
+   *
+   * The environment variable must be saved in the following manner:
+   *  - $DOWNLOAD_USER_KEY: { value: `${accessKeySecret.secretArn}:AWS_ACCESS_KEY_ID` },
+   *  - $DOWNLOAD_USER_SECRET: { value: `${accessKeySecret.secretArn}:AWS_SECRET_ACCESS_KEY` }, 
+   */
   public readonly accessKeySecret: secrets.Secret;
-
+  /**
+   * The iam user that signs the s3 url for prolonged view time.
+   *
+   * We need an IAM user in order to have the presigned URL be able to be valid
+   * for longer than 1hr.
+   * https://docs.aws.amazon.com/AmazonS3/latest/dev/ShareObjectPreSignedURL.html
+   */
   private readonly user: iam.User;
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
     this.bucket = new s3.Bucket(scope,' C2AWebAppBucket', {
-      publicReadAccess: false,
       autoDeleteObjects: true,
+      publicReadAccess: false,
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
