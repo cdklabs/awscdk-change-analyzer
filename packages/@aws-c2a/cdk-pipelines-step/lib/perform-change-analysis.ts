@@ -49,6 +49,7 @@ export class PerformChangeAnalysis extends Step implements ICodePipelineActionFa
       project: c2aDiffProject,
       variablesNamespace,
       environmentVariables: {
+        CODEPIPELINE_EXECUTION_ID: { value: '#{codepipeline.PipelineExecutionId}' },
         STAGE_PATH: { value: Node.of(this.props.stage).path },
         STAGE_NAME: { value: stage.stageName },
         ACTION_NAME: { value: approveActionName },

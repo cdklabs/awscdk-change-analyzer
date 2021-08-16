@@ -7,8 +7,13 @@ out.json
 report.json
 cdk.out
 
+# Never save jsii generated files
+.jsii
+tsconfig.json
+tsconfig.tsbuildinfo
+dist/
+
 # Save Config Files
 !jest.config.js
 !.eslintrc.js
 !babel.config.js
-

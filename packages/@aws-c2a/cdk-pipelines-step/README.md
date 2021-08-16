@@ -1,6 +1,6 @@
 # Perform Change Analysis
 
-Perform Change Analysis (PCA) is a [CDK Construct](https://docs.aws.amazon.com/cdk/latest/guide/constructs.html) functions as a 
+Perform Change Analysis (PCA) is a [CDK Construct](https://docs.aws.amazon.com/cdk/latest/guide/constructs.html) that functions as a 
 verification step within a [CDK Pipelines v2](https://aws.amazon.com/blogs/developer/cdk-pipelines-continuous-delivery-for-aws-cdk-applications/).
 PCA is tool that allows you, the developer, to set up checkpoints within your
 pipeline to monitor both security and architectural changes.
@@ -29,6 +29,8 @@ Pipeline
 │    └── Stack.Deploy
 └── ...
 ```
+
+## Usage
 
 You can insert `PerformChangeAnalysis` by using adding it as a step in a CDK pipeline stage:
 
@@ -63,7 +65,3 @@ pipeline.addStage(stage, {
   ],
 });
 ```
-
-**Note**: Manual Approvals notifications only apply when an application has security
-check enabled.
-

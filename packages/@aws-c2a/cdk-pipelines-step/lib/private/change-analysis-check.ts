@@ -3,7 +3,7 @@ import * as cp from '@aws-cdk/aws-codepipeline';
 import * as iam from '@aws-cdk/aws-iam';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as s3 from '@aws-cdk/aws-s3';
-import { RemovalPolicy, Tags } from '@aws-cdk/core';
+import { Tags } from '@aws-cdk/core';
 import { Construct } from 'constructs';
 import { PreApproveLambda } from './pre-approve-lambda';
 import { ifElse } from './security-check-utils';
@@ -11,6 +11,7 @@ import { ifElse } from './security-check-utils';
 // keep this import separate from other imports to reduce chance for merge conflicts with v2-main
 // eslint-disable-next-line no-duplicate-imports, import/order
 import { Construct as CoreConstruct } from '@aws-cdk/core';
+import { WebAppBucket } from './web-app-bucket';
 
 /**
  * Properties for an ChangeAnalysisCheck
@@ -58,7 +59,7 @@ export class ChangeAnalysisCheck extends CoreConstruct {
    * A S3 Bucket that stores all the generated web apps created from
    * the change reports.
    */
-  public readonly webappBucket: s3.Bucket;
+  public readonly bucket: s3.IBucket;
 
   constructor(scope: Construct, id: string, props: ChangeAnalysisCheckProps) {
     super(scope, id);
@@ -72,23 +73,8 @@ export class ChangeAnalysisCheck extends CoreConstruct {
     });
     this.preApproveLambda = preApproveLambda;
 
-    this.webappBucket = new s3.Bucket(this, 'C2AWebappBucket', {
-      publicReadAccess: false,
-      autoDeleteObjects: true,
-      removalPolicy: RemovalPolicy.DESTROY,
-    });
-
-    const putObject =
-      'aws s3api put-object' +
-      ` --bucket ${this.webappBucket.bucketName}` +
-      ' --key $STAGE_NAME/index.html' +
-      ' --body index.html' +
-      ' --content-type text/html';
-
-    const signObject =
-      'aws s3 presign' +
-      ` s3://${this.webappBucket.bucketName}/$STAGE_NAME/index.html` +
-      ' --expires-in 604800';
+    const { accessKeySecret, bucket, putObject, signObject} = new WebAppBucket(this, 'C2ABucket');
+    this.bucket = bucket;
 
     const message = [
       'An upcoming change would violate configured rules settings in $PIPELINE_NAME.',
@@ -110,6 +96,16 @@ export class ChangeAnalysisCheck extends CoreConstruct {
       ` --message "${message.join('\n')}"`;
 
     this.c2aDiffProject = new codebuild.Project(this, 'CDKChangeAnalysis', {
+      environmentVariables: {
+        DOWNLOAD_USER_KEY: {
+          type: codebuild.BuildEnvironmentVariableType.SECRETS_MANAGER,
+          value: `${accessKeySecret.secretArn}:AWS_ACCESS_KEY_ID`,
+        },
+        DOWNLOAD_USER_SECRET: {
+          type: codebuild.BuildEnvironmentVariableType.SECRETS_MANAGER,
+          value: `${accessKeySecret.secretArn}:AWS_SECRET_ACCESS_KEY`,
+        },
+      },
       buildSpec: codebuild.BuildSpec.fromObject({
         version: 0.2,
         phases: {
@@ -172,6 +168,6 @@ export class ChangeAnalysisCheck extends CoreConstruct {
     }));
 
     this.preApproveLambda.grantInvoke(this.c2aDiffProject);
-    this.webappBucket.grantReadWrite(this.c2aDiffProject);
+    this.bucket.grantWrite(this.c2aDiffProject);
   }
 }
