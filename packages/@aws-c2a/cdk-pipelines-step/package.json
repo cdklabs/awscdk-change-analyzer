@@ -30,7 +30,7 @@
     "build:watch": "yarn clean && npx jsii --watch",
     "package": "jsii-pacmak",
     "compile": "npx jsii",
-    "clean": "npx tsc --build --clean",
+    "clean": "rm -rf cdk.out/ && npx tsc --build --clean",
     "clean:all": "git clean -fdx",
     "lint": "eslint . --ext .ts",
     "test": "npx jest"
