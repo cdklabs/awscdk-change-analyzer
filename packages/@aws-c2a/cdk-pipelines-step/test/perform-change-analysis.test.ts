@@ -29,6 +29,7 @@ describe('perform change analysis', () => {
       pre: [
         new PerformChangeAnalysis('Check', {
           stage,
+          autoDeleteObjects: false,
         }),
       ],
     });
@@ -56,7 +57,6 @@ describe('perform change analysis', () => {
       pre: [
         new PerformChangeAnalysis('Check', {
           stage,
-          autoDeleteObjects: true,
         }),
       ],
     });

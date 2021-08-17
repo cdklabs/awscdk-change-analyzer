@@ -25,7 +25,7 @@ export interface PerformChangeAnalysisProps {
   /**
    * Clean up the web app s3 bucket objects when deleting the stack.
    *
-   * @default false
+   * @default true
    */
   readonly autoDeleteObjects?: boolean;
 }

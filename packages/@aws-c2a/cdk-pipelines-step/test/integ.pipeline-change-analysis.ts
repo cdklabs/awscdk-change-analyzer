@@ -44,7 +44,7 @@ class PipelinesStack extends Stack {
     const unsafeStage = new MyStage(this, 'Beta', { makeUnsafe: true });
     pipeline.addStage(unsafeStage, {
       pre: [
-        new PerformChangeAnalysis('c2a', { stage: unsafeStage, autoDeleteObjects: true }),
+        new PerformChangeAnalysis('c2a', { stage: unsafeStage }),
       ],
     });
   }

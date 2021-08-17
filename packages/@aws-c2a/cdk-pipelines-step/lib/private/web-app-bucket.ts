@@ -16,7 +16,7 @@ export interface WebAppBucketProps {
    * Clean up all objects when bucket is attempted to
    * be deleted.
    *
-   * @default false
+   * @default true
    */
   readonly autoDeleteObjects?: boolean;
 }
@@ -66,7 +66,7 @@ export class WebAppBucket extends CoreConstruct {
     super(scope, id);
 
     this.bucket = new s3.Bucket(scope,' C2AWebAppBucket', {
-      autoDeleteObjects: props?.autoDeleteObjects ?? false,
+      autoDeleteObjects: props?.autoDeleteObjects ?? true,
       publicReadAccess: false,
       removalPolicy: RemovalPolicy.DESTROY,
     });
