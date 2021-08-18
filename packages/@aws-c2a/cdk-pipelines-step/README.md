@@ -1,6 +1,6 @@
 # Perform Change Analysis
 
-Perform Change Analysis (PCA) is a [CDK Construct](https://docs.aws.amazon.com/cdk/latest/guide/constructs.html) that functions as a 
+Perform Change Analysis (PCA) is a [CDK Construct](https://docs.aws.amazon.com/cdk/latest/guide/constructs.html) that functions as a
 verification step within a [CDK Pipelines v2](https://aws.amazon.com/blogs/developer/cdk-pipelines-continuous-delivery-for-aws-cdk-applications/).
 PCA is tool that allows you, the developer, to set up checkpoints within your
 pipeline to monitor both security and architectural changes.
@@ -28,6 +28,39 @@ Pipeline
 │    ├── Stack.Prepare
 │    └── Stack.Deploy
 └── ...
+```
+
+## Installation
+
+Add the following to your `package.json`:
+
+```
+{
+  "dependencies": {
+    "@aws-c2a/cdk-pipelines-step": "^0.3.3"
+  }
+}
+```
+
+Make sure the following packages are in there as well, with
+a CDK version of `1.115.0` or higher:
+
+```
+{
+  "dependencies": {
+    "@aws-cdk/aws-codebuild": "<VERSION>",
+    "@aws-cdk/aws-codepipeline": "<VERSION>",
+    "@aws-cdk/aws-codepipeline-actions": "<VERSION>",
+    "@aws-cdk/aws-iam": "<VERSION>",
+    "@aws-cdk/aws-lambda": "<VERSION>",
+    "@aws-cdk/aws-s3": "<VERSION>",
+    "@aws-cdk/aws-secretsmanager": "<VERSION>",
+    "@aws-cdk/aws-sns": "<VERSION>",
+    "@aws-cdk/core": "<VERSION>",
+    "@aws-cdk/pipelines": "<VERSION>",
+    "constructs": "^3.3.69"
+  }
+}
 ```
 
 ## Usage
