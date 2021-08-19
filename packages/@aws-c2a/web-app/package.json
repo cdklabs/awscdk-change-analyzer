@@ -20,8 +20,6 @@
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/styles": "^4.11.3",
-    "intro.js": "^3.4.0",
-    "intro.js-react": "^0.3.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
