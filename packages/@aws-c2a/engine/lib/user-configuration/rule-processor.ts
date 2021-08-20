@@ -20,7 +20,7 @@ type ValueScopeNode = {
 }
 export function isScopeValue(n: ScopeNode): n is ValueScopeNode { return {}.hasOwnProperty.call(n, 'value'); }
 export type ScopeNode = VertexScopeNode | ValueScopeNode;
-function vertexToScopeNode(vertex: fn.Vertex<any, any>) {
+function vertexToScopeNode(vertex: fn.Vertex<any, any>): VertexScopeNode {
   return {vertex};
 }
 function scalarToScopeNode(value: fn.Vertex<any, any>) {
@@ -55,8 +55,7 @@ export class RuleProcessor {
   }
 
   private processRule(rule: UserRule, currentScope: RulesScope): RuleOutput{
-    const newScopes = rule.let ? this.getScopesFromDeclarations(rule.let, currentScope) : [currentScope];
-
+    const newScopes = this.getScopesFromDeclarations(rule, currentScope);
     return new Map([...flatMap(newScopes, (newScope): [ModelEntity, RuleEffect][] => {
       let output = new Map<ModelEntity, RuleEffect>();
       if(rule.effect)
@@ -75,11 +74,9 @@ export class RuleProcessor {
     return new Map([[targetScopeNode.vertex, effect]]);
   }
 
-  private getScopesFromDeclarations(
-    bindings: Bindings, currentScope: RulesScope,
-  ): RulesScope[] {
+  private getScopesFromDeclarations(rule: UserRule, currentScope: RulesScope): RulesScope[] {
     let newScopes: RulesScope[] = [{...currentScope}];
-    Object.entries(bindings).forEach(
+    Object.entries(rule.let ?? []).forEach(
       ([identifier, selector]) => {
         newScopes = flatMap(newScopes, (scope): RulesScope[] => {
           const newScopeNodes = this.processDefinition(identifier, selector, scope);
@@ -89,7 +86,10 @@ export class RuleProcessor {
         });
       },
     );
-    return newScopes;
+
+    return newScopes.filter(scope => 
+      this.verifyConditions(rule.where ?? [], scope)
+    );
   }
 
   private processDefinition(identifier: string, selector: Selector, scope: RulesScope): ScopeNode[]{
@@ -121,7 +121,7 @@ export class RuleProcessor {
     if(!path || path.length === 0) return [entity];
 
     if(isScopeVertex(entity)) {
-      const traverse = (conditions: any) => this.graph.v(entity.vertex).outAny(conditions).run().map(vertexToScopeNode);
+      const traverse = (conditions: any): VertexScopeNode[] => this.graph.v(entity.vertex).outAny(conditions).run().map(vertexToScopeNode);
       const newPropertyScopeNodes = traverse({_label: 'hasProperties'});
       const nestedPropertyScopeNodes = traverse({_label: 'value', ...path[0] === propertyPathWildcard ? {} : {key: path[0]}});
       const exposesValuesScopeNodes = traverse({_label: 'exposesValues', key: path[0]});
@@ -157,15 +157,13 @@ export class RuleProcessor {
         return false;
       }
 
-      const approved = leftCandidates.reduce((outterAcc, l) =>
-        outterAcc ||
-        rightCandidates.reduce((innerAcc, r) => {
-          if(l && r && Object.values(RuleConditionOperator).includes(c.operator)){
-            return innerAcc || operatorToHandler[c.operator](this.graph, l, r);
-          }
-          return innerAcc;
-        }, false,
-        ), false);
+      const approved = leftCandidates.reduce((outterAcc, l) => {
+        return outterAcc || rightCandidates.reduce((innerAcc, r) => {
+          return innerAcc || (l && r && Object.values(RuleConditionOperator).includes(c.operator))
+            ? operatorToHandler[c.operator](this.graph, l, r)
+            : false;
+        }, false);
+      }, false);
       if(!approved) return false;
     }
     return true;
