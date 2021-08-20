@@ -3,7 +3,16 @@ import * as fn from 'fifinet';
 import { flatMap } from '../private/node';
 import { appliesToHandler } from './operator-handlers';
 import { equalsHandler } from './operator-handlers/equals';
-import { UserRules, UserRule, Bindings, RuleEffectDefinition, Selector, selectorIsReference, RuleConditions, RuleConditionOperator, isInputScalar } from './rule';
+import {
+  UserRules,
+  UserRule,
+  RuleEffectDefinition,
+  Selector,
+  selectorIsReference,
+  RuleConditions,
+  RuleConditionOperator,
+  isInputScalar,
+} from './rule';
 
 /**
  * Process user rules and assign rule effects to the respective vertices in the graph
@@ -87,8 +96,8 @@ export class RuleProcessor {
       },
     );
 
-    return newScopes.filter(scope => 
-      this.verifyConditions(rule.where ?? [], scope)
+    return newScopes.filter(scope =>
+      this.verifyConditions(rule.where ?? [], scope),
     );
   }
 
@@ -121,7 +130,8 @@ export class RuleProcessor {
     if(!path || path.length === 0) return [entity];
 
     if(isScopeVertex(entity)) {
-      const traverse = (conditions: any): VertexScopeNode[] => this.graph.v(entity.vertex).outAny(conditions).run().map(vertexToScopeNode);
+      const traverse = (conditions: any): VertexScopeNode[] =>
+        this.graph.v(entity.vertex).outAny(conditions).run().map(vertexToScopeNode);
       const newPropertyScopeNodes = traverse({_label: 'hasProperties'});
       const nestedPropertyScopeNodes = traverse({_label: 'value', ...path[0] === propertyPathWildcard ? {} : {key: path[0]}});
       const exposesValuesScopeNodes = traverse({_label: 'exposesValues', key: path[0]});
