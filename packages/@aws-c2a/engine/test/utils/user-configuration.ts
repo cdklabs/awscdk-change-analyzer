@@ -31,7 +31,7 @@ export function cfnWithPolicyDocument(source: any, type: string, policy?: string
   const id = type.replace(/::/g, '-');
   const policyDocument = {
     PolicyDocument: {
-      Statement: [ arbitraryPolicyStatement ],
+      Statement: [ arbitraryNegativePolicyStatement ],
     },
   };
   target.Resources[id] = {
@@ -43,12 +43,20 @@ export function cfnWithPolicyDocument(source: any, type: string, policy?: string
   return target;
 }
 
-export const arbitraryPolicyStatement =  {
+export const arbitraryPolicyStatement = {
   Effect: 'Allow',
   Action: 'test:Test',
   Resource: '*',
   Principal: { Service: 'test.amazonaws.com' },
 };
+
+export const arbitraryNegativePolicyStatement = {
+  Effect: 'Deny',
+  Action: 'test:Test',
+  Resource: '*',
+  Principal: { Service: 'test.amazonaws.com' },
+};
+
 
 export const firstKey = (output: RuleOutput, findCb?: (out: any) => boolean): any => {
   return findCb ? [...output][0][0]._out.find(findCb) : [...output][0][0];

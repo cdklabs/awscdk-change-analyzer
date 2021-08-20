@@ -8,6 +8,7 @@ interface ChangeRuleOptions {
   propertyOperationType?: OperationType;
   type?: OperationType;
   changeId?: string;
+  where?: string[];
 }
 
 interface ResourceRuleOptions {
@@ -37,7 +38,6 @@ export class SecurityChangesRules {
       then: [ { type: OperationType.INSERT, target: `securityGroup${type}` } ],
     }));
     rules.addRules(securityGroup, ...securityGroupResources);
-
     return rules;
   }
   /**
@@ -78,10 +78,10 @@ export class SecurityChangesRules {
         identifier,
         resource,
         then: [
-          { type: OperationType.INSERT, target: identifier },
           {
-            propertyOperationType: OperationType.INSERT,
-            target: `${identifier}.Properties.PolicyStatement.Statement`,
+            propertyOperationType: OperationType.UPDATE,
+            target: `${identifier}.Properties.PolicyDocument.Statement.*.Effect`,
+            where: ['change.new == \'Allow\''],
           },
         ],
       });
@@ -127,12 +127,12 @@ export class SecurityChangesRules {
    * rule that applies to a given target.
    */
   private _createChangeRule(options: ChangeRuleOptions): CUserRule {
-    const {target, ...opts} = options;
+    const {target, where, ...opts} = options;
     const id = options.changeId ?? 'change';
-    return {
-      let: { [id]: { change: { ...opts } } },
-      where: `${id} appliesTo ${target}`,
+    const rule: any = {
+      let: { [id]: { change: { ...opts }, where: [`${id} appliesTo ${target}`, ...(where ?? [])] } },
       effect: { risk: RuleRisk.High },
     };
+    return rule;
   }
 }
