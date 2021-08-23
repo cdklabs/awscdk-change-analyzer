@@ -1,9 +1,9 @@
-import { InfraModel } from '@aws-c2a/models';
+import { InfraModel, RuleRisk } from '@aws-c2a/models';
 import { CFParser } from '../../lib/platform-mapping';
 import { copy } from '../../lib/private/object';
 import { IAM_INLINE_IDENTITY_POLICIES, IAM_INLINE_RESOURCE_POLICIES, IAM_MANAGED_POLICIES, IAM_POLICY_RESOURCES } from '../../lib/private/security-policies';
 import { SecurityChangesRules } from '../../lib/security-changes';
-import { CUserRules } from '../../lib/user-configuration';
+import { CUserRule, CUserRules } from '../../lib/user-configuration';
 import { arbitraryPolicyStatement, cfnWithPolicyDocument, processRules, firstKey, arbitraryNegativePolicyStatement } from '../utils';
 
 import {writeFileSync} from 'fs';
@@ -21,6 +21,18 @@ describe('IAM Policy default rules', () => {
   describe('for policy resources', () => {
     IAM_POLICY_RESOURCES.slice(-1).forEach(resource => {
       test(`detect addition of ${resource} resource`, () => {
+        const rule: any = {
+          let: {
+            r: { Resource: resource },
+            change: {
+              change: { propertyOperationType: 'INSERT' },
+              where: [
+                'change appliesTo r.Properties.PolicyDocument.Statment.*',
+              ],
+            },
+          },
+          effect: { risk: RuleRisk.High }
+        };
         // GIVEN
         const after = copy(BEFORE);
         after.Resources[resource.replace(/::/g, '-')] = {
@@ -28,12 +40,12 @@ describe('IAM Policy default rules', () => {
           Properties: { PolicyDocument: { Statement: [arbitraryPolicyStatement] } },
         };
 
-        writeFileSync('before.json', JSON.stringify(BEFORE, null, 2));
-        writeFileSync('after.json', JSON.stringify(after, null, 2));
+        writeFileSync('data/before.json', JSON.stringify(BEFORE));
+        writeFileSync('data/after.json', JSON.stringify(after));
 
         // WHEN
         const newModel = new CFParser('root', after).parse();
-        const { graph: g, rulesOutput: result } = processRules(oldModel, newModel, rules);
+        const { graph: g, rulesOutput: result } = processRules(oldModel, newModel, [rule]);
         const firstVertex = firstKey(result)._id;
 
         // THEN
