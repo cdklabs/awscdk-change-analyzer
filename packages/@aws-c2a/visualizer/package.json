@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .ts --ext .tsx"
   },
   "dependencies": {
     "@aws-c2a/engine": "^0.3.8",

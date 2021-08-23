@@ -40,3 +40,4 @@ yarn-error.log*
 !babel.config.js
 !next.config.js
 !next-env.d.ts
+!package-declaration.d.ts

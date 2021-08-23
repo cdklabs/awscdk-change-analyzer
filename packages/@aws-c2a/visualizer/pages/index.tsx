@@ -1,13 +1,14 @@
-import { GetStaticProps } from 'next';
 import * as c2a from '@aws-c2a/engine';
 import * as models from '@aws-c2a/models';
+import cytoscape from 'cytoscape';
+import dagre from 'cytoscape-dagre';
 import * as fn from 'fifinet';
+import { GetStaticProps } from 'next';
 import React, { useEffect, useRef, useState } from 'react';
 import Layout from '../components/Layout';
 import styles from '../styles/Home.module.scss';
-import cytoscape from 'cytoscape';
 
-cytoscape.use(require('cytoscape-dagre'));
+cytoscape.use(dagre);
 
 interface HomeProps {
   before: any;
@@ -22,7 +23,7 @@ const createGraph = (before: any, after: any): fn.Graph<any, any> => {
   const graph = diff.generateOutgoingGraph();
 
   return graph;
-}
+};
 
 export default function Home({before, after}: HomeProps): JSX.Element {
   const [selected, setSelected] = useState<string | null>(null);
@@ -40,32 +41,30 @@ export default function Home({before, after}: HomeProps): JSX.Element {
           selector: 'node',
           style: {
             'background-color': '#666',
-            'label': 'data(id)'
-          }
+            'label': 'data(id)',
+          },
         },
-      ]
+      ],
     });
     cy.current.on('select', 'node', (event) => {
-      console.log(event.target.map(node => node._private.data));
       setSelected(JSON.stringify(event.target.map(node => node._private.data), null, 2));
-    })
+    });
     return () => {
       if (cy.current && !cy.current.destroyed()) {
         cy.current.destroy();
       }
-    }
+    };
   }, []);
 
   useEffect(() => {
     const _graph = createGraph(before, after);
     setGraph(_graph);
   }, [before, after]);
-  
+
   useEffect(() => {
     if (cy.current === null || graph === null) return;
     cy.current.elements().remove();
     graph.findVertices().map(v => {
-      console.log(v);
       const {_in, _out, _id, ...data} = v;
       cy.current.add({
         group: 'nodes',
@@ -73,7 +72,7 @@ export default function Home({before, after}: HomeProps): JSX.Element {
           ...data,
           label: _id,
           id: _id,
-        }
+        },
       });
     });
     graph.findVertices().map(v => {
@@ -84,10 +83,10 @@ export default function Home({before, after}: HomeProps): JSX.Element {
             id: e._id,
             source: e._out._id,
             target: e._in._id,
-          }
-        })
-      })
-    })
+          },
+        });
+      });
+    });
     cy.current.layout({ name: 'dagre' }).run();
   }, [graph]);
 
@@ -104,9 +103,9 @@ export default function Home({before, after}: HomeProps): JSX.Element {
 }
 
 export const getStaticProps: GetStaticProps = () => {
-  const before = require('../data/before.json');
-  const after = require('../data/after.json');
+  const before = require('../data/before.json');  // eslint-disable-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
+  const after = require('../data/after.json');    // eslint-disable-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
   return {
     props: { before, after},
   };
-}
+};
