@@ -33,7 +33,7 @@ export function diffTestCase1(): InfraModelDiff {
   component1v1.addIncoming(relationship1v1);
   component2v1.addOutgoing(relationship1v1);
   const component3v1 = new Component('component3', 'construct');
-  const relationship2v1 = new StructuralRelationship(component3v1, component1v1, "parent");
+  const relationship2v1 = new StructuralRelationship(component3v1, component1v1, 'parent');
   component1v1.addIncoming(relationship2v1);
   component3v1.addOutgoing(relationship2v1);
 
@@ -60,7 +60,7 @@ export function diffTestCase1(): InfraModelDiff {
   component1v2.addIncoming(relationship1v2);
   component2v2.addOutgoing(relationship1v2);
   const component3v2 = new Component('component3', 'construct');
-  const relationship2v2 = new StructuralRelationship(component3v2, component1v2, "parent");
+  const relationship2v2 = new StructuralRelationship(component3v2, component1v2, 'parent');
   component1v2.addIncoming(relationship2v2);
   component3v2.addOutgoing(relationship2v2);
 

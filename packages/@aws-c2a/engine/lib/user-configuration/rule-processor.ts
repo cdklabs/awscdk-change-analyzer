@@ -6,19 +6,19 @@ import {
   isContainedInHandler,
   containsHandler,
   isReferencedInHandler,
-  referencesHandler
+  referencesHandler,
 } from './operator-handlers';
 import { equalsHandler } from './operator-handlers/equals';
 import {
-  UserRules, 
+  UserRules,
   UserRule,
   Bindings,
   RuleEffectDefinition,
   Selector,
   selectorIsReference,
   RuleConditions,
-  RuleConditionOperator, 
-  isInputScalar
+  RuleConditionOperator,
+  isInputScalar,
 } from './rule';
 
 /**
@@ -76,7 +76,6 @@ export class RuleProcessor {
 
   private processRule(rule: UserRule, currentScope: RulesScope): RuleOutput{
     const newScopes = rule.let ? this.getScopesFromDeclarations(rule.let, currentScope) : [currentScope];
-
     return new Map([...flatMap(newScopes, (newScope): [ModelEntity, RuleEffect][] => {
       let output = new Map<ModelEntity, RuleEffect>();
       if(rule.effect)
