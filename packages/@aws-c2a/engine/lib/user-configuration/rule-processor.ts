@@ -56,7 +56,7 @@ export class RuleProcessor {
 
   private processRule(rule: UserRule, currentScope: RulesScope): RuleOutput{
     const newScopes = rule.let ? this.getScopesFromDeclarations(rule.let, currentScope) : [currentScope];
-
+    newScopes.length && console.log(newScopes[0].statement);
     return new Map([...flatMap(newScopes, (newScope): [ModelEntity, RuleEffect][] => {
       let output = new Map<ModelEntity, RuleEffect>();
       if(rule.effect)

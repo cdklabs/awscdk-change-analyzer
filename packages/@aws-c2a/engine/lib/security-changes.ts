@@ -79,6 +79,10 @@ export class SecurityChangesRules {
         resource,
         then: [
           {
+            type: OperationType.INSERT,
+            target: `${identifier}.Properties.PolicyDocument.Statement.*`,
+          },
+          {
             propertyOperationType: OperationType.INSERT,
             target: `${identifier}.Properties.PolicyDocument.Statement.*`,
             where: ['change.new.Effect == \'Allow\''],
