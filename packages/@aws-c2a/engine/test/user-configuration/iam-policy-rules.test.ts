@@ -3,8 +3,10 @@ import { CFParser } from '../../lib/platform-mapping';
 import { copy } from '../../lib/private/object';
 import { IAM_INLINE_IDENTITY_POLICIES, IAM_INLINE_RESOURCE_POLICIES, IAM_MANAGED_POLICIES, IAM_POLICY_RESOURCES } from '../../lib/private/security-policies';
 import { SecurityChangesRules } from '../../lib/security-changes';
-import { CUserRule, CUserRules } from '../../lib/user-configuration';
+import { CUserRules } from '../../lib/user-configuration';
 import { arbitraryPolicyStatement, cfnWithPolicyDocument, processRules, firstKey, arbitraryNegativePolicyStatement } from '../utils';
+
+import {writeFileSync} from 'fs';
 
 describe('IAM Policy default rules', () => {
   const BEFORE: Record<any, any> = { Resources: {} };
@@ -12,7 +14,7 @@ describe('IAM Policy default rules', () => {
   let rules: CUserRules;
   let oldModel: InfraModel;
   beforeAll(() => {
-    rules = [];
+    rules = SecurityChangesRules.BroadeningPermissions().rules;
     oldModel = new CFParser('root', BEFORE).parse();
   });
 
@@ -26,6 +28,9 @@ describe('IAM Policy default rules', () => {
           Properties: { PolicyDocument: { Statement: [arbitraryPolicyStatement] } },
         };
 
+        writeFileSync('before.json', JSON.stringify(BEFORE, null, 2));
+        writeFileSync('after.json', JSON.stringify(after, null, 2));
+
         // WHEN
         const newModel = new CFParser('root', after).parse();
         const { graph: g, rulesOutput: result } = processRules(oldModel, newModel, rules);
@@ -33,53 +38,67 @@ describe('IAM Policy default rules', () => {
 
         // THEN
         expect(g.v(firstVertex).run()).toHaveLength(1);
-        expect(g.v(firstVertex).run()[0]).toMatchObject({ type: 'INSERT' });
+        expect(g.v(firstVertex).run()[0]).toMatchObject({ propertyOperationType: 'INSERT' });
         expect(g.v(firstVertex).out('appliesTo').filter({entityType: 'component'}).run()).toMatchObject([
           { subtype: resource },
         ]);
       });
 
-      test(`detect addition to policy statement in ${resource} resource`, () => {
-        const rule: any = {
-          let: { r: { component: {type: 'Resource' } } },
-          then: [{
-            description: 'More specific resource definitions in Policy Documents are low risk',
-            let: {
-              change: { change: {}, where: [
-                'change appliesTo r.Properties.PolicyDocument.Statement.*.Effect',
-                "change.new == 'Allow'",
-              ]},
-            },
-            effect: {
-              risk: 'high',
-            },
-          }],
-        };
+      test(`detect addition to allow policy statement in ${resource} resource`, () => {
         // GIVEN
         const id = resource.replace(/::/g, '-');
         const before = cfnWithPolicyDocument(BEFORE, resource);
         const _oldModel = new CFParser('root', before).parse();
 
         const after = copy(before);
-        after.Resources[id].Properties.PolicyDocument.Statement[0] = arbitraryPolicyStatement;
+        after.Resources[id].Properties.PolicyDocument.Statement.push(arbitraryPolicyStatement);
 
         // WHEN
         const newModel = new CFParser('root', after).parse();
-        const { graph: g, rulesOutput: result } = processRules(_oldModel, newModel, [rule as CUserRule]);
+        const { graph: g, rulesOutput: result } = processRules(_oldModel, newModel, rules);
         const firstVertex = firstKey(result)._id;
 
+        // THEN
+        expect(g.v(firstVertex).run()).toHaveLength(1);
+        expect(g.v(firstVertex).run()[0]).toMatchObject({ propertyOperationType: 'INSERT' });
+        expect(g.v(firstVertex).out('appliesTo').filter({entityType: 'property'}).run()).toMatchObject([
+          {},
+          { value: 'test.amazonaws.com' },
+          { value: '*' },
+          { value: 'test:Test' },
+          { value: 'Allow' },
+        ]);
+      });
+
+      test(`detect update to allow policy statement in ${resource} resource`, () => {
+        // GIVEN
+        const id = resource.replace(/::/g, '-');
+        const before = cfnWithPolicyDocument(BEFORE, resource);
+        const _oldModel = new CFParser('root', before).parse();
+
+        const after = copy(before);
+        after.Resources[id].Properties.PolicyDocument.Statement[0] = (arbitraryPolicyStatement);
+
+        // WHEN
+        const newModel = new CFParser('root', after).parse();
+        const { graph: g, rulesOutput: result } = processRules(_oldModel, newModel, rules);
+        const firstVertex = firstKey(result)._id;
 
         // THEN
         expect(g.v(firstVertex).run()).toHaveLength(1);
         expect(g.v(firstVertex).run()[0]).toMatchObject({ propertyOperationType: 'UPDATE' });
-        console.log(g.v(firstVertex).out('appliesTo').filter({entityType: 'property'}).run());
-        // expect(g.v(firstVertex).out('appliesTo').filter({entityType: 'property'}).run()).toMatchObject([
-        //   {},
-        //   { value: 'test.amazonaws.com' },
-        //   { value: '*' },
-        //   { value: 'test:Test' },
-        //   { value: 'Allow' },
-        // ]);
+        expect(g.v(firstVertex).out('appliesTo').filter({entityType: 'property'}).outAny().run()).toMatchObject([
+          {},
+          { value: '*' },
+          { value: 'test:Test' },
+          { value: 'Allow' },
+          { value: 'test.amazonaws.com' },
+          {},
+          { value: '*' },
+          { value: 'test:Test' },
+          { value: 'Deny' },
+          { value: 'test.amazonaws.com' }
+        ]);
       });
 
       test(`addiiton of negative statement to ${resource} not a high risk change`, () => {
