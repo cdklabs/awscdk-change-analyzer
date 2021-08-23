@@ -36,3 +36,6 @@ jobs:
     
     - name: Test
       run: yarn test
+
+    - name: No new files
+      run: git diff-index HEAD 
