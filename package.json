@@ -20,6 +20,11 @@
     "packages": [
       "packages/*",
       "packages/@aws-c2a/*"
+    ],
+    "nohoist": [
+      "**/cytoscape",
+      "**/@types/cytoscape",
+      "**/cytoscape-dagre/"
     ]
   },
   "devDependencies": {

@@ -27,7 +27,10 @@ module.exports = {
 
     '@typescript-eslint/no-unused-vars': [
       'error',
-      { argsIgnorePattern: '^_' }
+      {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+      },
     ],
 
     // Arugements can be typed as any
