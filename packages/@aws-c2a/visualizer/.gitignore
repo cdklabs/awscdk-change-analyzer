@@ -1,43 +1,27 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Never save user specific files
+*.sublime
+*.DS_*
+**/*.backup.*
+**/*.back.*
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# Never save build specific files
+node_modules
+bower_components
+dist
+data/
 
-# testing
-/coverage
-/data
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# local env files
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# vercel
-.vercel
+# Never save generated files
+out
+out.json
+report.json
+cdk.out
+*.log
+logs
 
 # Save Config Files
+!package-declarations.d.ts
 !jest.config.js
 !.eslintrc.js
 !babel.config.js
-!next.config.js
-!next-env.d.ts
-!package-declaration.d.ts
+!webpack.config.js
+

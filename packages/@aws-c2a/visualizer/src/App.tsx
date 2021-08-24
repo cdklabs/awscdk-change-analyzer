@@ -3,16 +3,14 @@ import * as models from '@aws-c2a/models';
 import cytoscape from 'cytoscape';
 import dagre from 'cytoscape-dagre';
 import * as fn from 'fifinet';
-import { GetStaticProps } from 'next';
 import React, { useEffect, useRef, useState } from 'react';
-import Layout from '../components/Layout';
-import styles from '../styles/Home.module.scss';
+import './styles/App.scss';
 
 cytoscape.use(dagre);
 
 interface HomeProps {
-  before: any;
-  after: any;
+  before: string;
+  after: string;
 }
 
 const createGraph = (before: any, after: any): fn.Graph<any, any> => {
@@ -25,7 +23,7 @@ const createGraph = (before: any, after: any): fn.Graph<any, any> => {
   return graph;
 };
 
-export default function Home({before, after}: HomeProps): JSX.Element {
+export default function App({before, after}: HomeProps): JSX.Element {
   const [selected, setSelected] = useState<string | null>(null);
   const [ graph, setGraph ] = useState<fn.Graph<any, any> | null>(null);
   const cy = useRef<cytoscape | null>(null);
@@ -57,7 +55,7 @@ export default function Home({before, after}: HomeProps): JSX.Element {
   }, []);
 
   useEffect(() => {
-    const _graph = createGraph(before, after);
+    const _graph = createGraph(JSON.parse(before), JSON.parse(after));
     setGraph(_graph);
   }, [before, after]);
 
@@ -91,21 +89,13 @@ export default function Home({before, after}: HomeProps): JSX.Element {
   }, [graph]);
 
   return (
-    <Layout id={styles.container}>
-      <div id={styles.header}>
+    <main>
+      <div id={'header'}>
         <h1>C2A Graph Visualizer</h1>
         <h3>Selected Node: </h3>
         <pre>{selected}</pre>
       </div>
-      <div id={'cy'} className={styles.canvas} />
-    </Layout>
+      <div id={'cy'} className={'canvas'} />
+    </main>
   );
 }
-
-export const getStaticProps: GetStaticProps = () => {
-  const before = require('../data/before.json');  // eslint-disable-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-  const after = require('../data/after.json');    // eslint-disable-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-  return {
-    props: { before, after},
-  };
-};
