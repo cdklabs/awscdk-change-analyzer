@@ -10,5 +10,4 @@ import { AFTER_TEMPLATE, BEFORE_TEMPLATE } from './config';
 const before = IS_PRODUCTION ? BEFORE_TEMPLATE : JSON.stringify(require('../data/before.json'));
 // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
 const after = IS_PRODUCTION ? AFTER_TEMPLATE : JSON.stringify(require('../data/after.json'));
-console.log(before);
 ReactDOM.render(<App after={after} before={before} />, document.getElementById('root'));
