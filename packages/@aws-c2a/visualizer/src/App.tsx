@@ -4,7 +4,7 @@ import cytoscape from 'cytoscape';
 import dagre from 'cytoscape-dagre';
 import * as fn from 'fifinet';
 import React, { useEffect, useRef, useState } from 'react';
-import './styles/App.scss';
+import './styles/App.css';
 
 cytoscape.use(dagre);
 
