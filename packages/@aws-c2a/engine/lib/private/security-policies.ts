@@ -7,13 +7,16 @@ export const IAM_POLICY_RESOURCES = [
   'AWS::IAM::ManagedPolicy',
   'AWS::IAM::Policy',
   'AWS::IoT::Policy',
-  'AWS::Lambda::Permission',
   'AWS::S3::BucketPolicy',
   'AWS::S3ObjectLambda::AccessPointPolicy',
   'AWS::S3Outposts::BucketPolicy',
   'AWS::SNS::TopicPolicy',
   'AWS::SQS::QueuePolicy',
   'AWS::SecretsManager::ResourcePolicy',
+];
+
+export const IAM_LAMBDA_PERMISSION = [
+  'AWS::Lambda::Permission',
 ];
 
 export const IAM_MANAGED_POLICIES = {

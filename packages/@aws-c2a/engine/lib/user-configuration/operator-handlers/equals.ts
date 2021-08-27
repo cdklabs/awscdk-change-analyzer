@@ -19,6 +19,11 @@ export const equalsHandler: OperatorHandler = <V, E>(
     }
   };
 
+  // If the specified scalar value is '*' and not the property
+  // of a vertex, we treat the value as a wildcard.
+  if (!isScopeVertex(t1) && t1.value === '*') return true;
+  if (!isScopeVertex(t2) && t2.value === '*') return true;
+
   const [val1, val2] = [t1, t2].map(t => {
     if(isScopeVertex(t)){
       return extractValueFromVertex(t.vertex);

@@ -12,7 +12,6 @@ import { equalsHandler } from './operator-handlers/equals';
 import {
   UserRules,
   UserRule,
-  Bindings,
   RuleEffectDefinition,
   Selector,
   selectorIsReference,
@@ -75,7 +74,7 @@ export class RuleProcessor {
   }
 
   private processRule(rule: UserRule, currentScope: RulesScope): RuleOutput{
-    const newScopes = rule.let ? this.getScopesFromDeclarations(rule.let, currentScope) : [currentScope];
+    const newScopes = this.getScopesFromDeclarations(rule, currentScope);
     return new Map([...flatMap(newScopes, (newScope): [ModelEntity, RuleEffect][] => {
       let output = new Map<ModelEntity, RuleEffect>();
       if(rule.effect)
@@ -94,21 +93,20 @@ export class RuleProcessor {
     return new Map([[targetScopeNode.vertex, effect]]);
   }
 
-  private getScopesFromDeclarations(
-    bindings: Bindings, currentScope: RulesScope,
-  ): RulesScope[] {
+  private getScopesFromDeclarations(rule: UserRule, currentScope: RulesScope): RulesScope[] {
     let newScopes: RulesScope[] = [{...currentScope}];
-    Object.entries(bindings).forEach(
+    Object.entries(rule.let ?? []).forEach(
       ([identifier, selector]) => {
-        newScopes = flatMap(newScopes, (scope): RulesScope[] => {
+        newScopes = flatMap([...newScopes], (scope): RulesScope[] => {
           const newScopeNodes = this.processDefinition(identifier, selector, scope);
           if(!newScopeNodes.length)
-            return [];
+            return [scope];
           return newScopeNodes.map(e => ({...scope, [identifier]: e}));
         });
       },
     );
-    return newScopes;
+
+    return newScopes.filter(scope => this.verifyConditions(rule.where ?? [], scope));
   }
 
   private processDefinition(identifier: string, selector: Selector, scope: RulesScope): ScopeNode[]{

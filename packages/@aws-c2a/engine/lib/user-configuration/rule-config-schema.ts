@@ -6,17 +6,22 @@ import { Scalar } from './rule';
  */
 export type CFilters = Record<string, Scalar>;
 
-export interface BaseSelector {
-  where?: CRuleConditions
+type ExcludeString<E extends string[]> = Exclude<string, E>;
+
+export type BaseSelector = {
+  where?: CRuleConditions;
 }
 
-export type ComponentCFilter = ({
-  type: string,
-  subtype?: string,
-} | Record<string, string> //shortform for specifying type and subtype
-) & {
-  name?: string,
-};
+type BaseComponentSelector = {
+  name?: string;
+}
+
+export type ComponentCFilter = BaseComponentSelector & (
+  {
+    type: string,
+    subtype?: string,
+  } | Record<ExcludeString<['where', 'name']>, string>
+);
 
 export function isComponentCFilter(f: Record<string, any>): f is ComponentCFilter {
   return Object.values(f).every(v => typeof v === 'string');
@@ -30,20 +35,15 @@ export function isPathCSelector(s: CSelector): s is PathCSelector {
   return {}.hasOwnProperty.call(s, 'fromPath');
 }
 
-export type GeneralCSelector = {
-  [type: string]: CFilters,
-}
+export type GeneralCSelector = Record<ExcludeString<['where']>, CFilters>;
 
-export type CRuleConditions = string | string[];
+export type CRuleCondition = string;
 
-//TODO: Fix this sus code.. BaseSelector and GeneralCSelector cannot be combined like this
-export type CSelector = (
-  BaseSelector & (
-    ComponentCFilter |
-    GeneralCSelector |
-    PathCSelector
-  )
-) | string;
+export type CRuleConditions = CRuleCondition | CRuleCondition[];
+
+export type CSelector = string | (
+  BaseSelector & (ComponentCFilter | GeneralCSelector | PathCSelector)
+);
 
 export type CBindings = {[identifier: string]: CSelector};
 

@@ -1,7 +1,7 @@
 import { InfraModel } from '@aws-c2a/models';
 import { CFParser } from '../../lib/platform-mapping';
 import { copy } from '../../lib/private/object';
-import { SecurityChangesRules } from '../../lib/security-changes';
+import { SecurityChangesRules } from '../../lib/rules';
 import { CUserRules } from '../../lib/user-configuration';
 import { firstKey, processRules } from '../utils';
 
