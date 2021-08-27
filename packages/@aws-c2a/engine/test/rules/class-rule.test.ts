@@ -1,4 +1,4 @@
-import { OperationType } from '@aws-c2a/models';
+import { OperationType, RuleRisk } from '@aws-c2a/models';
 import { Rule, Component, ComponentType, Change } from '../../lib/rules';
 
 describe('Rule class', () => {
@@ -30,19 +30,10 @@ describe('Rule class', () => {
     });
   });
 
-  test('generates rule with risk action', () => {
-    // WHEN
-    const rule = new Rule([]);
-
-    // THEN
-    expect(rule.toJSON()).toMatchObject({
-      effect: { risk: 'high' },
-    });
-  });
-
   test('generates correct output for condition', () => {
     // WHEN
     const rule = new Rule([change, component], {
+      risk: RuleRisk.High,
       conditions: [change.appliesTo(component)],
     });
 
@@ -60,6 +51,7 @@ describe('Rule class', () => {
   test('generates correct output for condition w/ path', () => {
     // WHEN
     const rule = new Rule([change, component], {
+      risk: RuleRisk.High,
       conditions: [
         change.appliesTo(component, {
           targetPath: ['Properties', 'PolicyDocument', 'Statement', '*', 'Effect'],
