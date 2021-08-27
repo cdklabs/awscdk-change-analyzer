@@ -1,7 +1,13 @@
 import { ModelEntity, Serialized, RuleEffect } from '@aws-c2a/models';
 import * as fn from 'fifinet';
 import { flatMap } from '../private/node';
-import { appliesToHandler } from './operator-handlers';
+import {
+  appliesToHandler,
+  isContainedInHandler,
+  containsHandler,
+  isReferencedInHandler,
+  referencesHandler,
+} from './operator-handlers';
 import { equalsHandler } from './operator-handlers/equals';
 import {
   UserRules,
@@ -42,6 +48,10 @@ export type OperatorHandler = <V, E>(g: fn.Graph<V, E>, t1: ScopeNode, t2: Scope
 const operatorToHandler: Record<RuleConditionOperator, OperatorHandler> = {
   [RuleConditionOperator.appliesTo]: appliesToHandler,
   [RuleConditionOperator.equals]: equalsHandler,
+  [RuleConditionOperator.references]: referencesHandler,
+  [RuleConditionOperator.isReferencedIn]: isReferencedInHandler,
+  [RuleConditionOperator.contains]: containsHandler,
+  [RuleConditionOperator.isContainedIn]: isContainedInHandler,
 };
 
 const propertyPathWildcard = '*';

@@ -4,10 +4,10 @@ import { RuleEffect } from '@aws-c2a/models';
  * Internal representation of the user defined rules (after parsing)
  */
 export enum RuleConditionOperator {
-  // references = '->', // for following dependency relationships
-  // isReferencedIn = '<-',
-  // contains = '>>', // for following structural relationships
-  // isContainedIn = '<<',
+  references = '->', // for following dependency relationships
+  isReferencedIn = '<-',
+  contains = '>>', // for following structural relationships
+  isContainedIn = '<<',
   appliesTo = 'appliesTo', // for checking a change against an InfraModel entity
   // affects = 'affects', // for checking a change against any directly or indirectly affected InfraModel entity
   equals = '==',
