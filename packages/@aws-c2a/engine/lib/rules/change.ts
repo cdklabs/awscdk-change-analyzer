@@ -15,9 +15,10 @@ export interface ChangeOptions {
 
 export class Change extends Bindable {
 
-  public static INSERT = new Change('insertChange', { type: OperationType.INSERT });
-  public static INSERT_PROP = new Change('insertPropertyChange', { propertyOperationType: OperationType.INSERT });
-  public static UPDATE_PROP = new Change('updatePropertyChange', { propertyOperationType: OperationType.UPDATE });
+  public static INSERT = new Change('insertComponent', { type: OperationType.INSERT });
+  public static UPDATE = new Change('updateComponent', { type: OperationType.UPDATE });
+  public static INSERT_PROP = new Change('insertProperty', { propertyOperationType: OperationType.INSERT });
+  public static UPDATE_PROP = new Change('updateProperty', { propertyOperationType: OperationType.UPDATE });
 
   public readonly type?: OperationType;
   public readonly propertyOperationType?: OperationType;

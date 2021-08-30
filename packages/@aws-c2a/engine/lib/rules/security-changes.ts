@@ -33,20 +33,20 @@ export class SecurityChangesRules {
    */
   public static BroadeningSecurityGroup(): SecurityChangesRules {
     const rules = new SecurityChangesRules();
-    const securityGroup = rules._createResourceRule({
-      identifier: 'securityGroup',
-      resource: 'AWS::EC2::SecurityGroup',
-      then: [
-        { propertyOperationType: OperationType.INSERT, target: 'securityGroup.Properties.SecurityGroupEngress' },
-        { propertyOperationType: OperationType.INSERT, target: 'securityGroup.Properties.SecurityGroupIngress' },
-      ],
+    const rootBindings = new Rule([Change.INSERT, Change.UPDATE, Change.INSERT_PROP, Change.UPDATE_PROP]);
+    const { component: securityGroup, rule: sgBinding } = generateComponent('AWS::EC2::SecurityGroup', rootBindings);
+
+    ['Ingress', 'Egress'].forEach(type => {
+      const { component, rule: componentBindings } = generateComponent(`AWS::EC2::SecurityGroup${type}`, rootBindings);
+      generateHighRiskChild(componentBindings, component, {
+        change: Change.INSERT,
+      });
+      generateHighRiskChild(sgBinding, securityGroup, {
+        change: Change.INSERT_PROP,
+        targetPath: ['Properties', `SecurityGroup${type}`]
+      });
     });
-    const securityGroupResources = ['Ingress', 'Egress'].map(type => rules._createResourceRule({
-      identifier: `securityGroup${type}`,
-      resource: `AWS::EC2::SecurityGroup${type}`,
-      then: [ { type: OperationType.INSERT, target: `securityGroup${type}` } ],
-    }));
-    rules.addRules(securityGroup, ...securityGroupResources);
+    rules.addRules(rootBindings.toJSON());
     return rules;
   }
   /**
@@ -57,16 +57,9 @@ export class SecurityChangesRules {
     const rules = new SecurityChangesRules();
     const rootBindings = new Rule([Change.INSERT, Change.INSERT_PROP, Change.UPDATE_PROP]);
 
-    function generateComponent(resource: string): { component: Component, rule: Rule } {
-      const identifier = resource.replace(/::/g, '');
-      const component = Component.fromResource(identifier, resource);
-      const rule = rootBindings.createChild({ bindings: [component] });
-      return { component, rule };
-    }
-
     // Lambda Permissions
     IAM_LAMBDA_PERMISSION.forEach(resource => {
-      const { component, rule: componentBindings } = generateComponent(resource);
+      const { component, rule: componentBindings } = generateComponent(resource, rootBindings);
       generateHighRiskChild(componentBindings, component, {
         change: Change.INSERT,
       });
@@ -74,7 +67,7 @@ export class SecurityChangesRules {
 
     // Managed Policies
     Object.entries(IAM_MANAGED_POLICIES).forEach(([resource, policies]) => {
-      const { component, rule: componentBindings } = generateComponent(resource);
+      const { component, rule: componentBindings } = generateComponent(resource, rootBindings);
       policies.forEach(policy => {
         generateHighRiskChild(componentBindings, component, {
           change: Change.INSERT_PROP,
@@ -98,7 +91,7 @@ export class SecurityChangesRules {
 
     // Inline Identity Policies
     Object.entries(IAM_INLINE_IDENTITY_POLICIES).forEach(([resource, policies]) => {
-      const { component, rule: componentBindings } = generateComponent(resource);
+      const { component, rule: componentBindings } = generateComponent(resource, rootBindings);
       policies.forEach(policy => {
         generateStatementRules(componentBindings, component, 'PolicyDocument', policy, '*');
         generateHighRiskChild(componentBindings, component, {
@@ -112,7 +105,7 @@ export class SecurityChangesRules {
 
     // Inline Resource Policies
     Object.entries(IAM_INLINE_RESOURCE_POLICIES).forEach(([resource, policies]) => {
-      const { component, rule: componentBindings } = generateComponent(resource);
+      const { component, rule: componentBindings } = generateComponent(resource, rootBindings);
       policies.forEach(policy => {
         generateStatementRules(componentBindings, component, policy);
       });
@@ -120,7 +113,7 @@ export class SecurityChangesRules {
 
     // Policy Resources
     IAM_POLICY_RESOURCES.forEach(resource => {
-      const { component, rule: componentBindings } = generateComponent(resource);
+      const { component, rule: componentBindings } = generateComponent(resource, rootBindings);
       generateStatementRules(componentBindings, component);
     });
 
@@ -174,6 +167,13 @@ export class SecurityChangesRules {
     return rule;
   }
 
+}
+
+function generateComponent(resource: string, root: Rule): { component: Component, rule: Rule } {
+  const identifier = resource.replace(/::/g, '');
+  const component = Component.fromResource(identifier, resource);
+  const rule = root.createChild({ bindings: [component] });
+  return { component, rule };
 }
 
 /**
