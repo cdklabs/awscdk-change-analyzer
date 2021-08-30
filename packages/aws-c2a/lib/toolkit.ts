@@ -122,11 +122,11 @@ export class C2AToolkit {
           ({...acc, [stackName]: rootTemplate, ...(flattenNestedStacks(nestedTemplates))}), {});
     };
 
-    const oldModel = new CDKParser('oldRoot', ...mapObjectValues(before, tree => tree.rootTemplate)).parse({
+    const oldModel = new CDKParser('root', ...mapObjectValues(before, tree => tree.rootTemplate)).parse({
       nestedStacks: flattenObjects(mapObjectValues(before, app => flattenNestedStacks(app.nestedTemplates))),
     });
 
-    const newModel = new CDKParser('newRoot', ...mapObjectValues(after, tree => tree.rootTemplate)).parse({
+    const newModel = new CDKParser('root', ...mapObjectValues(after, tree => tree.rootTemplate)).parse({
       nestedStacks: flattenObjects(mapObjectValues(after, app => flattenNestedStacks(app.nestedTemplates))),
     });
 
