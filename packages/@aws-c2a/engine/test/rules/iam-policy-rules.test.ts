@@ -4,10 +4,11 @@ import { copy } from '../../lib/private/object';
 import { IAM_INLINE_IDENTITY_POLICIES, IAM_INLINE_RESOURCE_POLICIES, IAM_MANAGED_POLICIES, IAM_POLICY_RESOURCES } from '../../lib/private/security-policies';
 import { arbitraryPolicyStatement, cfnWithPolicyDocument, arbitraryNegativePolicyStatement  } from '../utils';
 import { behavior } from '../utils/compliance';
-import { ALLOW, DENY, THEN_expectNewResource, THEN_expectNoResults, THEN_expectProperty } from '../utils/compliance-helpers';
-
+import { THEN_expectResource, THEN_expectNoResults, THEN_expectProperty } from '../utils/compliance-helpers';
 
 const BEFORE: Record<any, any> = { Resources: {} };
+const ALLOW = { value: 'Allow' };
+const DENY = { value: 'Deny' };
 
 let oldModel: InfraModel;
 beforeAll(() => {
@@ -19,7 +20,7 @@ describe('policy resources', () => {
     behavior(`new resource ${resource}`, (suite) => {
       suite.allow(() => {
         const {after, _oldModel} = GIVEN(arbitraryPolicyStatement);
-        THEN_expectNewResource(resource, after, _oldModel);
+        THEN_expectResource(after, _oldModel, OperationType.INSERT, [{value: 'Allow'}]);
       });
 
       suite.deny(() => {
@@ -40,7 +41,7 @@ describe('policy resources', () => {
     behavior(`addition to statement property in ${resource}`, (suite) => {
       suite.allow(() => {
         const {after, _oldModel} = GIVEN(arbitraryPolicyStatement);
-        THEN_expectProperty(after, _oldModel);
+        THEN_expectProperty(after, _oldModel, OperationType.INSERT, [ALLOW]);
       });
 
       suite.deny(() => {
@@ -62,7 +63,7 @@ describe('policy resources', () => {
     behavior(`update to existing policy statement in ${resource}`, (suite) => {
       suite.allow(() => {
         const {after, _oldModel} = GIVEN(arbitraryNegativePolicyStatement, arbitraryPolicyStatement);
-        THEN_expectProperty(after, _oldModel, OperationType.UPDATE, [...ALLOW, ...DENY]);
+        THEN_expectProperty(after, _oldModel, OperationType.UPDATE, [ALLOW, DENY]);
       });
 
       suite.deny(() => {
@@ -85,22 +86,23 @@ describe('policy resources', () => {
 });
 
 describe('lambda permissions', () => {
+  const resource = 'AWS::Lambda::Permission';
   test('adding new lambda permissions is detected', () => {
     // GIVEN
     const after = copy(BEFORE);
     after.Resources.LambdaPermission = {
-      Type: 'AWS::Lambda::Permission',
-      Properties: { },
+      Type: resource,
+      Properties: { FunctionName: 'Test' },
     };
 
-    THEN_expectNewResource('AWS::Lambda::Permission', after, oldModel);
+    THEN_expectResource(after, oldModel, OperationType.INSERT, [{ value: 'Test' }]);
   });
 
   test('removing lambda permission is ignored', () => {
     // GIVEN
     const before = copy(BEFORE);
     before.Resources.LambdaPermission = {
-      Type: 'AWS::Lambda::Permission',
+      Type: resource,
       Properties: { },
     };
     const _oldModel = new CFParser('root', before).parse();
@@ -122,7 +124,7 @@ describe('managed policy properties', () => {
         };
 
         // THEN
-        THEN_expectNewResource(resource, after, oldModel);
+        THEN_expectResource(after, oldModel, OperationType.INSERT, [{value: '123456789'}]);
       });
 
       test(`detect additions to managed policy arns in ${resource} resource`, () => {
@@ -138,9 +140,7 @@ describe('managed policy properties', () => {
         const after = copy(before);
         after.Resources[id].Properties[policy].push('abcdefghi');
 
-        THEN_expectProperty(after, _oldModel, OperationType.INSERT, [
-          { value: 'abcdefghi' },
-        ]);
+        THEN_expectProperty(after, _oldModel, OperationType.INSERT, [{ value: 'abcdefghi' }]);
       });
     });
   });
@@ -152,7 +152,7 @@ describe('inline identity policy properties', () => {
       behavior(`addition to statement property in ${resource} resource`, (suite) => {
         suite.allow(() => {
           const {after, _oldModel} = GIVEN(arbitraryPolicyStatement);
-          THEN_expectProperty(after, _oldModel);
+          THEN_expectProperty(after, _oldModel, OperationType.INSERT, [ALLOW]);
         });
 
         suite.deny(() => {
@@ -178,7 +178,7 @@ describe('inline identity policy properties', () => {
       behavior(`addition to empty policies property in ${resource} resource`, (suite) => {
         suite.allow(() => {
           const {after, _oldModel} = GIVEN(arbitraryPolicyStatement);
-          THEN_expectProperty(after, _oldModel);
+          THEN_expectProperty(after, _oldModel, OperationType.INSERT, [ALLOW]);
         });
 
         suite.deny(() => {
@@ -204,7 +204,7 @@ describe('inline identity policy properties', () => {
       behavior(`new ${resource} resource`, (suite) => {
         suite.allow(() => {
           const {after, _oldModel} = GIVEN(arbitraryPolicyStatement);
-          THEN_expectNewResource(resource, after, _oldModel);
+          THEN_expectResource(after, _oldModel, OperationType.INSERT, [{value: 'Allow'}]);
         });
 
         suite.deny(() => {
@@ -235,7 +235,7 @@ describe('inline resource policy properties', () => {
       behavior(`new ${resource} resource and statement property, ${policy},`, (suite) => {
         suite.allow(() => {
           const {after, _oldModel} = GIVEN(arbitraryPolicyStatement);
-          THEN_expectNewResource(resource, after, _oldModel);
+          THEN_expectResource(after, _oldModel, OperationType.INSERT, [{value: 'Allow'}]);
         });
 
         suite.deny(() => {
@@ -258,7 +258,7 @@ describe('inline resource policy properties', () => {
       behavior(`addition to statement property, ${policy}, in ${resource}`, (suite) => {
         suite.allow(() => {
           const {after, _oldModel} = GIVEN(arbitraryPolicyStatement);
-          THEN_expectProperty(after, _oldModel);
+          THEN_expectProperty(after, _oldModel, OperationType.INSERT, [ALLOW]);
         });
 
         suite.deny(() => {
@@ -285,7 +285,7 @@ describe('inline resource policy properties', () => {
       behavior(`update to statement property, ${policy}, in ${resource}`, (suite) => {
         suite.allow(() => {
           const {after, _oldModel} = GIVEN(arbitraryNegativePolicyStatement, arbitraryPolicyStatement);
-          THEN_expectProperty(after, _oldModel, OperationType.UPDATE, [...ALLOW, ...DENY]);
+          THEN_expectProperty(after, _oldModel, OperationType.UPDATE, [ALLOW, DENY]);
         });
 
         suite.deny(() => {

@@ -8,7 +8,7 @@ export enum ComponentType {
 }
 
 export class Component extends Bindable {
-  public static fromResource(id: string, subtype: string) {
+  public static fromResource(id: string, subtype: string): Component {
     return new Component(id, ComponentType.RESOURCE, subtype);
   }
 

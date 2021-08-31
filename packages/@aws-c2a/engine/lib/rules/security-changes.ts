@@ -33,17 +33,22 @@ export class SecurityChangesRules {
    */
   public static BroadeningSecurityGroup(): SecurityChangesRules {
     const rules = new SecurityChangesRules();
-    const rootBindings = new Rule([Change.INSERT, Change.UPDATE, Change.INSERT_PROP, Change.UPDATE_PROP]);
-    const { component: securityGroup, rule: sgBinding } = generateComponent('AWS::EC2::SecurityGroup', rootBindings);
-
+    const rootBindings = new Rule([Change.ALL, Change.INSERT]);
+    const { component: securityGroup, rule: sgBindings } = generateComponent('AWS::EC2::SecurityGroup', rootBindings);
     ['Ingress', 'Egress'].forEach(type => {
       const { component, rule: componentBindings } = generateComponent(`AWS::EC2::SecurityGroup${type}`, rootBindings);
+      
       generateHighRiskChild(componentBindings, component, {
-        change: Change.INSERT,
+        change: Change.ALL,
       });
-      generateHighRiskChild(sgBinding, securityGroup, {
-        change: Change.INSERT_PROP,
-        targetPath: ['Properties', `SecurityGroup${type}`]
+      generateHighRiskChild(sgBindings, securityGroup, {
+        change: Change.INSERT,
+        equals: '*',
+        sourcePath: ['Properties', `SecurityGroup${type}`, '*']
+      });
+      generateHighRiskChild(sgBindings, securityGroup, {
+        change: Change.ALL,
+        targetPath: ['Properties', `SecurityGroup${type}`, '*']
       });
     });
     rules.addRules(rootBindings.toJSON());

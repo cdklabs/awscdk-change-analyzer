@@ -14,11 +14,11 @@ export interface ChangeOptions {
 }
 
 export class Change extends Bindable {
-
-  public static INSERT = new Change('insertComponent', { type: OperationType.INSERT });
-  public static UPDATE = new Change('updateComponent', { type: OperationType.UPDATE });
-  public static INSERT_PROP = new Change('insertProperty', { propertyOperationType: OperationType.INSERT });
-  public static UPDATE_PROP = new Change('updateProperty', { propertyOperationType: OperationType.UPDATE });
+  public static ALL = new Change('ALL_CHANGES')
+  public static INSERT = new Change('INSERT_COMPONENT', { type: OperationType.INSERT });
+  public static UPDATE = new Change('UPDATE_COMPONENT', { type: OperationType.UPDATE });
+  public static INSERT_PROP = new Change('INSERT_PROPERTY', { propertyOperationType: OperationType.INSERT });
+  public static UPDATE_PROP = new Change('UPDATE_PROPERTY', { propertyOperationType: OperationType.UPDATE });
 
   public readonly type?: OperationType;
   public readonly propertyOperationType?: OperationType;

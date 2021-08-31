@@ -13,15 +13,16 @@ export function process(after: any, before: InfraModel) {
   return { graph, firstVertex };
 }
 
-export function THEN_expectNewResource(resource: string, after: any, before: InfraModel) {
+export function THEN_expectResource(after: any, before: InfraModel, type: OperationType, properties: property[]) {
+  // WHEN
   const {graph: g, firstVertex} = process(after, before);
 
   // THEN
   expect(g.v(firstVertex).run()).toHaveLength(1);
-  expect(g.v(firstVertex).run()[0]).toMatchObject({ type: 'INSERT' });
-  expect(g.v(firstVertex).out('appliesTo').filter({entityType: 'component'}).run()).toMatchObject([
-    { subtype: resource },
-  ]);
+  expect(g.v(firstVertex).run()[0]).toMatchObject({ type });
+  const component = g.v(firstVertex).out('appliesTo').filter({entityType: 'component'});
+  const vertices = component.outAny().filter({entityType: 'property'}).run()
+  properties.forEach(property => expect(vertices).toContainObject(property));
 }
 
 export function THEN_expectNoResults(after: any, before: InfraModel) {
@@ -33,12 +34,9 @@ export function THEN_expectNoResults(after: any, before: InfraModel) {
   expect(result.size).toBe(0);
 }
 
-export function THEN_expectProperty(
-  after: any,
-  before: InfraModel,
-  type = OperationType.INSERT,
-  properties: any[] = ALLOW,
-) {
+
+type property = { value: string; };
+export function THEN_expectProperty(after: any, before: InfraModel, type: OperationType, properties: property[]) {
   const {graph: g, firstVertex} = process(after, before);
 
   // THEN
@@ -50,11 +48,3 @@ export function THEN_expectProperty(
   const vertices = (properties.length > 1 ? propertyVertices.outAny(): propertyVertices).run();
   properties.forEach(property => expect(vertices).toContainObject(property));
 }
-
-export const ALLOW = [
-  { value: 'Allow' },
-];
-
-export const DENY = [
-  { value: 'Deny' },
-];
