@@ -97,18 +97,16 @@ export class RuleProcessor {
     let newScopes: RulesScope[] = [{...currentScope}];
     Object.entries(rule.let ?? []).forEach(
       ([identifier, selector]) => {
-        newScopes = flatMap(newScopes, (scope): RulesScope[] => {
+        newScopes = flatMap([...newScopes], (scope): RulesScope[] => {
           const newScopeNodes = this.processDefinition(identifier, selector, scope);
           if(!newScopeNodes.length)
-            return [];
+            return [scope];
           return newScopeNodes.map(e => ({...scope, [identifier]: e}));
         });
       },
     );
 
-    return newScopes.filter(scope =>
-      this.verifyConditions(rule.where ?? [], scope),
-    );
+    return newScopes.filter(scope => this.verifyConditions(rule.where ?? [], scope));
   }
 
   private processDefinition(identifier: string, selector: Selector, scope: RulesScope): ScopeNode[]{
@@ -173,17 +171,17 @@ export class RuleProcessor {
         if(i.identifier === undefined) return [];
         return this.navigateToPath(scope[i.identifier], i.propertyPath ?? []);
       });
-      if(leftCandidates.length === 0 || rightCandidates.length === 0){
-        return false;
-      }
 
-      const approved = leftCandidates.reduce((outterAcc, l) => {
-        return outterAcc || rightCandidates.reduce((innerAcc, r) => {
-          return innerAcc || (l && r && Object.values(RuleConditionOperator).includes(c.operator))
-            ? operatorToHandler[c.operator](this.graph, l, r)
-            : false;
-        }, false);
-      }, false);
+      let approved = false;
+      for (let l = 0; !approved && l < leftCandidates.length; l++) {
+        const left = leftCandidates[l];
+        for (let r = 0; !approved && r < rightCandidates.length; r++) {
+          const right = rightCandidates[r];
+          if (left && right && Object.values(RuleConditionOperator).includes(c.operator)) {
+            approved = operatorToHandler[c.operator](this.graph, left, right);
+          }
+        }
+      }
       if(!approved) return false;
     }
     return true;
