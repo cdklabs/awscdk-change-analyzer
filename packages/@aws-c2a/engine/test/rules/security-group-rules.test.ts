@@ -1,8 +1,6 @@
 import { InfraModel, OperationType } from '@aws-c2a/models';
-import { CDKParser, CFParser } from '../../lib/platform-mapping';
+import { CFParser } from '../../lib/platform-mapping';
 import { copy } from '../../lib/private/object';
-import { SecurityChangesRules } from '../../lib/rules';
-import { CUserRules } from '../../lib/user-configuration';
 import { behavior, THEN_expectResource, THEN_expectProperty } from '../utils';
 
 const BEFORE: Record<any, any> = {
@@ -17,15 +15,12 @@ const BEFORE: Record<any, any> = {
   },
 };
 
-let rules: CUserRules;
 let oldModel: InfraModel;
 beforeAll(() => {
-  rules = SecurityChangesRules.BroadeningSecurityGroup().rules;
   oldModel = new CFParser('root', BEFORE).parse();
 });
 
 describe('EC2 Security Group default rules', () => {
-  const resource = 'AWS::EC2::SecurityGroup';
   behavior('with new Security Group resource with property, security group', (suite) => {
     suite.egress(() => {
       const {after, _oldModel} = GIVEN('SecurityGroupEgress');
@@ -42,7 +37,7 @@ describe('EC2 Security Group default rules', () => {
       const after = copy(before);
       after.Resources.SecurityGroup = {
         Type: 'AWS::EC2::SecurityGroup',
-        Properties: { [path]: { CidrIp: '0.0.0.1/0', IpProtocol: '-1' } } 
+        Properties: { [path]: { CidrIp: '0.0.0.1/0', IpProtocol: '-1' } },
       };
       return {after, _oldModel: new CFParser('root', before).parse()};
     }
@@ -155,7 +150,7 @@ describe('AWS::EC2::SecurityGroupXxx', () => {
           IpProtocol: 'tcp',
         },
       };
-      const _oldModel = new CFParser('root', before).parse()
+      const _oldModel = new CFParser('root', before).parse();
       const after = copy(before);
       after.Resources[id].Properties.GroupId = 'abcdefghi';
 
@@ -186,7 +181,7 @@ describe('AWS::EC2::SecurityGroupXxx', () => {
           IpProtocol: 'tcp',
         },
       };
-      const _oldModel = new CFParser('root', before).parse()
+      const _oldModel = new CFParser('root', before).parse();
 
       return { after: BEFORE, _oldModel };
     }

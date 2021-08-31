@@ -10,7 +10,7 @@ export interface SecurityGroupSuite {
 
 type Suite = StatementSuite & SecurityGroupSuite;
 
-export function behavior(name: string, cb: (suite: Suite) => void) {
+export function behavior(name: string, cb: (suite: Suite) => void): void {
   describe(name, () => {
     const statementTodo = new Set(['allow', 'deny']);
     const securityGroupTodo = new Set(['egress', 'ingress']);
@@ -38,7 +38,7 @@ export function behavior(name: string, cb: (suite: Suite) => void) {
       ingress: (testFn) => {
         scratchOff('ingress', securityGroupTodo);
         test('ingress is detected', testFn);
-      }
+      },
     });
   });
 }

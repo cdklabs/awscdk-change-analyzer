@@ -1,11 +1,18 @@
 import { InfraModel, OperationType } from '@aws-c2a/models';
+import * as fn from 'fifinet';
 import { CFParser } from '../../lib/platform-mapping';
 import { SecurityChangesRules } from '../../lib/rules';
 import { processRules, firstKey } from '../utils';
 
 const DEFAULT_RULES = SecurityChangesRules.BroadeningPermissions().rules;
+type property = { value: string };
 
-export function process(after: any, before: InfraModel) {
+interface ProcessOutput {
+  graph: fn.Graph<any, {_label: string, _in: string, _out: string}>;
+  firstVertex: string;
+}
+
+export function process(after: any, before: InfraModel): ProcessOutput {
   // WHEN
   const newModel = new CFParser('root', after).parse();
   const { graph, rulesOutput: result } = processRules(before, newModel, DEFAULT_RULES);
@@ -13,7 +20,7 @@ export function process(after: any, before: InfraModel) {
   return { graph, firstVertex };
 }
 
-export function THEN_expectResource(after: any, before: InfraModel, type: OperationType, properties: property[]) {
+export function THEN_expectResource(after: any, before: InfraModel, type: OperationType, properties: property[]): void {
   // WHEN
   const {graph: g, firstVertex} = process(after, before);
 
@@ -21,11 +28,11 @@ export function THEN_expectResource(after: any, before: InfraModel, type: Operat
   expect(g.v(firstVertex).run()).toHaveLength(1);
   expect(g.v(firstVertex).run()[0]).toMatchObject({ type });
   const component = g.v(firstVertex).out('appliesTo').filter({entityType: 'component'});
-  const vertices = component.outAny().filter({entityType: 'property'}).run()
+  const vertices = component.outAny().filter({entityType: 'property'}).run();
   properties.forEach(property => expect(vertices).toContainObject(property));
 }
 
-export function THEN_expectNoResults(after: any, before: InfraModel) {
+export function THEN_expectNoResults(after: any, before: InfraModel): void {
   // WHEN
   const newModel = new CFParser('root', after).parse();
   const { rulesOutput: result } = processRules(before, newModel, DEFAULT_RULES);
@@ -35,8 +42,7 @@ export function THEN_expectNoResults(after: any, before: InfraModel) {
 }
 
 
-type property = { value: string; };
-export function THEN_expectProperty(after: any, before: InfraModel, type: OperationType, properties: property[]) {
+export function THEN_expectProperty(after: any, before: InfraModel, type: OperationType, properties: property[]): void {
   const {graph: g, firstVertex} = process(after, before);
 
   // THEN
