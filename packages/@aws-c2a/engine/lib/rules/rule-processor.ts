@@ -7,8 +7,8 @@ import {
   containsHandler,
   isReferencedInHandler,
   referencesHandler,
+  equalsHandler,
 } from './operator-handlers';
-import { equalsHandler } from './operator-handlers/equals';
 import {
   UserRules,
   UserRule,
@@ -18,7 +18,7 @@ import {
   RuleConditions,
   RuleConditionOperator,
   isInputScalar,
-} from './rule';
+} from '@aws-c2a/rules';
 
 /**
  * Process user rules and assign rule effects to the respective vertices in the graph

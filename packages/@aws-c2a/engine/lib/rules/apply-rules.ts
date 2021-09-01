@@ -1,6 +1,6 @@
 import { ComponentOperation, InfraModelDiff, PropertyComponentOperation, RuleEffect } from '@aws-c2a/models';
+import { CUserRules } from '@aws-c2a/rules';
 import { flatMap } from '../private/node';
-import { CUserRules } from './rule-config-schema';
 import { parseRules } from './rule-parser';
 import { RuleProcessor } from './rule-processor';
 

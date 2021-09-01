@@ -1,6 +1,6 @@
 import { RuleRisk } from '@aws-c2a/models';
 import { Bindable, Change, Condition } from '.';
-import { CUserRule, Scalar } from '../user-configuration';
+import { CUserRule, Scalar } from '../primitives';
 
 export interface RuleOptions {
   conditions?: Condition[];

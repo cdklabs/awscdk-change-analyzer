@@ -1,7 +1,7 @@
 import { InfraModel, OperationType } from '@aws-c2a/models';
-import { CFParser } from '../../lib/platform-mapping';
-import { copy } from '../../lib/private/object';
-import { behavior, THEN_expectResource, THEN_expectProperty } from '../utils';
+import { CFParser } from '@aws-c2a/engine';
+import { copy } from '../lib/private/object';
+import { behavior, THEN_expectResource, THEN_expectProperty } from './utils';
 
 const BEFORE: Record<any, any> = {
   Resources: {

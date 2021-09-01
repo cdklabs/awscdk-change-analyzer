@@ -1,5 +1,6 @@
 import { RuleAction, RuleRisk } from '@aws-c2a/models';
-import { RuleConditions, RuleConditionOperator, RuleProcessor, UserRules } from '../../lib';
+import { RuleConditions, RuleConditionOperator, UserRules } from '@aws-c2a/rules';
+import { RuleProcessor } from '../../lib';
 import { diffTestCase1 } from '../default-test-cases/infra-model-diff';
 
 /**

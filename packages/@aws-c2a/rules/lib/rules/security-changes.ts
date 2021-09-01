@@ -1,4 +1,4 @@
-import { OperationType, RuleRisk } from '@aws-c2a/models';
+import { RuleRisk } from '@aws-c2a/models';
 import {
   IAM_INLINE_IDENTITY_POLICIES,
   IAM_INLINE_RESOURCE_POLICIES,
@@ -6,25 +6,11 @@ import {
   IAM_MANAGED_POLICIES,
   IAM_POLICY_RESOURCES,
 } from '../private/security-policies';
-import { CUserRule, CUserRules } from '../user-configuration';
+import { CUserRule, CUserRules } from '../primitives';
 import { Change, ChangeType } from './change';
 import { Component } from './component';
 import { ConditionOptions } from './condition';
 import { Rule } from './rule';
-
-interface ChangeRuleOptions {
-  target: string;
-  propertyOperationType?: OperationType;
-  type?: OperationType;
-  changeId?: string;
-  where?: string[];
-}
-
-interface ResourceRuleOptions {
-  identifier: string;
-  resource: string;
-  then: ChangeRuleOptions[];
-}
 
 export class SecurityChangesRules {
   /**
@@ -146,32 +132,6 @@ export class SecurityChangesRules {
   public addRules(...rules: CUserRule[]): void {
     this._rules.push(...rules);
   }
-
-  /**
-   * An opinionated utility that creates nested change
-   * rules for a given resource.
-   */
-  private _createResourceRule(options: ResourceRuleOptions): CUserRule {
-    return {
-      let: { [options.identifier]: { Resource: options.resource } },
-      then: options.then.map(opts => this._createChangeRule(opts)),
-    };
-  }
-
-  /**
-   * An opinionated utility that wil produce a high risk change
-   * rule that applies to a given target.
-   */
-  private _createChangeRule(options: ChangeRuleOptions): CUserRule {
-    const {target, where, ...opts} = options;
-    const id = options.changeId ?? 'change';
-    const rule: any = {
-      let: { [id]: { change: { ...opts }, where: [`${id} appliesTo ${target}`, ...(where ?? [])] } },
-      effect: { risk: RuleRisk.High },
-    };
-    return rule;
-  }
-
 }
 
 function generateComponent(resource: string, root: Rule): { component: Component, rule: Rule } {

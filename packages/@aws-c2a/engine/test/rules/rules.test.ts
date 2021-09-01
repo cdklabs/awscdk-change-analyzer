@@ -1,9 +1,10 @@
 import { RuleAction, RuleRisk } from '@aws-c2a/models';
 import {
   CUserRule, CUserRules,
-  parseRules, RuleProcessor, RuleConditionOperator,
+  RuleConditionOperator,
   UserRule, UserRules,
-} from '../../lib/user-configuration';
+} from '@aws-c2a/rules';
+import {parseRules, RuleProcessor} from '../../lib';
 import { diffTestCase1 } from '../default-test-cases/infra-model-diff';
 
 const diffTestCase1CRules: CUserRule[] = [{

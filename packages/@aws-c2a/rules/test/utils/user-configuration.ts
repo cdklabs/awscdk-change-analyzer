@@ -1,10 +1,9 @@
 import * as fs from 'fs';
 import { InfraModel, JSONSerializer, Transition } from '@aws-c2a/models';
 import { Graph } from 'fifinet';
-import { createChangeAnalysisReport } from '../../lib/change-analysis-report/create-change-analysis-report';
-import { DiffCreator } from '../../lib/model-diffing';
+import { DiffCreator, createChangeAnalysisReport, RuleProcessor, parseRules, RuleOutput } from '@aws-c2a/engine';
 import { copy } from '../../lib/private/object';
-import { CUserRules, RuleProcessor, parseRules, UserRules, RuleOutput } from '../../lib/user-configuration';
+import { CUserRules, UserRules,  } from '../../lib';
 
 interface ProcessRulesOutput {
   graph: Graph<any, {_label: string, _in: string, _out: string}>;

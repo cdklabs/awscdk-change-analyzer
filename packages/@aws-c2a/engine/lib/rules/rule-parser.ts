@@ -1,7 +1,7 @@
 import { isDefined, ModelEntityTypes } from '@aws-c2a/models';
 import { fromEntries } from '../private/node';
-import { ConditionInput, RuleCondition, RuleConditionOperator, RuleConditions, Selector, SelectorFilter, UserRule, RuleScopeReference, RuleEffectDefinition } from './rule';
-import { CBindings, CSelector, CUserRule, isPathCSelector, ComponentCFilter, CRuleConditions, isComponentCFilter, GeneralCSelector, CRuleEffectDefinition } from './rule-config-schema';
+import { ConditionInput, RuleCondition, RuleConditionOperator, RuleConditions, Selector, SelectorFilter, UserRule, RuleScopeReference, RuleEffectDefinition } from '@aws-c2a/rules';
+import { CBindings, CSelector, CUserRule, isPathCSelector, ComponentCFilter, CRuleConditions, isComponentCFilter, GeneralCSelector, CRuleEffectDefinition } from '@aws-c2a/rules';
 
 /**
  * Transform CUserRules (user configuration) into UserRules (internal rules representation)
