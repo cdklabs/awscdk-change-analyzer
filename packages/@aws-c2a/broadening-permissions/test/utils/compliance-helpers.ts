@@ -1,6 +1,6 @@
+import { CFParser } from '@aws-c2a/engine';
 import { InfraModel, OperationType } from '@aws-c2a/models';
 import * as fn from 'fifinet';
-import { CFParser } from '@aws-c2a/engine';
 import { SecurityChangesRules } from '../../lib';
 import { processRules, firstKey } from '../utils';
 

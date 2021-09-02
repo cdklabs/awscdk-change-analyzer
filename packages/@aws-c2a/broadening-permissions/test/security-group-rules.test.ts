@@ -1,5 +1,5 @@
-import { InfraModel, OperationType } from '@aws-c2a/models';
 import { CFParser } from '@aws-c2a/engine';
+import { InfraModel, OperationType } from '@aws-c2a/models';
 import { copy } from '../lib/private/object';
 import { behavior, THEN_expectResource, THEN_expectProperty } from './utils';
 

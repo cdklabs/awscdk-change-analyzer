@@ -30,8 +30,10 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
+    "@aws-c2a/broadening-permissions": "^0.4.0",
     "@aws-c2a/engine": "^0.4.0",
     "@aws-c2a/models": "^0.4.0",
+    "@aws-c2a/rules": "^0.4.0",
     "@aws-c2a/web-app": "^0.4.0",
     "@aws-cdk/cfnspec": "^1.115.0",
     "@aws-cdk/cx-api": "^1.115.0",

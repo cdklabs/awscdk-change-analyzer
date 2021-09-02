@@ -1,4 +1,5 @@
 import { RuleRisk } from '@aws-c2a/models';
+import { CUserRule, CUserRules, Change, ChangeType, Component, ConditionOptions, Rule } from '@aws-c2a/rules';
 import {
   IAM_INLINE_IDENTITY_POLICIES,
   IAM_INLINE_RESOURCE_POLICIES,
@@ -6,7 +7,6 @@ import {
   IAM_MANAGED_POLICIES,
   IAM_POLICY_RESOURCES,
 } from './private/security-policies';
-import { CUserRule, CUserRules, Change, ChangeType, Component, ConditionOptions, Rule } from '@aws-c2a/rules';
 
 export class SecurityChangesRules {
   /**
