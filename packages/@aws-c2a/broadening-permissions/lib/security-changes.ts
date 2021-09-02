@@ -117,17 +117,23 @@ export class SecurityChangesRules {
     return rules;
   }
 
-  private _rules: CUserRules;
+  private _rules: CUserRules = [];
   get rules(): CUserRules {
     return this._rules;
   }
 
-  constructor() {
-    this._rules = [];
+  constructor(...rules: CUserRules) {
+    this.addRules(...rules);
   }
 
-  public addRules(...rules: CUserRule[]): void {
+  public addRules(...rules: CUserRules): void {
     this._rules.push(...rules);
+  }
+
+  public toString(prettier = false): string {
+    return prettier
+      ? JSON.stringify(this.rules, null, 2)
+      : JSON.stringify(this.rules);
   }
 }
 

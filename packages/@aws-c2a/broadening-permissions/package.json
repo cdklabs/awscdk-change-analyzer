@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "yarn clean && yarn compile",
+    "build:fixtures": "node fixtures/create-fixtures.js",
     "compile": "npx tsc --build",
     "clean": "npx tsc --build --clean",
     "clean:all": "git clean -fdx",

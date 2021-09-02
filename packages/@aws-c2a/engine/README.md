@@ -7,7 +7,6 @@ their differences and produce a report of changes, customizable with a rules lan
 1. [Platform Mapping](#Platform-Mapping)
 2. [Model Diffing](#Model-Diffing)
 3. [Aggregations](#Aggregations)
-4. [User Configuration](#User-Configuration)
 
 ## Platform Mapping
 
@@ -76,63 +75,3 @@ These are resulting aggregations that narrow down operations by:
 - whether it affects a full component or just a property and, in case of the latter, the property path.
 
 The characteristics that should be grouped at each level, and how, are described in `aggregations/component-operation/module-tree.ts`. Aggregation modules define how to split a group of operations and a module tree is a configuration of these modules that is used to generate the aggregations.
-
-## User Configuration
-
-Users can write rules classify the risk of each change and if it should be automatically approved or rejected. These rules are based on a custom grammar in JSON syntax. Take the following example of a rule:
-
-```
-{
-    "description": "Allow all insert operations",
-    "let": {
-        "insertChange": { "change": {"type": "INSERT" } }
-    },
-    "effect": {
-        "target": "insertChange",
-        "risk": "low",
-        "action": "approve"
-    }
-}
-```
-This is a very simple rule that sets automatic approval and low risk for all operations of type "INSERT". It is broken down below:
-- the "let" field associates objects with identifiers. In this case, there is only one identifier ("insertChange"). An identifier takes the value of all objects that match the query on the right. In this example, the query is matching all "change" objects of type "INSERT". So "insertChange" represents all insertions that occured.
-- the "effect" field applies consequences to a given change, identified as the "target". In this case, the "target" is "insertChange", which corresponds to all insert operations. The risk and automatic approval behavior for these changes are specified in the fields "risk" and "action" respectively.
-
-Below is a more complex rule:
-
-```
-{
-    "description": "CLOUDFRONT",
-    "let": {"cf": { "Resource": "AWS::CloudFront::Distribution" } },
-    "then": [{
-            "description": "Cloudfront Distributions origin changes are risky",
-            "let": {
-                "change": { "change": {}, "where": "change appliesTo cf.Properties.DistributionConfig.Origins" }
-            },
-            "effect": {
-                "risk": "high"
-            }
-        }, {
-            "description": "Cloudfront Distributions origin protocol security can increase",
-            "let": {
-                "change": { "change": {}, "where": [
-                    "change appliesTo cf.Properties.DistributionConfig.Origins.*.OriginProtocolPolicy",
-                    "change.old == 'http-only'",
-                    "change.new == 'https-only'"
-                    ]
-                }
-            },
-            "effect": {
-                "risk": "low",
-                "action": "approve"
-            }
-    }]
-}
-```
-In this rule, the "then" field is also used, which allows applying sub-rules that have access to the identifiers declared in their parent.
-
-Component and Property objects allow accessing their inner properties by using the dot (".") notation. For example `component.someArray.*.property` will correspond to all values of key "property" in elements of array "someArray" inside "component".
-
-You can also notice that queries can have a "when" field, specifying further conditions, such as: checking if a change applies to a given object (Component or Property) with the operator "applies to"; comparing old and new values of changes to properties with the ".old" accessor and "==" operator.
-
-This rules language maps finds the objects in the graph generated from the [InfraModelDiff](../../README.md#InfraModelDiff) and traverses its edges when relating objects, such as when navigating properties or checking whether a change applies to an object.
