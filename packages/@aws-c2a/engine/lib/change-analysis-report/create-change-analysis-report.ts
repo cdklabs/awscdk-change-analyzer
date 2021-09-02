@@ -1,7 +1,7 @@
 import { InfraModel, ChangeAnalysisReport, Transition } from '@aws-c2a/models';
+import { CUserRules } from '@aws-c2a/rules';
 import { extractComponentOperationsAggs, extractComponentOperationsAggsPerComponent } from '../aggregations';
 import { DiffCreator, propagateChanges } from '../model-diffing';
-import { CUserRules } from '@aws-c2a/rules';
 import { applyRules } from '../rules/apply-rules';
 
 export function createChangeAnalysisReport(

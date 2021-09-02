@@ -1,14 +1,4 @@
 import { ModelEntity, Serialized, RuleEffect } from '@aws-c2a/models';
-import * as fn from 'fifinet';
-import { flatMap } from '../private/node';
-import {
-  appliesToHandler,
-  isContainedInHandler,
-  containsHandler,
-  isReferencedInHandler,
-  referencesHandler,
-  equalsHandler,
-} from './operator-handlers';
 import {
   UserRules,
   UserRule,
@@ -19,6 +9,16 @@ import {
   RuleConditionOperator,
   isInputScalar,
 } from '@aws-c2a/rules';
+import * as fn from 'fifinet';
+import { flatMap } from '../private/node';
+import {
+  appliesToHandler,
+  isContainedInHandler,
+  containsHandler,
+  isReferencedInHandler,
+  referencesHandler,
+  equalsHandler,
+} from './operator-handlers';
 
 /**
  * Process user rules and assign rule effects to the respective vertices in the graph

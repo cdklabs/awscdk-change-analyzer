@@ -1,5 +1,7 @@
 import * as fs from 'fs';
-import { createChangeAnalysisReport, CDKParser, CUserRules, SecurityChangesRules  } from '@aws-c2a/engine';
+import { createChangeAnalysisReport, CDKParser } from '@aws-c2a/engine';
+import { CUserRules } from '@aws-c2a/rules';
+import { SecurityChangesRules } from '@aws-c2a/broadening-permissions';
 import { ChangeAnalysisReport, groupArrayBy, JSONSerializer, RuleRisk, Transition } from '@aws-c2a/models';
 import { IC2AHost } from './c2a-host';
 import { CfnTraverser } from './cfn-traverser';
