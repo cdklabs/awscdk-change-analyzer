@@ -1,7 +1,7 @@
 import { InfraModel, OperationType } from '@aws-c2a/models';
 import * as fn from 'fifinet';
 import { CFParser } from '@aws-c2a/engine';
-import { SecurityChangesRules } from '../../lib/rules';
+import { SecurityChangesRules } from '../../lib';
 import { processRules, firstKey } from '../utils';
 
 const DEFAULT_RULES = SecurityChangesRules.BroadeningPermissions().rules;
@@ -40,7 +40,6 @@ export function THEN_expectNoResults(after: any, before: InfraModel): void {
   // THEN
   expect(result.size).toBe(0);
 }
-
 
 export function THEN_expectProperty(after: any, before: InfraModel, type: OperationType, properties: property[]): void {
   const {graph: g, firstVertex} = process(after, before);

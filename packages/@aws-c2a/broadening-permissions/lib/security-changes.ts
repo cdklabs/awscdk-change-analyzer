@@ -5,12 +5,8 @@ import {
   IAM_LAMBDA_PERMISSION,
   IAM_MANAGED_POLICIES,
   IAM_POLICY_RESOURCES,
-} from '../private/security-policies';
-import { CUserRule, CUserRules } from '../primitives';
-import { Change, ChangeType } from './change';
-import { Component } from './component';
-import { ConditionOptions } from './condition';
-import { Rule } from './rule';
+} from './private/security-policies';
+import { CUserRule, CUserRules, Change, ChangeType, Component, ConditionOptions, Rule } from '@aws-c2a/rules';
 
 export class SecurityChangesRules {
   /**

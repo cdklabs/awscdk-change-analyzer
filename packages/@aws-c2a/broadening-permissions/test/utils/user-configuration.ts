@@ -3,7 +3,7 @@ import { InfraModel, JSONSerializer, Transition } from '@aws-c2a/models';
 import { Graph } from 'fifinet';
 import { DiffCreator, createChangeAnalysisReport, RuleProcessor, parseRules, RuleOutput } from '@aws-c2a/engine';
 import { copy } from '../../lib/private/object';
-import { CUserRules, UserRules,  } from '../../lib';
+import { CUserRules, UserRules } from '@aws-c2a/rules';
 
 interface ProcessRulesOutput {
   graph: Graph<any, {_label: string, _in: string, _out: string}>;

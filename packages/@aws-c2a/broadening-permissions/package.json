@@ -1,7 +1,7 @@
 {
-  "name": "@aws-c2a/rules",
+  "name": "@aws-c2a/broadening-permissions",
   "version": "0.4.0",
-  "description": "The rules language and processor for CDK Change Analyzer",
+  "description": "The broadening permissions preset for CDK Change Analyzer",
   "main": "lib/index.js",
   "scripts": {
     "build": "yarn clean && yarn compile",
@@ -14,7 +14,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/cdklabs/awscdk-change-analyzer.git",
-    "directory": "packages/@aws-c2a/rules"
+    "directory": "packages/@aws-c2a/broadening-permissions"
   },
   "author": {
     "name": "Amazon Web Services",
@@ -27,6 +27,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@aws-c2a/models": "^0.4.0",
+    "@aws-c2a/rules": "^0.4.0",
+    "@aws-c2a/engine": "^0.4.0",
     "fifinet": "0.1.7"
   },
   "devDependencies": {
