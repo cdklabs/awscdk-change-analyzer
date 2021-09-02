@@ -1,5 +1,5 @@
 import { RuleRisk } from '@aws-c2a/models';
-import { CUserRule, CUserRules, Change, ChangeType, Rule } from '@aws-c2a/rules';
+import { CUserRules, Change, ChangeType, Rule } from '@aws-c2a/rules';
 import { generateComponent, generateHighRiskChild, generateStatementRules } from './generators';
 import {
   IAM_INLINE_IDENTITY_POLICIES,
