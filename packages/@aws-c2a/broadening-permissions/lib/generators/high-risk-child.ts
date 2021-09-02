@@ -10,9 +10,9 @@ export function generateHighRiskChild(parent: Rule, component: Component, option
   const { change } = options;
   parent.createChild({
     conditions: [
-      change.appliesTo(component, { targetPath: options?.targetPath }),
+      change.appliesTo(component, { targetPath: options.targetPath }),
       ...(options.equals
-        ? [change.equals(options.equals, ChangeType.NEW, { sourcePath: options?.sourcePath })]
+        ? [change.equals(options.equals, ChangeType.NEW, { sourcePath: options.sourcePath })]
         : []),
     ],
     risk: RuleRisk.High,
