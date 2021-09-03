@@ -1,5 +1,3 @@
-import {mergeObjects} from './object';
-
 export const IAM_POLICY_RESOURCES = [
   'AWS::ECR::RegistryPolicy',
   'AWS::EventSchemas::RegistryPolicy',
@@ -50,9 +48,3 @@ export const IAM_INLINE_RESOURCE_POLICIES = {
   'AWS::SageMaker::ModelPackageGroup': [ 'ModelPackageGroupPolicy' ],
   'AWS::Serverless::Function': [ 'AssumeRolePolicyDocument' ],
 };
-
-export const IAM_POLICY_PROPERTIES = mergeObjects(
-  IAM_MANAGED_POLICIES,
-  IAM_INLINE_IDENTITY_POLICIES,
-  IAM_INLINE_RESOURCE_POLICIES,
-);

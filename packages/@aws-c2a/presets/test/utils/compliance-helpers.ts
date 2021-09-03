@@ -1,10 +1,10 @@
 import { CFParser } from '@aws-c2a/engine';
 import { InfraModel, OperationType } from '@aws-c2a/models';
 import * as fn from 'fifinet';
-import { SecurityChangesRules } from '../../lib';
+import { IamChanges, SecurityGroup } from '../../lib';
 import { processRules, firstKey } from '../utils';
 
-const DEFAULT_RULES = SecurityChangesRules.BroadeningPermissions().rules;
+const DEFAULT_RULES = [...IamChanges.BroadeningPermissions().rules, ...SecurityGroup.BroadeningPermissions().rules];
 type property = { value: string };
 
 interface ProcessOutput {

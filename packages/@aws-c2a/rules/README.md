@@ -95,6 +95,3 @@ the `.old` accessor and `==` operator.
 > Component and Property objects allow accessing their inner properties by using the dot (".")
 notation. For example `component.someArray.*.property` will correspond to all values of key
 "property" in elements of array "someArray" inside "component".
-
-
-
