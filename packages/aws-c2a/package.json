@@ -39,7 +39,7 @@
     "@aws-cdk/cx-api": "^1.115.0",
     "@types/graphviz": "0.0.32",
     "@types/string-similarity": "^4.0.0",
-    "aws-sdk": "^2.949.0",
+    "aws-sdk": "^2.979.0",
     "colors": "^1.4.0",
     "fifinet": "0.1.7",
     "graphviz": "0.0.9",
