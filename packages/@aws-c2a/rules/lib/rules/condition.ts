@@ -1,5 +1,5 @@
 import { Change, Component } from '.';
-import { CRuleCondition, RuleConditionOperator, Scalar } from '../user-configuration';
+import { CRuleCondition, RuleConditionOperator, Scalar } from '../primitives';
 
 export interface ConditionOptions {
   sourcePath?: string[];

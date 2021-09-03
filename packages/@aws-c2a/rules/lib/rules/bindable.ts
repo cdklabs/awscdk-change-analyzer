@@ -1,5 +1,5 @@
 import { ModelEntityTypes } from '@aws-c2a/models';
-import { CSelector } from '../user-configuration';
+import { CSelector } from '../primitives';
 
 export interface IBindable {
   id: string;

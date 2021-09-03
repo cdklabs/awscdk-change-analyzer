@@ -1,10 +1,8 @@
-import * as fs from 'fs';
-import { InfraModel, JSONSerializer, Transition } from '@aws-c2a/models';
+import { DiffCreator, RuleProcessor, parseRules, RuleOutput } from '@aws-c2a/engine';
+import { InfraModel, Transition } from '@aws-c2a/models';
+import { CUserRules, UserRules } from '@aws-c2a/rules';
 import { Graph } from 'fifinet';
-import { createChangeAnalysisReport } from '../../lib/change-analysis-report/create-change-analysis-report';
-import { DiffCreator } from '../../lib/model-diffing';
 import { copy } from '../../lib/private/object';
-import { CUserRules, RuleProcessor, parseRules, UserRules, RuleOutput } from '../../lib/user-configuration';
 
 interface ProcessRulesOutput {
   graph: Graph<any, {_label: string, _in: string, _out: string}>;
@@ -19,11 +17,6 @@ export function processRules(oldModel: InfraModel, newModel: InfraModel, rules: 
     graph,
     rulesOutput: new RuleProcessor(graph).processRules(_rules),
   };
-}
-
-export function generateReport(oldModel: InfraModel, newModel: InfraModel, rules: CUserRules): void {
-  const report = createChangeAnalysisReport(new Transition({ v1: oldModel, v2: newModel }), rules);
-  fs.writeFileSync('report.json', new JSONSerializer().serialize(report));
 }
 
 export function cfnWithPolicyDocument(source: any, type: string, policy?: string): any {

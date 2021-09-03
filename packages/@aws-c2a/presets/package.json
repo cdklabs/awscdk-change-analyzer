@@ -1,10 +1,11 @@
 {
-  "name": "@aws-c2a/engine",
+  "name": "@aws-c2a/presets",
   "version": "0.4.0",
-  "description": "The CDK Change Analyzer is a tool that enables detecting dangerous changes within CDK projects.",
+  "description": "The preset rules for CDK Change Analyzer",
   "main": "lib/index.js",
   "scripts": {
     "build": "yarn clean && yarn compile",
+    "build:fixtures": "node fixtures/create-fixtures.js",
     "compile": "npx tsc --build",
     "clean": "npx tsc --build --clean",
     "clean:all": "git clean -fdx",
@@ -14,7 +15,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/cdklabs/awscdk-change-analyzer.git",
-    "directory": "packages/@aws-c2a/engine"
+    "directory": "packages/@aws-c2a/presets"
   },
   "author": {
     "name": "Amazon Web Services",
@@ -28,9 +29,8 @@
   "dependencies": {
     "@aws-c2a/models": "^0.4.0",
     "@aws-c2a/rules": "^0.4.0",
-    "@aws-cdk/cfnspec": "^1.115.0",
-    "fifinet": "0.1.7",
-    "graphviz": "0.0.9"
+    "@aws-c2a/engine": "^0.4.0",
+    "fifinet": "0.1.7"
   },
   "devDependencies": {
     "@aws-cdk/core": "^1.115.0",
@@ -45,7 +45,6 @@
     "eslint": "^7.19.0",
     "eslint-plugin-import": "^2.23.4",
     "jest": "^26.5.0",
-    "rimraf": "^3.0.2",
     "ts-jest": "^26.5.0",
     "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.9.0",

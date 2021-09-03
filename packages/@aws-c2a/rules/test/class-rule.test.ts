@@ -1,5 +1,5 @@
 import { OperationType, RuleRisk } from '@aws-c2a/models';
-import { Rule, Component, ComponentType, Change } from '../../lib/rules';
+import { Rule, Component, ComponentType, Change } from '../lib';
 
 describe('Rule class', () => {
   let component: Component;

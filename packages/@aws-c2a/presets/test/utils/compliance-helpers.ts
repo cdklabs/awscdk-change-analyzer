@@ -1,10 +1,10 @@
+import { CFParser } from '@aws-c2a/engine';
 import { InfraModel, OperationType } from '@aws-c2a/models';
 import * as fn from 'fifinet';
-import { CFParser } from '../../lib/platform-mapping';
-import { SecurityChangesRules } from '../../lib/rules';
+import { IamChanges, SecurityGroup } from '../../lib';
 import { processRules, firstKey } from '../utils';
 
-const DEFAULT_RULES = SecurityChangesRules.BroadeningPermissions().rules;
+const DEFAULT_RULES = [...IamChanges.BroadeningPermissions().rules, ...SecurityGroup.BroadeningPermissions().rules];
 type property = { value: string };
 
 interface ProcessOutput {
@@ -40,7 +40,6 @@ export function THEN_expectNoResults(after: any, before: InfraModel): void {
   // THEN
   expect(result.size).toBe(0);
 }
-
 
 export function THEN_expectProperty(after: any, before: InfraModel, type: OperationType, properties: property[]): void {
   const {graph: g, firstVertex} = process(after, before);

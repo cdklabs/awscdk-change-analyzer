@@ -1,10 +1,8 @@
+import { CFParser } from '@aws-c2a/engine';
 import { InfraModel, OperationType } from '@aws-c2a/models';
-import { CFParser } from '../../lib/platform-mapping';
-import { copy } from '../../lib/private/object';
-import { IAM_INLINE_IDENTITY_POLICIES, IAM_INLINE_RESOURCE_POLICIES, IAM_MANAGED_POLICIES, IAM_POLICY_RESOURCES } from '../../lib/private/security-policies';
-import { arbitraryPolicyStatement, cfnWithPolicyDocument, arbitraryNegativePolicyStatement  } from '../utils';
-import { behavior } from '../utils/compliance';
-import { THEN_expectResource, THEN_expectNoResults, THEN_expectProperty } from '../utils/compliance-helpers';
+import { copy } from '../lib/private/object';
+import { IAM_INLINE_IDENTITY_POLICIES, IAM_INLINE_RESOURCE_POLICIES, IAM_MANAGED_POLICIES, IAM_POLICY_RESOURCES } from '../lib/private/security-policies';
+import { arbitraryPolicyStatement, behavior, cfnWithPolicyDocument, arbitraryNegativePolicyStatement, THEN_expectResource, THEN_expectNoResults, THEN_expectProperty } from './utils';
 
 const BEFORE: Record<any, any> = { Resources: {} };
 const ALLOW = { value: 'Allow' };

@@ -1,6 +1,6 @@
 import { ModelEntityTypes, OperationType } from '@aws-c2a/models';
 import { Bindable, Component, Condition, ConditionOptions } from '.';
-import { CSelector, RuleConditionOperator, Scalar } from '../user-configuration';
+import { CSelector, RuleConditionOperator, Scalar } from '../primitives';
 
 export enum ChangeType {
   NEW = 'new',

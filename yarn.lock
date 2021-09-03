@@ -639,6 +639,15 @@
     "@aws-cdk/core" "1.115.0"
     constructs "^3.3.69"
 
+"@aws-cdk/aws-events@1.118.0":
+  version "1.118.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-events/-/aws-events-1.118.0.tgz#d5e2a351bed1c39315fe3452be3337313c59fe35"
+  integrity sha512-4/D4+BAYRXFBQ1XIHwDGf2Yn27lLTNeK/K57HGYZRiTEDqthwIPQP+bvUV3jJ246Yd6QUKYWbUMN0xbq6EkLHQ==
+  dependencies:
+    "@aws-cdk/aws-iam" "1.118.0"
+    "@aws-cdk/core" "1.118.0"
+    constructs "^3.3.69"
+
 "@aws-cdk/aws-events@1.119.0":
   version "1.119.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-events/-/aws-events-1.119.0.tgz#343726db0712acf5c7e2a11df858fb8d3c5befa4"
