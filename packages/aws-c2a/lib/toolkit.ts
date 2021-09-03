@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import { createChangeAnalysisReport, CDKParser } from '@aws-c2a/engine';
 import { ChangeAnalysisReport, groupArrayBy, JSONSerializer, RuleRisk, Transition } from '@aws-c2a/models';
-import { IamChanges, SecurityGroup } from '@aws-c2a/presets';
+import { BroadeningPermissions } from '@aws-c2a/presets';
 import { CUserRules } from '@aws-c2a/rules';
 import { IC2AHost } from './c2a-host';
 import { CfnTraverser } from './cfn-traverser';
@@ -79,9 +79,7 @@ export class C2AToolkit {
     const before: {[stackName: string]: TemplateTree} = {};
     const after: {[stackName: string]: TemplateTree} = {};
     const rules = [
-      ...(options.broadeningPermissions
-        ? [...IamChanges.BroadeningPermissions().rules, ...SecurityGroup.BroadeningPermissions().rules]
-        : []),
+      ...(options.broadeningPermissions ? BroadeningPermissions : []),
       ...(options.rulesPath ? JSON.parse(await fs.promises.readFile(options.rulesPath, 'utf-8')) : []),
     ];
 
