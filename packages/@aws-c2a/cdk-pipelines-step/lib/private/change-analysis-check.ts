@@ -29,6 +29,13 @@ export interface ChangeAnalysisCheckProps {
    * @default true
    */
   readonly autoDeleteObjects?: boolean;
+  /**
+   * Check for broadening permissions that occur the
+   * selected stacks.
+   *
+   * @default true
+   */
+  readonly broadeningPermissions?: boolean;
 }
 
 /**
@@ -69,6 +76,7 @@ export class ChangeAnalysisCheck extends CoreConstruct {
 
   constructor(scope: Construct, id: string, props: ChangeAnalysisCheckProps) {
     super(scope, id);
+    const broadeningPermissions = props.broadeningPermissions ?? true;
 
     Tags.of(props.codePipeline).add('CHANGE_ANALYSIS', 'ALLOW_APPROVE', {
       includeResourceTypes: ['AWS::CodePipeline::Pipeline'],
@@ -103,6 +111,13 @@ export class ChangeAnalysisCheck extends CoreConstruct {
       ' --subject "$NOTIFICATION_SUBJECT"' +
       ` --message "${message.join('\n')}"`;
 
+    const diff = 
+      'aws-c2a diff' +
+      ` --app "assembly-${props.codePipeline.stack.stackName}-$STAGE_NAME/"` +
+      (broadeningPermissions ? ' --broadening-permissions' : '') + 
+      ' --rules-path $RULE_SET' +
+      ' --fail';
+
     this.c2aDiffProject = new codebuild.Project(this, 'CDKChangeAnalysis', {
       environmentVariables: {
         DOWNLOAD_USER_KEY: {
@@ -119,7 +134,9 @@ export class ChangeAnalysisCheck extends CoreConstruct {
         phases: {
           build: {
             commands: [
+              'set -e',
               'npm install -g aws-c2a',
+              'ls -al',
               // $CODEBUILD_INITIATOR will always be Code Pipeline and in the form of:
               // "codepipeline/example-pipeline-name-Xxx"
               'export PIPELINE_NAME="$(node -pe \'`${process.env.CODEBUILD_INITIATOR}`.split("/")[1]\')"',
@@ -134,7 +151,7 @@ export class ChangeAnalysisCheck extends CoreConstruct {
               // Run invoke only if cdk diff passes (returns exit code 0)
               // 0 -> true, 1 -> false
               ifElse({
-                condition: `aws-c2a diff --app "assembly-${props.codePipeline.stack.stackName}-$STAGE_NAME/" --broadening-permissions --fail`,
+                condition: diff,
                 thenStatements: [
                   invokeLambda,
                   'export MESSAGE="No changes that violate rules detected."',

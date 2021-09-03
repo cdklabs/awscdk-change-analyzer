@@ -242,6 +242,4 @@ describe('perform change analysis', () => {
       ),
     });
   });
-
-
 });
