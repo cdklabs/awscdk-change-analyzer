@@ -72,7 +72,8 @@ export class PerformChangeAnalysis extends Step implements ICodePipelineActionFa
         STAGE_NAME: { value: stage.stageName },
         ACTION_NAME: { value: approveActionName },
         ...ruleset ? {
-          RULE_SET: { value: `asset.${ruleset.objectKey}` },
+          BUCKET: { value: ruleset.bucketName },
+          RULE_SET: { value: ruleset.objectKey },
         } : {},
         ...this.props.notificationTopic ? {
           NOTIFICATION_ARN: { value: this.props.notificationTopic.topicArn },

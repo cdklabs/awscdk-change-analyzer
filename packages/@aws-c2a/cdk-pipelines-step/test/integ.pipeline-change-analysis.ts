@@ -37,18 +37,30 @@ class PipelinesStack extends Stack {
         }),
         commands: [
           'yarn install',
+          'npm install -g aws-cdk',
           'yarn build',
           'cd packages/@aws-c2a/cdk-pipelines-step',
-          'npx cdk synth -a "node test/integ.pipeline-change-analysis.js"',
+          'cdk synth -a "node test/integ.pipeline-change-analysis.js"',
+          'mv cdk.out ../../../cdk.out',
         ],
       }),
     });
 
-    const unsafeStage = new MyStage(this, 'Beta', { makeUnsafe: true });
+    const unsafeStage = new MyStage(this, 'Alpha', { makeUnsafe: true });
     pipeline.addStage(unsafeStage, {
       pre: [
         new PerformChangeAnalysis('c2a', {
           stage: unsafeStage,
+        }),
+      ],
+    });
+
+    const customizedUnsafeStage = new MyStage(this, 'Beta', { makeUnsafe: true });
+    pipeline.addStage(customizedUnsafeStage, {
+      pre: [
+        new PerformChangeAnalysis('c2a', {
+          stage: customizedUnsafeStage,
+          broadeningPermissions: false,
           ruleSet: RuleSet.fromDisk(resolve(__dirname, 'assets/integ-rules.json')),
         }),
       ],

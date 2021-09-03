@@ -135,6 +135,10 @@ export class ChangeAnalysisCheck extends CoreConstruct {
           build: {
             commands: [
               'set -e',
+              // We have to pull this down separately because the synth stage
+              // value of the asset hash might be different than the deploy stage
+              // hash value
+              '[ -z "\${RULE_SET}" ] || aws s3 cp s3://$BUCKET/$RULE_SET $RULE_SET',
               'npm install -g aws-c2a',
               'ls -al',
               // $CODEBUILD_INITIATOR will always be Code Pipeline and in the form of:
@@ -189,6 +193,12 @@ export class ChangeAnalysisCheck extends CoreConstruct {
 
     this.c2aDiffProject.addToRolePolicy(new iam.PolicyStatement({
       actions: ['cloudformation:GetTemplate', 'cloudformation:DescribeStackResources', 'cloudformation:DescribeStacks'],
+      resources: ['*'],
+    }));
+
+    // TODO: Replace with something safer heh
+    this.c2aDiffProject.addToRolePolicy(new iam.PolicyStatement({
+      actions: ['s3:Get*', 's3:List*'],
       resources: ['*'],
     }));
 
