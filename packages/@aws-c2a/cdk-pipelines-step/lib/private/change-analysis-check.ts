@@ -196,12 +196,6 @@ export class ChangeAnalysisCheck extends CoreConstruct {
       resources: ['*'],
     }));
 
-    // TODO: Replace with something safer heh
-    this.c2aDiffProject.addToRolePolicy(new iam.PolicyStatement({
-      actions: ['s3:Get*', 's3:List*'],
-      resources: ['*'],
-    }));
-
     this.preApproveLambda.grantInvoke(this.c2aDiffProject);
     this.bucket.grantWrite(this.c2aDiffProject);
   }

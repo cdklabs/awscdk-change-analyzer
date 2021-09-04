@@ -1,3 +1,4 @@
+import { IGrantable } from '@aws-cdk/aws-iam';
 import * as s3 from '@aws-cdk/aws-s3';
 import * as s3a from '@aws-cdk/aws-s3-assets';
 import * as cdk from '@aws-cdk/core';
@@ -30,5 +31,11 @@ export class RuleSet {
       bucketName: this.asset.s3BucketName,
       objectKey: this.asset.s3ObjectKey,
     };
+  }
+
+  public grantRead(grantee: IGrantable) {
+    if (this.asset) {
+      this.asset.grantRead(grantee);
+    }
   }
 }

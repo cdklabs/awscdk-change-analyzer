@@ -55,6 +55,7 @@ export class PerformChangeAnalysis extends Step implements ICodePipelineActionFa
   public produceAction(stage: IStage, options: ProduceActionOptions): CodePipelineActionFactoryResult {
     const { c2aDiffProject } = this.getOrCreateChangeAnalysis(options.pipeline);
     const ruleset = this.props.ruleSet?.bind(options.pipeline);
+    this.props.ruleSet?.grantRead(c2aDiffProject);
     this.props.notificationTopic?.grantPublish(c2aDiffProject);
 
     const variablesNamespace = Node.of(this.props.stage).addr;
