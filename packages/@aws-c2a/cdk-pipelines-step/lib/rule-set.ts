@@ -8,7 +8,7 @@ import * as cdk from '@aws-cdk/core';
 import { Construct } from '@aws-cdk/core';
 
 export class RuleSet {
-  public static fromDisk(path: string) {
+  public static fromDisk(path: string): RuleSet {
     return new RuleSet(path);
   }
 
@@ -33,7 +33,7 @@ export class RuleSet {
     };
   }
 
-  public grantRead(grantee: IGrantable) {
+  public grantRead(grantee: IGrantable): void {
     if (this.asset) {
       this.asset.grantRead(grantee);
     }

@@ -111,10 +111,10 @@ export class ChangeAnalysisCheck extends CoreConstruct {
       ' --subject "$NOTIFICATION_SUBJECT"' +
       ` --message "${message.join('\n')}"`;
 
-    const diff = 
+    const diff =
       'aws-c2a diff' +
       ` --app "assembly-${props.codePipeline.stack.stackName}-$STAGE_NAME/"` +
-      (broadeningPermissions ? ' --broadening-permissions' : '') + 
+      (broadeningPermissions ? ' --broadening-permissions' : '') +
       ' --rules-path $RULE_SET' +
       ' --fail';
 
@@ -138,7 +138,7 @@ export class ChangeAnalysisCheck extends CoreConstruct {
               // We have to pull this down separately because the synth stage
               // value of the asset hash might be different than the deploy stage
               // hash value
-              '[ -z "\${RULE_SET}" ] || aws s3 cp s3://$BUCKET/$RULE_SET $RULE_SET',
+              '[ -z "${RULE_SET}" ] || aws s3 cp s3://$BUCKET/$RULE_SET $RULE_SET',
               'npm install -g aws-c2a',
               'ls -al',
               // $CODEBUILD_INITIATOR will always be Code Pipeline and in the form of:

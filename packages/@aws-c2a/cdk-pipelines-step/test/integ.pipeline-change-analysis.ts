@@ -1,9 +1,9 @@
+import { resolve } from 'path';
 import * as iam from '@aws-cdk/aws-iam';
 import * as sns from '@aws-cdk/aws-sns';
 import { App, Stack, StackProps, Stage, StageProps } from '@aws-cdk/core';
 import * as pipelines from '@aws-cdk/pipelines';
 import { Construct } from 'constructs';
-import { resolve } from 'path';
 
 import { PerformChangeAnalysis } from '../lib';
 import { RuleSet } from '../lib/rule-set';
