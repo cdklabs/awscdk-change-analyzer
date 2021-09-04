@@ -115,7 +115,7 @@ export class ChangeAnalysisCheck extends CoreConstruct {
       'aws-c2a diff' +
       ` --app "assembly-${props.codePipeline.stack.stackName}-$STAGE_NAME/"` +
       (broadeningPermissions ? ' --broadening-permissions' : '') +
-      ' --rules-path $RULE_SET' +
+      ' ${RULES_SET:+--rules-path "$RULE_SET"}' +
       ' --fail';
 
     this.c2aDiffProject = new codebuild.Project(this, 'CDKChangeAnalysis', {
