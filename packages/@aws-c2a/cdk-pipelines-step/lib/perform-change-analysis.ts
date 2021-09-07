@@ -74,7 +74,7 @@ export class PerformChangeAnalysis extends Step implements ICodePipelineActionFa
         STAGE_NAME: { value: stage.stageName },
         ACTION_NAME: { value: approveActionName },
         ...broadeningPermissions ? {
-          BROADENING_PERMISSIONS: { value: true }
+          BROADENING_PERMISSIONS: { value: true },
         } : {},
         ...ruleset ? {
           BUCKET: { value: ruleset.bucketName },
