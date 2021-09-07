@@ -55,6 +55,7 @@ export class PerformChangeAnalysis extends Step implements ICodePipelineActionFa
   public produceAction(stage: IStage, options: ProduceActionOptions): CodePipelineActionFactoryResult {
     const { c2aDiffProject } = this.getOrCreateChangeAnalysis(options.pipeline);
     const ruleset = this.props.ruleSet?.bind(options.pipeline);
+    const broadeningPermissions = this.props.broadeningPermissions ?? true;
     this.props.ruleSet?.grantRead(c2aDiffProject);
     this.props.notificationTopic?.grantPublish(c2aDiffProject);
 
@@ -72,6 +73,9 @@ export class PerformChangeAnalysis extends Step implements ICodePipelineActionFa
         STAGE_PATH: { value: Node.of(this.props.stage).path },
         STAGE_NAME: { value: stage.stageName },
         ACTION_NAME: { value: approveActionName },
+        ...broadeningPermissions ? {
+          BROADENING_PERMISSIONS: { value: true }
+        } : {},
         ...ruleset ? {
           BUCKET: { value: ruleset.bucketName },
           RULE_SET: { value: ruleset.objectKey },
@@ -106,7 +110,6 @@ export class PerformChangeAnalysis extends Step implements ICodePipelineActionFa
     return new ChangeAnalysisCheck(pipeline, id, {
       codePipeline: pipeline.pipeline,
       autoDeleteObjects: this.props.autoDeleteObjects,
-      broadeningPermissions: this.props.broadeningPermissions,
     });
   }
 }

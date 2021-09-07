@@ -29,13 +29,6 @@ export interface ChangeAnalysisCheckProps {
    * @default true
    */
   readonly autoDeleteObjects?: boolean;
-  /**
-   * Check for broadening permissions that occur the
-   * selected stacks.
-   *
-   * @default true
-   */
-  readonly broadeningPermissions?: boolean;
 }
 
 /**
@@ -76,7 +69,6 @@ export class ChangeAnalysisCheck extends CoreConstruct {
 
   constructor(scope: Construct, id: string, props: ChangeAnalysisCheckProps) {
     super(scope, id);
-    const broadeningPermissions = props.broadeningPermissions ?? true;
 
     Tags.of(props.codePipeline).add('CHANGE_ANALYSIS', 'ALLOW_APPROVE', {
       includeResourceTypes: ['AWS::CodePipeline::Pipeline'],
@@ -114,8 +106,8 @@ export class ChangeAnalysisCheck extends CoreConstruct {
     const diff =
       'aws-c2a diff' +
       ` --app "assembly-${props.codePipeline.stack.stackName}-$STAGE_NAME/"` +
-      (broadeningPermissions ? ' --broadening-permissions' : '') +
-      ' ${RULES_SET:+--rules-path "$RULE_SET"}' +
+      ' ${BROADENING_PERMISSIONS:+--broadening-permissions}' +
+      ' ${RULE_SET:+--rules-path "$RULE_SET"}' +
       ' --fail';
 
     this.c2aDiffProject = new codebuild.Project(this, 'CDKChangeAnalysis', {
