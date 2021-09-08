@@ -3,7 +3,7 @@ import { IC2AHost } from './c2a-host';
 import { CloudAssembly } from './cloud-assembly';
 import { resolveCfnProperty } from './private/cfn';
 import { deserializeStructure } from './private/yml';
-import { TemplateTree } from './toolkit';
+import { TemplateTree } from './toolkit-utils';
 
 interface StackInfo {
   template: any;
