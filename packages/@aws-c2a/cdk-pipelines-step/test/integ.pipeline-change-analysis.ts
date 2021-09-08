@@ -32,16 +32,13 @@ class PipelinesStack extends Stack {
       pipelineName: 'C2APipeline',
       selfMutation: false,
       synth: new pipelines.ShellStep('Synth', {
-        input: pipelines.CodePipelineSource.connection('BryanPan342/awscdk-change-analyzer', 'configurable-rules', {
+        input: pipelines.CodePipelineSource.connection('bryanpan342/cdk-pipelines-v2', 'master', {
           connectionArn: 'arn:aws:codestar-connections:us-east-1:045046196850:connection/ace566cc-cc19-44ce-a133-6b1777328832',
         }),
         commands: [
           'yarn install',
-          'npm install -g aws-cdk',
           'yarn build',
-          'cd packages/@aws-c2a/cdk-pipelines-step',
-          'cdk synth -a "node test/integ.pipeline-change-analysis.js"',
-          'mv cdk.out ../../../cdk.out',
+          'npx cdk synth',
         ],
       }),
     });
