@@ -26,11 +26,11 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@aws-c2a/models": "^0.5.0",
+    "@aws-c2a/models": "0.5.0",
     "fifinet": "0.1.7"
   },
   "devDependencies": {
-    "@aws-cdk/core": "^1.115.0",
+    "@aws-cdk/core": "1.115.0",
     "@babel/core": "^7.12.13",
     "@babel/preset-env": "^7.12.13",
     "@babel/preset-typescript": "^7.12.13",
