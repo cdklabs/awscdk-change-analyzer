@@ -13,7 +13,9 @@ interface HomeProps {
   after: string;
 }
 
-const createGraph = (before: any, after: any): fn.Graph<any, any> => {
+const createGraph = (p_before: any, p_after: any): fn.Graph<any, any> => {
+  const before = typeof p_before === 'string' ? JSON.parse(p_before) : p_before;
+  const after = typeof p_after === 'string' ? JSON.parse(p_after) : p_after;
   const oldModel = new c2a.CDKParser('root', before).parse();
   const newModel = new c2a.CDKParser('root', after).parse();
 
@@ -44,9 +46,12 @@ export default function App({before, after}: HomeProps): JSX.Element {
         },
       ],
     });
-    cy.current.on('select', 'node', (event) => {
+    const eventCb = (event) => {
       setSelected(JSON.stringify(event.target.map(node => node._private.data), null, 2));
-    });
+    };
+    cy.current.on('mouseover', 'node', eventCb);
+    cy.current.on('select', 'node', eventCb);
+    cy.current.on('select', 'edge', eventCb);
     return () => {
       if (cy.current && !cy.current.destroyed()) {
         cy.current.destroy();
@@ -55,7 +60,7 @@ export default function App({before, after}: HomeProps): JSX.Element {
   }, []);
 
   useEffect(() => {
-    const _graph = createGraph(JSON.parse(before), JSON.parse(after));
+    const _graph = createGraph(before, after);
     setGraph(_graph);
   }, [before, after]);
 
@@ -78,6 +83,7 @@ export default function App({before, after}: HomeProps): JSX.Element {
         cy.current.add({
           group: 'edges',
           data: {
+            label: e._label,
             id: e._id,
             source: e._out._id,
             target: e._in._id,

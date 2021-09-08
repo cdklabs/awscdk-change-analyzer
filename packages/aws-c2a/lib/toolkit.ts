@@ -1,19 +1,16 @@
 import * as fs from 'fs';
-import { createChangeAnalysisReport, CDKParser } from '@aws-c2a/engine';
+import { createChangeAnalysisReport } from '@aws-c2a/engine';
 import { ChangeAnalysisReport, groupArrayBy, JSONSerializer, RuleRisk, Transition } from '@aws-c2a/models';
 import { BroadeningPermissions } from '@aws-c2a/presets';
 import { CUserRules } from '@aws-c2a/rules';
 import { IC2AHost } from './c2a-host';
 import { CfnTraverser } from './cfn-traverser';
-import { CloudAssembly, DefaultSelection } from './cloud-assembly';
+import { CloudAssembly, DefaultSelection, StackCollection } from './cloud-assembly';
+import { getFileIfExists } from './private/fs';
 import { warning, error } from './private/logging';
-import { flattenObjects, mapObjectValues } from './private/object';
-const templatePath = require.resolve('@aws-c2a/web-app/fixtures/template.index.html');
-
-export interface TemplateTree {
-  readonly rootTemplate: any;
-  readonly nestedTemplates?: {[id: string]: TemplateTree};
-}
+import { createModel, TemplateTree, TemplateTreeMap } from './private/toolkit-utils';
+const webappTemplatePath = require.resolve('@aws-c2a/web-app/fixtures/template.index.html');
+const visTemplatePath = require.resolve('@aws-c2a/visualizer/fixtures/template.index.html');
 
 export enum FAIL_ON {
   HIGH='HIGH',
@@ -35,9 +32,17 @@ export interface HtmlOptions {
   outputPath: string;
 }
 
-export interface EvaluateDiffOptions {
-  before: {[stackName: string]: TemplateTree};
-  after: {[stackName: string]: TemplateTree};
+export interface VisOptions {
+  stackNames: string[];
+  outputPath: string;
+}
+
+export interface TemplateTreeDiff {
+  before: TemplateTreeMap;
+  after: TemplateTreeMap;
+}
+
+export interface EvaluateDiffOptions extends TemplateTreeDiff {
   rules: CUserRules;
 }
 
@@ -74,10 +79,8 @@ export class C2AToolkit {
   }
 
   public async c2aDiff(options: DiffOptions): Promise<number> {
-    const selectedStacks = await this.selectStacks(options.stackNames);
+    const outputPath = options.outputPath;
 
-    const before: {[stackName: string]: TemplateTree} = {};
-    const after: {[stackName: string]: TemplateTree} = {};
     const rules = [
       ...(options.broadeningPermissions ? BroadeningPermissions : []),
       ...(options.rulesPath ? JSON.parse(await fs.promises.readFile(options.rulesPath, 'utf-8')) : []),
@@ -87,25 +90,28 @@ export class C2AToolkit {
       warning('No rules are configured. Run with c2a diff with `--broadening-permissions` or `--rules-path` to analyze the risk of your changes.');
     }
 
-    const outputPath = options.outputPath;
-
-    for (const stack of selectedStacks.stackArtifacts) {
-      const stackName = stack.stackName;
-      before[stackName] = await this.getCfnTemplate(stackName);
-      after[stackName] = await this.traverser.traverseLocal(stack.templateFile);
-    }
-
+    const { before, after } = await this.getTemplateTrees(options.stackNames);
     const report = await this.evaluateStacks({ before, after, rules });
     await fs.promises.writeFile(outputPath, new JSONSerializer().serialize(report));
-
     return this.evaluateReport(report, options.failCondition) && options.fail ? 1 : 0;
   }
 
   public async c2aHtml(options: HtmlOptions): Promise<number> {
-    const report = JSON.stringify(await fs.promises.readFile(options.reportPath, 'utf-8'));
-    const template = await fs.promises.readFile(templatePath, 'utf-8');
+    const report = JSON.stringify(await getFileIfExists(options.reportPath, 'Rule Set'));
+    const template = await getFileIfExists(webappTemplatePath, 'C2A Web App Template');
     const webapp = template.replace('"!!!CDK_CHANGE_ANALYSIS_REPORT"', report);
     await fs.promises.writeFile(options.outputPath, webapp);
+    return 0;
+  }
+
+  public async c2aVis(options: VisOptions): Promise<number> {
+    const { before, after } = await this.getTemplateTrees(options.stackNames);
+    const template = await getFileIfExists(visTemplatePath, 'C2A Visualizer Template');
+    const firstTemplate = (map: TemplateTreeMap): any => Object.values(map)[0].rootTemplate;
+    const visualizer = template
+      .replace('"!!!CDK_CHANGE_ANALYSIS_BEFORE"', JSON.stringify(firstTemplate(before)))
+      .replace('"!!!CDK_CHANGE_ANALYSIS_AFTER"', JSON.stringify(firstTemplate(after)));
+    await fs.promises.writeFile(options.outputPath, visualizer);
     return 0;
   }
 
@@ -117,20 +123,8 @@ export class C2AToolkit {
    */
   public async evaluateStacks(options: EvaluateDiffOptions): Promise<ChangeAnalysisReport> {
     const {before, after} = options;
-
-    const flattenNestedStacks = (nestedStacks: {[id: string]: TemplateTree} | undefined ): {[id: string]: any}  => {
-      return Object.entries(nestedStacks ?? {})
-        .reduce((acc, [stackName, {rootTemplate, nestedTemplates}]: [string, TemplateTree]) =>
-          ({...acc, [stackName]: rootTemplate, ...(flattenNestedStacks(nestedTemplates))}), {});
-    };
-
-    const oldModel = new CDKParser('root', ...mapObjectValues(before, tree => tree.rootTemplate)).parse({
-      nestedStacks: flattenObjects(mapObjectValues(before, app => flattenNestedStacks(app.nestedTemplates))),
-    });
-
-    const newModel = new CDKParser('root', ...mapObjectValues(after, tree => tree.rootTemplate)).parse({
-      nestedStacks: flattenObjects(mapObjectValues(after, app => flattenNestedStacks(app.nestedTemplates))),
-    });
+    const oldModel = createModel(before);
+    const newModel = createModel(after);
 
     return createChangeAnalysisReport(new Transition({v1: oldModel, v2: newModel}), options.rules);
   }
@@ -190,6 +184,18 @@ export class C2AToolkit {
     }
   }
 
+  private async getTemplateTrees(stackNames: string[]): Promise<TemplateTreeDiff> {
+    const selectedStacks = await this.selectStacks(stackNames);
+    const before: {[stackName: string]: TemplateTree} = {};
+    const after: {[stackName: string]: TemplateTree} = {};
+    for (const stack of selectedStacks.stackArtifacts) {
+      const stackName = stack.stackName;
+      before[stackName] = await this.getCfnTemplate(stackName);
+      after[stackName] = await this.traverser.traverseLocal(stack.templateFile);
+    }
+    return { before, after };
+  }
+
   /**
    * A get method for cfn templates that won't error for non-existing
    * stacks.
@@ -198,7 +204,7 @@ export class C2AToolkit {
    * @returns The CFN stack related to the stack name, if the stack
    * is not found return an empty template tree
    */
-  private async getCfnTemplate(stackName: string) {
+  private async getCfnTemplate(stackName: string): Promise<any> {
     try {
       return await this.traverser.traverseCfn(stackName);
     } catch (e) {
@@ -209,7 +215,7 @@ export class C2AToolkit {
     }
   }
 
-  private async selectStacks(stackNames: string[]) {
+  private async selectStacks(stackNames: string[]): Promise<StackCollection> {
     return await this.asm.selectStacks({ patterns: stackNames }, {
       defaultBehavior: DefaultSelection.AllStacks,
     });

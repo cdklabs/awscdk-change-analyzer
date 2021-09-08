@@ -11,7 +11,7 @@ Computes the difference between the current cloud assembly state and the current
 outputs the report to a file and returns 0 if no differences are found.
 
 ```sh
-aws-c2a diff --app='path/to/assembly/' --rules-path='path/to/rules.json' --output='path/to/output.json'
+aws-c2a diff --app='path/to/assembly/' --rules-path='path/to/rules.json' --out='path/to/output.json'
 ```
 
 ### `aws-c2a html`
@@ -19,5 +19,16 @@ aws-c2a diff --app='path/to/assembly/' --rules-path='path/to/rules.json' --outpu
 Generate an html file that aggregates the output of `aws-c2a diff`.
 
 ```sh
-aws-c2a html --report='path/to/change-report.json' --output='path/to/index.html'
+aws-c2a html --report='path/to/change-report.json' --out='path/to/index.html'
+```
+
+### `aws-c2a vis`
+
+Generate an html file that visualizes the diff tree of your app.
+
+> Currently, only evaluates the first object in the template tree and **does not** 
+support nested stacks
+
+```sh
+aws-c2a vis --app='path/to/assembly/' --out='path/to/index.html'
 ```
