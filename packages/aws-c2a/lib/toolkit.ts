@@ -8,7 +8,7 @@ import { CfnTraverser } from './cfn-traverser';
 import { CloudAssembly, DefaultSelection, StackCollection } from './cloud-assembly';
 import { getFileIfExists } from './private/fs';
 import { warning, error } from './private/logging';
-import { createModel, TemplateTree, TemplateTreeMap } from './private/toolkit-utils';
+import { createModel, TemplateTree, TemplateTreeMap } from './toolkit-utils';
 const webappTemplatePath = require.resolve('@aws-c2a/web-app/fixtures/template.index.html');
 const visTemplatePath = require.resolve('@aws-c2a/visualizer/fixtures/template.index.html');
 

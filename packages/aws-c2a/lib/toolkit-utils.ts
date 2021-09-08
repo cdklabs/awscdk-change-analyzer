@@ -1,6 +1,6 @@
 import { CDKParser } from '@aws-c2a/engine';
 import { InfraModel } from '@aws-c2a/models';
-import { flattenObjects, mapObjectValues } from './object';
+import { flattenObjects, mapObjectValues } from './private/object';
 
 export type TemplateTreeMap = {[id: string]: TemplateTree}
 
