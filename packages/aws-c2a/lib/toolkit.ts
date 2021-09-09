@@ -207,7 +207,7 @@ export class C2AToolkit {
   private async getCfnTemplate(stackName: string): Promise<any> {
     try {
       return await this.traverser.traverseCfn(stackName);
-    } catch (e) {
+    } catch (e: any) {
       if (e.code === 'ValidationError' && e.message === `Stack with id ${stackName} does not exist`) {
         return { rootTemplate: {} };
       }
