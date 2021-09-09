@@ -8,7 +8,7 @@ CloudFormation templates and produce a report of changes, customizable with a ru
 2. [Platform Mapping](#Platform-Mapping)
 3. [Model Diffing](#Model-Diffing)
 4. [Aggregations](#Aggregations)
-5. [Rules Parsing](#rules-parsing)
+5. [Rules Processing](#rules-processing)
 
 ## Overview
 
@@ -145,5 +145,23 @@ The characteristics that should be grouped at each level, and how, are described
 a group of operations and a module tree is a configuration of these modules that is used
 to generate the aggregations.
 
-## Rules Parsing
+## Rules Processing
+
+Rules Processing is a core part of the engine, as it is what enables C2A to make decisions
+on aggregations and behaviors that arise in the diff. The rules processing can be broken 
+down into three main stages.
+
+1. Defining scope. Scope definition is the most complex part of rules processing, and it
+acts to define the candidates for all identifiers defined in the `let` bindings. These candidates
+are determined through traversing the diff tree and obtaining matches to the query provided as the
+value to an identifier. To learn more about `let` bindings, see [`@aws-c2a/rules`](../rules/README.md).
+
+2. Verification. Verification happens after scope definition and mainly deals with conditions
+specified in the `where` binding. All conditions have operators that will have a corresponding
+handler in `rules/operator-handlers` directory. Verification is crucial for specificity and
+drilling down to any type of behavior.
+
+3. Extracting effect. Finally, in order to produce a meaningful change report, we attach any
+of our verified candidates for a targeted component to a specific effect (high risk, auto 
+approve, etc.).
 
