@@ -15,8 +15,6 @@ Packages                                | Description
 [**@aws-c2a/visualizer**][visualizer]   | A web app to help vizualize the C2A diff tree.
 [**@aws-c2a/web-app**][web-app]         | A web app for visualizing and interacting with a produced change report.
 
-![c2a - architecture](https://user-images.githubusercontent.com/26902818/124084162-9e19f800-da46-11eb-9c22-42b8f1cf1882.png)
-
 [cli]: ../packages/aws-c2a/README.md
 [step]: ../packages/@aws-c2a/cdk-pipelines-step/README.md
 [engine]: ../packages/@aws-c2a/engine/README.md
