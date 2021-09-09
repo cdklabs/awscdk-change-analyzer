@@ -2,7 +2,7 @@
   "name": "@aws-c2a/models",
   "version": "0.6.0",
   "description": "The models package for CDK Change Analyzer: a tool that enables detecting dangerous changes within CDK projects.",
-  "main": "out/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "yarn clean && yarn compile",
     "compile": "npx tsc --build",

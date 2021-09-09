@@ -5,8 +5,8 @@ import {
   ComponentUpdateType,
   DependencyRelationship,
   InfraModel,
-} from '../../infra-model';
-import { InfraModelDiff, Transition, UpdatePropertyComponentOperation } from '../../model-diffing';
+} from '../lib/infra-model';
+import { InfraModelDiff, Transition, UpdatePropertyComponentOperation } from '../lib/model-diffing';
 
 
 export const buildModelV1 = (): InfraModel => {
