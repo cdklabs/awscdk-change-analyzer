@@ -1,6 +1,6 @@
 # AWS CDK Change Analyzer (C2A) - Engine
 
-`@aws-c2a/engine` is a package that the toolkit consumes to extrac the difference between two 
+`@aws-c2a/engine` is a package that the toolkit consumes to extracts the difference between two 
 CloudFormation templates and produce a report of changes, customizable with a rules language. 
 
 ## Table of Contents
