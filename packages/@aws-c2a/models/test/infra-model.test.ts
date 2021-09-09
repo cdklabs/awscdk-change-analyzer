@@ -1,9 +1,8 @@
-import { JSONDeserializer } from '../../export/json-deserializer';
-import { JSONSerializer } from '../../export/json-serializer';
+import { JSONDeserializer, JSONSerializer } from '../lib/export';
 import {
   InfraModel,
-} from '../../infra-model';
-import { InfraModelDiff } from '../../model-diffing';
+} from '../lib/infra-model';
+import { InfraModelDiff } from '../lib/model-diffing';
 import { buildDiff, buildModelV1 } from './example-model';
 
 // TODO: Fix these tests
