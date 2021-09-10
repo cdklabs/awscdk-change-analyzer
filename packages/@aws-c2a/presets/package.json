@@ -1,6 +1,6 @@
 {
   "name": "@aws-c2a/presets",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "The preset rules for CDK Change Analyzer",
   "main": "lib/index.js",
   "scripts": {
@@ -27,9 +27,9 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@aws-c2a/engine": "^0.6.0",
-    "@aws-c2a/models": "^0.6.0",
-    "@aws-c2a/rules": "^0.6.0",
+    "@aws-c2a/engine": "^0.6.1",
+    "@aws-c2a/models": "^0.6.1",
+    "@aws-c2a/rules": "^0.6.1",
     "fifinet": "0.1.7"
   },
   "devDependencies": {
