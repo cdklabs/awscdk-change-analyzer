@@ -46,25 +46,14 @@ class PipelinesStack extends Stack {
       }),
     });
 
-    const unsafeStage = new MyStage(this, 'Alpha', { makeUnsafe: true });
-    pipeline.addStage(unsafeStage, {
-      pre: [
-        new PerformChangeAnalysis('c2a', {
-          stage: unsafeStage,
-          ruleSets: [
-            RuleSet.broadeningPermissions()
-          ]
-        }),
-      ],
-    });
-
     const customizedUnsafeStage = new MyStage(this, 'Beta', { makeUnsafe: true });
     pipeline.addStage(customizedUnsafeStage, {
       pre: [
         new PerformChangeAnalysis('c2a', {
           stage: customizedUnsafeStage,
           ruleSets: [
-            RuleSet.fromDisk(resolve(__dirname, 'assets/integ-rules.json'))
+            RuleSet.fromDisk(resolve(__dirname, 'assets/integ-rules.json')),
+            RuleSet.fromDisk(resolve(__dirname, 'assets/integ-rules-new.json'))
           ]
         }),
       ],

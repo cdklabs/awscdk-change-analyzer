@@ -57,7 +57,7 @@ export class DiskRuleSet extends RuleSet {
 
   public bind(scope: Construct): RuleSetConfig {
     if (!this.asset) {
-      this.asset = new s3a.Asset(scope, 'RuleSet', {
+      this.asset = new s3a.Asset(scope, `RuleSet-${this.path.split('/').slice(-1)[0]}`, {
         path: this.path,
         ...this.options,
       });
