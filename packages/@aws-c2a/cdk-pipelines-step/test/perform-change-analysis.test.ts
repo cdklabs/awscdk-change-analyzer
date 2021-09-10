@@ -31,6 +31,7 @@ describe('perform change analysis', () => {
       pre: [
         new PerformChangeAnalysis('Check', {
           stage,
+          ruleSets: [ RuleSet.broadeningPermissions() ],
           autoDeleteObjects: false,
         }),
       ],
@@ -59,6 +60,7 @@ describe('perform change analysis', () => {
       pre: [
         new PerformChangeAnalysis('Check', {
           stage,
+          ruleSets: [ RuleSet.broadeningPermissions() ],
         }),
       ],
     });
@@ -82,6 +84,7 @@ describe('perform change analysis', () => {
       pre: [
         new PerformChangeAnalysis('Check', {
           stage,
+          ruleSets: [ RuleSet.broadeningPermissions() ],
         }),
       ],
     });
@@ -117,6 +120,7 @@ describe('perform change analysis', () => {
       pre: [
         new PerformChangeAnalysis('Check', {
           stage,
+          ruleSets: [ RuleSet.broadeningPermissions() ],
         }),
       ],
     });
@@ -165,6 +169,7 @@ describe('perform change analysis', () => {
         new PerformChangeAnalysis('Check', {
           stage,
           notificationTopic: topic,
+          ruleSets: [ RuleSet.broadeningPermissions() ],
         }),
       ],
     });
@@ -206,14 +211,14 @@ describe('perform change analysis', () => {
     });
   });
 
-  test('can disable broadening permissions', () => {
+  test('can disable no rule sets configured', () => {
     // WHEN
     const stage = new OneStackApp(pipelineStack, 'App');
     pipeline.addStage(stage, {
       pre: [
         new PerformChangeAnalysis('Check', {
           stage,
-          broadeningPermissions: false,
+          ruleSets: [],
         }),
       ],
     });
@@ -247,8 +252,7 @@ describe('perform change analysis', () => {
       pre: [
         new PerformChangeAnalysis('Check', {
           stage,
-          broadeningPermissions: false,
-          ruleSet: RuleSet.fromDisk(resolve(__dirname, 'assets/integ-rules.json')),
+          ruleSets: [ RuleSet.fromDisk(resolve(__dirname, 'assets/integ-rules.json')) ],
         }),
       ],
     });

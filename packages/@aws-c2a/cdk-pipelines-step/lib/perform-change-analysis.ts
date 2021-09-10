@@ -5,7 +5,7 @@ import { Stage } from '@aws-cdk/core';
 import { CodePipeline, CodePipelineActionFactoryResult, ICodePipelineActionFactory, ProduceActionOptions, Step } from '@aws-cdk/pipelines';
 import { Node } from 'constructs';
 import { ChangeAnalysisCheck } from './private/change-analysis-check';
-import { RuleSet } from './rule-set';
+import { DiskRuleSet, PreDefinedRuleSet, RuleSet } from './rule-set';
 
 /**
  * Properties for a `PerformChangeAnalysis`
@@ -30,16 +30,9 @@ export interface PerformChangeAnalysisProps {
    */
   readonly autoDeleteObjects?: boolean;
   /**
-   * Check for broadening permissions that occur the
-   * selected stacks.
-   *
-   * @default true
-   */
-  readonly broadeningPermissions?: boolean;
-  /**
    * The Rule Set associated with this step
    */
-  readonly ruleSet?: RuleSet;
+  readonly ruleSets: RuleSet[];
 }
 
 /**
@@ -54,9 +47,14 @@ export class PerformChangeAnalysis extends Step implements ICodePipelineActionFa
 
   public produceAction(stage: IStage, options: ProduceActionOptions): CodePipelineActionFactoryResult {
     const { c2aDiffProject } = this.getOrCreateChangeAnalysis(options.pipeline);
-    const ruleset = this.props.ruleSet?.bind(options.pipeline);
-    const broadeningPermissions = this.props.broadeningPermissions ?? true;
-    this.props.ruleSet?.grantRead(c2aDiffProject);
+    const broadeningPermissions = this.props.ruleSets.some(set =>
+      set instanceof PreDefinedRuleSet && set.name === 'BROADENING_PERMISSIONS');
+    const rulesets = (this.props.ruleSets
+      .filter(set => set instanceof DiskRuleSet) as DiskRuleSet[])
+      .map((set: DiskRuleSet) => {
+        set.grantRead(c2aDiffProject);
+        return set.bind(options.pipeline);
+      });
     this.props.notificationTopic?.grantPublish(c2aDiffProject);
 
     const variablesNamespace = Node.of(this.props.stage).addr;
@@ -76,9 +74,9 @@ export class PerformChangeAnalysis extends Step implements ICodePipelineActionFa
         ...broadeningPermissions ? {
           BROADENING_PERMISSIONS: { value: true },
         } : {},
-        ...ruleset ? {
-          BUCKET: { value: ruleset.bucketName },
-          RULE_SET: { value: ruleset.objectKey },
+        ...rulesets.length > 0 ? {
+          BUCKETS: { value: rulesets.map(set => set.location?.bucketName) },
+          RULE_SETS: { value: rulesets.map(set => set.location?.objectKey) },
         } : {},
         ...this.props.notificationTopic ? {
           NOTIFICATION_ARN: { value: this.props.notificationTopic.topicArn },

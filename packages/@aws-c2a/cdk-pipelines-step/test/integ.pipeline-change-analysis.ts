@@ -32,13 +32,16 @@ class PipelinesStack extends Stack {
       pipelineName: 'C2APipeline',
       selfMutation: false,
       synth: new pipelines.ShellStep('Synth', {
-        input: pipelines.CodePipelineSource.connection('bryanpan342/cdk-pipelines-v2', 'master', {
+        input: pipelines.CodePipelineSource.connection('bryanpan342/awscdk-change-analyzer', 'configurable-rules', {
           connectionArn: 'arn:aws:codestar-connections:us-east-1:045046196850:connection/ace566cc-cc19-44ce-a133-6b1777328832',
         }),
         commands: [
           'yarn install',
+          'npm install -g aws-cdk',
           'yarn build',
-          'npx cdk synth',
+          'cd packages/@aws-c2a/cdk-pipelines-step',
+          'cdk synth -a "node test/integ.pipeline-change-analysis.js"',
+          'mv cdk.out ../../../cdk.out',
         ],
       }),
     });
@@ -48,6 +51,9 @@ class PipelinesStack extends Stack {
       pre: [
         new PerformChangeAnalysis('c2a', {
           stage: unsafeStage,
+          ruleSets: [
+            RuleSet.broadeningPermissions()
+          ]
         }),
       ],
     });
@@ -57,8 +63,9 @@ class PipelinesStack extends Stack {
       pre: [
         new PerformChangeAnalysis('c2a', {
           stage: customizedUnsafeStage,
-          broadeningPermissions: false,
-          ruleSet: RuleSet.fromDisk(resolve(__dirname, 'assets/integ-rules.json')),
+          ruleSets: [
+            RuleSet.fromDisk(resolve(__dirname, 'assets/integ-rules.json'))
+          ]
         }),
       ],
     });

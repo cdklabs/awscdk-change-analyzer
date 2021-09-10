@@ -130,7 +130,7 @@ export class ChangeAnalysisCheck extends CoreConstruct {
               // We have to pull this down separately because the synth stage
               // value of the asset hash might be different than the deploy stage
               // hash value
-              '[ -z "${RULE_SET}" ] || aws s3 cp s3://$BUCKET/$RULE_SET $RULE_SET',
+              '[ -z "${RULE_SETS}" ] || echo $RULE_SETS',
               'npm install -g aws-c2a',
               'ls -al',
               // $CODEBUILD_INITIATOR will always be Code Pipeline and in the form of:
