@@ -34,6 +34,7 @@
     "@aws-c2a/models": "^0.6.0",
     "@aws-c2a/presets": "^0.6.0",
     "@aws-c2a/rules": "^0.6.0",
+    "@aws-c2a/visualizer": "^0.6.0",
     "@aws-c2a/web-app": "^0.6.0",
     "@aws-cdk/cfnspec": "1.115.0",
     "@aws-cdk/cx-api": "1.115.0",
