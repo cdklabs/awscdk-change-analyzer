@@ -1,12 +1,13 @@
 {
   "name": "@aws-c2a/models",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "The models package for CDK Change Analyzer: a tool that enables detecting dangerous changes within CDK projects.",
-  "main": "out/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "yarn clean && yarn compile",
     "compile": "npx tsc --build",
-    "clean": "npx rimraf out",
+    "clean": "npx tsc --build --clean",
+    "clean:all": "git clean -fdx",
     "lint": "eslint . --ext .ts",
     "test": "npx jest"
   },
@@ -25,7 +26,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@aws-cdk/cfnspec": "^1.115.0",
+    "@aws-cdk/cfnspec": "1.115.0",
     "fifinet": "0.1.7"
   },
   "devDependencies": {
@@ -40,7 +41,6 @@
     "babel-jest": "^26.6.3",
     "eslint": "^7.19.0",
     "jest": "^26.6.3",
-    "rimraf": "^3.0.2",
     "ts-jest": "^26.5.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"

@@ -1,7 +1,7 @@
 {
   "name": "@aws-c2a/cdk-pipelines-step",
   "stability": "experimental",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A CDK Pipelines Step that runs aws-c2a diff given a rule set",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

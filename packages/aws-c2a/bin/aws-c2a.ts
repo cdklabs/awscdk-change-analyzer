@@ -37,6 +37,10 @@ async function parseArguments() {
       .option('report', { type: 'string', alias: 'r', desc: 'REQUIRED: The file path to the change report', requiresArg: true, demandOption: true })
       .option('out', { type: 'string', alias: 'o', desc: 'The generated html file', requiresArg: true, default: 'index.html' }),
     )
+    .command('vis', 'Generate an html that visualizes the diff tree of your app', yargs => yargs
+      .option('app', { type: 'string', alias: 'a', desc: 'REQUIRED: Path to your cloud assembly directory (e.g. "assembly-Pipeline-Stage/")', requiresArg: true, demandOption: true })
+      .option('out', { type: 'string', alias: 'o', desc: 'The generated html file', requiresArg: true, default: 'index.html' }),
+    )
     .version(versionNumber())
     .alias('v', 'version')
     .demandCommand(1, '') // just print help
@@ -54,13 +58,18 @@ async function main(): Promise<number> {
   const asm = argv.app ? new CloudAssembly(new cxapi.CloudAssembly(argv.app)) : undefined;
   const cli = new C2AToolkit(host, asm);
 
+  const missingAsm = (): boolean => {
+    if (asm === undefined) {
+      yargs.showHelp();
+      print('\nMissing required argument: app');
+      return true;
+    }
+    return false;
+  };
+
   switch (command) {
     case 'diff': {
-      if (asm === undefined) {
-        yargs.showHelp();
-        print('\nMissing required argument: app');
-        return 1;
-      }
+      if (missingAsm()) return 1;
       return cli.c2aDiff({
         stackNames: (argv.STACKS || []) as string[],
         rulesPath: argv['rules-path'],
@@ -73,6 +82,13 @@ async function main(): Promise<number> {
     case 'html': {
       return cli.c2aHtml({
         reportPath: argv.report,
+        outputPath: argv.out,
+      });
+    }
+    case 'vis': {
+      if (missingAsm()) return 1;
+      return cli.c2aVis({
+        stackNames: (argv.STACKS || []) as string[],
         outputPath: argv.out,
       });
     }
