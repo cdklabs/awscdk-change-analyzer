@@ -132,7 +132,6 @@ export class ChangeAnalysisCheck extends CoreConstruct {
               // hash value
               '[ -z "${RULE_SET}" ] || aws s3 cp s3://$BUCKET/$RULE_SET $RULE_SET',
               'npm install -g aws-c2a',
-              'ls -al',
               // $CODEBUILD_INITIATOR will always be Code Pipeline and in the form of:
               // "codepipeline/example-pipeline-name-Xxx"
               'export PIPELINE_NAME="$(node -pe \'`${process.env.CODEBUILD_INITIATOR}`.split("/")[1]\')"',
