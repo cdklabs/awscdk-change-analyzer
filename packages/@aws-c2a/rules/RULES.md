@@ -1,15 +1,123 @@
-# Rules - the fundamentals
+# Rules
 
 This document describes basic use cases for the rules language that will help provide
 foundational knowledge to build. 
 
 ## Table of Contents
 
+* [Fundamentals](#fundamentals)
 * [Querying Components](#querying-components)
 * [Querying Change](#querying-change)
 * [Applying Specificity](#applying-specificity)
 * [Describing Effect](#describing-effect)
 * [Nesting Rules](#nesting-rules)
+
+## Fundamentals
+
+The AWS C2A engine is a powerful tool that allows you to query behavior between the 
+difference between two CloudFormation states. We accomplish this by creating a graph, 
+where each node in this graph is a `component`, `change`, `transition`, `relationship`,
+etc. These vertices are pockets of data that are linked together through edges that represent
+the flow of data.
+
+When you write a rule, you are querying for vertices and verifiying your conditions by
+following edges. To better understand this notion, here is an example of two different states
+and a set of simple rules to query against.
+
+```json
+// BEFORE
+{
+  "Resources": {
+    "MyBucketF68F3FF0": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "Tags": [ { "Key": "key1", "Value": "value1" } ]
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+    }
+  }
+}
+```
+
+```json
+// AFTER
+{
+  "Resources": {
+    "MyBucketF68F3FF0": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "AccessControl": "Private",
+        "Tags": [
+          { "Key": "key1", "Value": "value1" },
+          { "Key": "key2", "Value": "value2" }
+        ]
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+    }
+  }
+}
+```
+
+Looking at the above CloudFormation templates, we can write some rules that specifically check if
+there are any new properties within the bucket as follows:
+
+```json
+{
+  "let": {
+    "INSERT_PROPERTY": { "change": { "propertyOperationType": "INSERT" } },
+    "bucket": { "Resource": "AWS::S3::Bucket" }
+  },
+  "then": [
+    {
+      "where": "INSERT_PROPERTY appliesTo bucket.Properties.AccessControl",
+      "effect": { "risk": "high", "target": "INSERT_PROPERTY" }
+    },
+    {
+      "where": "INSERT_PROPERTY appliesTo bucket.Properties.Tags.*",
+      "effect": { "risk": "high", "target": "INSERT_PROPERTY" }
+    }
+  ]
+}
+```
+
+Notice how we had to specify the `*` path for the `Properties.Tags` path because
+the `Tags` property is an array. We can think about the `*` value to be any index
+in the `Tags` array.
+
+We can expand on this rule by specifically checking for the values of the tags.
+
+```json
+{
+  "let": {
+    "INSERT_PROPERTY": { "change": { "propertyOperationType": "INSERT" } },
+    "bucket": { "Resource": "AWS::S3::Bucket" }
+  },
+  "then": [
+    {
+      "where": [
+        "INSERT_PROPERTY appliesTo bucket.Properties.Tags.*",
+        "INSERT_PROPERTY.new.Value == 'value2'"
+      ],
+      "effect": { "risk": "high", "target": "INSERT_PROPERTY" }
+    }
+  ]
+}
+```
+
+To understand the querying system better, check out our [demo page](https://cdklabs.github.io/awscdk-change-analyzer/)
+to see our visualizer in action.
+
+You can also go to our [`simple-stacks` testing fixture](../../aws-c2a/test/fixtures/simple-stacks)
+and run the following commands:
+
+```sh
+yarn build && cdk deploy -a "node app/integ.simple-stacks.js"
+aws-c2a diff -a . -r rules.json
+aws-c2a html -r report.json
+open index.html
+```
 
 ## Querying Components
 
