@@ -1,6 +1,6 @@
 {
   "name": "@aws-c2a/visualizer",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "",
   "scripts": {
     "start": "webpack serve --mode production --open",
@@ -16,8 +16,8 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@aws-c2a/engine": "^0.6.1",
-    "@aws-c2a/models": "^0.6.1",
+    "@aws-c2a/engine": "^0.7.0",
+    "@aws-c2a/models": "^0.7.0",
     "cytoscape": "^3.19.1",
     "cytoscape-dagre": "^2.3.2",
     "fifinet": "^0.1.7",
