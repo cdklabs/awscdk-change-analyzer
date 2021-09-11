@@ -103,6 +103,13 @@ export class ChangeAnalysisCheck extends CoreConstruct {
       ' --subject "$NOTIFICATION_SUBJECT"' +
       ` --message "${message.join('\n')}"`;
 
+    const diff =
+      'aws-c2a diff' +
+      ` --app "assembly-${props.codePipeline.stack.stackName}-$STAGE_NAME/"` +
+      ' ${BROADENING_PERMISSIONS:+--broadening-permissions}' +
+      ' ${RULE_SET:+--rules-path "$RULE_SET"}' +
+      ' --fail';
+
     this.c2aDiffProject = new codebuild.Project(this, 'CDKChangeAnalysis', {
       environmentVariables: {
         DOWNLOAD_USER_KEY: {
@@ -119,6 +126,11 @@ export class ChangeAnalysisCheck extends CoreConstruct {
         phases: {
           build: {
             commands: [
+              'set -e',
+              // We have to pull this down separately because the synth stage
+              // value of the asset hash might be different than the deploy stage
+              // hash value
+              '[ -z "${RULE_SET}" ] || aws s3 cp s3://$BUCKET/$RULE_SET $RULE_SET',
               'npm install -g aws-c2a',
               // $CODEBUILD_INITIATOR will always be Code Pipeline and in the form of:
               // "codepipeline/example-pipeline-name-Xxx"
@@ -134,7 +146,7 @@ export class ChangeAnalysisCheck extends CoreConstruct {
               // Run invoke only if cdk diff passes (returns exit code 0)
               // 0 -> true, 1 -> false
               ifElse({
-                condition: `aws-c2a diff --app "assembly-${props.codePipeline.stack.stackName}-$STAGE_NAME/" --broadening-permissions --fail`,
+                condition: diff,
                 thenStatements: [
                   invokeLambda,
                   'export MESSAGE="No changes that violate rules detected."',

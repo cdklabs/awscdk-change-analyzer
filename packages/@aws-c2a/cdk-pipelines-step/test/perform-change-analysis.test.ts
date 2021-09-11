@@ -1,9 +1,11 @@
 import '@aws-cdk/assert/jest';
+import { resolve } from 'path';
 import {anything, arrayWith, encodedJson, objectLike, stringLike} from '@aws-cdk/assert';
 import {Topic} from '@aws-cdk/aws-sns';
 import { Stack } from '@aws-cdk/core';
 import * as cdkp from '@aws-cdk/pipelines';
-import { PerformChangeAnalysis } from '../lib';
+import { PerformChangeAnalysis, RuleSet } from '../lib';
+import { CODEBUILD_BASE_POLICIES } from './private/constants';
 import { ModernTestGitHubNpmPipeline } from './private/modern-pipeline';
 import { OneStackApp, PIPELINE_ENV, TestApp } from './private/test-app';
 
@@ -98,6 +100,7 @@ describe('perform change analysis', () => {
                   { name: 'STAGE_PATH', type: 'PLAINTEXT', value: 'C2APipelineUnitStack/App' },
                   { name: 'STAGE_NAME', type: 'PLAINTEXT', value: 'App' },
                   { name: 'ACTION_NAME', type: 'PLAINTEXT', value: anything() },
+                  { name: 'BROADENING_PERMISSIONS', type: 'PLAINTEXT', value: 'true' },
                 ]),
               }),
             }),
@@ -147,47 +150,7 @@ describe('perform change analysis', () => {
     expect(pipelineStack).toHaveResourceLike('AWS::IAM::Policy', {
       PolicyDocument: {
         Statement: arrayWith(
-          {
-            Action: 'sts:AssumeRole',
-            Condition: {
-              'ForAnyValue:StringEquals': {
-                'iam:ResourceTag/aws-cdk:bootstrap-role': [
-                  'deploy',
-                ],
-              },
-            },
-            Effect: 'Allow',
-            Resource: '*',
-          },
-          {
-            Action: 'lambda:InvokeFunction',
-            Effect: 'Allow',
-            Resource: {
-              'Fn::GetAtt': [
-                stringLike('*AutoApprove*'),
-                'Arn',
-              ],
-            },
-          },
-          {
-            Action: ['cloudformation:GetTemplate', 'cloudformation:DescribeStackResources', 'cloudformation:DescribeStacks'],
-            Effect: 'Allow',
-            Resource: '*',
-          },
-          {
-            Action: ['s3:GetObject*', 's3:GetBucket*', 's3:List*'],
-            Effect: 'Allow',
-            Resource: [
-              { 'Fn::GetAtt': [ 'CdkPipelineArtifactsBucket7B46C7BF', 'Arn' ] },
-              {
-                'Fn::Join': [  '', [
-                  { 'Fn::GetAtt': [  'CdkPipelineArtifactsBucket7B46C7BF', 'Arn' ] },
-                  '/*',
-                ],
-                ],
-              },
-            ],
-          },
+          ...CODEBUILD_BASE_POLICIES,
         ),
       },
     });
@@ -243,5 +206,96 @@ describe('perform change analysis', () => {
     });
   });
 
+  test('can disable broadening permissions', () => {
+    // WHEN
+    const stage = new OneStackApp(pipelineStack, 'App');
+    pipeline.addStage(stage, {
+      pre: [
+        new PerformChangeAnalysis('Check', {
+          stage,
+          broadeningPermissions: false,
+        }),
+      ],
+    });
+    // THEN
+    expect(pipelineStack).toHaveResourceLike('AWS::CodePipeline::Pipeline', {
+      Stages: arrayWith(
+        {
+          Name: 'App',
+          Actions: arrayWith(
+            objectLike({
+              Name: stringLike('*Check'),
+              Configuration: objectLike({
+                EnvironmentVariables: encodedJson([
+                  { name: 'CODEPIPELINE_EXECUTION_ID', type: 'PLAINTEXT', value: '#{codepipeline.PipelineExecutionId}' },
+                  { name: 'STAGE_PATH', type: 'PLAINTEXT', value: 'C2APipelineUnitStack/App' },
+                  { name: 'STAGE_NAME', type: 'PLAINTEXT', value: 'App' },
+                  { name: 'ACTION_NAME', type: 'PLAINTEXT', value: anything() },
+                ]),
+              }),
+            }),
+          ),
+        },
+      ),
+    });
+  });
 
+  test('can configure custom rule set', () => {
+    // WHEN
+    const stage = new OneStackApp(pipelineStack, 'App');
+    pipeline.addStage(stage, {
+      pre: [
+        new PerformChangeAnalysis('Check', {
+          stage,
+          broadeningPermissions: false,
+          ruleSet: RuleSet.fromDisk(resolve(__dirname, 'assets/integ-rules.json')),
+        }),
+      ],
+    });
+    // THEN
+    expect(pipelineStack).toHaveResourceLike('AWS::IAM::Policy', {
+      PolicyDocument: {
+        Statement: arrayWith(...[
+          ...CODEBUILD_BASE_POLICIES,
+          {
+            Action: [
+              's3:GetObject*',
+              's3:GetBucket*',
+              's3:List*',
+            ],
+            Effect: 'Allow',
+            Resource: [
+              {
+                'Fn::Join': [ '', [ 'arn:',
+                  { Ref: 'AWS::Partition' },
+                  ':s3:::cdk-hnb659fds-assets-123pipeline-us-pipeline',
+                ]],
+              },
+              {
+                'Fn::Join': [ '', [ 'arn:',
+                  { Ref: 'AWS::Partition' },
+                  ':s3:::cdk-hnb659fds-assets-123pipeline-us-pipeline/*',
+                ]],
+              },
+            ],
+          },
+        ]),
+      },
+    });
+    expect(pipelineStack).toHaveResourceLike('AWS::CodePipeline::Pipeline', {
+      Stages: arrayWith(
+        {
+          Name: 'App',
+          Actions: arrayWith(
+            objectLike({
+              Name: stringLike('*Check'),
+              Configuration: objectLike({
+                EnvironmentVariables: stringLike('*RULE_SET*'),
+              }),
+            }),
+          ),
+        },
+      ),
+    });
+  });
 });

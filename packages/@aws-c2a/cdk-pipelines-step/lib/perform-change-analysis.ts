@@ -5,6 +5,7 @@ import { Stage } from '@aws-cdk/core';
 import { CodePipeline, CodePipelineActionFactoryResult, ICodePipelineActionFactory, ProduceActionOptions, Step } from '@aws-cdk/pipelines';
 import { Node } from 'constructs';
 import { ChangeAnalysisCheck } from './private/change-analysis-check';
+import { RuleSet } from './rule-set';
 
 /**
  * Properties for a `PerformChangeAnalysis`
@@ -28,6 +29,17 @@ export interface PerformChangeAnalysisProps {
    * @default true
    */
   readonly autoDeleteObjects?: boolean;
+  /**
+   * Check for broadening permissions that occur the
+   * selected stacks.
+   *
+   * @default true
+   */
+  readonly broadeningPermissions?: boolean;
+  /**
+   * The Rule Set associated with this step
+   */
+  readonly ruleSet?: RuleSet;
 }
 
 /**
@@ -42,6 +54,9 @@ export class PerformChangeAnalysis extends Step implements ICodePipelineActionFa
 
   public produceAction(stage: IStage, options: ProduceActionOptions): CodePipelineActionFactoryResult {
     const { c2aDiffProject } = this.getOrCreateChangeAnalysis(options.pipeline);
+    const ruleset = this.props.ruleSet?.bind(options.pipeline);
+    const broadeningPermissions = this.props.broadeningPermissions ?? true;
+    this.props.ruleSet?.grantRead(c2aDiffProject);
     this.props.notificationTopic?.grantPublish(c2aDiffProject);
 
     const variablesNamespace = Node.of(this.props.stage).addr;
@@ -58,6 +73,13 @@ export class PerformChangeAnalysis extends Step implements ICodePipelineActionFa
         STAGE_PATH: { value: Node.of(this.props.stage).path },
         STAGE_NAME: { value: stage.stageName },
         ACTION_NAME: { value: approveActionName },
+        ...broadeningPermissions ? {
+          BROADENING_PERMISSIONS: { value: true },
+        } : {},
+        ...ruleset ? {
+          BUCKET: { value: ruleset.bucketName },
+          RULE_SET: { value: ruleset.objectKey },
+        } : {},
         ...this.props.notificationTopic ? {
           NOTIFICATION_ARN: { value: this.props.notificationTopic.topicArn },
           NOTIFICATION_SUBJECT: { value: `Performed change analysis on ${this.props.stage.stageName}` },

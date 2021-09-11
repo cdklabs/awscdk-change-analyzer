@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import * as iam from '@aws-cdk/aws-iam';
 import * as sns from '@aws-cdk/aws-sns';
 import { App, Stack, StackProps, Stage, StageProps } from '@aws-cdk/core';
@@ -5,6 +6,7 @@ import * as pipelines from '@aws-cdk/pipelines';
 import { Construct } from 'constructs';
 
 import { PerformChangeAnalysis } from '../lib';
+import { RuleSet } from '../lib/rule-set';
 
 interface MyStageProps extends StageProps {
   makeUnsafe?: boolean;
@@ -41,10 +43,23 @@ class PipelinesStack extends Stack {
       }),
     });
 
-    const unsafeStage = new MyStage(this, 'Beta', { makeUnsafe: true });
+    const unsafeStage = new MyStage(this, 'Alpha', { makeUnsafe: true });
     pipeline.addStage(unsafeStage, {
       pre: [
-        new PerformChangeAnalysis('c2a', { stage: unsafeStage }),
+        new PerformChangeAnalysis('c2a', {
+          stage: unsafeStage,
+        }),
+      ],
+    });
+
+    const customizedUnsafeStage = new MyStage(this, 'Beta', { makeUnsafe: true });
+    pipeline.addStage(customizedUnsafeStage, {
+      pre: [
+        new PerformChangeAnalysis('c2a', {
+          stage: customizedUnsafeStage,
+          broadeningPermissions: false,
+          ruleSet: RuleSet.fromDisk(resolve(__dirname, 'assets/integ-rules.json')),
+        }),
       ],
     });
   }

@@ -1,0 +1,10 @@
+[
+  {
+    "let": {
+      "topic": { "Resource": "AWS::SNS::Topic" },
+      "change": { "change": { "type": "INSERT" } }
+    },
+    "where": "change appliesTo topic",
+    "effect": { "risk": "high" }
+  }
+]
