@@ -1,0 +1,14 @@
+[{
+  "let": {
+    "INSERT_PROPERTY": { "change": { "propertyOperationType": "INSERT" } },
+    "bucket": { "Resource": "AWS::S3::Bucket" }
+  },
+  "then": [
+    {
+      "where": [
+        "INSERT_PROPERTY appliesTo bucket.Properties.*"
+      ],
+      "effect": { "risk": "high", "target": "INSERT_PROPERTY" }
+    }
+  ]
+}]
