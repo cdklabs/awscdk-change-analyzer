@@ -37,7 +37,7 @@ Add the following to your `package.json`:
 ```
 {
   "dependencies": {
-    "@aws-c2a/cdk-pipelines-step": "^0.3.3"
+    "@aws-c2a/cdk-pipelines-step": "0.5.0"
   }
 }
 ```
@@ -94,6 +94,44 @@ pipeline.addStage(stage, {
     new PerformChangeAnalysis('Check', {
       stage,
       notificationTopic: topic,
+    }),
+  ],
+});
+```
+
+## Configuring Rules
+
+In order for this step to run `aws-c2a`, the engine must run on a set
+of rules. We configure a default rule set called `Broadening Permissions`,
+that can be toggled in the object declaration.
+
+```ts
+const stage = new MyApplicationStage(this, 'MyApplication');
+pipeline.addStage(stage, {
+  pre: [
+    new PerformChangeAnalysis('Check', {
+      stage,
+      broadeningPermissions: false,
+    }),
+  ],
+});
+```
+
+**Note:** For more details on Broadening Permissions, see the
+[`@aws-c2a/presets`](https://www.npmjs.com/package/@aws-c2a/presets) package.
+
+You can also configure your own rule set through the `ruleSet` option.
+
+```ts
+import {RuleSet, PerformChangeAnalysis} from '@aws-c2a/cdk-pipelines-step';
+
+const stage = new MyApplicationStage(this, 'MyApplication');
+pipeline.addStage(stage, {
+  pre: [
+    new PerformChangeAnalysis('Check', {
+      stage,
+      broadeningPermissions: false,
+      ruleSet: RuleSet.fromDisk(resolve(__dirname, 'rules.json')),
     }),
   ],
 });
