@@ -23,6 +23,7 @@
     ],
     "nohoist": [
       "**/cytoscape",
+      "**/@aws-cdk/cfnspec",
       "**/@types/cytoscape",
       "**/cytoscape-dagre/"
     ]
