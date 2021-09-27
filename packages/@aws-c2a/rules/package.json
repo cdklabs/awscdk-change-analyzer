@@ -49,5 +49,11 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "files": [
+    "lib/**/*.js",
+    "lib/**/*.d.ts",
+    "LICENSE",
+    "NOTICE"
+  ]
 }

@@ -6,34 +6,17 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "jsii": {
-    "outdir": "dist",
-    "targets": {
-      "java": {
-        "package": "software.amazon.awscdk.c2a.pipelinestep",
-        "maven": {
-          "groupId": "software.amazon.awscdk",
-          "artifactId": "c2a"
-        }
-      },
-      "python": {
-        "distName": "aws-cdk.c2a",
-        "module": "aws_cdk.c2a"
-      },
-      "dotnet": {
-        "namespace": "Amazon.CDK.AWS.C2A",
-        "packageId": "Amazon.CDK.AWS.C2A"
-      }
-    }
+    "outdir": "dist"
   },
   "scripts": {
-    "build": "yarn compile",
-    "build:watch": "yarn clean && npx jsii --watch",
+    "build": "yarn clean && yarn compile",
+    "build:watch": "yarn clean && jsii --watch",
     "package": "jsii-pacmak",
-    "compile": "npx jsii",
-    "clean": "rm -rf cdk.out/ && npx tsc --build --clean",
+    "compile": "jsii",
+    "clean": "rm -rf cdk.out/ && tsc --build --clean",
     "clean:all": "git clean -fdx",
     "lint": "eslint . --ext .ts",
-    "test": "npx jest"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -68,7 +51,6 @@
     "@aws-cdk/aws-s3-assets": "1.115.0",
     "@aws-cdk/aws-secretsmanager": "1.115.0",
     "@aws-cdk/aws-sns": "1.115.0",
-    "@aws-cdk/cfnspec": "1.115.0",
     "@aws-cdk/core": "1.115.0",
     "@aws-cdk/cx-api": "1.115.0",
     "@aws-cdk/pipelines": "1.115.0",
@@ -80,6 +62,17 @@
     "@types/string-similarity": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
+    "@aws-cdk/aws-codebuild": "1.115.0",
+    "@aws-cdk/aws-codepipeline": "1.115.0",
+    "@aws-cdk/aws-codepipeline-actions": "1.115.0",
+    "@aws-cdk/aws-iam": "1.115.0",
+    "@aws-cdk/aws-lambda": "1.115.0",
+    "@aws-cdk/aws-s3": "1.115.0",
+    "@aws-cdk/aws-secretsmanager": "1.115.0",
+    "@aws-cdk/aws-sns": "1.115.0",
+    "@aws-cdk/core": "1.115.0",
+    "@aws-cdk/pipelines": "1.115.0",
+    "constructs": "3.3.69",
     "babel-jest": "^26.6.3",
     "constructs": "^3.3.69",
     "eslint": "^7.19.0",
@@ -111,5 +104,12 @@
   ],
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "files": [
+    "lib/**/*.js",
+    "lib/**/*.d.ts",
+    ".jsii",
+    "LICENSE",
+    "NOTICE"
+  ]
 }

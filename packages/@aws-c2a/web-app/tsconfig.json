@@ -21,7 +21,7 @@
     "typeRoots": ["./node_modules/@types"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "jsx": "react",
+    "jsx": "react"
   },
   "exclude": ["test", "out"]
 }

@@ -1,7 +1,8 @@
 {
   "name": "@aws-c2a/visualizer",
+  "private": true,
   "version": "0.7.0",
-  "description": "",
+  "description": "Tool to visualize the diff graph",
   "scripts": {
     "start": "webpack serve --mode production --open",
     "dev": "webpack serve --mode development --open",
@@ -47,5 +48,11 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "files": [
+    "lib/**/*.js",
+    "lib/**/*.d.ts",
+    "LICENSE",
+    "NOTICE"
+  ]
 }
