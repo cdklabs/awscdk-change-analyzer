@@ -17,7 +17,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@master
       with:
-        node-version: 10.19.0
+        node-version: 12.13.0
         registry-url: https://registry.npmjs.com/
     
     - run: yarn ci && yarn build && yarn test
