@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/**"
+    schedule:
+      interval: "daily"
+    allow:
+      # Silence Dependabot about devDependencies CVEs. We have a number caused by React
+      # developer tools, and they will not do anything about it on principle:
+      #
+      # https://github.com/facebook/create-react-app/issues/11174
+      #
+      # This can be removed once we have a way to drop React devtools dependencies,
+      # probably involving projen.
+      - dependency-type: "production"
