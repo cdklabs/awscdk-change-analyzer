@@ -1,36 +1,21 @@
-# AWS CDK Change Analyzer (C2A) - Perform Change Analysis
+# CDK Pipelines Step - CDK Change Analyzer (C2A)
 
-Perform Change Analysis (PCA) is a [CDK Construct](https://docs.aws.amazon.com/cdk/latest/guide/constructs.html) that functions as a
-verification step within a [CDK Pipelines v2](https://aws.amazon.com/blogs/developer/cdk-pipelines-continuous-delivery-for-aws-cdk-applications/).
-PCA is tool that allows you, the developer, to set up checkpoints within your
-pipeline to monitor both security and architectural changes.
+This package contains `PerformChangeAnalysis`, a custom approval step for use with a [CDK Pipelines](https://docs.aws.amazon.com/cdk/api/latest/docs/pipelines-readme.html) pipeline. This approval step will help you:
 
-By inserting PCA before any stage deployment, PCA will run the [`AWS CDK Change Analyzer`](https://www.npmjs.com/package/aws-c2a)
-(C2A) on a set of rules that you configure. If the upcoming deployment were
-to violate any of these rules, the pipeline will pause and require you to confirm
-the changes. We also create a static html file for you to easily view and traverse through
-your changes.
+* Review the changes that a CDK deployment will introduce to your infrastructure
+  in a visual   interface.
+* Write
+  [rules](https://github.com/cdklabs/awscdk-change-analyzer/tree/main/packages/%40aws-c2a/rules)
+  to automatically classify certain changes as "safe" or "unsafe", making sure
+  you only need to review changes if there is something important to review.
 
-PCA will appear as two distinct actions in your pipeline: first a CodeBuild project
-that runs `aws-c2a diff` on the stage that's about to be deployed. If there are any
-high risk changes detected, it will then run `aws-c2a html` to generate an html file
-that will be securely uploaded to S3. Following the CodeBuild project is a Manual Approval
-that pauses the pipeline and has a link to the generated html file now stored in S3.
-If it so happens that there no high risk changed detected, the manual approval step
-is automatically approved. The pipeline will look like this:
+> ![C2A: Developer
+> Preview](https://img.shields.io/badge/CDK%20Change%20Analyzer-Developer%20Preview-orange.svg?style=for-the-badge)
+>
+> C2A is currently in Developer Preview. Let us know how this tool is working
+> for you.
 
-```txt
-Pipeline
-├── ...
-├── MyApplicationStage
-│    ├── MyApplication.Check           // Change Analysis Action
-│    ├── MyApplication.Confirm         // Manual Approval Action
-│    ├── Stack.Prepare
-│    └── Stack.Deploy
-└── ...
-```
-
-## Installation
+## Usage
 
 Add the following to your `package.json`:
 
@@ -42,8 +27,7 @@ Add the following to your `package.json`:
 }
 ```
 
-Make sure the following packages are in there as well, with
-a CDK version of `1.115.0` or higher:
+Make sure the following packages are in there as well, with a CDK version of `1.115.0` or higher:
 
 ```
 {
@@ -63,11 +47,11 @@ a CDK version of `1.115.0` or higher:
 }
 ```
 
-## Usage
-
-You can insert `PerformChangeAnalysis` by using adding it as a step in a CDK pipeline stage:
+Insert `PerformChangeAnalysis` by adding it as a `pre` step when adding a Stage to a CDK pipeline:
 
 ```ts
+import { PerformChangeAnalysis } from '@aws-c2a/cdk-pipelines-step';
+
 const stage = new MyApplicationStage(this, 'MyApplication');
 pipeline.addStage(stage, {
   pre: [
@@ -75,6 +59,79 @@ pipeline.addStage(stage, {
   ],
 });
 ```
+
+## Effect on your pipeline
+
+By inserting the `PerformChangeAnalysis` step before any stage deployment, the [CDK Change
+Analyzer](https://github.com/cdklabs/awscdk-change-analyzer) (C2A) will be run to visualize
+the changes that would be introduced to your deployment by the upcoming deployment, and a
+a **Manual Approval** step is added to the pipeline to give you an opportunity to review
+and confirm the changes. Your pipeline stage will look like this:
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│                      MyApplicationStage                       │
+│                                                               │
+│                                                               │
+│  ┌─────────┐     ┌─────────┐     ┌─────────┐     ┌─────────┐  │
+│  │         │     │         │     │         │     │         │  │
+│  │  Check  │────▶│ Confirm │────▶│ Prepare │────▶│ Deploy  │  │
+│  │         │     │         │     │         │     │         │  │
+│  └─────────┘     └─────────┘     └─────────┘     └─────────┘  │
+│                                                               │
+└───────────────────────────────────────────────────────────────┘
+```
+
+## Rules and automatic approvals
+
+Rules can be used to automatically classify changes in a deployment. They can be
+classified along 2 different axes:
+
+* **Risk:** changes can be classified as *high*, *low* or *unknown* risk.
+  This helps human reviewers concentrate effort on the most important types of
+  changes when making a determination on whether or not to proceed with the
+  deployment.
+* **Effect:** changes can be automatically approved, or always rejected. In the
+  former case, if all changes in a deployment are automatically classified as
+  approved, the human review is skipped. Otherwise, if any of the changes in a
+  deployment are rejected the deployment will fail and not proceed.
+
+To automatically classify changes according to rules, write a JSON file in the
+[rules
+language](https://github.com/cdklabs/awscdk-change-analyzer/tree/main/packages/%40aws-c2a/rules) and pass it to the `PerformChangeAnalysis` step:
+
+```ts
+import { RuleSet, PerformChangeAnalysis } from '@aws-c2a/cdk-pipelines-step';
+
+const stage = new MyApplicationStage(this, 'MyApplication');
+pipeline.addStage(stage, {
+  pre: [
+    new PerformChangeAnalysis('Check', {
+      stage,
+      ruleSet: RuleSet.fromDisk(resolve(__dirname, 'rules.json')),
+    }),
+  ],
+});
+```
+
+By default, the `PerformChangeAnalysis` will always run a suite of rules
+that checks for broadening of IAM permissions, equivalent to what the CDK CLI
+will check for during `cdk deploy`. To turn this off, pass
+`broadeningPermissions: false`:
+
+```ts
+const stage = new MyApplicationStage(this, 'MyApplication');
+pipeline.addStage(stage, {
+  pre: [
+    new PerformChangeAnalysis('Check', {
+      stage,
+      broadeningPermissions: false,
+    }),
+  ],
+});
+```
+
+## Get notified of a pending review
 
 To get notified when there is a change that needs your manual approval,
 create an SNS Topic, subscribe your own email address, and pass it in as
@@ -94,44 +151,6 @@ pipeline.addStage(stage, {
     new PerformChangeAnalysis('Check', {
       stage,
       notificationTopic: topic,
-    }),
-  ],
-});
-```
-
-## Configuring Rules
-
-In order for this step to run `aws-c2a`, the engine must run on a set
-of rules. We configure a default rule set called `Broadening Permissions`,
-that can be toggled in the object declaration.
-
-```ts
-const stage = new MyApplicationStage(this, 'MyApplication');
-pipeline.addStage(stage, {
-  pre: [
-    new PerformChangeAnalysis('Check', {
-      stage,
-      broadeningPermissions: false,
-    }),
-  ],
-});
-```
-
-**Note:** For more details on Broadening Permissions, see the
-[`@aws-c2a/presets`](https://www.npmjs.com/package/@aws-c2a/presets) package.
-
-You can also configure your own rule set through the `ruleSet` option.
-
-```ts
-import {RuleSet, PerformChangeAnalysis} from '@aws-c2a/cdk-pipelines-step';
-
-const stage = new MyApplicationStage(this, 'MyApplication');
-pipeline.addStage(stage, {
-  pre: [
-    new PerformChangeAnalysis('Check', {
-      stage,
-      broadeningPermissions: false,
-      ruleSet: RuleSet.fromDisk(resolve(__dirname, 'rules.json')),
     }),
   ],
 });

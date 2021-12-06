@@ -1,30 +1,48 @@
-# AWS CDK Change Analyzer (C2A) - Rules
+# Rules - CDK Change Analyzer (C2A)
 
-`@aws-c2a/rules` is a package that defines the rules language for CDK Change Analyzer.
-The rules language lets you define changes, components, or behaviors that you deem
-high risk. These behaviors will then be caught and surfaced by `aws-c2a diff`.
+The C2A rules language lets you classify infrastructure changes according to risk profile.
+These classifications will then be applied when you run [`aws-c2a diff`](https://github.com/cdklabs/awscdk-change-analyzer/tree/main/packages/aws-c2a) or use
+the [CDK Pipelines step](https://github.com/cdklabs/awscdk-change-analyzer/tree/main/packages/%40aws-c2a/cdk-pipelines-step).
 
-This rules language maps finds the objects in the graph generated from the
-[InfraModelDiff](../../README.md#InfraModelDiff) and traverses its edges when
-relating objects, such as when navigating properties or checking whether a change
-applies to an object.
+Changes can be classified along to 2 different axes:
+
+* **Risk:** changes can be classified as *high*, *low* or *unknown* risk.
+  This helps human reviewers concentrate effort on the most important types of
+  changes when making a determination on whether or not to proceed with the
+  deployment.
+* **Effect:** changes can be automatically approved, or always rejected. In the
+  former case, if all changes in a deployment are automatically classified as
+  approved, the human review is skipped. Otherwise, if any of the changes in a
+  deployment are rejected the deployment will fail and not proceed.
 
 ## Rule Definition
 
-You can write rules that classify the risk of any change and automatically
-approve/reject them. These rules are based on a custom grammar in JSON syntax.
-Take the following example of a rule:
+Rules operate on a [graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics) that represent the difference between two CloudFormation templates, and contains a representation
+of all the changes introduced by the difference between the two templates.
 
-```json
+Each rule is written in a custom JSON syntax, and performs a **graph query**,
+looking up vertices and and traversing edges in the graph, to find the
+appropriate **change** vertices and attach a desired classification to them.
+
+Here's an example of a very simple rule:
+
+```js
 {
+  // Give the rule a useful description
   "description": "Allow all insert operations",
+
+  // Bind identifiers. In this case, let the identifier 'insertChange' go over
+  // 'change' nodes that represent an INSERT.
   "let": {
     "insertChange": { "change": {"type": "INSERT" } }
   },
+
+  // Classify the change vertices found by 'insertChange' as 'low risk'
+  // and 'automatically approved'.
   "effect": {
     "target": "insertChange",
-    "risk": "low",
-    "action": "approve"
+    "risk": "low", // or "high"
+    "action": "approve" // or "reject"
   }
 }
 ```
@@ -46,7 +64,7 @@ specified in the fields `risk` and `action` respectively.
 
 ## Nested Rules
 
-Every rule has a scope; defined by the bindings that are declared in the `let` field. 
+Every rule has a scope; defined by the bindings that are declared in the `let` field.
 You can utilize the notion of scope to chain rules together in a nested style.
 
 ```json
