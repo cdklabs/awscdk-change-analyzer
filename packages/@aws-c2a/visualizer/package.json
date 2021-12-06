@@ -1,6 +1,6 @@
 {
   "name": "@aws-c2a/visualizer",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "Tool to visualize the diff graph",
   "scripts": {
     "start": "webpack serve --mode production --open",
@@ -16,8 +16,8 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@aws-c2a/engine": "^0.7.2",
-    "@aws-c2a/models": "^0.7.2",
+    "@aws-c2a/engine": "^0.7.3",
+    "@aws-c2a/models": "^0.7.3",
     "cytoscape": "^3.20.0",
     "cytoscape-dagre": "^2.3.2",
     "fifinet": "^0.1.7",

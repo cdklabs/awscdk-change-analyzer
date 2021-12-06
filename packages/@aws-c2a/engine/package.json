@@ -1,6 +1,6 @@
 {
   "name": "@aws-c2a/engine",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "The CDK Change Analyzer is a tool that enables detecting dangerous changes within CDK projects.",
   "main": "lib/index.js",
   "scripts": {
@@ -26,8 +26,8 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@aws-c2a/models": "^0.7.2",
-    "@aws-c2a/rules": "^0.7.2",
+    "@aws-c2a/models": "^0.7.3",
+    "@aws-c2a/rules": "^0.7.3",
     "@aws-cdk/cfnspec": "1.115.0",
     "fifinet": "0.1.7",
     "graphviz": "0.0.9"
