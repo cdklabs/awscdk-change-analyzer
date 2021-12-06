@@ -1,6 +1,5 @@
 {
   "name": "@aws-c2a/visualizer",
-  "private": true,
   "version": "0.7.1",
   "description": "Tool to visualize the diff graph",
   "scripts": {
