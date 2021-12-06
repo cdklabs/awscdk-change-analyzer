@@ -1,3 +1,5 @@
+import * as path from 'path';
+
 import * as codebuild from '@aws-cdk/aws-codebuild';
 import * as cp from '@aws-cdk/aws-codepipeline';
 import * as iam from '@aws-cdk/aws-iam';
@@ -84,6 +86,14 @@ export class ChangeAnalysisCheck extends CoreConstruct {
     });
     this.bucket = bucket;
 
+    // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
+    const myVersion = require(path.resolve(
+      __dirname,
+      '..',
+      '..',
+      'package.json',
+    )).version;
+
     const message = [
       'An upcoming change would violate configured rules settings in $PIPELINE_NAME.',
       'Review and approve the changes in CodePipeline to proceed with the deployment.',
@@ -131,7 +141,7 @@ export class ChangeAnalysisCheck extends CoreConstruct {
               // value of the asset hash might be different than the deploy stage
               // hash value
               '[ -z "${RULE_SET}" ] || aws s3 cp s3://$BUCKET/$RULE_SET $RULE_SET',
-              'npm install -g aws-c2a',
+              `npm install -g aws-c2a@${myVersion}`,
               // $CODEBUILD_INITIATOR will always be Code Pipeline and in the form of:
               // "codepipeline/example-pipeline-name-Xxx"
               'export PIPELINE_NAME="$(node -pe \'`${process.env.CODEBUILD_INITIATOR}`.split("/")[1]\')"',
