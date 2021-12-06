@@ -17,8 +17,8 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@aws-c2a/engine": "^0.7.1",
-    "@aws-c2a/models": "^0.7.1",
+    "@aws-c2a/engine": "0.7.1",
+    "@aws-c2a/models": "0.7.1",
     "cytoscape": "^3.20.0",
     "cytoscape-dagre": "^2.3.2",
     "fifinet": "^0.1.7",
