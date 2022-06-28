@@ -132,5 +132,6 @@ const CollapsableRow = React.forwardRef((props: Props, ref?: Ref<HTMLDivElement>
     </div>
   );
 });
+CollapsableRow.displayName = 'CollapsableRow';
 
 export default CollapsableRow;
