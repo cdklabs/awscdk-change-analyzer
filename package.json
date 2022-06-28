@@ -27,6 +27,10 @@
       "**/cytoscape-dagre/"
     ]
   },
+  "resolutions": {
+      "@types/react": "17.0.47",
+      "@types/prettier": "2.4.4"
+  },
   "devDependencies": {
     "lerna": "^4.0.0"
   }
